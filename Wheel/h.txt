@@ -1,0 +1,16 @@
+//
+//  Model.h
+//  Wheel
+//
+//  Created by Alexander on 13.04.12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface Model : NSObject
+%@
+- (id)initWithDictionary:(NSDictionary *)dictionary;
++ (id)objectWithDictionary:(NSDictionary *)dictionary;
+
+@end

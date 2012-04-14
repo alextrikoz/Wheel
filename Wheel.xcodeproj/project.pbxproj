@@ -1,0 +1,666 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1135C471153942E000F2AEA4 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46A153942E000F2AEA4 /* Entity.m */; };
+		1135C472153942E000F2AEA4 /* EntityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityView.m */; };
+		1135C473153942E000F2AEA4 /* h.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46D153942E000F2AEA4 /* h.txt */; };
+		1135C474153942E000F2AEA4 /* m.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46E153942E000F2AEA4 /* m.txt */; };
+		1135C475153942E000F2AEA4 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* WindowController.m */; };
+		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
+		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
+		11EF74411539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF743F1539426800D341B5 /* InfoPlist.strings */; };
+		11EF74431539426800D341B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74421539426800D341B5 /* main.m */; };
+		11EF74471539426800D341B5 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 11EF74451539426800D341B5 /* Credits.rtf */; };
+		11EF744A1539426800D341B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74491539426800D341B5 /* AppDelegate.m */; };
+		11EF744D1539426800D341B5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11EF744B1539426800D341B5 /* MainMenu.xib */; };
+		11EF74501539426800D341B5 /* Wheel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EF744E1539426800D341B5 /* Wheel.xcdatamodeld */; };
+		11EF74581539426800D341B5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74571539426800D341B5 /* SenTestingKit.framework */; };
+		11EF74591539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
+		11EF74611539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF745F1539426800D341B5 /* InfoPlist.strings */; };
+		11EF74641539426800D341B5 /* WheelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74631539426800D341B5 /* WheelTests.m */; };
+		11EF746C1539426800D341B5 /* WheelImporter.mdimporter in Resources */ = {isa = PBXBuildFile; fileRef = 11EF74691539426800D341B5 /* WheelImporter.mdimporter */; };
+		11EF746E1539426800D341B5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF746D1539426800D341B5 /* CoreServices.framework */; };
+		11EF74701539426800D341B5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF746F1539426800D341B5 /* CoreFoundation.framework */; };
+		11EF74721539426800D341B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74711539426800D341B5 /* CoreData.framework */; };
+		11EF74741539426800D341B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74731539426800D341B5 /* Foundation.framework */; };
+		11EF747A1539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF74781539426800D341B5 /* InfoPlist.strings */; };
+		11EF747C1539426800D341B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747B1539426800D341B5 /* main.c */; };
+		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
+		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11EF745A1539426800D341B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EF74291539426700D341B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EF74311539426700D341B5;
+			remoteInfo = Wheel;
+		};
+		11EF746A1539426800D341B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EF74291539426700D341B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EF74681539426800D341B5;
+			remoteInfo = WheelImporter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1135C469153942E000F2AEA4 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		1135C46A153942E000F2AEA4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
+		1135C46B153942E000F2AEA4 /* EntityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityView.h; sourceTree = "<group>"; };
+		1135C46C153942E000F2AEA4 /* EntityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityView.m; sourceTree = "<group>"; };
+		1135C46D153942E000F2AEA4 /* h.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = h.txt; sourceTree = "<group>"; };
+		1135C46E153942E000F2AEA4 /* m.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m.txt; sourceTree = "<group>"; };
+		1135C46F153942E000F2AEA4 /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
+		1135C470153942E000F2AEA4 /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
+		11EF74321539426700D341B5 /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EF74361539426700D341B5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		11EF74391539426800D341B5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		11EF743A1539426800D341B5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		11EF743B1539426800D341B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		11EF743E1539426800D341B5 /* Wheel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wheel-Info.plist"; sourceTree = "<group>"; };
+		11EF74401539426800D341B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		11EF74421539426800D341B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		11EF74441539426800D341B5 /* Wheel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wheel-Prefix.pch"; sourceTree = "<group>"; };
+		11EF74461539426800D341B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		11EF74481539426800D341B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		11EF74491539426800D341B5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		11EF744C1539426800D341B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		11EF744F1539426800D341B5 /* Wheel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wheel.xcdatamodel; sourceTree = "<group>"; };
+		11EF74561539426800D341B5 /* WheelTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheelTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EF74571539426800D341B5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		11EF745E1539426800D341B5 /* WheelTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WheelTests-Info.plist"; sourceTree = "<group>"; };
+		11EF74601539426800D341B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		11EF74621539426800D341B5 /* WheelTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WheelTests.h; sourceTree = "<group>"; };
+		11EF74631539426800D341B5 /* WheelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WheelTests.m; sourceTree = "<group>"; };
+		11EF74691539426800D341B5 /* WheelImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheelImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EF746D1539426800D341B5 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		11EF746F1539426800D341B5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		11EF74711539426800D341B5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		11EF74731539426800D341B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		11EF74771539426800D341B5 /* WheelImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WheelImporter-Info.plist"; sourceTree = "<group>"; };
+		11EF74791539426800D341B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		11EF747B1539426800D341B5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		11EF747D1539426800D341B5 /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		11EF747F1539426800D341B5 /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		11EF74801539426800D341B5 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
+		11EF74821539426800D341B5 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11EF742F1539426700D341B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74521539426800D341B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74581539426800D341B5 /* SenTestingKit.framework in Frameworks */,
+				11EF74591539426800D341B5 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74661539426800D341B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF746E1539426800D341B5 /* CoreServices.framework in Frameworks */,
+				11EF74701539426800D341B5 /* CoreFoundation.framework in Frameworks */,
+				11EF74721539426800D341B5 /* CoreData.framework in Frameworks */,
+				11EF74741539426800D341B5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1135C47B153943D300F2AEA4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				1135C47C153943D300F2AEA4 /* hammer.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		11EF74271539426700D341B5 = {
+			isa = PBXGroup;
+			children = (
+				11EF743C1539426800D341B5 /* Wheel */,
+				1135C47B153943D300F2AEA4 /* Images */,
+				11EF745C1539426800D341B5 /* WheelTests */,
+				11EF74751539426800D341B5 /* WheelImporter */,
+				11EF74351539426700D341B5 /* Frameworks */,
+				11EF74331539426700D341B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		11EF74331539426700D341B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11EF74321539426700D341B5 /* Wheel.app */,
+				11EF74561539426800D341B5 /* WheelTests.octest */,
+				11EF74691539426800D341B5 /* WheelImporter.mdimporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11EF74351539426700D341B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11EF74361539426700D341B5 /* Cocoa.framework */,
+				11EF74571539426800D341B5 /* SenTestingKit.framework */,
+				11EF746D1539426800D341B5 /* CoreServices.framework */,
+				11EF746F1539426800D341B5 /* CoreFoundation.framework */,
+				11EF74711539426800D341B5 /* CoreData.framework */,
+				11EF74731539426800D341B5 /* Foundation.framework */,
+				11EF74381539426800D341B5 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11EF74381539426800D341B5 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11EF74391539426800D341B5 /* AppKit.framework */,
+				11EF743A1539426800D341B5 /* CoreData.framework */,
+				11EF743B1539426800D341B5 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		11EF743C1539426800D341B5 /* Wheel */ = {
+			isa = PBXGroup;
+			children = (
+				1135C46D153942E000F2AEA4 /* h.txt */,
+				1135C46E153942E000F2AEA4 /* m.txt */,
+				1135C469153942E000F2AEA4 /* Entity.h */,
+				1135C46A153942E000F2AEA4 /* Entity.m */,
+				1135C46B153942E000F2AEA4 /* EntityView.h */,
+				1135C46C153942E000F2AEA4 /* EntityView.m */,
+				1135C46F153942E000F2AEA4 /* WindowController.h */,
+				1135C470153942E000F2AEA4 /* WindowController.m */,
+				11EF74481539426800D341B5 /* AppDelegate.h */,
+				11EF74491539426800D341B5 /* AppDelegate.m */,
+				11EF744B1539426800D341B5 /* MainMenu.xib */,
+				11EF744E1539426800D341B5 /* Wheel.xcdatamodeld */,
+				11EF743D1539426800D341B5 /* Supporting Files */,
+			);
+			path = Wheel;
+			sourceTree = "<group>";
+		};
+		11EF743D1539426800D341B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11EF743E1539426800D341B5 /* Wheel-Info.plist */,
+				11EF743F1539426800D341B5 /* InfoPlist.strings */,
+				11EF74421539426800D341B5 /* main.m */,
+				11EF74441539426800D341B5 /* Wheel-Prefix.pch */,
+				11EF74451539426800D341B5 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11EF745C1539426800D341B5 /* WheelTests */ = {
+			isa = PBXGroup;
+			children = (
+				11EF74621539426800D341B5 /* WheelTests.h */,
+				11EF74631539426800D341B5 /* WheelTests.m */,
+				11EF745D1539426800D341B5 /* Supporting Files */,
+			);
+			path = WheelTests;
+			sourceTree = "<group>";
+		};
+		11EF745D1539426800D341B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11EF745E1539426800D341B5 /* WheelTests-Info.plist */,
+				11EF745F1539426800D341B5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11EF74751539426800D341B5 /* WheelImporter */ = {
+			isa = PBXGroup;
+			children = (
+				11EF747D1539426800D341B5 /* GetMetadataForFile.m */,
+				11EF747F1539426800D341B5 /* MySpotlightImporter.h */,
+				11EF74801539426800D341B5 /* MySpotlightImporter.m */,
+				11EF74821539426800D341B5 /* Importer Read Me.txt */,
+				11EF74761539426800D341B5 /* Supporting Files */,
+			);
+			path = WheelImporter;
+			sourceTree = "<group>";
+		};
+		11EF74761539426800D341B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11EF74771539426800D341B5 /* WheelImporter-Info.plist */,
+				11EF74781539426800D341B5 /* InfoPlist.strings */,
+				11EF747B1539426800D341B5 /* main.c */,
+				11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11EF74311539426700D341B5 /* Wheel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EF74891539426800D341B5 /* Build configuration list for PBXNativeTarget "Wheel" */;
+			buildPhases = (
+				11EF742E1539426700D341B5 /* Sources */,
+				11EF742F1539426700D341B5 /* Frameworks */,
+				11EF74301539426700D341B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11EF746B1539426800D341B5 /* PBXTargetDependency */,
+			);
+			name = Wheel;
+			productName = Wheel;
+			productReference = 11EF74321539426700D341B5 /* Wheel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		11EF74551539426800D341B5 /* WheelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EF748C1539426800D341B5 /* Build configuration list for PBXNativeTarget "WheelTests" */;
+			buildPhases = (
+				11EF74511539426800D341B5 /* Sources */,
+				11EF74521539426800D341B5 /* Frameworks */,
+				11EF74531539426800D341B5 /* Resources */,
+				11EF74541539426800D341B5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11EF745B1539426800D341B5 /* PBXTargetDependency */,
+			);
+			name = WheelTests;
+			productName = WheelTests;
+			productReference = 11EF74561539426800D341B5 /* WheelTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		11EF74681539426800D341B5 /* WheelImporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EF74861539426800D341B5 /* Build configuration list for PBXNativeTarget "WheelImporter" */;
+			buildPhases = (
+				11EF74651539426800D341B5 /* Sources */,
+				11EF74661539426800D341B5 /* Frameworks */,
+				11EF74671539426800D341B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WheelImporter;
+			productName = WheelImporter;
+			productReference = 11EF74691539426800D341B5 /* WheelImporter.mdimporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11EF74291539426700D341B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 11EF742C1539426700D341B5 /* Build configuration list for PBXProject "Wheel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 11EF74271539426700D341B5;
+			productRefGroup = 11EF74331539426700D341B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11EF74311539426700D341B5 /* Wheel */,
+				11EF74551539426800D341B5 /* WheelTests */,
+				11EF74681539426800D341B5 /* WheelImporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		11EF74301539426700D341B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74411539426800D341B5 /* InfoPlist.strings in Resources */,
+				11EF74471539426800D341B5 /* Credits.rtf in Resources */,
+				11EF744D1539426800D341B5 /* MainMenu.xib in Resources */,
+				11EF746C1539426800D341B5 /* WheelImporter.mdimporter in Resources */,
+				1135C473153942E000F2AEA4 /* h.txt in Resources */,
+				1135C474153942E000F2AEA4 /* m.txt in Resources */,
+				1135C47D153943D300F2AEA4 /* hammer.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74531539426800D341B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74611539426800D341B5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74671539426800D341B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF747A1539426800D341B5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11EF74541539426800D341B5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11EF742E1539426700D341B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74431539426800D341B5 /* main.m in Sources */,
+				11EF744A1539426800D341B5 /* AppDelegate.m in Sources */,
+				11EF74501539426800D341B5 /* Wheel.xcdatamodeld in Sources */,
+				1135C471153942E000F2AEA4 /* Entity.m in Sources */,
+				1135C472153942E000F2AEA4 /* EntityView.m in Sources */,
+				1135C475153942E000F2AEA4 /* WindowController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74511539426800D341B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF74641539426800D341B5 /* WheelTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EF74651539426800D341B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EF747C1539426800D341B5 /* main.c in Sources */,
+				11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */,
+				11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11EF745B1539426800D341B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EF74311539426700D341B5 /* Wheel */;
+			targetProxy = 11EF745A1539426800D341B5 /* PBXContainerItemProxy */;
+		};
+		11EF746B1539426800D341B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EF74681539426800D341B5 /* WheelImporter */;
+			targetProxy = 11EF746A1539426800D341B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		11EF743F1539426800D341B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EF74401539426800D341B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		11EF74451539426800D341B5 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EF74461539426800D341B5 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		11EF744B1539426800D341B5 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EF744C1539426800D341B5 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		11EF745F1539426800D341B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EF74601539426800D341B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		11EF74781539426800D341B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EF74791539426800D341B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		11EF74841539426800D341B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		11EF74851539426800D341B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		11EF74871539426800D341B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WheelImporter/WheelImporter-Prefix.pch";
+				INFOPLIST_FILE = "WheelImporter/WheelImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Debug;
+		};
+		11EF74881539426800D341B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WheelImporter/WheelImporter-Prefix.pch";
+				INFOPLIST_FILE = "WheelImporter/WheelImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		11EF748A1539426800D341B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
+				INFOPLIST_FILE = "Wheel/Wheel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		11EF748B1539426800D341B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
+				INFOPLIST_FILE = "Wheel/Wheel-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		11EF748D1539426800D341B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Contents/MacOS/Wheel";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
+				INFOPLIST_FILE = "WheelTests/WheelTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		11EF748E1539426800D341B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Contents/MacOS/Wheel";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
+				INFOPLIST_FILE = "WheelTests/WheelTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11EF742C1539426700D341B5 /* Build configuration list for PBXProject "Wheel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EF74841539426800D341B5 /* Debug */,
+				11EF74851539426800D341B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EF74861539426800D341B5 /* Build configuration list for PBXNativeTarget "WheelImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EF74871539426800D341B5 /* Debug */,
+				11EF74881539426800D341B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EF74891539426800D341B5 /* Build configuration list for PBXNativeTarget "Wheel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EF748A1539426800D341B5 /* Debug */,
+				11EF748B1539426800D341B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EF748C1539426800D341B5 /* Build configuration list for PBXNativeTarget "WheelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EF748D1539426800D341B5 /* Debug */,
+				11EF748E1539426800D341B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		11EF744E1539426800D341B5 /* Wheel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				11EF744F1539426800D341B5 /* Wheel.xcdatamodel */,
+			);
+			currentVersion = 11EF744F1539426800D341B5 /* Wheel.xcdatamodel */;
+			path = Wheel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 11EF74291539426700D341B5 /* Project object */;
+}

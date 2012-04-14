@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Wheel' target in the 'Wheel' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
