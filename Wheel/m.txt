@@ -27,4 +27,26 @@
     return [[[self alloc] initWithDictionary:dictionary] autorelease];
 }
 
+#pragma mark - NSCopying
+
++ (id)copyWithZone:(NSZone *)zone {
+    Model *object = [[self class] allocWithZone:zone] init];
+%@
+    return object;
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+%@
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+%@
+    }
+    return self;
+}
+
 @end

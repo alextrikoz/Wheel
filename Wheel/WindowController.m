@@ -99,8 +99,20 @@
     for (Entity *entity in self.entities) {
         m_dictionary_properties = [m_dictionary_properties stringByAppendingFormat:@"        self.%@ = [dictionary objectForKey:@\"%@\"];\n", entity.name, entity.name];
     }
+    NSString *m_copy_properties = @"\n";
+    for (Entity *entity in self.entities) {
+        m_copy_properties = [m_copy_properties stringByAppendingFormat:@"    object.%@ = self.%@;\n", entity.name, entity.name];
+    }
+    NSString *m_coder_properties = @"\n";
+    for (Entity *entity in self.entities) {
+        m_coder_properties = [m_coder_properties stringByAppendingFormat:@"    coder.%@ = self.%@;\n", entity.name, entity.name];
+    }
+    NSString *m_decoder_properties = @"\n";
+    for (Entity *entity in self.entities) {
+        m_decoder_properties = [m_decoder_properties stringByAppendingFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", entity.name, entity.name];
+    }
     
-    m_context = [NSString stringWithFormat:m_context, m_synthesize_properties, m_release_properties, m_dictionary_properties];
+    m_context = [NSString stringWithFormat:m_context, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -113,17 +125,9 @@
             NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Model.h", [directoryURL absoluteString]]];
             NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Model.m", [directoryURL absoluteString]]];
             
-            NSError * __autoreleasing error = nil;
-            [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            }
+            [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
             
-            error = nil;
-            [m_context writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            }
+            [m_context writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
         }
     }];
 }
