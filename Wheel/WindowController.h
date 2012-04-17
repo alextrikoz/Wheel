@@ -10,6 +10,12 @@
 
 @interface WindowController : NSWindowController
 
+@property (strong) NSMutableArray *entities;
+@property (strong) NSMutableArray *types;
+
+@property (strong) IBOutlet NSTextField *classNameTextField;
+@property (strong) IBOutlet NSTextField *superClassNameTextField;
+
 - (IBAction)add:(id)sender;
 - (IBAction)onGenerateClick:(id)sender;
 

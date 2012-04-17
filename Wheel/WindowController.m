@@ -11,17 +11,13 @@
 #import "Entity.h"
 #import "EntityView.h"
 
-@interface WindowController ()
-
-@property (strong) NSMutableArray *entities;
-@property (strong) NSMutableArray *types;
-
-@end
-
 @implementation WindowController
 
 @synthesize entities = _entities;
 @synthesize types = _types;
+
+@synthesize classNameTextField = _classNameTextField;
+@synthesize superClassNameTextField = _superClassNameTextField;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -79,12 +75,15 @@
 }
 
 - (IBAction)onGenerateClick:(id)sender {
+    NSString *className = self.classNameTextField.stringValue;
+    NSString *superClassName = self.superClassNameTextField.stringValue;
+    
     NSString *h_content = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"h" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *h_properties = @"\n";
     for (Entity *entity in self.entities) {
         h_properties = [h_properties stringByAppendingFormat:@"@property (strong, nonatomic) %@%@;\n", entity.type, entity.name];
     }
-    h_content = [NSString stringWithFormat:h_content, h_properties];
+    h_content = [NSString stringWithFormat:h_content, className, className, superClassName, h_properties];
     
     NSString *m_context = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"m" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *m_synthesize_properties = @"\n";
@@ -111,8 +110,7 @@
     for (Entity *entity in self.entities) {
         m_decoder_properties = [m_decoder_properties stringByAppendingFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", entity.name, entity.name];
     }
-    
-    m_context = [NSString stringWithFormat:m_context, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
+    m_context = [NSString stringWithFormat:m_context, className, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -122,8 +120,8 @@
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Model.h", [directoryURL absoluteString]]];
-            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@Model.m", [directoryURL absoluteString]]];
+            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], self.classNameTextField.stringValue]];
+            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], self.classNameTextField.stringValue]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
             

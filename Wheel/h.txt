@@ -1,5 +1,5 @@
 //
-//  Model.h
+//  %@.h
 //  Wheel
 //
 //  Created by Alexander on 13.04.12.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Model : NSObject <NSCopying, NSCoding>
+@interface %@ : %@ <NSCopying, NSCoding>
 %@
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 + (id)objectWithDictionary:(NSDictionary *)dictionary;
