@@ -82,13 +82,14 @@
     
     NSString *myName = [[defaults values] valueForKey:@"MyName"];
     NSString *myCompanyName = [[defaults values] valueForKey:@"MyCompanyName"];
+    NSString *myProjectName = [[defaults values] valueForKey:@"MyProjectName"];
     
     NSString *h_content = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"h" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *h_properties = @"\n";
     for (Entity *entity in self.entities) {
         h_properties = [h_properties stringByAppendingFormat:@"@property (strong, nonatomic) %@%@;\n", entity.type, entity.name];
     }
-    h_content = [NSString stringWithFormat:h_content, className, myName, myCompanyName, className, superClassName, h_properties];
+    h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
     
     NSString *m_context = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"m" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *m_synthesize_properties = @"\n";
@@ -115,7 +116,7 @@
     for (Entity *entity in self.entities) {
         m_decoder_properties = [m_decoder_properties stringByAppendingFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", entity.name, entity.name];
     }
-    m_context = [NSString stringWithFormat:m_context, className, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
+    m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];

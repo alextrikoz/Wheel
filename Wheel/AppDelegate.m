@@ -33,9 +33,9 @@
 
 - (void)setupDefaults {
     NSMutableDictionary *initialValues = [NSMutableDictionary dictionary];
-    [initialValues setObject:@"__MyCompanyName__" forKey:@"MyCompanyName"];
     [initialValues setObject:@"__MyName__" forKey:@"MyName"];
-    
+    [initialValues setObject:@"__MyCompanyName__" forKey:@"MyCompanyName"];
+    [initialValues setObject:@"__MyProjectName__" forKey:@"MyProjectName"];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValues];
 }
 
