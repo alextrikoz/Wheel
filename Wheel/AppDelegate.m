@@ -7,18 +7,46 @@
 //
 
 #import "AppDelegate.h"
+#import "Preferences.h"
 
 @implementation AppDelegate
+
+@synthesize preferences = _preferences;
+
+- (Preferences *)preferences {
+    if(!_preferences) {
+        _preferences = [[Preferences alloc] initWithWindowNibName:@"Preferences"];
+    }
+    return _preferences;
+}
+
+- (IBAction)onPreferencesClick:(id)sender {
+    [self.preferences.window makeKeyAndOrderFront:nil];
+}
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+    if (!flag) {
+        [self.window makeKeyAndOrderFront:nil];
+    }
+    return YES;
+}
+
+- (void)setupDefaults {
+    NSMutableDictionary *initialValues = [NSMutableDictionary dictionary];
+    [initialValues setObject:@"__MyCompanyName__" forKey:@"MyCompanyName"];
+    [initialValues setObject:@"__MyName__" forKey:@"MyName"];
+    
+    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValues];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [self setupDefaults];
+}
 
 @synthesize window = _window;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize managedObjectContext = __managedObjectContext;
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Insert code here to initialize your application
-}
 
 /**
     Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Wheel" in the user's Library directory.

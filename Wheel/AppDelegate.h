@@ -8,8 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Preferences;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (readonly, strong) Preferences *preferences;
 @property (assign) IBOutlet NSWindow *window;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
