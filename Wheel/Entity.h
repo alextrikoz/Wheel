@@ -10,7 +10,16 @@
 
 @interface Entity : NSObject
 
+@property (strong) NSString *setter;
 @property (strong) NSString *type;
 @property (strong) NSString *name;
+
+- (NSString *)propertyFormat;
+- (NSString *)synthesizeFormat;
+- (NSString *)releaseFormat;
+- (NSString *)dictionaryFormat;
+- (NSString *)copyFormat;
+- (NSString *)coderFormat;
+- (NSString *)decoderFormat;
 
 @end
