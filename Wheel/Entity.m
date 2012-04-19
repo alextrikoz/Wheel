@@ -14,6 +14,16 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
+- (id)copyWithZone:(NSZone *)zone {
+    Entity *object = [[[self class] allocWithZone:zone] init];
+    
+    object.setter = self.setter;
+    object.type = self.type;
+    object.name = self.name;
+    
+    return object;
+}
+
 - (NSString *)propertyFormat {
     return [NSString stringWithFormat:@"@property (%@, nonatomic) %@%@;\n", self.setter, self.type, self.name];
 }
