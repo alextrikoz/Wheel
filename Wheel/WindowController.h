@@ -16,6 +16,7 @@
 @property (strong) NSMutableArray *writabilities;
 @property (strong) NSMutableArray *types;
 
+@property (strong) IBOutlet NSTableView *tableView;
 @property (strong) IBOutlet NSTextField *classNameTextField;
 @property (strong) IBOutlet NSTextField *superClassNameTextField;
 

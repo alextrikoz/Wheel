@@ -19,6 +19,7 @@
 @synthesize writabilities = _writabilities;
 @synthesize types = _types;
 
+@synthesize tableView = _tableView;
 @synthesize classNameTextField = _classNameTextField;
 @synthesize superClassNameTextField = _superClassNameTextField;
 
@@ -96,10 +97,16 @@
     self.entities = self.entities;
 }
 
-- (IBAction)remove:(id)sender {    
-    [self.entities removeAllObjects];
+- (IBAction)remove:(id)sender {
+    if (self.tableView.selectedRow == -1) {
+        return;
+    }
+    
+    [self.entities removeObjectAtIndex:self.tableView.selectedRow];
     
     self.entities = self.entities;
+    
+    [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
 - (void)removeEntity:(NSNotification *)notification {
