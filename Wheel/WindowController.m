@@ -15,6 +15,8 @@
 
 @synthesize entities = _entities;
 @synthesize setters = _setters;
+@synthesize atomicities = _atomicities;
+@synthesize writabilities = _writabilities;
 @synthesize types = _types;
 
 @synthesize classNameTextField = _classNameTextField;
@@ -24,53 +26,62 @@
     [super awakeFromNib];
     
     self.entities = [NSMutableArray array];
-    
     Entity *entity = [[Entity alloc] init];
     entity.type = @"NSString *";
     entity.name = @"title";
     entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     [self.entities addObject:entity];
-    
     entity = [[Entity alloc] init];
     entity.type = @"NSString *";
     entity.name = @"subtitle";
     entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     [self.entities addObject:entity];
-    
     entity = [[Entity alloc] init];
     entity.type = @"NSDate *";
     entity.name = @"date";
     entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     [self.entities addObject:entity];
-    
     entity = [[Entity alloc] init];
     entity.type = @"NSArray *";
     entity.name = @"items";
     entity.setter = @"strong"; 
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     [self.entities addObject:entity];
-    
     self.entities = self.entities;
     
     self.types = [NSMutableArray array];
-    
     [self.types addObject:@"NSArray *"];
     [self.types addObject:@"NSDate *"];
     [self.types addObject:@"NSDictionary *"];
     [self.types addObject:@"NSNumber *"];
     [self.types addObject:@"NSString *"];
-    
     self.types = self.types;
     
     self.setters = [NSMutableArray array];
-    
     [self.setters addObject:@"assign"];
     [self.setters addObject:@"copy"];
     [self.setters addObject:@"retain"];
     [self.setters addObject:@"strong"];
     [self.setters addObject:@"unsafe_unretained"];
     [self.setters addObject:@"week"];
-    
     self.setters = self.setters;
+    
+    self.atomicities = [NSMutableArray array];
+    [self.atomicities addObject:@"atomic"];
+    [self.atomicities addObject:@"nonatomic"];
+    self.atomicities = self.atomicities;
+    
+    self.writabilities = [NSMutableArray array];
+    [self.writabilities addObject:@"readonly"];
+    [self.writabilities addObject:@"readwrite"];
+    self.writabilities = self.writabilities;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeEntity:) name:@"removeEntity" object:nil];
 }

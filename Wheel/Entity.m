@@ -11,6 +11,8 @@
 @implementation Entity
 
 @synthesize setter = _setter;
+@synthesize atomicity = _atomicity;
+@synthesize writability = _writability;
 @synthesize type = _type;
 @synthesize name = _name;
 
@@ -18,6 +20,8 @@
     Entity *object = [[[self class] allocWithZone:zone] init];
     
     object.setter = self.setter;
+    object.atomicity = self.atomicity;
+    object.writability = self.writability;
     object.type = self.type;
     object.name = self.name;
     
@@ -25,7 +29,7 @@
 }
 
 - (NSString *)propertyFormat {
-    return [NSString stringWithFormat:@"@property (%@, nonatomic) %@%@;\n", self.setter, self.type, self.name];
+    return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
 }
 
 - (NSString *)synthesizeFormat {

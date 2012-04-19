@@ -11,6 +11,8 @@
 @interface Entity : NSObject <NSCopying>
 
 @property (strong) NSString *setter;
+@property (strong) NSString *atomicity;
+@property (strong) NSString *writability;
 @property (strong) NSString *type;
 @property (strong) NSString *name;
 

@@ -12,6 +12,8 @@
 
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *setters;
+@property (strong) NSMutableArray *atomicities;
+@property (strong) NSMutableArray *writabilities;
 @property (strong) NSMutableArray *types;
 
 @property (strong) IBOutlet NSTextField *classNameTextField;
