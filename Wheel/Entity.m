@@ -10,6 +10,7 @@
 
 @implementation Entity
 
+@synthesize checked = _checked;
 @synthesize setter = _setter;
 @synthesize atomicity = _atomicity;
 @synthesize writability = _writability;
@@ -19,6 +20,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     Entity *object = [[[self class] allocWithZone:zone] init];
     
+    object.checked = self.checked;
     object.setter = self.setter;
     object.atomicity = self.atomicity;
     object.writability = self.writability;
@@ -33,7 +35,7 @@
 }
 
 - (NSString *)synthesizeFormat {
-    return [NSString stringWithFormat:@"@synthesize %@ = _%@;\n", self.type, self.name];
+    return [NSString stringWithFormat:@"@synthesize %@ = _%@;\n", self.name, self.name];
 }
 
 - (NSString *)releaseFormat {

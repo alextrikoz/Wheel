@@ -27,6 +27,7 @@
     
     self.entities = [NSMutableArray array];
     Entity *entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -34,6 +35,7 @@
     entity.name = @"title";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -41,6 +43,7 @@
     entity.name = @"subtitle";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -48,6 +51,7 @@
     entity.name = @"date";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -83,12 +87,11 @@
     [self.writabilities addObject:@"readonly"];
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeEntity:) name:@"removeEntity" object:nil];
 }
 
 - (IBAction)add:(id)sender {    
     Entity *entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -100,21 +103,15 @@
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
-- (IBAction)remove:(id)sender {
-    if (self.tableView.selectedRow == -1) {
-        return;
+- (IBAction)remove:(id)sender {    
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.entities.count];
+    for (Entity *entity in self.entities) {
+        if (!entity.checked.boolValue) {
+            [temp addObject:entity];
+        }
     }
-    
-    [self.entities removeObjectAtIndex:self.tableView.selectedRow];
-    
-    self.entities = self.entities;
+    self.entities = temp;
     [self.tableView deselectRow:self.tableView.selectedRow];
-}
-
-- (void)removeEntity:(NSNotification *)notification {
-    [self.entities removeObject:notification.object];
-    
-    self.entities = self.entities;
 }
 
 - (IBAction)onGenerateClick:(id)sender {
