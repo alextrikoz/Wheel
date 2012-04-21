@@ -10,4 +10,11 @@
 
 @interface Preferences : NSWindowController <NSWindowDelegate>
 
+@property (strong) IBOutlet NSToolbarItem *generalItem;
+@property (strong) IBOutlet NSView *generalView;
+@property (strong) IBOutlet NSView *libraryView;
+
+- (IBAction)general:(id)sender;
+- (IBAction)library:(id)sender;
+
 @end
