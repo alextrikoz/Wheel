@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1135C471153942E000F2AEA4 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46A153942E000F2AEA4 /* Entity.m */; };
-		1135C472153942E000F2AEA4 /* EntityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityView.m */; };
+		1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityCollectionView.m */; };
 		1135C473153942E000F2AEA4 /* h.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46D153942E000F2AEA4 /* h.txt */; };
 		1135C474153942E000F2AEA4 /* m.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46E153942E000F2AEA4 /* m.txt */; };
 		1135C475153942E000F2AEA4 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* WindowController.m */; };
@@ -60,8 +60,8 @@
 /* Begin PBXFileReference section */
 		1135C469153942E000F2AEA4 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		1135C46A153942E000F2AEA4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
-		1135C46B153942E000F2AEA4 /* EntityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityView.h; sourceTree = "<group>"; };
-		1135C46C153942E000F2AEA4 /* EntityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityView.m; sourceTree = "<group>"; };
+		1135C46B153942E000F2AEA4 /* EntityCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EntityCollectionView.h; sourceTree = "<group>"; };
+		1135C46C153942E000F2AEA4 /* EntityCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityCollectionView.m; sourceTree = "<group>"; };
 		1135C46D153942E000F2AEA4 /* h.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = h.txt; sourceTree = "<group>"; };
 		1135C46E153942E000F2AEA4 /* m.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m.txt; sourceTree = "<group>"; };
 		1135C46F153942E000F2AEA4 /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 				1135C46E153942E000F2AEA4 /* m.txt */,
 				1135C469153942E000F2AEA4 /* Entity.h */,
 				1135C46A153942E000F2AEA4 /* Entity.m */,
-				1135C46B153942E000F2AEA4 /* EntityView.h */,
-				1135C46C153942E000F2AEA4 /* EntityView.m */,
+				1135C46B153942E000F2AEA4 /* EntityCollectionView.h */,
+				1135C46C153942E000F2AEA4 /* EntityCollectionView.m */,
 				1135C46F153942E000F2AEA4 /* WindowController.h */,
 				1135C470153942E000F2AEA4 /* WindowController.m */,
 				11EF74481539426800D341B5 /* AppDelegate.h */,
@@ -420,7 +420,7 @@
 				11EF744A1539426800D341B5 /* AppDelegate.m in Sources */,
 				11EF74501539426800D341B5 /* Wheel.xcdatamodeld in Sources */,
 				1135C471153942E000F2AEA4 /* Entity.m in Sources */,
-				1135C472153942E000F2AEA4 /* EntityView.m in Sources */,
+				1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */,
 				1135C475153942E000F2AEA4 /* WindowController.m in Sources */,
 				21E57153153D80CE00A7138F /* Preferences.m in Sources */,
 			);

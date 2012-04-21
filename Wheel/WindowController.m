@@ -9,7 +9,6 @@
 #import "WindowController.h"
 
 #import "Entity.h"
-#import "EntityView.h"
 
 @implementation WindowController
 
@@ -28,34 +27,35 @@
     
     self.entities = [NSMutableArray array];
     Entity *entity = [[Entity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"title";
+    [self.entities addObject:entity];
+    entity = [[Entity alloc] init];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
-    [self.entities addObject:entity];
-    entity = [[Entity alloc] init];
     entity.type = @"NSString *";
     entity.name = @"subtitle";
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
-    entity.type = @"NSDate *";
-    entity.name = @"date";
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
+    entity.type = @"NSDate *";
+    entity.name = @"date";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    entity.setter = @"strong"; 
+    entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
     [self.entities addObject:entity];
     self.entities = self.entities;
+    [self.tableView deselectRow:self.tableView.selectedRow];
     
     self.types = [NSMutableArray array];
     [self.types addObject:@"NSArray *"];
@@ -89,12 +89,15 @@
 
 - (IBAction)add:(id)sender {    
     Entity *entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
-    entity.setter = @"strong"; 
     [self.entities addObject:entity];
     
     self.entities = self.entities;
+    [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
 - (IBAction)remove:(id)sender {
@@ -105,7 +108,6 @@
     [self.entities removeObjectAtIndex:self.tableView.selectedRow];
     
     self.entities = self.entities;
-    
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
@@ -126,11 +128,7 @@
     NSString *myProjectName = [[defaults values] valueForKey:@"MyProjectName"];
     
     NSString *h_content = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"h" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-    NSString *h_properties = @"\n";
-    for (Entity *entity in self.entities) {
-        h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
-    }
-    h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
+    NSString *h_properties = @"\n";   
     
     NSString *m_context = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"m" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *m_synthesize_properties = @"\n";
@@ -140,6 +138,8 @@
     NSString *m_coder_properties = @"\n";
     NSString *m_decoder_properties = @"\n";
     for (Entity *entity in self.entities) {
+        h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
+        
         m_synthesize_properties = [m_synthesize_properties stringByAppendingString:[entity synthesizeFormat]];
         m_release_properties = [m_release_properties stringByAppendingString:[entity releaseFormat]];
         m_dictionary_properties = [m_dictionary_properties stringByAppendingString:[entity dictionaryFormat]];
@@ -147,6 +147,8 @@
         m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
         m_decoder_properties = [m_decoder_properties stringByAppendingString:[entity decoderFormat]];
     }
+    h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
+    
     m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];

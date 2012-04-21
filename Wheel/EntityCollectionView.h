@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface EntityView : NSCollectionViewItem
-
-- (IBAction)remove:(id)sender;
+@interface EntityCollectionView : NSCollectionViewItem
 
 @end
