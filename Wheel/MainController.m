@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "WindowController.h"
+#import "MainController.h"
 
 #import "Entity.h"
 
-@implementation WindowController
+@implementation MainController
 
 @synthesize entities = _entities;
 @synthesize setters = _setters;

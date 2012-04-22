@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface WindowController : NSWindowController <NSTableViewDataSource>
+@interface MainController : NSWindowController <NSTableViewDataSource>
 
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *setters;

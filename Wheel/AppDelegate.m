@@ -7,15 +7,15 @@
 //
 
 #import "AppDelegate.h"
-#import "Preferences.h"
+#import "PreferencesController.h"
 
 @implementation AppDelegate
 
 @synthesize preferences = _preferences;
 
-- (Preferences *)preferences {
+- (PreferencesController *)preferences {
     if(!_preferences) {
-        _preferences = [[Preferences alloc] initWithWindowNibName:@"Preferences"];
+        _preferences = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
     }
     return _preferences;
 }

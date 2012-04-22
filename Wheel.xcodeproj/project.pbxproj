@@ -11,9 +11,10 @@
 		1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityCollectionView.m */; };
 		1135C473153942E000F2AEA4 /* h.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46D153942E000F2AEA4 /* h.txt */; };
 		1135C474153942E000F2AEA4 /* m.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46E153942E000F2AEA4 /* m.txt */; };
-		1135C475153942E000F2AEA4 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* WindowController.m */; };
+		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
+		11D727D7154342C300952265 /* MainWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D727D6154342C300952265 /* MainWnd.xib */; };
 		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
 		11EF74411539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF743F1539426800D341B5 /* InfoPlist.strings */; };
 		11EF74431539426800D341B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74421539426800D341B5 /* main.m */; };
@@ -36,8 +37,8 @@
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
 		21871882153F055E005A1540 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871881153F055E005A1540 /* plus.png */; };
 		21871885153F0830005A1540 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871884153F0830005A1540 /* minus.png */; };
-		21E57153153D80CE00A7138F /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* Preferences.m */; };
-		21E5715C153D8D1700A7138F /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* Preferences.xib */; };
+		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
+		21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesWnd.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,14 +61,15 @@
 /* Begin PBXFileReference section */
 		1135C469153942E000F2AEA4 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		1135C46A153942E000F2AEA4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
-		1135C46B153942E000F2AEA4 /* EntityCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EntityCollectionView.h; sourceTree = "<group>"; };
+		1135C46B153942E000F2AEA4 /* EntityCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityCollectionView.h; sourceTree = "<group>"; };
 		1135C46C153942E000F2AEA4 /* EntityCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityCollectionView.m; sourceTree = "<group>"; };
 		1135C46D153942E000F2AEA4 /* h.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = h.txt; sourceTree = "<group>"; };
 		1135C46E153942E000F2AEA4 /* m.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m.txt; sourceTree = "<group>"; };
-		1135C46F153942E000F2AEA4 /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
-		1135C470153942E000F2AEA4 /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		1135C46F153942E000F2AEA4 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		11D727D6154342C300952265 /* MainWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWnd.xib; sourceTree = "<group>"; };
 		11EF74321539426700D341B5 /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF74361539426700D341B5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11EF74391539426800D341B5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -103,9 +105,9 @@
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
 		21871881153F055E005A1540 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		21871884153F0830005A1540 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
-		21E57151153D80CE00A7138F /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
-		21E57152153D80CE00A7138F /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		21E5715B153D8D1600A7138F /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
+		21E5715B153D8D1600A7138F /* PreferencesWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWnd.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,17 +203,18 @@
 		11EF743C1539426800D341B5 /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
-				21E57151153D80CE00A7138F /* Preferences.h */,
-				21E57152153D80CE00A7138F /* Preferences.m */,
-				21E5715B153D8D1600A7138F /* Preferences.xib */,
 				1135C46D153942E000F2AEA4 /* h.txt */,
 				1135C46E153942E000F2AEA4 /* m.txt */,
 				1135C469153942E000F2AEA4 /* Entity.h */,
 				1135C46A153942E000F2AEA4 /* Entity.m */,
 				1135C46B153942E000F2AEA4 /* EntityCollectionView.h */,
 				1135C46C153942E000F2AEA4 /* EntityCollectionView.m */,
-				1135C46F153942E000F2AEA4 /* WindowController.h */,
-				1135C470153942E000F2AEA4 /* WindowController.m */,
+				21E57151153D80CE00A7138F /* PreferencesController.h */,
+				21E57152153D80CE00A7138F /* PreferencesController.m */,
+				21E5715B153D8D1600A7138F /* PreferencesWnd.xib */,
+				1135C46F153942E000F2AEA4 /* MainController.h */,
+				1135C470153942E000F2AEA4 /* MainController.m */,
+				11D727D6154342C300952265 /* MainWnd.xib */,
 				11EF74481539426800D341B5 /* AppDelegate.h */,
 				11EF74491539426800D341B5 /* AppDelegate.m */,
 				11EF744B1539426800D341B5 /* MainMenu.xib */,
@@ -371,9 +374,10 @@
 				1135C473153942E000F2AEA4 /* h.txt in Resources */,
 				1135C474153942E000F2AEA4 /* m.txt in Resources */,
 				1135C47D153943D300F2AEA4 /* hammer.png in Resources */,
-				21E5715C153D8D1700A7138F /* Preferences.xib in Resources */,
+				21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */,
 				21871882153F055E005A1540 /* plus.png in Resources */,
 				21871885153F0830005A1540 /* minus.png in Resources */,
+				11D727D7154342C300952265 /* MainWnd.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,8 +425,8 @@
 				11EF74501539426800D341B5 /* Wheel.xcdatamodeld in Sources */,
 				1135C471153942E000F2AEA4 /* Entity.m in Sources */,
 				1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */,
-				1135C475153942E000F2AEA4 /* WindowController.m in Sources */,
-				21E57153153D80CE00A7138F /* Preferences.m in Sources */,
+				1135C475153942E000F2AEA4 /* MainController.m in Sources */,
+				21E57153153D80CE00A7138F /* PreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Preferences.h"
+#import "PreferencesController.h"
 
-@implementation Preferences
+@implementation PreferencesController
 
 @synthesize generalItem = _generalItem;
 @synthesize generalView =_generalView;

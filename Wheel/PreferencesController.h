@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Preferences : NSWindowController <NSWindowDelegate>
+@interface PreferencesController : NSWindowController <NSWindowDelegate>
 
 @property (strong) IBOutlet NSToolbarItem *generalItem;
 @property (strong) IBOutlet NSView *generalView;

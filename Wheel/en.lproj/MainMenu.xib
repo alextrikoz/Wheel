@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
+		<string key="IBDocument.SystemVersion">11D50d</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
@@ -1457,7 +1457,7 @@
 													<string key="NSFrameSize">{786, 128}</string>
 													<reference key="NSSuperview" ref="813304934"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="1038229082"/>
+													<reference key="NSNextKeyView" ref="287543938"/>
 													<string key="NSReuseIdentifierKey">_NS:1828</string>
 													<bool key="NSEnabled">YES</bool>
 													<object class="NSTableHeaderView" key="NSHeaderView" id="906725551">
@@ -2001,7 +2001,7 @@
 									<string key="NSFrameSize">{788, 146}</string>
 									<reference key="NSSuperview" ref="212129867"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="287543938"/>
+									<reference key="NSNextKeyView" ref="813304934"/>
 									<string key="NSReuseIdentifierKey">_NS:1824</string>
 									<int key="NSsFlags">133810</int>
 									<reference key="NSVScroller" ref="1038229082"/>
@@ -2025,7 +2025,7 @@
 													<string key="NSFrameSize">{786, 170}</string>
 													<reference key="NSSuperview" ref="542874194"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView" ref="303557996"/>
+													<reference key="NSNextKeyView" ref="708259028"/>
 													<string key="NSReuseIdentifierKey">_NS:3367</string>
 													<string key="NSMinGridSize">{0, 0}</string>
 													<string key="NSMaxGridSize">{0, 0}</string>
@@ -2083,7 +2083,7 @@
 									<string key="NSFrame">{{0, 156}, {788, 172}}</string>
 									<reference key="NSSuperview" ref="212129867"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="708259028"/>
+									<reference key="NSNextKeyView" ref="542874194"/>
 									<string key="NSReuseIdentifierKey">_NS:3363</string>
 									<int key="NSsFlags">133650</int>
 									<reference key="NSVScroller" ref="303557996"/>
@@ -2136,7 +2136,6 @@
 							<string key="NSFrame">{{190, 5}, {150, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:903</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="100338557">
@@ -2178,7 +2177,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="212129867"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">32</double>
@@ -2500,7 +2499,6 @@
 						<string key="NSFrame">{{617, 11}, {180, 22}}</string>
 						<reference key="NSSuperview" ref="747668397"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:903</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1060904390">
@@ -2593,7 +2591,7 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="994946436">
-				<string key="NSClassName">WindowController</string>
+				<string key="NSClassName">MainController</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -3271,20 +3269,20 @@
 					<int key="connectionID">425</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">window</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="972006081"/>
-					</object>
-					<int key="connectionID">532</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">onPreferencesClick:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="609285721"/>
 					</object>
 					<int key="connectionID">759</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">window</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="972006081"/>
+					</object>
+					<int key="connectionID">1077</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3751,17 +3749,17 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentValues: arrangedObjects</string>
 						<reference key="source" ref="348188060"/>
-						<reference key="destination" ref="576141103"/>
+						<reference key="destination" ref="226394252"/>
 						<object class="NSNibBindingConnector" key="connector" id="274814426">
 							<reference key="NSSource" ref="348188060"/>
-							<reference key="NSDestination" ref="576141103"/>
+							<reference key="NSDestination" ref="226394252"/>
 							<string key="NSLabel">contentValues: arrangedObjects</string>
 							<string key="NSBinding">contentValues</string>
 							<string key="NSKeyPath">arrangedObjects</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1021</int>
+					<int key="connectionID">1075</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3778,7 +3776,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1029</int>
+					<int key="connectionID">1076</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4843,6 +4841,7 @@
 						<int key="objectID">560</int>
 						<reference key="object" ref="288431367"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Array Entities</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">587</int>
@@ -4952,6 +4951,7 @@
 						<int key="objectID">740</int>
 						<reference key="object" ref="573693278"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Array Types</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">750</int>
@@ -5045,6 +5045,7 @@
 						<int key="objectID">770</int>
 						<reference key="object" ref="576141103"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Array Setters</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">792</int>
@@ -5276,11 +5277,13 @@
 						<int key="objectID">960</int>
 						<reference key="object" ref="518923378"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Array Atomicities</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">961</int>
 						<reference key="object" ref="226394252"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Array Writabilities</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1001</int>
@@ -5681,7 +5684,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1074</int>
+			<int key="maxID">1077</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5724,48 +5727,7 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NSDocument</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="printDocument:">id</string>
-						<string key="revertDocumentToSaved:">id</string>
-						<string key="runPageLayout:">id</string>
-						<string key="saveDocument:">id</string>
-						<string key="saveDocumentAs:">id</string>
-						<string key="saveDocumentTo:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="printDocument:">
-							<string key="name">printDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="revertDocumentToSaved:">
-							<string key="name">revertDocumentToSaved:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runPageLayout:">
-							<string key="name">runPageLayout:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocument:">
-							<string key="name">saveDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentAs:">
-							<string key="name">saveDocumentAs:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentTo:">
-							<string key="name">saveDocumentTo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">WindowController</string>
+					<string key="className">MainController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="add:">id</string>
@@ -5807,7 +5769,48 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/WindowController.h</string>
+						<string key="minorKey">./Classes/MainController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSDocument</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="printDocument:">id</string>
+						<string key="revertDocumentToSaved:">id</string>
+						<string key="runPageLayout:">id</string>
+						<string key="saveDocument:">id</string>
+						<string key="saveDocumentAs:">id</string>
+						<string key="saveDocumentTo:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="printDocument:">
+							<string key="name">printDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revertDocumentToSaved:">
+							<string key="name">revertDocumentToSaved:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="runPageLayout:">
+							<string key="name">runPageLayout:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocument:">
+							<string key="name">saveDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocumentAs:">
+							<string key="name">saveDocumentAs:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocumentTo:">
+							<string key="name">saveDocumentTo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSDocument.h</string>
 					</object>
 				</object>
 			</array>
