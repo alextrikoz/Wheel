@@ -8,13 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DataStore;
+
 @interface MainController : NSWindowController <NSTableViewDataSource>
 
-@property (strong) NSMutableArray *entities;
-@property (strong) NSMutableArray *setters;
-@property (strong) NSMutableArray *atomicities;
-@property (strong) NSMutableArray *writabilities;
-@property (strong) NSMutableArray *types;
+@property (strong) IBOutlet DataStore *dataStore;
 
 @property (strong) IBOutlet NSTableView *tableView;
 @property (strong) IBOutlet NSTextField *classNameTextField;

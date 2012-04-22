@@ -7,26 +7,34 @@
 //
 
 #import "AppDelegate.h"
+#import "MainController.h"
 #import "PreferencesController.h"
 
 @implementation AppDelegate
 
-@synthesize preferences = _preferences;
-
-- (PreferencesController *)preferences {
-    if(!_preferences) {
-        _preferences = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
+@synthesize mainController = _mainController;
+- (MainController *)mainController {
+    if(!_mainController) {
+        _mainController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
     }
-    return _preferences;
+    return _mainController;
+}
+
+@synthesize preferencesController = _preferencesController;
+- (PreferencesController *)preferencesController {
+    if(!_preferencesController) {
+        _preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"PreferencesWnd"];
+    }
+    return _preferencesController;
 }
 
 - (IBAction)onPreferencesClick:(id)sender {
-    [self.preferences.window makeKeyAndOrderFront:nil];
+    [self.preferencesController.window makeKeyAndOrderFront:nil];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-    if (!flag) {
-        [self.window makeKeyAndOrderFront:nil];
+    if (!self.mainController.window.isVisible) {
+        [self.mainController.window makeKeyAndOrderFront:nil];
     }
     return YES;
 }
@@ -41,9 +49,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self setupDefaults];
+    
+    [self.mainController.window makeKeyAndOrderFront:nil];
 }
 
-@synthesize window = _window;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize managedObjectContext = __managedObjectContext;
@@ -173,7 +182,13 @@
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-
+    if (self.mainController.window.isVisible) {
+        [self.mainController.window close];
+    }
+    if (self.preferencesController.window.isVisible) {
+        [self.preferencesController.window close];
+    }
+    
     // Save changes in the application's managed object context before the application terminates.
 
     if (!__managedObjectContext) {

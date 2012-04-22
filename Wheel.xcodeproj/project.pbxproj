@@ -14,6 +14,7 @@
 		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
+		11C86B5215442F09009A0113 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C86B5115442F08009A0113 /* DataStore.m */; };
 		11D727D7154342C300952265 /* MainWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D727D6154342C300952265 /* MainWnd.xib */; };
 		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
 		11EF74411539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF743F1539426800D341B5 /* InfoPlist.strings */; };
@@ -69,6 +70,8 @@
 		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		11C86B5015442F08009A0113 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
+		11C86B5115442F08009A0113 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		11D727D6154342C300952265 /* MainWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWnd.xib; sourceTree = "<group>"; };
 		11EF74321539426700D341B5 /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF74361539426700D341B5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -209,6 +212,8 @@
 				1135C46A153942E000F2AEA4 /* Entity.m */,
 				1135C46B153942E000F2AEA4 /* EntityCollectionView.h */,
 				1135C46C153942E000F2AEA4 /* EntityCollectionView.m */,
+				11C86B5015442F08009A0113 /* DataStore.h */,
+				11C86B5115442F08009A0113 /* DataStore.m */,
 				21E57151153D80CE00A7138F /* PreferencesController.h */,
 				21E57152153D80CE00A7138F /* PreferencesController.m */,
 				21E5715B153D8D1600A7138F /* PreferencesWnd.xib */,
@@ -427,6 +432,7 @@
 				1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */,
 				1135C475153942E000F2AEA4 /* MainController.m in Sources */,
 				21E57153153D80CE00A7138F /* PreferencesController.m in Sources */,
+				11C86B5215442F09009A0113 /* DataStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

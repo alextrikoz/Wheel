@@ -9,85 +9,15 @@
 #import "MainController.h"
 
 #import "Entity.h"
+#import "DataStore.h"
 
 @implementation MainController
 
-@synthesize entities = _entities;
-@synthesize setters = _setters;
-@synthesize atomicities = _atomicities;
-@synthesize writabilities = _writabilities;
-@synthesize types = _types;
+@synthesize dataStore = _dataStore;
 
 @synthesize tableView = _tableView;
 @synthesize classNameTextField = _classNameTextField;
 @synthesize superClassNameTextField = _superClassNameTextField;
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    self.entities = [NSMutableArray array];
-    Entity *entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"title";
-    [self.entities addObject:entity];
-    entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"subtitle";
-    [self.entities addObject:entity];
-    entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSDate *";
-    entity.name = @"date";
-    [self.entities addObject:entity];
-    entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.entities addObject:entity];
-    self.entities = self.entities;
-    [self.tableView deselectRow:self.tableView.selectedRow];
-    
-    self.types = [NSMutableArray array];
-    [self.types addObject:@"NSArray *"];
-    [self.types addObject:@"NSDate *"];
-    [self.types addObject:@"NSDictionary *"];
-    [self.types addObject:@"NSNumber *"];
-    [self.types addObject:@"NSString *"];
-    self.types = self.types;
-    
-    self.setters = [NSMutableArray array];
-    [self.setters addObject:@"assign"];
-    [self.setters addObject:@"copy"];
-    [self.setters addObject:@"retain"];
-    [self.setters addObject:@"strong"];
-    [self.setters addObject:@"unsafe_unretained"];
-    [self.setters addObject:@"week"];
-    self.setters = self.setters;
-    
-    self.atomicities = [NSMutableArray array];
-    [self.atomicities addObject:@"atomic"];
-    [self.atomicities addObject:@"nonatomic"];
-    self.atomicities = self.atomicities;
-    
-    self.writabilities = [NSMutableArray array];
-    [self.writabilities addObject:@"readonly"];
-    [self.writabilities addObject:@"readwrite"];
-    self.writabilities = self.writabilities;
-}
 
 - (IBAction)add:(id)sender {    
     Entity *entity = [[Entity alloc] init];
@@ -97,20 +27,21 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
-    [self.entities addObject:entity];
+    [self.dataStore.entities addObject:entity];
     
-    self.entities = self.entities;
+    self.dataStore.entities = self.dataStore.entities;
+    
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
 - (IBAction)remove:(id)sender {    
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.entities.count];
-    for (Entity *entity in self.entities) {
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.dataStore.entities.count];
+    for (Entity *entity in self.dataStore.entities) {
         if (!entity.checked.boolValue) {
             [temp addObject:entity];
         }
     }
-    self.entities = temp;
+    self.dataStore.entities = temp;
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
@@ -134,7 +65,7 @@
     NSString *m_copy_properties = @"\n";
     NSString *m_coder_properties = @"\n";
     NSString *m_decoder_properties = @"\n";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.dataStore.entities) {
         h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
         
         m_synthesize_properties = [m_synthesize_properties stringByAppendingString:[entity synthesizeFormat]];
