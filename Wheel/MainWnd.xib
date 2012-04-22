@@ -241,7 +241,7 @@
 						<reference ref="230646786"/>
 						<reference ref="226140534"/>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<object class="NSArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="245690751"/>
 						<reference ref="1014236993"/>
@@ -1018,6 +1018,32 @@
 				<int key="NSvFlags">258</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSButton" id="350321842">
+						<reference key="NSNextResponder" ref="1007567729"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{18, 13}, {25, 18}}</string>
+						<reference key="NSSuperview" ref="1007567729"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="732973713"/>
+						<string key="NSReuseIdentifierKey">_NS:771</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="1070739393">
+							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags2">0</int>
+							<string key="NSContents"/>
+							<reference key="NSSupport" ref="46361196"/>
+							<string key="NSCellIdentifier">_NS:771</string>
+							<reference key="NSControlView" ref="350321842"/>
+							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags2">2</int>
+							<reference key="NSNormalImage" ref="94377723"/>
+							<reference key="NSAlternateImage" ref="958316843"/>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
 					<object class="NSPopUpButton" id="732973713">
 						<reference key="NSNextResponder" ref="1007567729"/>
 						<int key="NSvFlags">268</int>
@@ -1340,32 +1366,6 @@
 							<bool key="NSDrawsBackground">YES</bool>
 							<reference key="NSBackgroundColor" ref="1028269674"/>
 							<reference key="NSTextColor" ref="956973960"/>
-						</object>
-					</object>
-					<object class="NSButton" id="350321842">
-						<reference key="NSNextResponder" ref="1007567729"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 13}, {25, 18}}</string>
-						<reference key="NSSuperview" ref="1007567729"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="732973713"/>
-						<string key="NSReuseIdentifierKey">_NS:771</string>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSButtonCell" key="NSCell" id="1070739393">
-							<int key="NSCellFlags">-2080244224</int>
-							<int key="NSCellFlags2">0</int>
-							<string key="NSContents"/>
-							<reference key="NSSupport" ref="46361196"/>
-							<string key="NSCellIdentifier">_NS:771</string>
-							<reference key="NSControlView" ref="350321842"/>
-							<int key="NSButtonFlags">1211912703</int>
-							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="94377723"/>
-							<reference key="NSAlternateImage" ref="958316843"/>
-							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent"/>
-							<int key="NSPeriodicDelay">200</int>
-							<int key="NSPeriodicInterval">25</int>
 						</object>
 					</object>
 				</object>
@@ -1718,19 +1718,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentValues: arrangedObjects</string>
+						<string key="label">contentValues: arrangedObjects.name</string>
 						<reference key="source" ref="693739347"/>
 						<reference key="destination" ref="3856318"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="693739347"/>
 							<reference key="NSDestination" ref="3856318"/>
-							<string key="NSLabel">contentValues: arrangedObjects</string>
+							<string key="NSLabel">contentValues: arrangedObjects.name</string>
 							<string key="NSBinding">contentValues</string>
-							<string key="NSKeyPath">arrangedObjects</string>
+							<string key="NSKeyPath">arrangedObjects.name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">119</int>
+					<int key="connectionID">188</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1897,19 +1897,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentValues: arrangedObjects</string>
+						<string key="label">contentValues: arrangedObjects.name</string>
 						<reference key="source" ref="145961695"/>
 						<reference key="destination" ref="3856318"/>
-						<object class="NSNibBindingConnector" key="connector" id="727855987">
+						<object class="NSNibBindingConnector" key="connector" id="173899375">
 							<reference key="NSSource" ref="145961695"/>
 							<reference key="NSDestination" ref="3856318"/>
-							<string key="NSLabel">contentValues: arrangedObjects</string>
+							<string key="NSLabel">contentValues: arrangedObjects.name</string>
 							<string key="NSBinding">contentValues</string>
-							<string key="NSKeyPath">arrangedObjects</string>
+							<string key="NSKeyPath">arrangedObjects.name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">99</int>
+					<int key="connectionID">189</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1922,11 +1922,11 @@
 							<string key="NSLabel">selectedObject: representedObject.type</string>
 							<string key="NSBinding">selectedObject</string>
 							<string key="NSKeyPath">representedObject.type</string>
-							<reference key="NSPreviousConnector" ref="727855987"/>
+							<reference key="NSPreviousConnector" ref="173899375"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">100</int>
+					<int key="connectionID">190</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1967,11 +1967,11 @@
 						<reference key="object" ref="1007567729"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="350321842"/>
 							<reference ref="566709219"/>
 							<reference ref="575635832"/>
 							<reference ref="732973713"/>
 							<reference ref="988300209"/>
+							<reference ref="350321842"/>
 							<reference ref="145961695"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -2832,7 +2832,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">187</int>
+			<int key="maxID">190</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

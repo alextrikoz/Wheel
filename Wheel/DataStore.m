@@ -8,6 +8,7 @@
 
 #import "DataStore.h"
 
+#import "Type.h"
 #import "Entity.h"
 
 @implementation DataStore
@@ -20,7 +21,7 @@
 
 - (id)init {
     static id sharedInstance = nil;
-    if(nil == sharedInstance) {
+    if (nil == sharedInstance) {
         sharedInstance = [super init];
     }
     return sharedInstance;
@@ -65,11 +66,21 @@
     self.entities = self.entities;
     
     self.types = [NSMutableArray array];
-    [self.types addObject:@"NSArray *"];
-    [self.types addObject:@"NSDate *"];
-    [self.types addObject:@"NSDictionary *"];
-    [self.types addObject:@"NSNumber *"];
-    [self.types addObject:@"NSString *"];
+    Type *type = [[Type alloc] init];
+    type.name = @"NSArray *";
+    [self.types addObject:type];
+    type = [[Type alloc] init];
+    type.name = @"NSDate *";
+    [self.types addObject:type];
+    type = [[Type alloc] init];
+    type.name = @"NSDictionary *";
+    [self.types addObject:type];
+    type = [[Type alloc] init];
+    type.name = @"NSNumber *";
+    [self.types addObject:type];
+    type = [[Type alloc] init];
+    type.name = @"NSString *";
+    [self.types addObject:type];
     self.types = self.types;
     
     self.setters = [NSMutableArray array];

@@ -46,7 +46,7 @@
 			<object class="NSCustomObject" id="1004">
 				<string key="NSClassName">NSApplication</string>
 			</object>
-			<object class="NSCustomObject" id="662514314">
+			<object class="NSCustomObject" id="294330071">
 				<string key="NSClassName">DataStore</string>
 			</object>
 			<object class="NSArrayController" id="990417850">
@@ -636,35 +636,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.type</string>
+						<string key="label">value: arrangedObjects.name</string>
 						<reference key="source" ref="649619574"/>
 						<reference key="destination" ref="990417850"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="649619574"/>
 							<reference key="NSDestination" ref="990417850"/>
-							<string key="NSLabel">value: arrangedObjects.type</string>
+							<string key="NSLabel">value: arrangedObjects.name</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.type</string>
+							<string key="NSKeyPath">arrangedObjects.name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">144</int>
+					<int key="connectionID">167</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: entities</string>
+						<string key="label">contentArray: types</string>
 						<reference key="source" ref="990417850"/>
-						<reference key="destination" ref="662514314"/>
+						<reference key="destination" ref="294330071"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="990417850"/>
-							<reference key="NSDestination" ref="662514314"/>
-							<string key="NSLabel">contentArray: entities</string>
+							<reference key="NSDestination" ref="294330071"/>
+							<string key="NSLabel">contentArray: types</string>
 							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">entities</string>
+							<string key="NSKeyPath">types</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">162</int>
+					<int key="connectionID">163</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -902,7 +902,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">158</int>
-						<reference key="object" ref="662514314"/>
+						<reference key="object" ref="294330071"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -1000,7 +1000,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">162</int>
+			<int key="maxID">167</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
