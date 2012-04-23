@@ -16,7 +16,7 @@
 @property (readonly, strong) MainController *mainController;
 @property (readonly, strong) PreferencesController *preferencesController;
 
-- (IBAction)onPreferencesClick:(id)sender;
+- (IBAction)preferences:(id)sender;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

@@ -14,6 +14,8 @@
 @implementation PreferencesController
 
 @synthesize generalItem = _generalItem;
+@synthesize libraryItem = _libraryItem;
+
 @synthesize generalView =_generalView;
 @synthesize libraryView = _libraryView;
 
@@ -31,13 +33,13 @@
 }
 
 - (IBAction)library:(id)sender {
-    [self.window setContentView:self.libraryView];    
+    [self.window setContentView:self.libraryView];
 }
 
 - (IBAction)add:(id)sender {
     Type *type = [[Type alloc] init];
-    [type setChecked:[NSNumber numberWithBool:YES]];
-    [type setName:@"NSObject *"];
+    type.checked = [NSNumber numberWithBool:NO];
+    type.name = @"NSObject *";
     [self.dataStore.types addObject:type];
     
     self.dataStore.types = self.dataStore.types;

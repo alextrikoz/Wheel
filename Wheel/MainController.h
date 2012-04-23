@@ -20,6 +20,6 @@
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
-- (IBAction)onGenerateClick:(id)sender;
+- (IBAction)generate:(id)sender;
 
 @end

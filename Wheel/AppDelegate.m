@@ -28,8 +28,10 @@
     return _preferencesController;
 }
 
-- (IBAction)onPreferencesClick:(id)sender {
-    [self.preferencesController.window makeKeyAndOrderFront:nil];
+- (IBAction)preferences:(id)sender {
+    if (!self.preferencesController.window.isVisible) {
+        [self.preferencesController.window makeKeyAndOrderFront:nil];
+    }
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {

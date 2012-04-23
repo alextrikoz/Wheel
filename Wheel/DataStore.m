@@ -67,18 +67,23 @@
     
     self.types = [NSMutableArray array];
     Type *type = [[Type alloc] init];
+    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSArray *";
     [self.types addObject:type];
     type = [[Type alloc] init];
+    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSDate *";
     [self.types addObject:type];
     type = [[Type alloc] init];
+    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSDictionary *";
     [self.types addObject:type];
     type = [[Type alloc] init];
+    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSNumber *";
     [self.types addObject:type];
     type = [[Type alloc] init];
+    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSString *";
     [self.types addObject:type];
     self.types = self.types;

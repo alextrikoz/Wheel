@@ -45,7 +45,7 @@
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
-- (IBAction)onGenerateClick:(id)sender {
+- (IBAction)generate:(id)sender {
     NSString *className = self.classNameTextField.stringValue;
     NSString *superClassName = self.superClassNameTextField.stringValue;
     

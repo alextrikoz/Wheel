@@ -13,6 +13,8 @@
 @interface PreferencesController : NSWindowController <NSWindowDelegate>
 
 @property (strong) IBOutlet NSToolbarItem *generalItem;
+@property (strong) IBOutlet NSToolbarItem *libraryItem;
+
 @property (strong) IBOutlet NSView *generalView;
 @property (strong) IBOutlet NSView *libraryView;
 
