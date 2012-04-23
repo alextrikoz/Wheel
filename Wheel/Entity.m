@@ -17,19 +17,6 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
-- (id)copyWithZone:(NSZone *)zone {
-    Entity *object = [[[self class] allocWithZone:zone] init];
-    
-    object.checked = self.checked;
-    object.setter = self.setter;
-    object.atomicity = self.atomicity;
-    object.writability = self.writability;
-    object.type = self.type;
-    object.name = self.name;
-    
-    return object;
-}
-
 - (NSString *)propertyFormat {
     return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
 }

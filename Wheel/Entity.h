@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Entity : NSObject <NSCopying>
+@interface Entity : NSObject
 
 @property (strong) NSNumber *checked;
 @property (strong) NSString *setter;
