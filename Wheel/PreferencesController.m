@@ -10,6 +10,7 @@
 
 #import "Type.h"
 #import "DataStore.h"
+#import "AppDelegate.h"
 
 @implementation PreferencesController
 
@@ -37,22 +38,29 @@
 }
 
 - (IBAction)add:(id)sender {
-    Type *type = [[Type alloc] init];
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
     type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSObject *";
-    [self.dataStore.types addObject:type];
+    [appDelegate.managedObjectContext save:nil];
     
-    self.dataStore.types = self.dataStore.types;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    self.dataStore.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
 }
 
 - (IBAction)remove:(id)sender {
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.dataStore.types.count];
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
     for (Type *type in self.dataStore.types) {
-        if (!type.checked.boolValue) {
-            [temp addObject:type];
+        if (type.checked.boolValue) {
+            [appDelegate.managedObjectContext deleteObject:type];
         }
-    }
-    self.dataStore.types = temp;
+    }    
+    [appDelegate.managedObjectContext save:nil];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    self.dataStore.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
 }
 
 @end

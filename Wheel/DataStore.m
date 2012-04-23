@@ -10,6 +10,7 @@
 
 #import "Type.h"
 #import "Entity.h"
+#import "AppDelegate.h"
 
 @implementation DataStore
 
@@ -65,28 +66,32 @@
     [self.entities addObject:entity];
     self.entities = self.entities;
     
-    self.types = [NSMutableArray array];
-    Type *type = [[Type alloc] init];
-    type.checked = [NSNumber numberWithBool:NO];
-    type.name = @"NSArray *";
-    [self.types addObject:type];
-    type = [[Type alloc] init];
-    type.checked = [NSNumber numberWithBool:NO];
-    type.name = @"NSDate *";
-    [self.types addObject:type];
-    type = [[Type alloc] init];
-    type.checked = [NSNumber numberWithBool:NO];
-    type.name = @"NSDictionary *";
-    [self.types addObject:type];
-    type = [[Type alloc] init];
-    type.checked = [NSNumber numberWithBool:NO];
-    type.name = @"NSNumber *";
-    [self.types addObject:type];
-    type = [[Type alloc] init];
-    type.checked = [NSNumber numberWithBool:NO];
-    type.name = @"NSString *";
-    [self.types addObject:type];
-    self.types = self.types;
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    if (!self.types.count) {
+        Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.checked = [NSNumber numberWithBool:NO];
+        type.name = @"NSArray *";
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.checked = [NSNumber numberWithBool:NO];
+        type.name = @"NSDate *";
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.checked = [NSNumber numberWithBool:NO];
+        type.name = @"NSDictionary *";
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.checked = [NSNumber numberWithBool:NO];
+        type.name = @"NSNumber *";
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.checked = [NSNumber numberWithBool:NO];
+        type.name = @"NSString *";
+        [appDelegate.managedObjectContext save:nil];
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+        request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+        self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    }
     
     self.setters = [NSMutableArray array];
     [self.setters addObject:@"assign"];
