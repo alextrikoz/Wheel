@@ -21,7 +21,7 @@
 
 - (id)init {
     static id sharedInstance = nil;
-    if (nil == sharedInstance) {
+    if (sharedInstance == nil) {
         sharedInstance = [super init];
     }
     return sharedInstance;

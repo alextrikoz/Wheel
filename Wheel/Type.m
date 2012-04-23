@@ -10,6 +10,7 @@
 
 @implementation Type
 
+@synthesize checked = _checked;
 @synthesize name = _name;
 
 - (id)copyWithZone:(NSZone *)zone {

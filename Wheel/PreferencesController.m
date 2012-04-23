@@ -8,11 +8,16 @@
 
 #import "PreferencesController.h"
 
+#import "Type.h"
+#import "DataStore.h"
+
 @implementation PreferencesController
 
 @synthesize generalItem = _generalItem;
 @synthesize generalView =_generalView;
 @synthesize libraryView = _libraryView;
+
+@synthesize dataStore = _dataStore;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,6 +32,25 @@
 
 - (IBAction)library:(id)sender {
     [self.window setContentView:self.libraryView];    
+}
+
+- (IBAction)add:(id)sender {
+    Type *type = [[Type alloc] init];
+    [type setChecked:[NSNumber numberWithBool:YES]];
+    [type setName:@"NSObject *"];
+    [self.dataStore.types addObject:type];
+    
+    self.dataStore.types = self.dataStore.types;
+}
+
+- (IBAction)remove:(id)sender {
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.dataStore.types.count];
+    for (Type *type in self.dataStore.types) {
+        if (!type.checked.boolValue) {
+            [temp addObject:type];
+        }
+    }
+    self.dataStore.types = temp;
 }
 
 @end

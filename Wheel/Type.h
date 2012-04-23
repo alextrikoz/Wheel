@@ -10,6 +10,7 @@
 
 @interface Type : NSObject
 
+@property (strong) NSNumber *checked;
 @property (strong) NSString *name;
 
 @end
