@@ -19,6 +19,12 @@
 @synthesize classNameTextField = _classNameTextField;
 @synthesize superClassNameTextField = _superClassNameTextField;
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self.tableView deselectRow:self.tableView.selectedRow];    
+}
+
 - (IBAction)add:(id)sender {    
     Entity *entity = [[Entity alloc] init];
     entity.checked = [NSNumber numberWithBool:NO];

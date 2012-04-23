@@ -37,6 +37,7 @@
 		11EF747C1539426800D341B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747B1539426800D341B5 /* main.c */; };
 		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
+		212402E115456DFE0043D929 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 212402E015456DFE0043D929 /* library.png */; };
 		21871882153F055E005A1540 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871881153F055E005A1540 /* plus.png */; };
 		21871885153F0830005A1540 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871884153F0830005A1540 /* minus.png */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
@@ -109,6 +110,7 @@
 		11EF74801539426800D341B5 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		11EF74821539426800D341B5 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
+		212402E015456DFE0043D929 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		21871881153F055E005A1540 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		21871884153F0830005A1540 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -152,9 +154,10 @@
 		1135C47B153943D300F2AEA4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1135C47C153943D300F2AEA4 /* hammer.png */,
+				212402E015456DFE0043D929 /* library.png */,
 				21871884153F0830005A1540 /* minus.png */,
 				21871881153F055E005A1540 /* plus.png */,
-				1135C47C153943D300F2AEA4 /* hammer.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				21871882153F055E005A1540 /* plus.png in Resources */,
 				21871885153F0830005A1540 /* minus.png in Resources */,
 				11D727D7154342C300952265 /* MainWnd.xib in Resources */,
+				212402E115456DFE0043D929 /* library.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
