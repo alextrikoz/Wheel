@@ -10,4 +10,14 @@
 
 @interface CustomCell : NSTextFieldCell
 
+@property (strong, nonatomic) NSRegularExpression *regex;
+
+@end
+
+@interface VarTypeCell : CustomCell
+
+@end
+
+@interface VarNameCell : CustomCell
+
 @end

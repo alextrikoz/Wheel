@@ -10,12 +10,17 @@
 
 @implementation CustomCell
 
+@synthesize regex = _regex;
+
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
     [super drawWithFrame:cellFrame inView:controlView];
     
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"^[a-z_][a-z0-9_]*[ ]*[*]*[ ]*$" options:NSRegularExpressionCaseInsensitive error:nil];
+    if (!self.regex) {
+        return;
+    }
+    
     NSRange range1 = NSMakeRange(0, self.stringValue.length);
-    NSRange range2 = [regex rangeOfFirstMatchInString:self.stringValue options:0 range:range1];
+    NSRange range2 = [self.regex rangeOfFirstMatchInString:self.stringValue options:0 range:range1];
     if(NSEqualRanges(range1, range2)) {
         return;
     }
@@ -28,6 +33,26 @@
     NSRect fromRect = NSZeroRect;
     fromRect.size = image.size;
     [image drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1.0];
+}
+
+@end
+
+@implementation VarTypeCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.regex = [[NSRegularExpression alloc] initWithPattern:@"^[a-z_][a-z0-9_]*[ ]*[*]*[ ]*$" options:NSRegularExpressionCaseInsensitive error:nil];
+}
+
+@end
+
+@implementation VarNameCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.regex = [[NSRegularExpression alloc] initWithPattern:@"^[a-z_][a-z0-9_]*$" options:NSRegularExpressionCaseInsensitive error:nil];
 }
 
 @end
