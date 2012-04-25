@@ -14,6 +14,8 @@
 
 @property (strong) IBOutlet NSToolbarItem *generalItem;
 @property (strong) IBOutlet NSToolbarItem *libraryItem;
+@property (strong) IBOutlet NSToolbarItem *addItem;
+@property (strong) IBOutlet NSToolbarItem *removeItem;
 
 @property (strong) IBOutlet NSView *generalView;
 @property (strong) IBOutlet NSView *libraryView;

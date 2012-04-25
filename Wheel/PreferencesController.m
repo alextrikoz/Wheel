@@ -16,6 +16,8 @@
 
 @synthesize generalItem = _generalItem;
 @synthesize libraryItem = _libraryItem;
+@synthesize addItem = _addItem;
+@synthesize removeItem = _removeItem;
 
 @synthesize generalView =_generalView;
 @synthesize libraryView = _libraryView;
@@ -31,10 +33,22 @@
 
 - (IBAction)general:(id)sender {
     [self.window setContentView:self.generalView];
+    
+    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.removeItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
 }
 
 - (IBAction)library:(id)sender {
     [self.window setContentView:self.libraryView];
+    
+    [self.window.toolbar insertItemWithItemIdentifier:self.addItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    [self.window.toolbar insertItemWithItemIdentifier:self.removeItem.itemIdentifier atIndex:self.window.toolbar.items.count];
 }
 
 - (IBAction)add:(id)sender {
