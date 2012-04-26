@@ -14,6 +14,7 @@
 		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
+		11B8205F15491E25002B0CBD /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8205E15491E25002B0CBD /* Option.m */; };
 		11C86B5215442F09009A0113 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C86B5115442F08009A0113 /* DataStore.m */; };
 		11D727D7154342C300952265 /* MainWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11D727D6154342C300952265 /* MainWnd.xib */; };
 		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
@@ -74,6 +75,8 @@
 		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		11B8205D15491E25002B0CBD /* Option.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Option.h; sourceTree = "<group>"; };
+		11B8205E15491E25002B0CBD /* Option.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Option.m; sourceTree = "<group>"; };
 		11C86B5015442F08009A0113 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
 		11C86B5115442F08009A0113 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		11D727D6154342C300952265 /* MainWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWnd.xib; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 		11EF743C1539426800D341B5 /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				11B8205D15491E25002B0CBD /* Option.h */,
+				11B8205E15491E25002B0CBD /* Option.m */,
 				2147F3DB1545BD4F0015D6EF /* CustomCell.h */,
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
 				1135C46D153942E000F2AEA4 /* h.txt */,
@@ -453,6 +458,7 @@
 				11C86B5215442F09009A0113 /* DataStore.m in Sources */,
 				212402F415458CD20043D929 /* Type.m in Sources */,
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
+				11B8205F15491E25002B0CBD /* Option.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

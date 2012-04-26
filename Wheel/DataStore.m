@@ -10,6 +10,7 @@
 
 #import "Type.h"
 #import "Entity.h"
+#import "Option.h"
 #import "AppDelegate.h"
 
 @implementation DataStore
@@ -19,6 +20,7 @@
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
 @synthesize types = _types;
+@synthesize options = _options;
 
 - (id)init {
     static id sharedInstance = nil;
@@ -111,6 +113,33 @@
     [self.writabilities addObject:@"readonly"];
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
+    
+    self.options = [NSMutableArray array];
+    Option *option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"- (void)dealloc;";
+    [self.options addObject:option];
+    option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
+    [self.options addObject:option];
+    option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
+    [self.options addObject:option];
+    option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"+ (id)copyWithZone:(NSZone *)zone;";
+    [self.options addObject:option];
+    option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"- (void)encodeWithCoder:(NSCoder *)coder;";
+    [self.options addObject:option];
+    option = [[Option alloc] init];
+    option.checked = [NSNumber numberWithBool:YES];
+    option.name = @"- (id)initWithCoder:(NSCoder *)decoder;";
+    [self.options addObject:option];
+    self.options = self.options;
 }
 
 @end

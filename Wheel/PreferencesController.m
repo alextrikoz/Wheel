@@ -16,11 +16,13 @@
 
 @synthesize generalItem = _generalItem;
 @synthesize libraryItem = _libraryItem;
+@synthesize optionsItem = _optionsItem;
 @synthesize addItem = _addItem;
 @synthesize removeItem = _removeItem;
 
 @synthesize generalView =_generalView;
 @synthesize libraryView = _libraryView;
+@synthesize optionsView = _optionsView;
 
 @synthesize dataStore = _dataStore;
 
@@ -47,8 +49,27 @@
 - (IBAction)library:(id)sender {
     [self.window setContentView:self.libraryView];
     
-    [self.window.toolbar insertItemWithItemIdentifier:self.addItem.itemIdentifier atIndex:self.window.toolbar.items.count];
-    [self.window.toolbar insertItemWithItemIdentifier:self.removeItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.addItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.removeItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.removeItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
+}
+
+- (IBAction)options:(id)sender {
+    [self.window setContentView:self.optionsView];
+    
+    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.removeItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
 }
 
 - (IBAction)add:(id)sender {

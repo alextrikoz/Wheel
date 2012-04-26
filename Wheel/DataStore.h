@@ -15,5 +15,6 @@
 @property (strong) NSMutableArray *writabilities;
 @property (strong) NSMutableArray *types;
 @property (strong) NSMutableArray *entities;
+@property (strong) NSMutableArray *options;
 
 @end
