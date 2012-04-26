@@ -11,15 +11,13 @@
 @implementation %@
 %@
 - (void)dealloc {
-%@
-    [super dealloc];
+%@    [super dealloc];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-%@
-    }
+%@    }
     return self;
 }
 
@@ -27,26 +25,31 @@
     return [[[self alloc] initWithDictionary:dictionary] autorelease];
 }
 
++ (NSArray *)objectsWithArray:(NSArray *)array {
+    NSMutableArray *objects = [NSMutableArray arrayWithCapacity:array.count];
+    for(NSDictionary *dictionary in array) {
+        [objects addObject:[self objectWithDictionary:dictionary]];
+    }
+    return objects;
+}
+
 #pragma mark - NSCopying
 
 + (id)copyWithZone:(NSZone *)zone {
     Model *object = [[self class] allocWithZone:zone] init];
-%@
-    return object;
+%@    return object;
 }
 
 #pragma mark - NSCoding
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-%@
-}
-
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-%@
-    }
+%@    }
     return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+%@}
 
 @end

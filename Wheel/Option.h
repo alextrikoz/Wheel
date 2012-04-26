@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Option : NSObject
+@interface Option : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * checked;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * order;
 
 @end

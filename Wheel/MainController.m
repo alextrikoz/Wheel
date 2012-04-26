@@ -8,6 +8,8 @@
 
 #import "MainController.h"
 
+#import "Config.h"
+
 #import "Entity.h"
 #import "DataStore.h"
 
@@ -51,7 +53,19 @@
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
+- (void)methods {
+    NSLog(@"%@", DEALLOC(@""));
+    NSLog(@"%@", INITWITHDICTIONARY(@""));
+    NSLog(@"%@", OBJECTWITHDICTIONARY);
+    NSLog(@"%@", OBJECTSWITHARRAY);
+    NSLog(@"%@", COPYWITHZONE(@""));
+    NSLog(@"%@", INITWITHCODER(@""));
+    NSLog(@"%@", ENCODEWITHCODER(@""));
+}
+
 - (IBAction)generate:(id)sender {
+    [self methods];
+    
     NSString *className = self.classNameTextField.stringValue;
     NSString *superClassName = self.superClassNameTextField.stringValue;
     
@@ -66,11 +80,11 @@
     
     NSString *m_context = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"m" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
     NSString *m_synthesize_properties = @"\n";
-    NSString *m_release_properties = @"\n";
-    NSString *m_dictionary_properties = @"\n";
-    NSString *m_copy_properties = @"\n";
-    NSString *m_coder_properties = @"\n";
-    NSString *m_decoder_properties = @"\n";
+    NSString *m_release_properties = @"";
+    NSString *m_dictionary_properties = @"";
+    NSString *m_copy_properties = @"";
+    NSString *m_decoder_properties = @"";
+    NSString *m_coder_properties = @"";
     for (Entity *entity in self.dataStore.entities) {
         h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
         
@@ -78,12 +92,12 @@
         m_release_properties = [m_release_properties stringByAppendingString:[entity releaseFormat]];
         m_dictionary_properties = [m_dictionary_properties stringByAppendingString:[entity dictionaryFormat]];
         m_copy_properties = [m_copy_properties stringByAppendingString:[entity copyFormat]];
-        m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
         m_decoder_properties = [m_decoder_properties stringByAppendingString:[entity decoderFormat]];
+        m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
     }
     h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
     
-    m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_coder_properties, m_decoder_properties];
+    m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_decoder_properties, m_coder_properties];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];

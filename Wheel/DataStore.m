@@ -76,18 +76,23 @@
         Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.checked = [NSNumber numberWithBool:NO];
         type.name = @"NSArray *";
+        
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.checked = [NSNumber numberWithBool:NO];
         type.name = @"NSDate *";
+        
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.checked = [NSNumber numberWithBool:NO];
         type.name = @"NSDictionary *";
+        
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.checked = [NSNumber numberWithBool:NO];
         type.name = @"NSNumber *";
+        
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.checked = [NSNumber numberWithBool:NO];
         type.name = @"NSString *";
+        
         [appDelegate.managedObjectContext save:nil];
         
         NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
@@ -114,32 +119,51 @@
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
     
-    self.options = [NSMutableArray array];
-    Option *option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"- (void)dealloc;";
-    [self.options addObject:option];
-    option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
-    [self.options addObject:option];
-    option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
-    [self.options addObject:option];
-    option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"+ (id)copyWithZone:(NSZone *)zone;";
-    [self.options addObject:option];
-    option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"- (void)encodeWithCoder:(NSCoder *)coder;";
-    [self.options addObject:option];
-    option = [[Option alloc] init];
-    option.checked = [NSNumber numberWithBool:YES];
-    option.name = @"- (id)initWithCoder:(NSCoder *)decoder;";
-    [self.options addObject:option];
-    self.options = self.options;
+    request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
+    self.options = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    if (!self.options.count) {
+        Option *option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:0];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"- (void)dealloc;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:1];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:2];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:3];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:4];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"+ (id)copyWithZone:(NSZone *)zone;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:5];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"- (void)encodeWithCoder:(NSCoder *)coder;";
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.order = [NSNumber numberWithInt:6];
+        option.checked = [NSNumber numberWithBool:YES];
+        option.name = @"- (id)initWithCoder:(NSCoder *)decoder;";
+        
+        [appDelegate.managedObjectContext save:nil];
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
+        request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
+        self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    }
 }
 
 @end

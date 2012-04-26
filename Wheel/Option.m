@@ -10,7 +10,8 @@
 
 @implementation Option
 
-@synthesize checked = _checked;
-@synthesize name = _name;
+@dynamic checked;
+@dynamic name;
+@dynamic order;
 
 @end

@@ -12,5 +12,6 @@
 %@
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 + (id)objectWithDictionary:(NSDictionary *)dictionary;
++ (NSArray *)objectsWithArray:(NSArray *)array;
 
 @end
