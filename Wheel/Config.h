@@ -6,6 +6,24 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define M_CONTENT(className, myProjectName, myName, myCompanyName, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+//\n\
+//  %@.m\n\
+//  %@\n\
+//\n\
+//  Created by %@ on 13.04.12.\n\
+//  Copyright (c) 2012 %@. All rights reserved.\n\
+//\n\
+\n\
+#import \"%@.h\"\n\
+\n\
+@implementation %@\n\
+\n\
+%@%@%@%@%@%@%@%@@end\n\
+\n\
+"\
+, className, myProjectName, myName, myCompanyName, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
+
 #define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
 %@\n\
 "\
@@ -61,7 +79,7 @@
 
 #define INITWITHCODER(properties) [NSString stringWithFormat:@"\
 - (id)initWithCoder:(NSCoder *)decoder {\n\
-    self = [super init];\n\
+    self = [super initWithCoder:decoder];\n\
     if (self) {\n\
 %@    }\n\
     return self;\n\
