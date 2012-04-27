@@ -6,10 +6,22 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
+%@\n\
+"\
+, properties]
+
 #define DEALLOC(properties) [NSString stringWithFormat:@"\
 - (void)dealloc {\n\
 %@    [super dealloc];\n\
-}\n\
+}\n\n\
+"\
+, properties]
+
+#define DEALLOC(properties) [NSString stringWithFormat:@"\
+- (void)dealloc {\n\
+%@    [super dealloc];\n\
+}\n\n\
 "\
 , properties]
 
@@ -19,14 +31,14 @@
     if (self) {\n\
 %@    }\n\
     return self;\n\
-}\n\
+}\n\n\
 "\
 , properties]
 
 #define OBJECTWITHDICTIONARY @"\
 + (id)objectWithDictionary:(NSDictionary *)dictionary {\n\
     return [[[self alloc] initWithDictionary:dictionary] autorelease];\n\
-}\n\
+}\n\n\
 "
 
 #define OBJECTSWITHARRAY @"\
@@ -36,14 +48,14 @@
         [objects addObject:[self objectWithDictionary:dictionary]];\n\
     }\n\
     return objects;\n\
-}\n\
+}\n\n\
 "
 
 #define COPYWITHZONE(properties) [NSString stringWithFormat:@"\
 + (id)copyWithZone:(NSZone *)zone {\n\
     Model *object = [[self class] allocWithZone:zone] init];\n\
 %@    return object;\n\
-}\n\
+}\n\n\
 "\
 , properties]
 
@@ -53,12 +65,12 @@
     if (self) {\n\
 %@    }\n\
     return self;\n\
-}\n\
+}\n\n\
 "\
 , properties]
 
 #define ENCODEWITHCODER(properties) [NSString stringWithFormat:@"\
 - (void)encodeWithCoder:(NSCoder *)coder {\n\
-%@}\n\
+%@}\n\n\
 "\
 , properties]

@@ -9,47 +9,5 @@
 #import "%@.h"
 
 @implementation %@
-%@
-- (void)dealloc {
-%@    [super dealloc];
-}
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super init];
-    if (self) {
-%@    }
-    return self;
-}
-
-+ (id)objectWithDictionary:(NSDictionary *)dictionary {
-    return [[[self alloc] initWithDictionary:dictionary] autorelease];
-}
-
-+ (NSArray *)objectsWithArray:(NSArray *)array {
-    NSMutableArray *objects = [NSMutableArray arrayWithCapacity:array.count];
-    for(NSDictionary *dictionary in array) {
-        [objects addObject:[self objectWithDictionary:dictionary]];
-    }
-    return objects;
-}
-
-#pragma mark - NSCopying
-
-+ (id)copyWithZone:(NSZone *)zone {
-    Model *object = [[self class] allocWithZone:zone] init];
-%@    return object;
-}
-
-#pragma mark - NSCoding
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-%@    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-%@}
-
-@end
+%@%@%@%@%@%@%@%@@end

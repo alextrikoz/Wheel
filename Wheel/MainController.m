@@ -53,19 +53,7 @@
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
-- (void)methods {
-    NSLog(@"%@", DEALLOC(@""));
-    NSLog(@"%@", INITWITHDICTIONARY(@""));
-    NSLog(@"%@", OBJECTWITHDICTIONARY);
-    NSLog(@"%@", OBJECTSWITHARRAY);
-    NSLog(@"%@", COPYWITHZONE(@""));
-    NSLog(@"%@", INITWITHCODER(@""));
-    NSLog(@"%@", ENCODEWITHCODER(@""));
-}
-
-- (IBAction)generate:(id)sender {
-    [self methods];
-    
+- (IBAction)generate:(id)sender {    
     NSString *className = self.classNameTextField.stringValue;
     NSString *superClassName = self.superClassNameTextField.stringValue;
     
@@ -79,7 +67,7 @@
     NSString *h_properties = @"\n";   
     
     NSString *m_context = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"m" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-    NSString *m_synthesize_properties = @"\n";
+    NSString *m_synthesize_properties = @"";
     NSString *m_release_properties = @"";
     NSString *m_dictionary_properties = @"";
     NSString *m_copy_properties = @"";
@@ -97,7 +85,7 @@
     }
     h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
     
-    m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, m_synthesize_properties, m_release_properties, m_dictionary_properties, m_copy_properties, m_decoder_properties, m_coder_properties];
+    m_context = [NSString stringWithFormat:m_context, className, myProjectName, myName, myCompanyName, className, className, SYNTHESIZE(m_synthesize_properties), DEALLOC(m_release_properties), INITWITHDICTIONARY(m_dictionary_properties), OBJECTWITHDICTIONARY, OBJECTSWITHARRAY, COPYWITHZONE(m_copy_properties), INITWITHCODER(m_decoder_properties), ENCODEWITHCODER(m_coder_properties)];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
