@@ -10,6 +10,7 @@
 
 #import "Config.h"
 
+#import "Option.h"
 #import "Entity.h"
 #import "DataStore.h"
 
@@ -84,7 +85,14 @@
     }
     h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
     
-    NSString *m_context = M_CONTENT(className, myProjectName, myName, myCompanyName, SYNTHESIZE(m_synthesize_properties), DEALLOC(m_release_properties), INITWITHDICTIONARY(m_dictionary_properties), OBJECTWITHDICTIONARY, OBJECTSWITHARRAY, COPYWITHZONE(m_copy_properties), INITWITHCODER(m_decoder_properties), ENCODEWITHCODER(m_coder_properties));
+    NSString *dealloc = [((Option *)[self.dataStore.options objectAtIndex:0]).checked boolValue] ? DEALLOC(m_release_properties) : @"";
+    NSString *initwithdictionary = [((Option *)[self.dataStore.options objectAtIndex:1]).checked boolValue] ?INITWITHDICTIONARY(m_dictionary_properties) : @"";
+    NSString *objectwithdictionary = [((Option *)[self.dataStore.options objectAtIndex:2]).checked boolValue] ? OBJECTWITHDICTIONARY : @"";
+    NSString *objectswitharray = [((Option *)[self.dataStore.options objectAtIndex:3]).checked boolValue] ?OBJECTWITHDICTIONARY : @"";
+    NSString *copywithzone = [((Option *)[self.dataStore.options objectAtIndex:4]).checked boolValue] ?COPYWITHZONE(m_copy_properties) : @"";
+    NSString *initwithcoder = [((Option *)[self.dataStore.options objectAtIndex:5]).checked boolValue] ?INITWITHCODER(m_decoder_properties) : @"";
+    NSString *encodewithcoder = [((Option *)[self.dataStore.options objectAtIndex:6]).checked boolValue] ?ENCODEWITHCODER(m_coder_properties) : @"";
+    NSString *m_context = M_CONTENT(className, myProjectName, myName, myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
