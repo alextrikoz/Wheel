@@ -11,7 +11,10 @@
 #import "Type.h"
 #import "Entity.h"
 #import "Option.h"
+
 #import "AppDelegate.h"
+
+#import "Config.h"
 
 @implementation DataStore
 
@@ -164,6 +167,34 @@
         request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
         self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     }
+}
+
+- (BOOL)isDeallocEnabled {
+    return [((Option *)[self.options objectAtIndex:0]).checked boolValue];
+}
+
+- (BOOL)isInitWithDictionaryEnabled {
+    return [((Option *)[self.options objectAtIndex:1]).checked boolValue];
+}
+
+- (BOOL)isObjectWithDictionaryEnabled {
+    return [((Option *)[self.options objectAtIndex:2]).checked boolValue];
+}
+
+- (BOOL)isObjectsWithArrayEnabled {
+    return [((Option *)[self.options objectAtIndex:3]).checked boolValue];
+}
+
+- (BOOL)isCopyWithZoneEnabled {
+    return [((Option *)[self.options objectAtIndex:4]).checked boolValue];
+}
+
+- (BOOL)isInitWithCoderEnabled {
+    return [((Option *)[self.options objectAtIndex:5]).checked boolValue];
+}
+
+- (BOOL)isEncodeWithCoderEnabled {
+    return [((Option *)[self.options objectAtIndex:6]).checked boolValue];
 }
 
 @end

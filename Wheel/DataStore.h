@@ -17,4 +17,12 @@
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *options;
 
+- (BOOL)isDeallocEnabled;
+- (BOOL)isInitWithDictionaryEnabled;
+- (BOOL)isObjectWithDictionaryEnabled;
+- (BOOL)isObjectsWithArrayEnabled;
+- (BOOL)isCopyWithZoneEnabled;
+- (BOOL)isInitWithCoderEnabled;
+- (BOOL)isEncodeWithCoderEnabled;
+
 @end

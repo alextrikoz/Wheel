@@ -69,9 +69,9 @@
 }\n\n\
 "
 
-#define COPYWITHZONE(properties) [NSString stringWithFormat:@"\
+#define COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
 + (id)copyWithZone:(NSZone *)zone {\n\
-    Model *object = [[self class] allocWithZone:zone] init];\n\
+    className *object = [[self class] allocWithZone:zone] init];\n\
 %@    return object;\n\
 }\n\n\
 "\
