@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define M_CONTENT(className, myProjectName, myName, myCompanyName, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+#define M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
 //\n\
 //  %@.m\n\
 //  %@\n\
 //\n\
-//  Created by %@ on 13.04.12.\n\
-//  Copyright (c) 2012 %@. All rights reserved.\n\
+//  Created by %@ on %@\n\
+//  Copyright (c) %@ %@. All rights reserved.\n\
 //\n\
 \n\
 #import \"%@.h\"\n\
@@ -22,7 +22,7 @@
 %@%@%@%@%@%@%@%@@end\n\
 \n\
 "\
-, className, myProjectName, myName, myCompanyName, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
+, className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
 
 #define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
 %@\n\

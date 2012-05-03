@@ -92,7 +92,7 @@
     NSString *copywithzone = self.dataStore.isCopyWithZoneEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
     NSString *initwithcoder = self.dataStore.isInitWithCoderEnabled ? INITWITHCODER(m_decoder_properties) : @"";
     NSString *encodewithcoder = self.dataStore.isEncodeWithCoderEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
-    NSString *m_context = M_CONTENT(className, myProjectName, myName, myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
+    NSString *m_context = M_CONTENT(className, myProjectName, myName, @"13.04.12.", @"2012", myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
