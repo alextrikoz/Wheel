@@ -38,7 +38,7 @@
 }
 
 - (NSString *)coderFormat {
-    return [NSString stringWithFormat:@"    coder.%@ = self.%@;\n", self.name, self.name];
+    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:\"%@\"];\n", self.name, self.name];
 }
 
 - (NSString *)decoderFormat {
