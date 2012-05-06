@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype) [NSString stringWithFormat:@"\
+#define H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, protocols, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype) [NSString stringWithFormat:@"\
 //\n\
 //  %@.h\n\
 //  %@\n\
@@ -17,12 +17,17 @@
 \n\
 #import <Foundation/Foundation.h>\n\
 \n\
-@interface %@ : %@ <NSCopying, NSCoding>\n\
+@interface %@ : %@ %@\n\
 %@\n\
 %@%@%@\n\
 @end\n\n\
 ",\
-className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, className, superClassName, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype]
+className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, className, superClassName, protocols, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype]
+
+#define H_PROPERTIES(properties) [NSString stringWithFormat:@"\
+%@\n\
+",\
+properties]
 
 #define H_INITWITHDICTIONARY_PROTOTYPE @"\
 - (id)initWithDictionary:(NSDictionary *)dictionary;\n\
@@ -35,11 +40,6 @@ className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, cla
 #define H_OBJECTSWITHARRAY_PROTOTYPE @"\
 - (id)initWithDictionary:(NSDictionary *)dictionary;\n\
 "
-
-#define H_PROPERTIES(properties) [NSString stringWithFormat:@"\
-%@\n\
-",\
-properties]
 
 #define M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
 //\n\
@@ -60,13 +60,6 @@ className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, cla
 
 #define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
 %@\n\
-",\
-properties]
-
-#define DEALLOC(properties) [NSString stringWithFormat:@"\
-- (void)dealloc {\n\
-%@    [super dealloc];\n\
-}\n\n\
 ",\
 properties]
 
@@ -104,6 +97,8 @@ properties]
 "
 
 #define COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
+#pragma mark - NSCoding\n\
+\n\
 + (id)copyWithZone:(NSZone *)zone {\n\
     className *object = [[self class] allocWithZone:zone] init];\n\
 %@    return object;\n\
@@ -112,6 +107,8 @@ properties]
 properties]
 
 #define INITWITHCODER(properties) [NSString stringWithFormat:@"\
+#pragma mark - NSCoding\n\
+\n\
 - (id)initWithCoder:(NSCoder *)decoder {\n\
     self = [super initWithCoder:decoder];\n\
     if (self) {\n\

@@ -149,17 +149,12 @@
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.order = [NSNumber numberWithInt:4];
         option.checked = [NSNumber numberWithBool:YES];
-        option.name = @"+ (id)copyWithZone:(NSZone *)zone;";
+        option.name = @"NSCopying";
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.order = [NSNumber numberWithInt:5];
         option.checked = [NSNumber numberWithBool:YES];
-        option.name = @"- (void)encodeWithCoder:(NSCoder *)coder;";
-        
-        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:6];
-        option.checked = [NSNumber numberWithBool:YES];
-        option.name = @"- (id)initWithCoder:(NSCoder *)decoder;";
+        option.name = @"NSCoding";
         
         [appDelegate.managedObjectContext save:nil];
         
@@ -168,6 +163,8 @@
         self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     }
 }
+
+#pragma mark - NSCopying
 
 - (BOOL)isDeallocEnabled {
     return [((Option *)[self.options objectAtIndex:0]).checked boolValue];
@@ -185,16 +182,12 @@
     return [((Option *)[self.options objectAtIndex:3]).checked boolValue];
 }
 
-- (BOOL)isCopyWithZoneEnabled {
+- (BOOL)isCopyingEnabled {
     return [((Option *)[self.options objectAtIndex:4]).checked boolValue];
 }
 
-- (BOOL)isInitWithCoderEnabled {
+- (BOOL)isCodingEnabled {
     return [((Option *)[self.options objectAtIndex:5]).checked boolValue];
-}
-
-- (BOOL)isEncodeWithCoderEnabled {
-    return [((Option *)[self.options objectAtIndex:6]).checked boolValue];
 }
 
 @end

@@ -21,8 +21,7 @@
 - (BOOL)isInitWithDictionaryEnabled;
 - (BOOL)isObjectWithDictionaryEnabled;
 - (BOOL)isObjectsWithArrayEnabled;
-- (BOOL)isCopyWithZoneEnabled;
-- (BOOL)isInitWithCoderEnabled;
-- (BOOL)isEncodeWithCoderEnabled;
+- (BOOL)isCopyingEnabled;
+- (BOOL)isCodingEnabled;
 
 @end

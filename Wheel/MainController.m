@@ -87,19 +87,28 @@
         m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
     }
     
+    NSString *protocols = @"";
+    if (self.dataStore.isCopyingEnabled && self.dataStore.isCodingEnabled) {
+        protocols = @"<NSCopying, NSCoding>";
+    } else if (self.dataStore.isCopyingEnabled) {
+        protocols = @"<NSCopying>";
+    } else if (self.dataStore.isCodingEnabled) {
+        protocols = @"<NSCoding>";
+    }
+    
     NSString *initWithDictionaryPrototype = self.dataStore.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
     NSString *objectWithDictionaryPrototype = self.dataStore.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE : @"";
     NSString *objectsWithArrayPrototype = self.dataStore.isObjectsWithArrayEnabled ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
     
-    NSString *h_content = H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, H_PROPERTIES(h_properties), initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype);
+    NSString *h_content = H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, protocols, H_PROPERTIES(h_properties), initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype);
     
     NSString *dealloc = self.dataStore.isDeallocEnabled ? DEALLOC(m_release_properties) : @"";
     NSString *initwithdictionary = self.dataStore.isInitWithDictionaryEnabled ? INITWITHDICTIONARY(m_dictionary_properties) : @"";
     NSString *objectwithdictionary = self.dataStore.isObjectWithDictionaryEnabled ? OBJECTWITHDICTIONARY : @"";
     NSString *objectswitharray = self.dataStore.isObjectsWithArrayEnabled ? OBJECTWITHDICTIONARY : @"";
-    NSString *copywithzone = self.dataStore.isCopyWithZoneEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
-    NSString *initwithcoder = self.dataStore.isInitWithCoderEnabled ? INITWITHCODER(m_decoder_properties) : @"";
-    NSString *encodewithcoder = self.dataStore.isEncodeWithCoderEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
+    NSString *copywithzone = self.dataStore.isCopyingEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
+    NSString *initwithcoder = self.dataStore.isCodingEnabled ? INITWITHCODER(m_decoder_properties) : @"";
+    NSString *encodewithcoder = self.dataStore.isCodingEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
     NSString *m_context = M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
