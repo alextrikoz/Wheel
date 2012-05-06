@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1135C471153942E000F2AEA4 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46A153942E000F2AEA4 /* Entity.m */; };
 		1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityCollectionView.m */; };
-		1135C473153942E000F2AEA4 /* h.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1135C46D153942E000F2AEA4 /* h.txt */; };
 		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
@@ -68,7 +67,6 @@
 		1135C46A153942E000F2AEA4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		1135C46B153942E000F2AEA4 /* EntityCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityCollectionView.h; sourceTree = "<group>"; };
 		1135C46C153942E000F2AEA4 /* EntityCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityCollectionView.m; sourceTree = "<group>"; };
-		1135C46D153942E000F2AEA4 /* h.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = h.txt; sourceTree = "<group>"; };
 		1135C46F153942E000F2AEA4 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 				115765241549C8760040D3A7 /* Config.h */,
 				2147F3DB1545BD4F0015D6EF /* CustomCell.h */,
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
-				1135C46D153942E000F2AEA4 /* h.txt */,
 				212402F215458CD20043D929 /* Type.h */,
 				212402F315458CD20043D929 /* Type.m */,
 				1157651D1549B78F0040D3A7 /* Option.h */,
@@ -396,7 +393,6 @@
 				11EF74471539426800D341B5 /* Credits.rtf in Resources */,
 				11EF744D1539426800D341B5 /* MainMenu.xib in Resources */,
 				11EF746C1539426800D341B5 /* WheelImporter.mdimporter in Resources */,
-				1135C473153942E000F2AEA4 /* h.txt in Resources */,
 				1135C47D153943D300F2AEA4 /* hammer.png in Resources */,
 				21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */,
 				21871882153F055E005A1540 /* plus.png in Resources */,

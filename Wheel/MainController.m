@@ -58,15 +58,19 @@
     NSString *className = self.classNameTextField.stringValue;
     NSString *superClassName = self.superClassNameTextField.stringValue;
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    NSString *createdDate = [dateFormatter stringFromDate:[NSDate date]];
+    [dateFormatter setDateFormat:@"YYYY"];
+    NSString *copyrightDate = [dateFormatter stringFromDate:[NSDate date]];
+    
     NSUserDefaultsController *defaults = [NSUserDefaultsController sharedUserDefaultsController];
     
     NSString *myName = [[defaults values] valueForKey:@"MyName"];
     NSString *myCompanyName = [[defaults values] valueForKey:@"MyCompanyName"];
     NSString *myProjectName = [[defaults values] valueForKey:@"MyProjectName"];
     
-    NSString *h_content = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"h" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-    NSString *h_properties = @"\n";   
-    
+    NSString *h_properties = @"";
     NSString *m_synthesize_properties = @"";
     NSString *m_release_properties = @"";
     NSString *m_dictionary_properties = @"";
@@ -75,7 +79,6 @@
     NSString *m_coder_properties = @"";
     for (Entity *entity in self.dataStore.entities) {
         h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
-        
         m_synthesize_properties = [m_synthesize_properties stringByAppendingString:[entity synthesizeFormat]];
         m_release_properties = [m_release_properties stringByAppendingString:[entity releaseFormat]];
         m_dictionary_properties = [m_dictionary_properties stringByAppendingString:[entity dictionaryFormat]];
@@ -83,7 +86,12 @@
         m_decoder_properties = [m_decoder_properties stringByAppendingString:[entity decoderFormat]];
         m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
     }
-    h_content = [NSString stringWithFormat:h_content, className, myProjectName, myName, myCompanyName, className, superClassName, h_properties];
+    
+    NSString *initWithDictionaryPrototype = self.dataStore.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
+    NSString *objectWithDictionaryPrototype = self.dataStore.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE : @"";
+    NSString *objectsWithArrayPrototype = self.dataStore.isObjectsWithArrayEnabled ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+    
+    NSString *h_content = H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, H_PROPERTIES(h_properties), initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype);
     
     NSString *dealloc = self.dataStore.isDeallocEnabled ? DEALLOC(m_release_properties) : @"";
     NSString *initwithdictionary = self.dataStore.isInitWithDictionaryEnabled ? INITWITHDICTIONARY(m_dictionary_properties) : @"";
@@ -92,7 +100,7 @@
     NSString *copywithzone = self.dataStore.isCopyWithZoneEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
     NSString *initwithcoder = self.dataStore.isInitWithCoderEnabled ? INITWITHCODER(m_decoder_properties) : @"";
     NSString *encodewithcoder = self.dataStore.isEncodeWithCoderEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
-    NSString *m_context = M_CONTENT(className, myProjectName, myName, @"13.04.12.", @"2012", myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
+    NSString *m_context = M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
