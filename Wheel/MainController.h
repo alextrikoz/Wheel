@@ -15,8 +15,6 @@
 @property (strong) IBOutlet DataStore *dataStore;
 
 @property (strong) IBOutlet NSTableView *tableView;
-@property (strong) IBOutlet NSTextField *classNameTextField;
-@property (strong) IBOutlet NSTextField *superClassNameTextField;
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;

@@ -17,32 +17,32 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
-- (NSString *)propertyStuff {
+- (NSString *)h_propertyStuff {
     return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
 }
 
-- (NSString *)synthesizeStuff {
+- (NSString *)m_synthesizeStuff {
     return [NSString stringWithFormat:@"@synthesize %@ = _%@;\n", self.name, self.name];
 }
 
-- (NSString *)releaseFormat {
+- (NSString *)m_deallocStuff {
     return [NSString stringWithFormat:@"    [_%@ release];\n", self.name];
 }
 
-- (NSString *)dictionaryFormat {
+- (NSString *)m_initWithDictionaryStuff {
     return [NSString stringWithFormat:@"        self.%@ = [dictionary objectForKey:@\"%@\"];\n", self.name, self.name];
 }
 
-- (NSString *)copyFormat {
+- (NSString *)m_copyWithZoneStuff {
     return [NSString stringWithFormat:@"    object.%@ = self.%@;\n", self.name, self.name];
 }
 
-- (NSString *)coderFormat {
-    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:\"%@\"];\n", self.name, self.name];
+- (NSString *)m_initWithCoderStuff {
+    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", self.name, self.name];
 }
 
-- (NSString *)decoderFormat {
-    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", self.name, self.name];
+- (NSString *)m_encodeWithCoderStuff {
+    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:\"%@\"];\n", self.name, self.name];
 }
 
 @end

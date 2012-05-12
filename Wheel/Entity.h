@@ -17,12 +17,12 @@
 @property (strong) NSString *type;
 @property (strong) NSString *name;
 
-- (NSString *)propertyStuff;
-- (NSString *)synthesizeStuff;
-- (NSString *)releaseFormat;
-- (NSString *)dictionaryFormat;
-- (NSString *)copyFormat;
-- (NSString *)coderFormat;
-- (NSString *)decoderFormat;
+- (NSString *)h_propertyStuff;
+- (NSString *)m_synthesizeStuff;
+- (NSString *)m_deallocStuff;
+- (NSString *)m_initWithDictionaryStuff;
+- (NSString *)m_copyWithZoneStuff;
+- (NSString *)m_initWithCoderStuff;
+- (NSString *)m_encodeWithCoderStuff;
 
 @end

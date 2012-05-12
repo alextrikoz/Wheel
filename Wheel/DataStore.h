@@ -10,6 +10,9 @@
 
 @interface DataStore : NSObject
 
+@property (copy) NSString *className;
+@property (copy) NSString *superClassName;
+
 @property (strong) NSMutableArray *setters;
 @property (strong) NSMutableArray *atomicities;
 @property (strong) NSMutableArray *writabilities;
@@ -34,5 +37,12 @@
 - (NSString *)h_prototypes;
 
 - (NSString *)m_synthesizes;
+- (NSString *)m_dealloc;
+- (NSString *)m_initWithDictionary;
+- (NSString *)m_objectWithDictionary;
+- (NSString *)m_objectsWithArrayEnabled;
+- (NSString *)m_copyWithZone;
+- (NSString *)m_initWithCoder;
+- (NSString *)m_encodeWithCoder;
 
 @end

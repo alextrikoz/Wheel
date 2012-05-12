@@ -19,8 +19,6 @@
 @synthesize dataStore = _dataStore;
 
 @synthesize tableView = _tableView;
-@synthesize classNameTextField = _classNameTextField;
-@synthesize superClassNameTextField = _superClassNameTextField;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -55,8 +53,8 @@
 }
 
 - (IBAction)generate:(id)sender {    
-    NSString *className = self.classNameTextField.stringValue;
-    NSString *superClassName = self.superClassNameTextField.stringValue;
+    NSString *className = self.dataStore.className;
+    NSString *superClassName = self.dataStore.className;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
@@ -70,19 +68,6 @@
     NSString *myCompanyName = [[defaults values] valueForKey:@"MyCompanyName"];
     NSString *myProjectName = [[defaults values] valueForKey:@"MyProjectName"];
     
-    NSString *m_release_properties = @"";
-    NSString *m_dictionary_properties = @"";
-    NSString *m_copy_properties = @"";
-    NSString *m_decoder_properties = @"";
-    NSString *m_coder_properties = @"";
-    for (Entity *entity in self.dataStore.entities) {
-        m_release_properties = [m_release_properties stringByAppendingString:[entity releaseFormat]];
-        m_dictionary_properties = [m_dictionary_properties stringByAppendingString:[entity dictionaryFormat]];
-        m_copy_properties = [m_copy_properties stringByAppendingString:[entity copyFormat]];
-        m_decoder_properties = [m_decoder_properties stringByAppendingString:[entity decoderFormat]];
-        m_coder_properties = [m_coder_properties stringByAppendingString:[entity coderFormat]];
-    }
-    
     NSString *h_file_name = [className stringByAppendingString:@".h"];
     NSString *h_header = HEADER(h_file_name, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
     NSString *h_protocols = self.dataStore.h_protocols;
@@ -93,14 +78,14 @@
     NSString *m_file_name = [className stringByAppendingString:@".m"];
     NSString *m_header = HEADER(m_file_name, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
     NSString *m_synthesize_properties = self.dataStore.m_synthesizes;
-    NSString *dealloc = self.dataStore.isDeallocEnabled ? DEALLOC(m_release_properties) : @"";
-    NSString *initwithdictionary = self.dataStore.isInitWithDictionaryEnabled ? INITWITHDICTIONARY(m_dictionary_properties) : @"";
-    NSString *objectwithdictionary = self.dataStore.isObjectWithDictionaryEnabled ? OBJECTWITHDICTIONARY : @"";
-    NSString *objectswitharray = self.dataStore.isObjectsWithArrayEnabled ? OBJECTSWITHARRAY : @"";
-    NSString *copywithzone = self.dataStore.isCopyingEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
-    NSString *initwithcoder = self.dataStore.isCodingEnabled ? INITWITHCODER(m_decoder_properties) : @"";
-    NSString *encodewithcoder = self.dataStore.isCodingEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
-    NSString *m_context = M_CONTENT(m_header, className, m_synthesize_properties, dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
+    NSString *m_dealloc = self.dataStore.m_dealloc;
+    NSString *m_initWithDictionary = self.dataStore.m_initWithDictionary;
+    NSString *m_objectWithDictionary = self.dataStore.m_objectWithDictionary;
+    NSString *m_objectsWithArrayEnabled = self.dataStore.m_objectsWithArrayEnabled;
+    NSString *m_copyWithZone = self.dataStore.m_copyWithZone;
+    NSString *m_initWithCoder = self.dataStore.m_initWithCoder;
+    NSString *m_encodeWithCoder = self.dataStore.m_encodeWithCoder;
+    NSString *m_context = M_CONTENT(m_header, className, m_synthesize_properties, m_dealloc, m_initWithDictionary, m_objectWithDictionary, m_objectsWithArrayEnabled, m_copyWithZone, m_initWithCoder, m_encodeWithCoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];

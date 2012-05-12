@@ -47,7 +47,7 @@ initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayProt
 "
 
 #define H_OBJECTSWITHARRAY_PROTOTYPE @"\
-- (id)objectsWithArray:(NSArray *)array;\n\
+- (NSMutableArray *)objectsWithArray:(NSArray *)array;\n\
 "
 
 #define M_CONTENT(header, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
@@ -65,14 +65,14 @@ header, className, className, synthesize, dealloc, initWithDictionary, objectWit
 ",\
 properties]
 
-#define DEALLOC(properties) [NSString stringWithFormat:@"\
+#define M_DEALLOC(properties) [NSString stringWithFormat:@"\
 - (void)dealloc {\n\
 %@    [super dealloc];\n\
 }\n\n\
 ",\
 properties]
 
-#define INITWITHDICTIONARY(properties) [NSString stringWithFormat:@"\
+#define M_INITWITHDICTIONARY(properties) [NSString stringWithFormat:@"\
 - (id)initWithDictionary:(NSDictionary *)dictionary {\n\
     self = [super init];\n\
     if (self) {\n\
@@ -82,14 +82,14 @@ properties]
 ",\
 properties]
 
-#define OBJECTWITHDICTIONARY @"\
+#define M_OBJECTWITHDICTIONARY @"\
 + (id)objectWithDictionary:(NSDictionary *)dictionary {\n\
     return [[[self alloc] initWithDictionary:dictionary] autorelease];\n\
 }\n\n\
 "
 
-#define OBJECTSWITHARRAY @"\
-+ (NSArray *)objectsWithArray:(NSArray *)array {\n\
+#define M_OBJECTSWITHARRAY @"\
++ (NSMutableArray *)objectsWithArray:(NSArray *)array {\n\
     NSMutableArray *objects = [NSMutableArray arrayWithCapacity:array.count];\n\
     for(NSDictionary *dictionary in array) {\n\
         [objects addObject:[self objectWithDictionary:dictionary]];\n\
@@ -98,17 +98,17 @@ properties]
 }\n\n\
 "
 
-#define COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
+#define M_COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
 #pragma mark - NSCoding\n\
 \n\
 + (id)copyWithZone:(NSZone *)zone {\n\
-    className *object = [[self class] allocWithZone:zone] init];\n\
+    %@ *object = [[self class] allocWithZone:zone] init];\n\
 %@    return object;\n\
 }\n\n\
 ",\
-properties]
+className, properties]
 
-#define INITWITHCODER(properties) [NSString stringWithFormat:@"\
+#define M_INITWITHCODER(properties) [NSString stringWithFormat:@"\
 #pragma mark - NSCoding\n\
 \n\
 - (id)initWithCoder:(NSCoder *)decoder {\n\
@@ -120,7 +120,7 @@ properties]
 ",\
 properties]
 
-#define ENCODEWITHCODER(properties) [NSString stringWithFormat:@"\
+#define M_ENCODEWITHCODER(properties) [NSString stringWithFormat:@"\
 - (void)encodeWithCoder:(NSCoder *)coder {\n\
 %@}\n\n\
 ",\

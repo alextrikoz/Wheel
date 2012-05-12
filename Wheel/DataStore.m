@@ -18,6 +18,9 @@
 
 @implementation DataStore
 
+@synthesize className = _className;
+@synthesize superClassName = _superClassName;
+
 @synthesize entities = _entities;
 @synthesize setters = _setters;
 @synthesize atomicities = _atomicities;
@@ -35,6 +38,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.className = @"MyClass";
+    self.superClassName = @"NSObject";
     
     self.entities = [NSMutableArray array];
     Entity *entity = [[Entity alloc] init];
@@ -213,11 +219,11 @@
         return @"";
     }
     
-    NSString *propertyStuff = @"";
+    NSString *stuff = @"";
     for (Entity *entity in self.entities) {
-        propertyStuff = [propertyStuff stringByAppendingString:[entity propertyStuff]];
+        stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
     }
-    return H_PROPERTIES(propertyStuff);
+    return H_PROPERTIES(stuff);
 }
 
 - (NSString *)h_initWithDictionaryPrototype {
@@ -241,11 +247,79 @@
         return @"";
     }
     
-    NSString *synthesizeStuff = @"";
+    NSString *stuff = @"";
     for (Entity *entity in self.entities) {
-        synthesizeStuff = [synthesizeStuff stringByAppendingString:[entity synthesizeStuff]];
+        stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
     }
-    return M_SYNTHESIZES(synthesizeStuff);
+    return M_SYNTHESIZES(stuff);
+}
+
+- (NSString *)m_dealloc {
+    if (!self.isDeallocEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
+    }
+    return M_DEALLOC(stuff);
+}
+
+- (NSString *)m_initWithDictionary {
+    if (!self.isInitWithDictionaryEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
+    }
+    return M_INITWITHDICTIONARY(stuff);
+}
+
+- (NSString *)m_objectWithDictionary {
+    return self.isObjectWithDictionaryEnabled ? M_OBJECTWITHDICTIONARY : @"";
+}
+
+- (NSString *)m_objectsWithArrayEnabled {
+    return self.isObjectsWithArrayEnabled ? M_OBJECTSWITHARRAY : @"";
+}
+
+- (NSString *)m_copyWithZone {
+    if (!self.isCopyingEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
+    }
+    return M_COPYWITHZONE(self.className, stuff);
+}
+
+- (NSString *)m_initWithCoder {
+    if (!self.isCodingEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_initWithCoderStuff]];
+    }
+    return M_INITWITHCODER(stuff);
+}
+
+- (NSString *)m_encodeWithCoder {
+    if (!self.isCodingEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
+    }
+    return M_ENCODEWITHCODER(stuff);
 }
 
 @end
