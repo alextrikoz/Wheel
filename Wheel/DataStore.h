@@ -29,13 +29,18 @@
 - (BOOL)isCopyingEnabled;
 - (BOOL)isCodingEnabled;
 
+- (NSString *)headerWithFileType:(NSString *)fileType;
+
+- (NSString *)h_header;
 - (NSString *)h_protocols;
 - (NSString *)h_properties;
 - (NSString *)h_initWithDictionaryPrototype;
 - (NSString *)h_objectWithDictionaryPrototype;
 - (NSString *)h_objectsWithArrayPrototype;
 - (NSString *)h_prototypes;
+- (NSString *)h_content;
 
+- (NSString *)m_header;
 - (NSString *)m_synthesizes;
 - (NSString *)m_dealloc;
 - (NSString *)m_initWithDictionary;
@@ -44,5 +49,6 @@
 - (NSString *)m_copyWithZone;
 - (NSString *)m_initWithCoder;
 - (NSString *)m_encodeWithCoder;
+- (NSString *)m_content;
 
 @end

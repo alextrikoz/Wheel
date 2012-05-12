@@ -202,6 +202,26 @@
     return [((Option *)[self.options objectAtIndex:5]).checked boolValue];
 }
 
+- (NSString *)headerWithFileType:(NSString *)fileType {
+    id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@.%@", self.className, fileType];
+    NSString *myProjectName = [defaultValues valueForKey:@"MyProjectName"];
+    NSString *myName = [defaultValues valueForKey:@"MyName"];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    NSString *createdDate = [dateFormatter stringFromDate:[NSDate date]];
+    [dateFormatter setDateFormat:@"YYYY"];
+    NSString *copyrightDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *myCompanyName = [defaultValues valueForKey:@"MyCompanyName"];
+    
+    return HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
+}
+
+- (NSString *)h_header {
+    return [self headerWithFileType:@"h"];
+}
+
 - (NSString *)h_protocols {
     if (self.isCopyingEnabled && self.isCodingEnabled) {
         return @"<NSCopying, NSCoding>";
@@ -240,6 +260,14 @@
 
 - (NSString *)h_prototypes {
     return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype) : @"";
+}
+
+- (NSString *)h_content {    
+    return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
+}
+
+- (NSString *)m_header {
+    return [self headerWithFileType:@"m"];
 }
 
 - (NSString *)m_synthesizes {
@@ -320,6 +348,10 @@
         stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
     }
     return M_ENCODEWITHCODER(stuff);
+}
+
+- (NSString *)m_content {
+    return M_CONTENT(self.m_header, self.className, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArrayEnabled, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
 }
 
 @end
