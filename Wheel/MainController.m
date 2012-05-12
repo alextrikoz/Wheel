@@ -96,20 +96,26 @@
         protocols = @"<NSCoding>";
     }
     
+    NSString *h_file_name = [className stringByAppendingString:@".h"];
+    NSString *h_header = HEADER(h_file_name, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
+    h_properties = self.dataStore.isPropertiesEnabled ? H_PROPERTIES(h_properties) : @"";
     NSString *initWithDictionaryPrototype = self.dataStore.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
     NSString *objectWithDictionaryPrototype = self.dataStore.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE : @"";
     NSString *objectsWithArrayPrototype = self.dataStore.isObjectsWithArrayEnabled ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+    NSString *h_prototypes = self.dataStore.isPrototypesEnabled ? H_PROTOTYPES(initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype) : @"";
+    NSString *h_content = H_CONTENT(h_header, className, superClassName, protocols, h_properties, h_prototypes);
     
-    NSString *h_content = H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, protocols, H_PROPERTIES(h_properties), initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype);
-    
+    NSString *m_file_name = [className stringByAppendingString:@".m"];
+    NSString *m_header = HEADER(m_file_name, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
+    m_synthesize_properties = self.dataStore.isPropertiesEnabled ? SYNTHESIZE(m_synthesize_properties) : @"";
     NSString *dealloc = self.dataStore.isDeallocEnabled ? DEALLOC(m_release_properties) : @"";
     NSString *initwithdictionary = self.dataStore.isInitWithDictionaryEnabled ? INITWITHDICTIONARY(m_dictionary_properties) : @"";
     NSString *objectwithdictionary = self.dataStore.isObjectWithDictionaryEnabled ? OBJECTWITHDICTIONARY : @"";
-    NSString *objectswitharray = self.dataStore.isObjectsWithArrayEnabled ? OBJECTWITHDICTIONARY : @"";
+    NSString *objectswitharray = self.dataStore.isObjectsWithArrayEnabled ? OBJECTSWITHARRAY : @"";
     NSString *copywithzone = self.dataStore.isCopyingEnabled ? COPYWITHZONE(className, m_copy_properties) : @"";
     NSString *initwithcoder = self.dataStore.isCodingEnabled ? INITWITHCODER(m_decoder_properties) : @"";
     NSString *encodewithcoder = self.dataStore.isCodingEnabled ? ENCODEWITHCODER(m_coder_properties) : @"";
-    NSString *m_context = M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, SYNTHESIZE(m_synthesize_properties), dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
+    NSString *m_context = M_CONTENT(m_header, className, m_synthesize_properties, dealloc, initwithdictionary, objectwithdictionary, objectswitharray, copywithzone, initwithcoder, encodewithcoder);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -119,8 +125,8 @@
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], self.classNameTextField.stringValue]];
-            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], self.classNameTextField.stringValue]];
+            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], className]];
+            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], className]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
             

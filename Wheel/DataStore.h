@@ -17,6 +17,8 @@
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *options;
 
+- (BOOL)isPropertiesEnabled;
+- (BOOL)isPrototypesEnabled;
 - (BOOL)isDeallocEnabled;
 - (BOOL)isInitWithDictionaryEnabled;
 - (BOOL)isObjectWithDictionaryEnabled;

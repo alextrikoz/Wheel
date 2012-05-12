@@ -6,57 +6,59 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define H_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, superClassName, protocols, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype) [NSString stringWithFormat:@"\
+#define HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName) [NSString stringWithFormat:@"\
 //\n\
-//  %@.h\n\
+//  %@\n\
 //  %@\n\
 //\n\
 //  Created by %@ on %@\n\
 //  Copyright (c) %@ %@. All rights reserved.\n\
 //\n\
 \n\
-#import <Foundation/Foundation.h>\n\
+",\
+fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName]
+
+#define H_CONTENT(header, className, superClassName, protocols, properties, prototypes) [NSString stringWithFormat:@"\
+%@#import <Foundation/Foundation.h>\n\
 \n\
 @interface %@ : %@ %@\n\
-%@\n\
-%@%@%@\n\
-@end\n\n\
+\n\
+%@%@\
+@end\n\
 ",\
-className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, className, superClassName, protocols, properties, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype]
+header, className, superClassName, protocols, properties, prototypes]
 
 #define H_PROPERTIES(properties) [NSString stringWithFormat:@"\
 %@\n\
 ",\
 properties]
 
+#define H_PROTOTYPES(initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype) [NSString stringWithFormat:@"\
+%@%@%@\n\
+",\
+initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype]
+
 #define H_INITWITHDICTIONARY_PROTOTYPE @"\
 - (id)initWithDictionary:(NSDictionary *)dictionary;\n\
 "
 
 #define H_OBJECTWITHDICTIONARY_PROTOTYPE @"\
-- (id)initWithDictionary:(NSDictionary *)dictionary;\n\
+- (id)objectWithDictionary:(NSDictionary *)dictionary;\n\
 "
 
 #define H_OBJECTSWITHARRAY_PROTOTYPE @"\
-- (id)initWithDictionary:(NSDictionary *)dictionary;\n\
+- (id)objectsWithArray:(NSArray *)array;\n\
 "
 
-#define M_CONTENT(className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
-//\n\
-//  %@.m\n\
-//  %@\n\
-//\n\
-//  Created by %@ on %@\n\
-//  Copyright (c) %@ %@. All rights reserved.\n\
-//\n\
-\n\
-#import \"%@.h\"\n\
+#define M_CONTENT(header, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+%@#import \"%@.h\"\n\
 \n\
 @implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@@end\n\n\
+%@%@%@%@%@%@%@%@\
+@end\n\
 ",\
-className, myProjectName, myName, createdDate, copyrightDate, myCompanyName, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
+header, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
 
 #define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
 %@\n\

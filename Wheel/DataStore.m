@@ -166,6 +166,14 @@
 
 #pragma mark - NSCopying
 
+- (BOOL)isPropertiesEnabled {
+    return self.entities.count;
+}
+
+- (BOOL)isPrototypesEnabled {
+    return self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled;
+}
+
 - (BOOL)isDeallocEnabled {
     return [((Option *)[self.options objectAtIndex:0]).checked boolValue];
 }
