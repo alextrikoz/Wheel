@@ -60,7 +60,7 @@ initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayProt
 ",\
 header, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, copyWithZone, initWithCoder, encodeWithCoder]
 
-#define SYNTHESIZE(properties) [NSString stringWithFormat:@"\
+#define M_SYNTHESIZES(properties) [NSString stringWithFormat:@"\
 %@\n\
 ",\
 properties]

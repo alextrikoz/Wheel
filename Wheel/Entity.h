@@ -17,8 +17,8 @@
 @property (strong) NSString *type;
 @property (strong) NSString *name;
 
-- (NSString *)propertyFormat;
-- (NSString *)synthesizeFormat;
+- (NSString *)propertyStuff;
+- (NSString *)synthesizeStuff;
 - (NSString *)releaseFormat;
 - (NSString *)dictionaryFormat;
 - (NSString *)copyFormat;

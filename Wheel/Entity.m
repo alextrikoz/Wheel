@@ -17,11 +17,11 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
-- (NSString *)propertyFormat {
+- (NSString *)propertyStuff {
     return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
 }
 
-- (NSString *)synthesizeFormat {
+- (NSString *)synthesizeStuff {
     return [NSString stringWithFormat:@"@synthesize %@ = _%@;\n", self.name, self.name];
 }
 

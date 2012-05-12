@@ -213,11 +213,11 @@
         return @"";
     }
     
-    NSString *h_properties = @"";
+    NSString *propertyStuff = @"";
     for (Entity *entity in self.entities) {
-        h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
+        propertyStuff = [propertyStuff stringByAppendingString:[entity propertyStuff]];
     }
-    return H_PROPERTIES(h_properties);
+    return H_PROPERTIES(propertyStuff);
 }
 
 - (NSString *)h_initWithDictionaryPrototype {
@@ -241,11 +241,11 @@
         return @"";
     }
     
-    NSString *m_synthesizes = @"";
+    NSString *synthesizeStuff = @"";
     for (Entity *entity in self.entities) {
-        m_synthesizes = [m_synthesizes stringByAppendingString:[entity synthesizeFormat]];
+        synthesizeStuff = [synthesizeStuff stringByAppendingString:[entity synthesizeStuff]];
     }
-    return SYNTHESIZE(m_synthesizes);
+    return M_SYNTHESIZES(synthesizeStuff);
 }
 
 @end
