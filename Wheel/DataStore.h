@@ -26,4 +26,13 @@
 - (BOOL)isCopyingEnabled;
 - (BOOL)isCodingEnabled;
 
+- (NSString *)h_protocols;
+- (NSString *)h_properties;
+- (NSString *)h_initWithDictionaryPrototype;
+- (NSString *)h_objectWithDictionaryPrototype;
+- (NSString *)h_objectsWithArrayPrototype;
+- (NSString *)h_prototypes;
+
+- (NSString *)m_synthesizes;
+
 @end

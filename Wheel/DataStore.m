@@ -164,8 +164,6 @@
     }
 }
 
-#pragma mark - NSCopying
-
 - (BOOL)isPropertiesEnabled {
     return self.entities.count;
 }
@@ -196,6 +194,58 @@
 
 - (BOOL)isCodingEnabled {
     return [((Option *)[self.options objectAtIndex:5]).checked boolValue];
+}
+
+- (NSString *)h_protocols {
+    if (self.isCopyingEnabled && self.isCodingEnabled) {
+        return @"<NSCopying, NSCoding>";
+    } else if (self.isCopyingEnabled) {
+        return @"<NSCopying>";
+    } else if (self.isCodingEnabled) {
+        return @"<NSCoding>";
+    } else {
+        return @"";
+    }
+}
+
+- (NSString *)h_properties {
+    if (!self.isPropertiesEnabled) {
+        return @"";
+    }
+    
+    NSString *h_properties = @"";
+    for (Entity *entity in self.entities) {
+        h_properties = [h_properties stringByAppendingString:[entity propertyFormat]];
+    }
+    return H_PROPERTIES(h_properties);
+}
+
+- (NSString *)h_initWithDictionaryPrototype {
+    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
+}
+
+- (NSString *)h_objectWithDictionaryPrototype {
+    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE : @"";
+}
+
+- (NSString *)h_objectsWithArrayPrototype {
+    return self.isObjectsWithArrayEnabled ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+}
+
+- (NSString *)h_prototypes {
+    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype) : @"";
+}
+
+- (NSString *)m_synthesizes {
+    if (!self.isPropertiesEnabled) {
+        return @"";
+    }
+    
+    NSString *m_synthesizes = @"";
+    for (Entity *entity in self.entities) {
+        m_synthesizes = [m_synthesizes stringByAppendingString:[entity synthesizeFormat]];
+    }
+    return SYNTHESIZE(m_synthesizes);
 }
 
 @end
