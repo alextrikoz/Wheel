@@ -26,29 +26,13 @@
     [self.tableView deselectRow:self.tableView.selectedRow];    
 }
 
-- (IBAction)add:(id)sender {    
-    Entity *entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.dataStore.entities addObject:entity];
-    
-    self.dataStore.entities = self.dataStore.entities;
-    
+- (IBAction)add:(id)sender {
+    [self.dataStore addEntity];
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 
-- (IBAction)remove:(id)sender {    
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.dataStore.entities.count];
-    for (Entity *entity in self.dataStore.entities) {
-        if (!entity.checked.boolValue) {
-            [temp addObject:entity];
-        }
-    }
-    self.dataStore.entities = temp;
+- (IBAction)remove:(id)sender {
+    [self.dataStore removeSelectedEntities];
     [self.tableView deselectRow:self.tableView.selectedRow];
 }
 

@@ -170,6 +170,54 @@
     }
 }
 
+- (void)addEntity {    
+    Entity *entity = [[Entity alloc] init];
+    entity.checked = [NSNumber numberWithBool:NO];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    [self.entities addObject:entity];
+    self.entities = self.entities;
+}
+
+- (void)removeSelectedEntities {    
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.entities.count];
+    for (Entity *entity in self.entities) {
+        if (!entity.checked.boolValue) {
+            [temp addObject:entity];
+        }
+    }
+    self.entities = temp;
+}
+
+- (void)addType {
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+    type.checked = [NSNumber numberWithBool:NO];
+    type.name = @"NSObject *";
+    [appDelegate.managedObjectContext save:nil];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+}
+
+- (void)removeSelectedTypes {
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    for (Type *type in self.types) {
+        if (type.checked.boolValue) {
+            [appDelegate.managedObjectContext deleteObject:type];
+        }
+    }    
+    [appDelegate.managedObjectContext save:nil];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+}
+
 - (BOOL)isPropertiesEnabled {
     return self.entities.count;
 }

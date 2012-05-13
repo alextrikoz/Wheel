@@ -20,6 +20,12 @@
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *options;
 
+- (void)addEntity;
+- (void)removeSelectedEntities;
+
+- (void)addType;
+- (void)removeSelectedTypes;
+
 - (BOOL)isPropertiesEnabled;
 - (BOOL)isPrototypesEnabled;
 - (BOOL)isDeallocEnabled;
