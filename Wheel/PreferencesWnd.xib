@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11D50d</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">1938</string>
@@ -245,7 +245,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="344228319"/>
 						<reference ref="703884028"/>
@@ -276,7 +276,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -593,7 +593,7 @@
 											</object>
 										</object>
 										<double key="NSRowHeight">17</double>
-										<int key="NSTvFlags">-692060160</int>
+										<int key="NSTvFlags">-557842432</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
 										<int key="NSColumnAutoresizingStyle">4</int>
@@ -633,7 +633,6 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:1847</string>
-								<bool key="NSEnabled">YES</bool>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="720910761"/>
 								<string key="NSAction">_doScroller:</string>
@@ -662,7 +661,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="370702552"/>
 						<string key="NSReuseIdentifierKey">_NS:1824</string>
-						<int key="NSsFlags">133810</int>
+						<int key="NSsFlags">133682</int>
 						<reference key="NSVScroller" ref="819937690"/>
 						<reference key="NSHScroller" ref="143902093"/>
 						<reference key="NSContentView" ref="487409821"/>
@@ -792,7 +791,7 @@
 										<reference key="NSBackgroundColor" ref="264894003"/>
 										<reference key="NSGridColor" ref="641466861"/>
 										<double key="NSRowHeight">17</double>
-										<int key="NSTvFlags">-692060160</int>
+										<int key="NSTvFlags">-557842432</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
 										<int key="NSColumnAutoresizingStyle">4</int>
@@ -832,7 +831,6 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:1847</string>
-								<bool key="NSEnabled">YES</bool>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="471289556"/>
 								<string key="NSAction">_doScroller:</string>
@@ -861,7 +859,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="626542659"/>
 						<string key="NSReuseIdentifierKey">_NS:1824</string>
-						<int key="NSsFlags">133810</int>
+						<int key="NSsFlags">133682</int>
 						<reference key="NSVScroller" ref="351616277"/>
 						<reference key="NSHScroller" ref="247395202"/>
 						<reference key="NSContentView" ref="917557485"/>

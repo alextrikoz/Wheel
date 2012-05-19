@@ -17,12 +17,15 @@
     
     CALayer *layer = [[CALayer alloc] init];
     [self.view setWantsLayer:YES];
+    CGColorRef backgroundColor;
     if (selected) {
-        [layer setBackgroundColor:CGColorCreateGenericRGB(56.0/255.0, 117.0/255.0, 215.0/255.0, 1.0)];
+        backgroundColor = CGColorCreateGenericRGB(56.0/255.0, 117.0/255.0, 215.0/255.0, 1.0);
     } else {
-        [layer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0)];
+        backgroundColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
     }
-    [self.view setLayer:layer];
+    layer.backgroundColor = backgroundColor;
+    CGColorRelease(backgroundColor);
+    self.view.layer = layer;
 }
 
 @end
