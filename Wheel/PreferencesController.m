@@ -26,6 +26,9 @@
 @synthesize libraryView = _libraryView;
 @synthesize optionsView = _optionsView;
 
+@synthesize libraryTableView = _libraryTableView;
+@synthesize optionsTableView = _optionsTableView;
+
 @synthesize dataStore = _dataStore;
 
 - (void)awakeFromNib {
@@ -33,6 +36,9 @@
     
     [self general:nil];
     self.window.toolbar.selectedItemIdentifier = self.generalItem.itemIdentifier;
+    
+    [self.libraryTableView deselectAll:nil];
+    [self.optionsTableView deselectAll:nil];
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -85,10 +91,12 @@
 
 - (IBAction)add:(id)sender {
     [self.dataStore addType];
+    [self.libraryTableView deselectAll:nil];
 }
 
 - (IBAction)remove:(id)sender {
     [self.dataStore removeSelectedTypes];
+    [self.libraryTableView deselectAll:nil];
 }
 
 @end

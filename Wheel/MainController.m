@@ -25,7 +25,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.tableView deselectRow:self.tableView.selectedRow];    
+    [self.tableView deselectAll:nil];   
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -39,12 +39,12 @@
 
 - (IBAction)add:(id)sender {
     [self.dataStore addEntity];
-    [self.tableView deselectRow:self.tableView.selectedRow];
+    [self.tableView deselectAll:nil];
 }
 
 - (IBAction)remove:(id)sender {
     [self.dataStore removeSelectedEntities];
-    [self.tableView deselectRow:self.tableView.selectedRow];
+    [self.tableView deselectAll:nil];
 }
 
 - (IBAction)generate:(id)sender {    

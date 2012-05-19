@@ -22,6 +22,9 @@
 @property (strong) IBOutlet NSView *libraryView;
 @property (strong) IBOutlet NSView *optionsView;
 
+@property (strong) IBOutlet NSTableView *libraryTableView;
+@property (strong) IBOutlet NSTableView *optionsTableView;
+
 @property (strong) IBOutlet DataStore *dataStore;
 
 - (IBAction)general:(id)sender;

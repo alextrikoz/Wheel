@@ -25,8 +25,9 @@
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
 @synthesize entities = _entities;
-@synthesize types = _types;
 @synthesize selectedEntities = _selectedEntities;
+@synthesize types = _types;
+@synthesize selectedTypes = _selectedTypes;
 @synthesize options = _options;
 
 - (id)init {
@@ -185,7 +186,6 @@
 
 - (void)removeSelectedEntities {
     [self.entities removeObjectsAtIndexes:self.selectedEntities];
-    
     self.entities = self.entities;
 }
 
@@ -201,13 +201,12 @@
     self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
 }
 
-- (void)removeSelectedTypes {
+- (void)removeSelectedTypes {    
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-    for (Type *type in self.types) {
-        if (type.checked.boolValue) {
-            [appDelegate.managedObjectContext deleteObject:type];
-        }
-    }    
+    NSArray *selectedTypes = [self.types objectsAtIndexes:self.selectedTypes];
+    for (Type *type in selectedTypes) {
+        [appDelegate.managedObjectContext deleteObject:type];
+    }
     [appDelegate.managedObjectContext save:nil];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
