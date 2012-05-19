@@ -8,6 +8,8 @@
 
 #import "MainController.h"
 
+#import <Carbon/Carbon.h>
+
 #import "Config.h"
 
 #import "Option.h"
@@ -24,6 +26,15 @@
     [super awakeFromNib];
     
     [self.tableView deselectRow:self.tableView.selectedRow];    
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [super keyDown:theEvent];
+    
+    unichar keyCode = [theEvent keyCode];
+    if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
+        [self remove:nil];
+    }
 }
 
 - (IBAction)add:(id)sender {

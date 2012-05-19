@@ -8,6 +8,8 @@
 
 #import "PreferencesController.h"
 
+#import <Carbon/Carbon.h>
+
 #import "Type.h"
 #import "DataStore.h"
 #import "AppDelegate.h"
@@ -31,6 +33,15 @@
     
     [self general:nil];
     self.window.toolbar.selectedItemIdentifier = self.generalItem.itemIdentifier;
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [super keyDown:theEvent];
+    
+    unichar keyCode = [theEvent keyCode];
+    if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
+        [self remove:nil];
+    }
 }
 
 - (IBAction)general:(id)sender {
