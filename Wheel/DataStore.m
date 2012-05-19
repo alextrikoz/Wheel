@@ -21,11 +21,12 @@
 @synthesize className = _className;
 @synthesize superClassName = _superClassName;
 
-@synthesize entities = _entities;
 @synthesize setters = _setters;
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
+@synthesize entities = _entities;
 @synthesize types = _types;
+@synthesize selectedEntities = _selectedEntities;
 @synthesize options = _options;
 
 - (id)init {
@@ -170,7 +171,7 @@
     }
 }
 
-- (void)addEntity {    
+- (void)addEntity {
     Entity *entity = [[Entity alloc] init];
     entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
@@ -182,14 +183,10 @@
     self.entities = self.entities;
 }
 
-- (void)removeSelectedEntities {    
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:self.entities.count];
-    for (Entity *entity in self.entities) {
-        if (!entity.checked.boolValue) {
-            [temp addObject:entity];
-        }
-    }
-    self.entities = temp;
+- (void)removeSelectedEntities {
+    [self.entities removeObjectsAtIndexes:self.selectedEntities];
+    
+    self.entities = self.entities;
 }
 
 - (void)addType {
