@@ -10,7 +10,6 @@
 
 @interface Entity : NSObject
 
-@property (strong) NSNumber *checked;
 @property (strong) NSString *setter;
 @property (strong) NSString *atomicity;
 @property (strong) NSString *writability;

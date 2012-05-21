@@ -10,7 +10,6 @@
 
 @implementation Entity
 
-@synthesize checked = _checked;
 @synthesize setter = _setter;
 @synthesize atomicity = _atomicity;
 @synthesize writability = _writability;

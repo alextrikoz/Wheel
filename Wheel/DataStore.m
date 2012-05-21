@@ -46,7 +46,6 @@
     
     self.entities = [NSMutableArray array];
     Entity *entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -54,7 +53,6 @@
     entity.name = @"title";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -62,7 +60,6 @@
     entity.name = @"subtitle";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -70,7 +67,6 @@
     entity.name = @"date";
     [self.entities addObject:entity];
     entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
@@ -174,7 +170,6 @@
 
 - (void)addEntity {
     Entity *entity = [[Entity alloc] init];
-    entity.checked = [NSNumber numberWithBool:NO];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
     entity.writability = @"readwrite";
