@@ -17,6 +17,7 @@
 @property (strong) NSMutableArray *atomicities;
 @property (strong) NSMutableArray *writabilities;
 @property (strong) NSMutableArray *types;
+@property (strong) NSMutableArray *enabledTypes;
 @property (strong) NSIndexSet *selectedTypes;
 @property (strong) NSMutableArray *entities;
 @property (strong) NSIndexSet *selectedEntities;

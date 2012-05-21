@@ -25,6 +25,7 @@
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
 @synthesize entities = _entities;
+@synthesize enabledTypes = _enabledTypes;
 @synthesize selectedEntities = _selectedEntities;
 @synthesize types = _types;
 @synthesize selectedTypes = _selectedTypes;
@@ -81,23 +82,23 @@
     self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     if (!self.types.count) {
         Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:NO];
+        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSArray *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:NO];
+        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSDate *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:NO];
+        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSDictionary *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:NO];
+        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSNumber *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:NO];
+        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSString *";
         
         [appDelegate.managedObjectContext save:nil];
@@ -106,6 +107,8 @@
         request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
         self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     }
+    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
+    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     
     self.setters = [NSMutableArray array];
     [self.setters addObject:@"assign"];
@@ -164,7 +167,7 @@
         
         NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
         request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
-        self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+        self.options = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     }
 }
 
@@ -194,6 +197,9 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
     request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
     self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    
+    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
+    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
 }
 
 - (void)removeSelectedTypes {    
@@ -207,6 +213,9 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
     request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
     self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    
+    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
+    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
 }
 
 - (BOOL)isPropertiesEnabled {
