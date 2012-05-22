@@ -16,12 +16,11 @@
 @property (strong) NSMutableArray *setters;
 @property (strong) NSMutableArray *atomicities;
 @property (strong) NSMutableArray *writabilities;
-@property (strong) NSMutableArray *types;
-@property (strong) NSMutableArray *enabledTypes;
+@property (strong) NSArray *types;
 @property (strong) NSIndexSet *selectedTypes;
 @property (strong) NSMutableArray *entities;
 @property (strong) NSIndexSet *selectedEntities;
-@property (strong) NSMutableArray *options;
+@property (strong) NSArray *options;
 
 - (void)addEntity;
 - (void)removeSelectedEntities;

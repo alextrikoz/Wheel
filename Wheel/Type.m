@@ -10,7 +10,6 @@
 
 @implementation Type
 
-@dynamic checked;
 @dynamic name;
 
 @end

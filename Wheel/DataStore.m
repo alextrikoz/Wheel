@@ -25,11 +25,27 @@
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
 @synthesize entities = _entities;
-@synthesize enabledTypes = _enabledTypes;
 @synthesize selectedEntities = _selectedEntities;
+
 @synthesize types = _types;
+- (NSArray *)types {
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+}
+- (void)setTypes:(NSArray *)types {}
+
 @synthesize selectedTypes = _selectedTypes;
+
 @synthesize options = _options;
+- (NSArray *)options {
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
+    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
+    return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+}
+- (void)setOptions:(NSArray *)types {}
 
 - (id)init {
     static id sharedInstance = nil;
@@ -76,39 +92,29 @@
     [self.entities addObject:entity];
     self.entities = self.entities;
     
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    self.types = self.types;
     if (!self.types.count) {
+        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+        
         Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSArray *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSDate *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSDictionary *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSNumber *";
         
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.checked = [NSNumber numberWithBool:YES];
         type.name = @"NSString *";
         
         [appDelegate.managedObjectContext save:nil];
         
-        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-        request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-        self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+        self.types = self.types;
     }
-    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
-    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
     
     self.setters = [NSMutableArray array];
     [self.setters addObject:@"assign"];
@@ -129,45 +135,43 @@
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
     
-    request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
-    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
-    self.options = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    self.options = self.options;
     if (!self.options.count) {
+        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+        
         Option *option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:0];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (void)dealloc;";
+        option.order = [NSNumber numberWithInt:0];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:1];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
+        option.order = [NSNumber numberWithInt:1];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:2];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
+        option.order = [NSNumber numberWithInt:2];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:3];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
+        option.order = [NSNumber numberWithInt:3];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:4];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"NSCopying";
+        option.order = [NSNumber numberWithInt:4];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
-        option.order = [NSNumber numberWithInt:5];
-        option.checked = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"NSCoding";
+        option.order = [NSNumber numberWithInt:5];
         
         [appDelegate.managedObjectContext save:nil];
         
-        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Option"];
-        request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"order" ascending:YES]];
-        self.options = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+        self.options = self.options;
     }
 }
 
@@ -190,16 +194,12 @@
 - (void)addType {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
     Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-    type.checked = [NSNumber numberWithBool:NO];
     type.name = @"NSObject *";
     [appDelegate.managedObjectContext save:nil];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
     request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
-    
-    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
-    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    self.types = self.types;
 }
 
 - (void)removeSelectedTypes {    
@@ -210,12 +210,7 @@
     }
     [appDelegate.managedObjectContext save:nil];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-    self.types = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
-    
-    request.predicate = [NSPredicate predicateWithFormat:@"checked = YES"];
-    self.enabledTypes = [[appDelegate.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    self.types = self.types;
 }
 
 - (BOOL)isPropertiesEnabled {
@@ -227,27 +222,27 @@
 }
 
 - (BOOL)isDeallocEnabled {
-    return [((Option *)[self.options objectAtIndex:0]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:0]).enabled boolValue];
 }
 
 - (BOOL)isInitWithDictionaryEnabled {
-    return [((Option *)[self.options objectAtIndex:1]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:1]).enabled boolValue];
 }
 
 - (BOOL)isObjectWithDictionaryEnabled {
-    return [((Option *)[self.options objectAtIndex:2]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:2]).enabled boolValue];
 }
 
 - (BOOL)isObjectsWithArrayEnabled {
-    return [((Option *)[self.options objectAtIndex:3]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:3]).enabled boolValue];
 }
 
 - (BOOL)isCopyingEnabled {
-    return [((Option *)[self.options objectAtIndex:4]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:4]).enabled boolValue];
 }
 
 - (BOOL)isCodingEnabled {
-    return [((Option *)[self.options objectAtIndex:5]).checked boolValue];
+    return [((Option *)[self.options objectAtIndex:5]).enabled boolValue];
 }
 
 - (NSString *)headerWithFileType:(NSString *)fileType {

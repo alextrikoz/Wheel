@@ -11,7 +11,6 @@
 
 @interface Type : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * checked;
 @property (nonatomic, retain) NSString * name;
 
 @end

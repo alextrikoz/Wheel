@@ -10,7 +10,7 @@
 
 @implementation Option
 
-@dynamic checked;
+@dynamic enabled;
 @dynamic name;
 @dynamic order;
 

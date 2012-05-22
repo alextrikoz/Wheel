@@ -52,10 +52,10 @@
     NSString *m_content = self.dataStore.m_content;
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:YES];
-    [openPanel setCanCreateDirectories:YES];
-    [openPanel setCanChooseFiles:NO];
-    [openPanel setPrompt:@"Select"];
+    openPanel.canChooseDirectories = YES;
+    openPanel.canCreateDirectories = YES;
+    openPanel.canChooseFiles = NO;
+    openPanel.prompt = @"Select";
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
