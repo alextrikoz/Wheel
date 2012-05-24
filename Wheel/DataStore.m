@@ -61,7 +61,17 @@
     self.className = @"MyClass";
     self.superClassName = @"NSObject";
     
+    [self loadEntities];
+    [self loadTypes];
+    [self loadSetters];
+    [self loadAtomicities];
+    [self loadWritabilities];
+    [self loadOptions];
+}
+
+- (void)loadEntities {
     self.entities = [NSMutableArray array];
+    
     Entity *entity = [[Entity alloc] init];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
@@ -69,6 +79,7 @@
     entity.type = @"NSString *";
     entity.name = @"title";
     [self.entities addObject:entity];
+    
     entity = [[Entity alloc] init];
     entity.setter = @"copy";
     entity.atomicity = @"nonatomic";
@@ -76,6 +87,7 @@
     entity.type = @"NSString *";
     entity.name = @"subtitle";
     [self.entities addObject:entity];
+    
     entity = [[Entity alloc] init];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
@@ -83,6 +95,7 @@
     entity.type = @"NSDate *";
     entity.name = @"date";
     [self.entities addObject:entity];
+    
     entity = [[Entity alloc] init];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
@@ -90,8 +103,11 @@
     entity.type = @"NSArray *";
     entity.name = @"items";
     [self.entities addObject:entity];
-    self.entities = self.entities;
     
+    self.entities = self.entities;
+}
+
+- (void)loadTypes {
     self.types = self.types;
     if (!self.types.count) {
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
@@ -115,7 +131,9 @@
         
         self.types = self.types;
     }
-    
+}
+
+- (void)loadSetters {
     self.setters = [NSMutableArray array];
     [self.setters addObject:@"assign"];
     [self.setters addObject:@"copy"];
@@ -124,17 +142,23 @@
     [self.setters addObject:@"unsafe_unretained"];
     [self.setters addObject:@"week"];
     self.setters = self.setters;
-    
+}
+
+- (void)loadAtomicities {    
     self.atomicities = [NSMutableArray array];
     [self.atomicities addObject:@"atomic"];
     [self.atomicities addObject:@"nonatomic"];
     self.atomicities = self.atomicities;
-    
+}
+
+- (void)loadWritabilities {
     self.writabilities = [NSMutableArray array];
     [self.writabilities addObject:@"readonly"];
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
-    
+}
+
+- (void)loadOptions {
     self.options = self.options;
     if (!self.options.count) {
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;

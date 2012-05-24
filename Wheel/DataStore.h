@@ -22,6 +22,13 @@
 @property (strong) NSIndexSet *selectedEntities;
 @property (strong) NSArray *options;
 
+- (void)loadEntities;
+- (void)loadTypes;
+- (void)loadSetters;
+- (void)loadAtomicities;
+- (void)loadWritabilities;
+- (void)loadOptions;
+
 - (void)addEntity;
 - (void)removeSelectedEntities;
 
