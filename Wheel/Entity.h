@@ -20,6 +20,7 @@
 - (NSString *)m_synthesizeStuff;
 - (NSString *)m_deallocStuff;
 - (NSString *)m_initWithDictionaryStuff;
+- (NSString *)m_dictionaryRepresentationStuff;
 - (NSString *)m_copyWithZoneStuff;
 - (NSString *)m_initWithCoderStuff;
 - (NSString *)m_encodeWithCoderStuff;

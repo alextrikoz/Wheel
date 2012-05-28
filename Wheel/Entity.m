@@ -32,6 +32,10 @@
     return [NSString stringWithFormat:@"        self.%@ = [dictionary objectForKey:@\"%@\"];\n", self.name, self.name];
 }
 
+- (NSString *)m_dictionaryRepresentationStuff {
+    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];    
+}
+
 - (NSString *)m_copyWithZoneStuff {
     return [NSString stringWithFormat:@"    object.%@ = self.%@;\n", self.name, self.name];
 }

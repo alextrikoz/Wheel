@@ -41,6 +41,7 @@
 - (BOOL)isInitWithDictionaryEnabled;
 - (BOOL)isObjectWithDictionaryEnabled;
 - (BOOL)isObjectsWithArrayEnabled;
+- (BOOL)isDictionaryRepresentationEnabled;
 - (BOOL)isCopyingEnabled;
 - (BOOL)isCodingEnabled;
 
@@ -52,6 +53,7 @@
 - (NSString *)h_initWithDictionaryPrototype;
 - (NSString *)h_objectWithDictionaryPrototype;
 - (NSString *)h_objectsWithArrayPrototype;
+- (NSString *)h_dictionaryRepresentationPrototype;
 - (NSString *)h_prototypes;
 - (NSString *)h_content;
 
@@ -60,7 +62,8 @@
 - (NSString *)m_dealloc;
 - (NSString *)m_initWithDictionary;
 - (NSString *)m_objectWithDictionary;
-- (NSString *)m_objectsWithArrayEnabled;
+- (NSString *)m_objectsWithArray;
+- (NSString *)m_dictionaryRepresentation;
 - (NSString *)m_copyWithZone;
 - (NSString *)m_initWithCoder;
 - (NSString *)m_encodeWithCoder;
