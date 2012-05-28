@@ -33,7 +33,11 @@
 }
 
 - (NSString *)m_dictionaryRepresentationStuff {
-    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];    
+    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];
+}
+
+- (NSString *)m_descriptionStuff {
+    return [NSString stringWithFormat:@"    %@\n", self.name, self.name];
 }
 
 - (NSString *)m_copyWithZoneStuff {

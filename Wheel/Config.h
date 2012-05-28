@@ -33,10 +33,10 @@ header, className, superClassName, protocols, properties, prototypes]
 ",\
 properties]
 
-#define H_PROTOTYPES(initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype) [NSString stringWithFormat:@"\
-%@%@%@%@\n\
+#define H_PROTOTYPES(initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype) [NSString stringWithFormat:@"\
+%@%@%@%@%@\n\
 ",\
-initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype]
+initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
 
 #define H_INITWITHDICTIONARY_PROTOTYPE @"\
 - (id)initWithDictionary:(NSDictionary *)dictionary;\n\
@@ -54,15 +54,19 @@ initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayProt
 - (NSDictionary *)dictionaryRepresentation\n\
 "
 
-#define M_CONTENT(header, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+#define H_DESCRIPTION_PROTOTYPE @"\
+- (NSString *)description;\n\
+"
+
+#define M_CONTENT(header, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
 %@#import \"%@.h\"\n\
 \n\
 @implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@%@\
+%@%@%@%@%@%@%@%@%@%@\
 @end\n\
 ",\
-header, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, copyWithZone, initWithCoder, encodeWithCoder]
+header, className, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
 
 #define M_SYNTHESIZES(properties) [NSString stringWithFormat:@"\
 %@\n\
@@ -108,6 +112,15 @@ properties]
 %@    return dictionary;\n\
 }\n\n\
 ", properties];
+
+#define M_DESCRIPTION(properties) [NSString stringWithFormat:@"\
+- (NSString *)description {\n\
+    NSString *description = [NSString stringWithFormat:@\"<%%@ %%p> = \t{\\n\", NSStringFromClass([self class]), self];\n\
+%@    description = [description stringByAppendingString:@\"}\"];\n\
+    return description;\n\
+}\n\n\
+",\
+properties]
 
 #define M_COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
 #pragma mark - NSCoding\n\

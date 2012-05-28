@@ -190,13 +190,18 @@
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"NSCopying";
+        option.name = @"- (NSString *)description;";
         option.order = [NSNumber numberWithInt:5];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"NSCoding";
+        option.name = @"NSCopying";
         option.order = [NSNumber numberWithInt:6];
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.enabled = [NSNumber numberWithBool:YES];
+        option.name = @"NSCoding";
+        option.order = [NSNumber numberWithInt:7];
         
         [appDelegate.managedObjectContext save:nil];
         
@@ -270,12 +275,16 @@
     return [((Option *)[self.options objectAtIndex:4]).enabled boolValue];    
 }
 
-- (BOOL)isCopyingEnabled {
+- (BOOL)isDescriptionEnabled {
     return [((Option *)[self.options objectAtIndex:5]).enabled boolValue];
 }
 
-- (BOOL)isCodingEnabled {
+- (BOOL)isCopyingEnabled {
     return [((Option *)[self.options objectAtIndex:6]).enabled boolValue];
+}
+
+- (BOOL)isCodingEnabled {
+    return [((Option *)[self.options objectAtIndex:7]).enabled boolValue];
 }
 
 - (NSString *)headerWithFileType:(NSString *)fileType {
@@ -338,8 +347,12 @@
     return self.isDictionaryRepresentationEnabled ? M_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
+- (NSString *)h_descriptionPrototype {
+    return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
+}
+
 - (NSString *)h_prototypes {
-    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype) : @"";
+    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
 }
 
 - (NSString *)h_content {    
@@ -406,6 +419,18 @@
     return M_DICTIONARYREPRESENTATION(stuff);
 }
 
+- (NSString *)m_description {
+    if (!self.isDescriptionEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
+    }
+    return M_DESCRIPTION(stuff);
+}
+
 - (NSString *)m_copyWithZone {
     if (!self.isCopyingEnabled) {
         return @"";
@@ -443,7 +468,7 @@
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
+    return M_CONTENT(self.m_header, self.className, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
 }
 
 @end
