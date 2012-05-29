@@ -78,6 +78,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"title";
+    entity.key = @"name";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -86,6 +87,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"subtitle";
+    entity.key = @"description";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -94,6 +96,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSDate *";
     entity.name = @"date";
+    entity.key = @"date";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -102,6 +105,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
+    entity.key = @"objects";
     [self.entities addObject:entity];
     
     self.entities = self.entities;
@@ -216,6 +220,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
+    entity.key = @"objects";
     [self.entities addObject:entity];
     self.entities = self.entities;
 }

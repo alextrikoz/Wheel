@@ -15,6 +15,7 @@
 @synthesize writability = _writability;
 @synthesize type = _type;
 @synthesize name = _name;
+@synthesize key = _key;
 
 - (NSString *)h_propertyStuff {
     return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
@@ -29,11 +30,11 @@
 }
 
 - (NSString *)m_initWithDictionaryStuff {
-    return [NSString stringWithFormat:@"        self.%@ = [dictionary objectForKey:@\"%@\"];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"        self.%@ = [dictionary objectForKey:@\"%@\"];\n", self.name, self.key];
 }
 
 - (NSString *)m_dictionaryRepresentationStuff {
-    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:@\"%@\"];\n", self.name, self.key];
 }
 
 - (NSString *)m_descriptionStuff {

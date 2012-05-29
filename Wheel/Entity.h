@@ -15,6 +15,7 @@
 @property (strong) NSString *writability;
 @property (strong) NSString *type;
 @property (strong) NSString *name;
+@property (strong) NSString *key;
 
 - (NSString *)h_propertyStuff;
 - (NSString *)m_synthesizeStuff;
