@@ -18,7 +18,9 @@
 @synthesize key = _key;
 
 - (NSString *)h_propertyStuff {
-    return [NSString stringWithFormat:@"@property (%@, %@, %@) %@%@;\n", self.setter, self.atomicity, self.writability, self.type, self.name];
+    NSString *atomicity = [self.atomicity isEqualToString:@"nonatomic"] ? @", nonatomic" : @"";
+    NSString *writability = [self.writability isEqualToString:@"readonly"] ? @", readonly" : @"";
+    return [NSString stringWithFormat:@"@property (%@%@%@) %@%@;\n", self.setter, atomicity, writability, self.type, self.name];
 }
 
 - (NSString *)m_synthesizeStuff {
