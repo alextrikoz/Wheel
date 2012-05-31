@@ -37,6 +37,8 @@
 
 - (BOOL)isPropertiesEnabled;
 - (BOOL)isPrototypesEnabled;
+- (BOOL)isDefinesEnabled;
+- (BOOL)isSynthesizesEnabled;
 - (BOOL)isDeallocEnabled;
 - (BOOL)isInitWithDictionaryEnabled;
 - (BOOL)isObjectWithDictionaryEnabled;
@@ -51,15 +53,16 @@
 - (NSString *)h_header;
 - (NSString *)h_protocols;
 - (NSString *)h_properties;
+- (NSString *)h_prototypes;
 - (NSString *)h_initWithDictionaryPrototype;
 - (NSString *)h_objectWithDictionaryPrototype;
 - (NSString *)h_objectsWithArrayPrototype;
 - (NSString *)h_dictionaryRepresentationPrototype;
 - (NSString *)h_descriptionPrototype;
-- (NSString *)h_prototypes;
 - (NSString *)h_content;
 
 - (NSString *)m_header;
+- (NSString *)m_defines;
 - (NSString *)m_synthesizes;
 - (NSString *)m_dealloc;
 - (NSString *)m_initWithDictionary;

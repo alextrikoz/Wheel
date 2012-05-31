@@ -78,7 +78,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"title";
-    entity.key = @"name";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -87,7 +86,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"subtitle";
-    entity.key = @"description";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -96,7 +94,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSDate *";
     entity.name = @"date";
-    entity.key = @"date";
     [self.entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -105,7 +102,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
-    entity.key = @"objects";
     [self.entities addObject:entity];
     
     self.entities = self.entities;
@@ -260,6 +256,14 @@
     return self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled || self.isDictionaryRepresentationEnabled;
 }
 
+- (BOOL)isDefinesEnabled {
+    return self.entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
+}
+
+- (BOOL)isSynthesizesEnabled {
+    return self.entities.count;
+}
+
 - (BOOL)isDeallocEnabled {
     return [((Option *)[self.options objectAtIndex:0]).enabled boolValue];
 }
@@ -336,6 +340,10 @@
     return H_PROPERTIES(stuff);
 }
 
+- (NSString *)h_prototypes {
+    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
+}
+
 - (NSString *)h_initWithDictionaryPrototype {
     return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
 }
@@ -356,10 +364,6 @@
     return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)h_prototypes {
-    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
-}
-
 - (NSString *)h_content {    
     return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
 }
@@ -368,8 +372,20 @@
     return [self headerWithFileType:@"m"];
 }
 
+- (NSString *)m_defines {
+    if (!self.isDefinesEnabled) {
+        return @"";
+    }
+    
+    NSString *stuff = @"";
+    for (Entity *entity in self.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
+    }
+    return M_DEFINES(stuff);
+}
+
 - (NSString *)m_synthesizes {
-    if (!self.isPropertiesEnabled) {
+    if (!self.isSynthesizesEnabled) {
         return @"";
     }
     
@@ -473,7 +489,7 @@
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
+    return M_CONTENT(self.m_header, self.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
 }
 
 @end
