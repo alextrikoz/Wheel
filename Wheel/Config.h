@@ -38,13 +38,15 @@ properties]
 ",\
 initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
 
-#define H_INITWITHDICTIONARY_PROTOTYPE @"\
-- (id)initWithDictionary:(NSDictionary *)dictionary;\n\
-"
+#define H_INITWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
+- (%@ *)initWithDictionary:(NSDictionary *)dictionary;\n\
+",\
+className]
 
-#define H_OBJECTWITHDICTIONARY_PROTOTYPE @"\
-- (id)objectWithDictionary:(NSDictionary *)dictionary;\n\
-"
+#define H_OBJECTWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
+- (%@ *)objectWithDictionary:(NSDictionary *)dictionary;\n\
+",\
+className]
 
 #define H_OBJECTSWITHARRAY_PROTOTYPE @"\
 - (NSMutableArray *)objectsWithArray:(NSArray *)array;\n\
@@ -85,21 +87,22 @@ properties]
 ",\
 properties]
 
-#define M_INITWITHDICTIONARY(properties) [NSString stringWithFormat:@"\
-- (id)initWithDictionary:(NSDictionary *)dictionary {\n\
+#define M_INITWITHDICTIONARY(className, properties) [NSString stringWithFormat:@"\
+- (%@ *)initWithDictionary:(NSDictionary *)dictionary {\n\
     self = [super init];\n\
     if (self) {\n\
 %@    }\n\
     return self;\n\
 }\n\n\
 ",\
-properties]
+className, properties]
 
-#define M_OBJECTWITHDICTIONARY @"\
-+ (id)objectWithDictionary:(NSDictionary *)dictionary {\n\
+#define M_OBJECTWITHDICTIONARY(className) [NSString stringWithFormat:@"\
++ (%@ *)objectWithDictionary:(NSDictionary *)dictionary {\n\
     return [[[self alloc] initWithDictionary:dictionary] autorelease];\n\
 }\n\n\
-"
+",\
+className]
 
 #define M_OBJECTSWITHARRAY @"\
 + (NSMutableArray *)objectsWithArray:(NSArray *)array {\n\

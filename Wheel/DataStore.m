@@ -345,11 +345,11 @@
 }
 
 - (NSString *)h_initWithDictionaryPrototype {
-    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE : @"";
+    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE(self.className) : @"";
 }
 
 - (NSString *)h_objectWithDictionaryPrototype {
-    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE : @"";
+    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE(self.className) : @"";
 }
 
 - (NSString *)h_objectsWithArrayPrototype {
@@ -417,11 +417,11 @@
     for (Entity *entity in self.entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
     }
-    return M_INITWITHDICTIONARY(stuff);
+    return M_INITWITHDICTIONARY(self.className, stuff);
 }
 
 - (NSString *)m_objectWithDictionary {
-    return self.isObjectWithDictionaryEnabled ? M_OBJECTWITHDICTIONARY : @"";
+    return self.isObjectWithDictionaryEnabled ? M_OBJECTWITHDICTIONARY(self.className) : @"";
 }
 
 - (NSString *)m_objectsWithArray {
