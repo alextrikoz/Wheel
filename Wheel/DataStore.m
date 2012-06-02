@@ -216,7 +216,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
-    entity.key = @"objects";
     [self.entities addObject:entity];
     self.entities = self.entities;
 }

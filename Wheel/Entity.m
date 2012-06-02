@@ -19,7 +19,12 @@
 - (NSString *)h_propertyStuff {
     NSString *atomicity = [self.atomicity isEqualToString:@"nonatomic"] ? @", nonatomic" : @"";
     NSString *writability = [self.writability isEqualToString:@"readonly"] ? @", readonly" : @"";
-    return [NSString stringWithFormat:@"@property (%@%@%@) %@%@;\n", self.setter, atomicity, writability, self.type, self.name];
+    
+    NSString *type = self.type;
+    if ([type rangeOfString:@"*"].location == NSNotFound && [type rangeOfString:@" "].location == NSNotFound) {
+        type = [type stringByAppendingString:@" "];
+    }
+    return [NSString stringWithFormat:@"@property (%@%@%@) %@%@;\n", self.setter, atomicity, writability, type, self.name];
 }
 
 - (NSString *)m_defineStuff {

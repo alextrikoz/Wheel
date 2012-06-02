@@ -218,6 +218,7 @@
 		11EF743C1539426800D341B5 /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				21F2C803157A57030048DA4D /* Models */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
@@ -225,12 +226,6 @@
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
 				1135C46B153942E000F2AEA4 /* EntityCollectionView.h */,
 				1135C46C153942E000F2AEA4 /* EntityCollectionView.m */,
-				212402F215458CD20043D929 /* Type.h */,
-				212402F315458CD20043D929 /* Type.m */,
-				1157651D1549B78F0040D3A7 /* Option.h */,
-				1157651E1549B78F0040D3A7 /* Option.m */,
-				1135C469153942E000F2AEA4 /* Entity.h */,
-				1135C46A153942E000F2AEA4 /* Entity.m */,
 				21E57151153D80CE00A7138F /* PreferencesController.h */,
 				21E57152153D80CE00A7138F /* PreferencesController.m */,
 				21E5715B153D8D1600A7138F /* PreferencesWnd.xib */,
@@ -298,6 +293,19 @@
 				11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21F2C803157A57030048DA4D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				212402F215458CD20043D929 /* Type.h */,
+				212402F315458CD20043D929 /* Type.m */,
+				1157651D1549B78F0040D3A7 /* Option.h */,
+				1157651E1549B78F0040D3A7 /* Option.m */,
+				1135C469153942E000F2AEA4 /* Entity.h */,
+				1135C46A153942E000F2AEA4 /* Entity.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
