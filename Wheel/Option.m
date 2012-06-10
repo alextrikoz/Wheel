@@ -10,8 +10,17 @@
 
 @implementation Option
 
+@dynamic active;
 @dynamic enabled;
 @dynamic name;
 @dynamic order;
+
+- (void)setEnabled:(NSNumber *)enabled {
+    _enabled = enabled;
+    
+    if ([self.name isEqualToString:@"ARC"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ARCPropertyChanged" object:self];
+    }
+}
 
 @end

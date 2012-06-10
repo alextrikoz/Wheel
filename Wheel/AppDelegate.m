@@ -49,8 +49,19 @@
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValues];
 }
 
+- (void)setupCoreData {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *version = [defaults objectForKey:@"version"];
+    if (![version isEqualToString:@"1.1"]) {
+        [defaults setObject:@"1.1" forKey:@"version"];
+        [defaults synchronize];        
+        [[NSFileManager defaultManager] removeItemAtURL:self.applicationFilesDirectory error:nil];
+    }
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self setupDefaults];
+    [self setupCoreData];
     
     [self.mainController.window makeKeyAndOrderFront:nil];
 }

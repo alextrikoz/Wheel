@@ -97,12 +97,19 @@ properties]
 ",\
 className, properties]
 
-#define M_OBJECTWITHDICTIONARY(className) [NSString stringWithFormat:@"\
+#define M_OBJECTWITHDICTIONARY_MRR(className) [NSString stringWithFormat:@"\
 + (%@ *)objectWithDictionary:(NSDictionary *)dictionary {\n\
-    return [[[self alloc] initWithDictionary:dictionary] autorelease];\n\
+    return [[[%@ alloc] initWithDictionary:dictionary] autorelease];\n\
 }\n\n\
 ",\
-className]
+className, className]
+
+#define M_OBJECTWITHDICTIONARY_ARC(className) [NSString stringWithFormat:@"\
++ (%@ *)objectWithDictionary:(NSDictionary *)dictionary {\n\
+    return [[%@ alloc] initWithDictionary:dictionary];\n\
+}\n\n\
+",\
+className, className]
 
 #define M_OBJECTSWITHARRAY @"\
 + (NSMutableArray *)objectsWithArray:(NSArray *)array {\n\

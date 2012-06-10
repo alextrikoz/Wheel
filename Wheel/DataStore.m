@@ -164,49 +164,73 @@
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
         
         Option *option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (void)dealloc;";
         option.order = [NSNumber numberWithInt:0];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
         option.order = [NSNumber numberWithInt:1];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
         option.order = [NSNumber numberWithInt:2];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
         option.order = [NSNumber numberWithInt:3];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (NSDictionary *)dictionaryRepresentation;";
         option.order = [NSNumber numberWithInt:4];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"- (NSString *)description;";
         option.order = [NSNumber numberWithInt:5];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"NSCopying";
         option.order = [NSNumber numberWithInt:6];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
         option.name = @"NSCoding";
         option.order = [NSNumber numberWithInt:7];
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:NO];
+        option.name = @"ARC";
+        option.order = [NSNumber numberWithInt:8];
         
         [appDelegate.managedObjectContext save:nil];
         
         self.options = self.options;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ARCPropertyChanged:) name:@"ARCPropertyChanged" object:nil];
+}
+
+- (void)ARCPropertyChanged:(NSNotification *)notification {
+    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    Option *option = [self.options objectAtIndex:0];
+    option.active = [NSNumber numberWithBool:!self.isARCEnabled];
+    [appDelegate.managedObjectContext save:nil];
+    self.options = self.options;
 }
 
 - (void)addEntity {
@@ -264,7 +288,7 @@
 }
 
 - (BOOL)isDeallocEnabled {
-    return [((Option *)[self.options objectAtIndex:0]).enabled boolValue];
+    return [((Option *)[self.options objectAtIndex:0]).enabled boolValue] && !self.isARCEnabled;
 }
 
 - (BOOL)isInitWithDictionaryEnabled {
@@ -293,6 +317,10 @@
 
 - (BOOL)isCodingEnabled {
     return [((Option *)[self.options objectAtIndex:7]).enabled boolValue];
+}
+
+- (BOOL)isARCEnabled {
+    return [((Option *)[self.options objectAtIndex:8]).enabled boolValue];
 }
 
 - (NSString *)headerWithFileType:(NSString *)fileType {
@@ -420,7 +448,7 @@
 }
 
 - (NSString *)m_objectWithDictionary {
-    return self.isObjectWithDictionaryEnabled ? M_OBJECTWITHDICTIONARY(self.className) : @"";
+    return self.isObjectWithDictionaryEnabled ? self.isARCEnabled ? M_OBJECTWITHDICTIONARY_ARC(self.className) : M_OBJECTWITHDICTIONARY_MRR(self.className) : @"";
 }
 
 - (NSString *)m_objectsWithArray {

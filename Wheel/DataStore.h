@@ -47,6 +47,7 @@
 - (BOOL)isDescriptionEnabled;
 - (BOOL)isCopyingEnabled;
 - (BOOL)isCodingEnabled;
+- (BOOL)isARCEnabled;
 
 - (NSString *)headerWithFileType:(NSString *)fileType;
 
