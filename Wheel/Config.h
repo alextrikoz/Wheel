@@ -65,8 +65,7 @@ className]
 \n\
 %@@implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@%@%@\
-@end\n\
+%@%@%@%@%@%@%@%@%@@end\n\
 ",\
 header, className, defines, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
 

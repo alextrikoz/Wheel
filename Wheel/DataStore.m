@@ -222,17 +222,27 @@
         self.options = self.options;
     }
     
+    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:1] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
+    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:2] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
     [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:8] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([object isMemberOfClass:[Option class]]) {
+    if ([object isKindOfClass:[Option class]]) {
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+        
         Option *option = [self.options objectAtIndex:0];
         option.active = [NSNumber numberWithBool:!self.isARCEnabled];
+        
+        option = [self.options objectAtIndex:2];
+        option.active = [NSNumber numberWithBool:self.isInitWithDictionaryEnabled];
+        
+        option = [self.options objectAtIndex:3];
+        option.active = [NSNumber numberWithBool:self.isInitWithDictionaryEnabled && self.isObjectWithDictionaryEnabled];
+        
         [appDelegate.managedObjectContext save:nil];
         self.options = self.options;
-    }    
+    }
 }
 
 - (void)addEntity {
@@ -401,6 +411,10 @@
     return [self headerWithFileType:@"m"];
 }
 
+- (NSString *)m_ARCError {
+    return self.isARCEnabled ? M_ARCERROR : @"";
+}
+
 - (NSString *)m_defines {
     if (!self.isDefinesEnabled) {
         return @"";
@@ -518,7 +532,7 @@
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
+    return M_CONTENT(self.m_header, self.className, self.m_ARCError, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
 }
 
 @end
