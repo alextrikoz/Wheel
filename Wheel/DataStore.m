@@ -411,10 +411,6 @@
     return [self headerWithFileType:@"m"];
 }
 
-- (NSString *)m_ARCError {
-    return self.isARCEnabled ? M_ARCERROR : @"";
-}
-
 - (NSString *)m_defines {
     if (!self.isDefinesEnabled) {
         return @"";
@@ -532,7 +528,7 @@
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_ARCError, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
+    return M_CONTENT(self.m_header, self.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
 }
 
 @end
