@@ -11,6 +11,7 @@
 		1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityCollectionView.m */; };
 		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
+		1145D56615866B650089DBC3 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 1145D56515866B650089DBC3 /* Document.m */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
 		1157651F1549B78F0040D3A7 /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157651E1549B78F0040D3A7 /* Option.m */; };
 		11C86B5215442F09009A0113 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C86B5115442F08009A0113 /* DataStore.m */; };
@@ -70,6 +71,8 @@
 		1135C46F153942E000F2AEA4 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
+		1145D56415866B650089DBC3 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		1145D56515866B650089DBC3 /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1157651D1549B78F0040D3A7 /* Option.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Option.h; sourceTree = "<group>"; };
 		1157651E1549B78F0040D3A7 /* Option.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Option.m; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 		11EF743C1539426800D341B5 /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				1145D56415866B650089DBC3 /* Document.h */,
+				1145D56515866B650089DBC3 /* Document.m */,
 				21F2C803157A57030048DA4D /* Models */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
@@ -461,6 +466,7 @@
 				212402F415458CD20043D929 /* Type.m in Sources */,
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
 				1157651F1549B78F0040D3A7 /* Option.m in Sources */,
+				1145D56615866B650089DBC3 /* Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
