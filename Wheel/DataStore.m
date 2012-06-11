@@ -222,15 +222,17 @@
         self.options = self.options;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ARCPropertyChanged:) name:@"ARCPropertyChanged" object:nil];
+    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:8] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void)ARCPropertyChanged:(NSNotification *)notification {
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-    Option *option = [self.options objectAtIndex:0];
-    option.active = [NSNumber numberWithBool:!self.isARCEnabled];
-    [appDelegate.managedObjectContext save:nil];
-    self.options = self.options;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([object isMemberOfClass:[Option class]]) {
+        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+        Option *option = [self.options objectAtIndex:0];
+        option.active = [NSNumber numberWithBool:!self.isARCEnabled];
+        [appDelegate.managedObjectContext save:nil];
+        self.options = self.options;
+    }    
 }
 
 - (void)addEntity {
