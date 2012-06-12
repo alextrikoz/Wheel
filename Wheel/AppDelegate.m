@@ -10,15 +10,9 @@
 #import "MainController.h"
 #import "PreferencesController.h"
 
-@implementation AppDelegate
+#import "DataStore.h"
 
-@synthesize mainController = _mainController;
-- (MainController *)mainController {
-    if(!_mainController) {
-        _mainController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
-    }
-    return _mainController;
-}
+@implementation AppDelegate
 
 @synthesize preferencesController = _preferencesController;
 - (PreferencesController *)preferencesController {
@@ -32,13 +26,6 @@
     if (!self.preferencesController.window.isVisible) {
         [self.preferencesController.window makeKeyAndOrderFront:nil];
     }
-}
-
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-    if (!self.mainController.window.isVisible) {
-        [self.mainController.window makeKeyAndOrderFront:nil];
-    }
-    return YES;
 }
 
 - (void)setupDefaults {
@@ -63,7 +50,13 @@
     [self setupDefaults];
     [self setupCoreData];
     
-    [self.mainController.window makeKeyAndOrderFront:nil];
+    NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
+    NSArray *documents = [sharedDocumentController documents];
+    if (!documents.count) {
+        [sharedDocumentController newDocument:nil];
+    }
+    
+    [NSApplication.sharedApplication.windows makeObjectsPerformSelector:@selector(orderFront:)];
 }
 
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
@@ -195,9 +188,6 @@
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    if (self.mainController.window.isVisible) {
-        [self.mainController.window close];
-    }
     if (self.preferencesController.window.isVisible) {
         [self.preferencesController.window close];
     }

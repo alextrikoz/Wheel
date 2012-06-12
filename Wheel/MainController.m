@@ -28,6 +28,10 @@
     [self.tableView deselectAll:nil];   
 }
 
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+    return self.dataStore.className;
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
     [super keyDown:theEvent];
     

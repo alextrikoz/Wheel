@@ -13,7 +13,6 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (readonly, strong) MainController *mainController;
 @property (readonly, strong) PreferencesController *preferencesController;
 
 - (IBAction)preferences:(id)sender;
