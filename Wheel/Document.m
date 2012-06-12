@@ -8,10 +8,13 @@
 
 #import "Document.h"
 
+#import "MainController.h"
+
 @implementation Document
 
-- (NSString *)windowNibName {
-    return @"MainWnd";
+- (void)makeWindowControllers {
+    MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
+    [self addWindowController:windowController];
 }
 
 @end
