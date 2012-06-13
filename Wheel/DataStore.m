@@ -24,8 +24,8 @@
 @synthesize setters = _setters;
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
-@synthesize entities = _entities;
-@synthesize selectedEntities = _selectedEntities;
+//@synthesize entities = _entities;
+//@synthesize selectedEntities = _selectedEntities;
 
 @synthesize types = _types;
 - (NSArray *)types {
@@ -61,7 +61,7 @@
     self.className = @"MyClass";
     self.superClassName = @"NSObject";
     
-    [self loadEntities];
+//    [self loadEntities];
     [self loadTypes];
     [self loadSetters];
     [self loadAtomicities];
@@ -69,43 +69,43 @@
     [self loadOptions];
 }
 
-- (void)loadEntities {
-    self.entities = [NSMutableArray array];
-    
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"title";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"subtitle";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSDate *";
-    entity.name = @"date";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.entities addObject:entity];
-    
-    self.entities = self.entities;
-}
+//- (void)loadEntities {
+//    self.entities = [NSMutableArray array];
+//    
+//    Entity *entity = [[Entity alloc] init];
+//    entity.setter = @"copy";
+//    entity.atomicity = @"nonatomic";
+//    entity.writability = @"readwrite";
+//    entity.type = @"NSString *";
+//    entity.name = @"title";
+//    [self.entities addObject:entity];
+//    
+//    entity = [[Entity alloc] init];
+//    entity.setter = @"copy";
+//    entity.atomicity = @"nonatomic";
+//    entity.writability = @"readwrite";
+//    entity.type = @"NSString *";
+//    entity.name = @"subtitle";
+//    [self.entities addObject:entity];
+//    
+//    entity = [[Entity alloc] init];
+//    entity.setter = @"strong";
+//    entity.atomicity = @"nonatomic";
+//    entity.writability = @"readwrite";
+//    entity.type = @"NSDate *";
+//    entity.name = @"date";
+//    [self.entities addObject:entity];
+//    
+//    entity = [[Entity alloc] init];
+//    entity.setter = @"strong";
+//    entity.atomicity = @"nonatomic";
+//    entity.writability = @"readwrite";
+//    entity.type = @"NSArray *";
+//    entity.name = @"items";
+//    [self.entities addObject:entity];
+//    
+//    self.entities = self.entities;
+//}
 
 - (void)loadTypes {
     self.types = self.types;
@@ -245,21 +245,21 @@
     }
 }
 
-- (void)addEntity {
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.entities addObject:entity];
-    self.entities = self.entities;
-}
-
-- (void)removeSelectedEntities {
-    [self.entities removeObjectsAtIndexes:self.selectedEntities];
-    self.entities = self.entities;
-}
+//- (void)addEntity {
+//    Entity *entity = [[Entity alloc] init];
+//    entity.setter = @"strong";
+//    entity.atomicity = @"nonatomic";
+//    entity.writability = @"readwrite";
+//    entity.type = @"NSArray *";
+//    entity.name = @"items";
+//    [self.entities addObject:entity];
+//    self.entities = self.entities;
+//}
+//
+//- (void)removeSelectedEntities {
+//    [self.entities removeObjectsAtIndexes:self.selectedEntities];
+//    self.entities = self.entities;
+//}
 
 - (void)addType {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
@@ -283,20 +283,20 @@
     self.types = self.types;
 }
 
-- (BOOL)isPropertiesEnabled {
-    return self.entities.count;
+- (BOOL)isPropertiesEnabled:(NSArray *)entities {
+    return entities.count;
 }
 
 - (BOOL)isPrototypesEnabled {
     return self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled || self.isDictionaryRepresentationEnabled;
 }
 
-- (BOOL)isDefinesEnabled {
-    return self.entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
+- (BOOL)isDefinesEnabled:(NSArray *)entities {
+    return entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
 }
 
-- (BOOL)isSynthesizesEnabled {
-    return self.entities.count;
+- (BOOL)isSynthesizesEnabled:(NSArray *)entities {
+    return entities.count;
 }
 
 - (BOOL)isDeallocEnabled {
@@ -367,13 +367,13 @@
     }
 }
 
-- (NSString *)h_properties {
-    if (!self.isPropertiesEnabled) {
+- (NSString *)h_properties:(NSArray *)entities {
+    if (![self isPropertiesEnabled:entities]) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
     }
     return H_PROPERTIES(stuff);
@@ -403,57 +403,57 @@
     return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)h_content {    
-    return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
+- (NSString *)h_content:(NSArray *)entities {    
+    return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, [self h_properties:entities], self.h_prototypes);
 }
 
 - (NSString *)m_header {
     return [self headerWithFileType:@"m"];
 }
 
-- (NSString *)m_defines {
-    if (!self.isDefinesEnabled) {
+- (NSString *)m_defines:(NSArray *)entities {
+    if (![self isDefinesEnabled:entities]) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
     }
     return M_DEFINES(stuff);
 }
 
-- (NSString *)m_synthesizes {
-    if (!self.isSynthesizesEnabled) {
+- (NSString *)m_synthesizes:(NSArray *)entities {
+    if (![self isSynthesizesEnabled:entities]) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
     }
     return M_SYNTHESIZES(stuff);
 }
 
-- (NSString *)m_dealloc {
+- (NSString *)m_dealloc:(NSArray *)entities {
     if (!self.isDeallocEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
     }
     return M_DEALLOC(stuff);
 }
 
-- (NSString *)m_initWithDictionary {
+- (NSString *)m_initWithDictionary:(NSArray *)entities {
     if (!self.isInitWithDictionaryEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
     }
     return M_INITWITHDICTIONARY(self.className, stuff);
@@ -467,68 +467,68 @@
     return self.isObjectsWithArrayEnabled ? M_OBJECTSWITHARRAY : @"";
 }
 
-- (NSString *)m_dictionaryRepresentation {
+- (NSString *)m_dictionaryRepresentation:(NSArray *)entities {
     if (!self.isDictionaryRepresentationEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
     }
     return M_DICTIONARYREPRESENTATION(stuff);
 }
 
-- (NSString *)m_description {
+- (NSString *)m_description:(NSArray *)entities {
     if (!self.isDescriptionEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
     }
     return M_DESCRIPTION(stuff);
 }
 
-- (NSString *)m_copyWithZone {
+- (NSString *)m_copyWithZone:(NSArray *)entities {
     if (!self.isCopyingEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
     }
     return M_COPYWITHZONE(self.className, stuff);
 }
 
-- (NSString *)m_initWithCoder {
+- (NSString *)m_initWithCoder:(NSArray *)entities {
     if (!self.isCodingEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithCoderStuff]];
     }
     return M_INITWITHCODER(stuff);
 }
 
-- (NSString *)m_encodeWithCoder {
+- (NSString *)m_encodeWithCoder:(NSArray *)entities {
     if (!self.isCodingEnabled) {
         return @"";
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in entities) {
         stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
     }
     return M_ENCODEWITHCODER(stuff);
 }
 
-- (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self.m_encodeWithCoder);
+- (NSString *)m_content:(NSArray *)entities {
+    return M_CONTENT(self.m_header, self.className, [self m_defines:entities], [self m_synthesizes:entities], [self m_dealloc:entities], [self m_initWithDictionary:entities], self.m_objectWithDictionary, self.m_objectsWithArray, [self m_dictionaryRepresentation:entities], [self m_description:entities], [self m_copyWithZone:entities], [self m_initWithCoder:entities], [self m_encodeWithCoder:entities]);
 }
 
 @end

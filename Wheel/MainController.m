@@ -18,15 +18,18 @@
 
 @implementation MainController
 
-@synthesize dataStore = _dataStore;
-
-@synthesize tableView = _tableView;
-
+@synthesize className = _className;
+@synthesize superClassName = _superClassName;
 @synthesize entities = _entities;
 @synthesize selectedEntities = _selectedEntities;
+@synthesize dataStore = _dataStore;
+@synthesize tableView = _tableView;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.className = @"MyClass";
+    self.superClassName = @"NSObject";
     
     [self loadEntities];
     
@@ -35,15 +38,6 @@
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
     return self.dataStore.className;
-}
-
-- (void)keyDown:(NSEvent *)theEvent {
-    [super keyDown:theEvent];
-    
-    unichar keyCode = [theEvent keyCode];
-    if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
-        [self remove:nil];
-    }
 }
 
 - (void)loadEntities {
@@ -100,19 +94,28 @@
     self.entities = self.entities;
 }
 
+- (void)keyDown:(NSEvent *)theEvent {
+    [super keyDown:theEvent];
+    
+    unichar keyCode = [theEvent keyCode];
+    if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
+        [self remove:nil];
+    }
+}
+
 - (IBAction)add:(id)sender {
-    [self.dataStore addEntity];
+    [self addEntity];
     [self.tableView deselectAll:nil];
 }
 
 - (IBAction)remove:(id)sender {
-    [self.dataStore removeSelectedEntities];
+    [self removeSelectedEntities];
     [self.tableView deselectAll:nil];
 }
 
 - (IBAction)generate:(id)sender {    
-    NSString *h_content = self.dataStore.h_content;
-    NSString *m_content = self.dataStore.m_content;
+    NSString *h_content = [self.dataStore h_content:self.entities];
+    NSString *m_content = [self.dataStore m_content:self.entities];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;
