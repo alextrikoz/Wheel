@@ -120,8 +120,14 @@
     generator.superClassName = self.superClassName;
     generator.entities = self.entities;
     
+    NSTimeInterval startInterval = [[NSDate date] timeIntervalSince1970];
+    
     NSString *h_content = generator.h_content;
     NSString *m_content = generator.m_content;
+    
+    NSTimeInterval endInterval = [[NSDate date] timeIntervalSince1970];
+    
+    NSLog(@"%f", endInterval - startInterval);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;

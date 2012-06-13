@@ -184,16 +184,20 @@
     if ([object isKindOfClass:[Option class]]) {
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
         
-        Option *option = [self.options objectAtIndex:0];
-        option.active = [NSNumber numberWithBool:!self.isARCEnabled];
+        Option *initWithDictionaryOption = [self.options objectAtIndex:1];
+        Option *objectWithDictionaryOption = [self.options objectAtIndex:2];
+        Option *ARCOption = [self.options objectAtIndex:8];
         
-        option = [self.options objectAtIndex:2];
-        option.active = [NSNumber numberWithBool:self.isInitWithDictionaryEnabled];
+        Option *deallocOption = [self.options objectAtIndex:0];
+        deallocOption.active = [NSNumber numberWithBool:![ARCOption.enabled boolValue]];
         
-        option = [self.options objectAtIndex:3];
-        option.active = [NSNumber numberWithBool:self.isInitWithDictionaryEnabled && self.isObjectWithDictionaryEnabled];
+        objectWithDictionaryOption.active = initWithDictionaryOption.enabled;
+        
+        Option *objectsWithArrayOption = [self.options objectAtIndex:3];
+        objectsWithArrayOption.active = objectWithDictionaryOption.active;
         
         [appDelegate.managedObjectContext save:nil];
+        
         self.options = self.options;
     }
 }
@@ -218,22 +222,6 @@
     [appDelegate.managedObjectContext save:nil];
     
     self.types = self.types;
-}
-
-- (BOOL)isPropertiesEnabled:(NSArray *)entities {
-    return entities.count;
-}
-
-- (BOOL)isPrototypesEnabled {
-    return self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled || self.isDictionaryRepresentationEnabled;
-}
-
-- (BOOL)isDefinesEnabled:(NSArray *)entities {
-    return entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
-}
-
-- (BOOL)isSynthesizesEnabled:(NSArray *)entities {
-    return entities.count;
 }
 
 - (BOOL)isDeallocEnabled {
@@ -270,202 +258,6 @@
 
 - (BOOL)isARCEnabled {
     return [((Option *)[self.options objectAtIndex:8]).enabled boolValue];
-}
-
-- (NSString *)headerWithFileType:(NSString *)fileType {
-    id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@", self.className, fileType];
-    NSString *myProjectName = [defaultValues valueForKey:@"MyProjectName"];
-    NSString *myName = [defaultValues valueForKey:@"MyName"];
-    [dateFormatter setDateFormat:@"dd.MM.YY"];
-    NSString *createdDate = [dateFormatter stringFromDate:[NSDate date]];
-    [dateFormatter setDateFormat:@"YYYY"];
-    NSString *copyrightDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSString *myCompanyName = [defaultValues valueForKey:@"MyCompanyName"];
-    
-    return HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
-}
-
-- (NSString *)h_header {
-    return [self headerWithFileType:@"h"];
-}
-
-- (NSString *)h_protocols {
-    if (self.isCopyingEnabled && self.isCodingEnabled) {
-        return @"<NSCopying, NSCoding>";
-    } else if (self.isCopyingEnabled) {
-        return @"<NSCopying>";
-    } else if (self.isCodingEnabled) {
-        return @"<NSCoding>";
-    } else {
-        return @"";
-    }
-}
-
-- (NSString *)h_properties:(NSArray *)entities {
-    if (![self isPropertiesEnabled:entities]) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
-    }
-    return H_PROPERTIES(stuff);
-}
-
-- (NSString *)h_prototypes {
-    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
-}
-
-- (NSString *)h_initWithDictionaryPrototype {
-    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE(self.className) : @"";
-}
-
-- (NSString *)h_objectWithDictionaryPrototype {
-    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE(self.className) : @"";
-}
-
-- (NSString *)h_objectsWithArrayPrototype {
-    return self.isObjectsWithArrayEnabled ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
-}
-
-- (NSString *)h_dictionaryRepresentationPrototype {
-    return self.isDictionaryRepresentationEnabled ? M_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
-}
-
-- (NSString *)h_descriptionPrototype {
-    return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
-}
-
-- (NSString *)h_content:(NSArray *)entities className:(NSString *)className superClassName:(NSString *)superClassName {    
-    return H_CONTENT(self.h_header, className, superClassName, self.h_protocols, [self h_properties:entities], self.h_prototypes);
-}
-
-- (NSString *)m_header {
-    return [self headerWithFileType:@"m"];
-}
-
-- (NSString *)m_defines:(NSArray *)entities {
-    if (![self isDefinesEnabled:entities]) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
-    }
-    return M_DEFINES(stuff);
-}
-
-- (NSString *)m_synthesizes:(NSArray *)entities {
-    if (![self isSynthesizesEnabled:entities]) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
-    }
-    return M_SYNTHESIZES(stuff);
-}
-
-- (NSString *)m_dealloc:(NSArray *)entities {
-    if (!self.isDeallocEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
-    }
-    return M_DEALLOC(stuff);
-}
-
-- (NSString *)m_initWithDictionary:(NSArray *)entities {
-    if (!self.isInitWithDictionaryEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
-    }
-    return M_INITWITHDICTIONARY(self.className, stuff);
-}
-
-- (NSString *)m_objectWithDictionary {
-    return self.isObjectWithDictionaryEnabled ? self.isARCEnabled ? M_OBJECTWITHDICTIONARY_ARC(self.className) : M_OBJECTWITHDICTIONARY_MRR(self.className) : @"";
-}
-
-- (NSString *)m_objectsWithArray {
-    return self.isObjectsWithArrayEnabled ? M_OBJECTSWITHARRAY : @"";
-}
-
-- (NSString *)m_dictionaryRepresentation:(NSArray *)entities {
-    if (!self.isDictionaryRepresentationEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
-    }
-    return M_DICTIONARYREPRESENTATION(stuff);
-}
-
-- (NSString *)m_description:(NSArray *)entities {
-    if (!self.isDescriptionEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
-    }
-    return M_DESCRIPTION(stuff);
-}
-
-- (NSString *)m_copyWithZone:(NSArray *)entities {
-    if (!self.isCopyingEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
-    }
-    return M_COPYWITHZONE(self.className, stuff);
-}
-
-- (NSString *)m_initWithCoder:(NSArray *)entities {
-    if (!self.isCodingEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_initWithCoderStuff]];
-    }
-    return M_INITWITHCODER(stuff);
-}
-
-- (NSString *)m_encodeWithCoder:(NSArray *)entities {
-    if (!self.isCodingEnabled) {
-        return @"";
-    }
-    
-    NSString *stuff = @"";
-    for (Entity *entity in entities) {
-        stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
-    }
-    return M_ENCODEWITHCODER(stuff);
-}
-
-- (NSString *)m_content:(NSArray *)entities className:(NSString *)className {
-    return M_CONTENT(self.m_header, className, [self m_defines:entities], [self m_synthesizes:entities], [self m_dealloc:entities], [self m_initWithDictionary:entities], self.m_objectWithDictionary, self.m_objectsWithArray, [self m_dictionaryRepresentation:entities], [self m_description:entities], [self m_copyWithZone:entities], [self m_initWithCoder:entities], [self m_encodeWithCoder:entities]);
 }
 
 @end
