@@ -114,8 +114,8 @@
 }
 
 - (IBAction)generate:(id)sender {    
-    NSString *h_content = [self.dataStore h_content:self.entities];
-    NSString *m_content = [self.dataStore m_content:self.entities];
+    NSString *h_content = [self.dataStore h_content:self.entities className:self.className superClassName:self.superClassName];
+    NSString *m_content = [self.dataStore m_content:self.entities className:self.className];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;

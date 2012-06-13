@@ -18,14 +18,9 @@
 
 @implementation DataStore
 
-@synthesize className = _className;
-@synthesize superClassName = _superClassName;
-
 @synthesize setters = _setters;
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
-//@synthesize entities = _entities;
-//@synthesize selectedEntities = _selectedEntities;
 
 @synthesize types = _types;
 - (NSArray *)types {
@@ -58,54 +53,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.className = @"MyClass";
-    self.superClassName = @"NSObject";
-    
-//    [self loadEntities];
     [self loadTypes];
     [self loadSetters];
     [self loadAtomicities];
     [self loadWritabilities];
     [self loadOptions];
 }
-
-//- (void)loadEntities {
-//    self.entities = [NSMutableArray array];
-//    
-//    Entity *entity = [[Entity alloc] init];
-//    entity.setter = @"copy";
-//    entity.atomicity = @"nonatomic";
-//    entity.writability = @"readwrite";
-//    entity.type = @"NSString *";
-//    entity.name = @"title";
-//    [self.entities addObject:entity];
-//    
-//    entity = [[Entity alloc] init];
-//    entity.setter = @"copy";
-//    entity.atomicity = @"nonatomic";
-//    entity.writability = @"readwrite";
-//    entity.type = @"NSString *";
-//    entity.name = @"subtitle";
-//    [self.entities addObject:entity];
-//    
-//    entity = [[Entity alloc] init];
-//    entity.setter = @"strong";
-//    entity.atomicity = @"nonatomic";
-//    entity.writability = @"readwrite";
-//    entity.type = @"NSDate *";
-//    entity.name = @"date";
-//    [self.entities addObject:entity];
-//    
-//    entity = [[Entity alloc] init];
-//    entity.setter = @"strong";
-//    entity.atomicity = @"nonatomic";
-//    entity.writability = @"readwrite";
-//    entity.type = @"NSArray *";
-//    entity.name = @"items";
-//    [self.entities addObject:entity];
-//    
-//    self.entities = self.entities;
-//}
 
 - (void)loadTypes {
     self.types = self.types;
@@ -244,22 +197,6 @@
         self.options = self.options;
     }
 }
-
-//- (void)addEntity {
-//    Entity *entity = [[Entity alloc] init];
-//    entity.setter = @"strong";
-//    entity.atomicity = @"nonatomic";
-//    entity.writability = @"readwrite";
-//    entity.type = @"NSArray *";
-//    entity.name = @"items";
-//    [self.entities addObject:entity];
-//    self.entities = self.entities;
-//}
-//
-//- (void)removeSelectedEntities {
-//    [self.entities removeObjectsAtIndexes:self.selectedEntities];
-//    self.entities = self.entities;
-//}
 
 - (void)addType {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
@@ -403,8 +340,8 @@
     return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)h_content:(NSArray *)entities {    
-    return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, [self h_properties:entities], self.h_prototypes);
+- (NSString *)h_content:(NSArray *)entities className:(NSString *)className superClassName:(NSString *)superClassName {    
+    return H_CONTENT(self.h_header, className, superClassName, self.h_protocols, [self h_properties:entities], self.h_prototypes);
 }
 
 - (NSString *)m_header {
@@ -527,8 +464,8 @@
     return M_ENCODEWITHCODER(stuff);
 }
 
-- (NSString *)m_content:(NSArray *)entities {
-    return M_CONTENT(self.m_header, self.className, [self m_defines:entities], [self m_synthesizes:entities], [self m_dealloc:entities], [self m_initWithDictionary:entities], self.m_objectWithDictionary, self.m_objectsWithArray, [self m_dictionaryRepresentation:entities], [self m_description:entities], [self m_copyWithZone:entities], [self m_initWithCoder:entities], [self m_encodeWithCoder:entities]);
+- (NSString *)m_content:(NSArray *)entities className:(NSString *)className {
+    return M_CONTENT(self.m_header, className, [self m_defines:entities], [self m_synthesizes:entities], [self m_dealloc:entities], [self m_initWithDictionary:entities], self.m_objectWithDictionary, self.m_objectsWithArray, [self m_dictionaryRepresentation:entities], [self m_description:entities], [self m_copyWithZone:entities], [self m_initWithCoder:entities], [self m_encodeWithCoder:entities]);
 }
 
 @end

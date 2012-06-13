@@ -10,27 +10,18 @@
 
 @interface DataStore : NSObject
 
-@property (copy) NSString *className;
-@property (copy) NSString *superClassName;
-
 @property (strong) NSMutableArray *setters;
 @property (strong) NSMutableArray *atomicities;
 @property (strong) NSMutableArray *writabilities;
 @property (strong) NSArray *types;
 @property (strong) NSIndexSet *selectedTypes;
-//@property (strong) NSMutableArray *entities;
-//@property (strong) NSIndexSet *selectedEntities;
 @property (strong) NSArray *options;
 
-//- (void)loadEntities;
 - (void)loadTypes;
 - (void)loadSetters;
 - (void)loadAtomicities;
 - (void)loadWritabilities;
 - (void)loadOptions;
-
-//- (void)addEntity;
-//- (void)removeSelectedEntities;
 
 - (void)addType;
 - (void)removeSelectedTypes;
@@ -60,7 +51,7 @@
 - (NSString *)h_objectsWithArrayPrototype;
 - (NSString *)h_dictionaryRepresentationPrototype;
 - (NSString *)h_descriptionPrototype;
-- (NSString *)h_content:(NSArray *)entities;
+- (NSString *)h_content:(NSArray *)entities className:(NSString *)className superClassName:(NSString *)superClassName;
 
 - (NSString *)m_header;
 - (NSString *)m_defines:(NSArray *)entities;
@@ -74,6 +65,6 @@
 - (NSString *)m_copyWithZone:(NSArray *)entities;
 - (NSString *)m_initWithCoder:(NSArray *)entities;
 - (NSString *)m_encodeWithCoder:(NSArray *)entities;
-- (NSString *)m_content:(NSArray *)entities;
+- (NSString *)m_content:(NSArray *)entities className:(NSString *)className;
 
 @end
