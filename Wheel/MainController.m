@@ -15,6 +15,7 @@
 #import "Option.h"
 #import "Entity.h"
 #import "DataStore.h"
+#import "Generator.h"
 
 @implementation MainController
 
@@ -37,7 +38,7 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.dataStore.className;
+    return self.className;
 }
 
 - (void)loadEntities {
@@ -113,9 +114,14 @@
     [self.tableView deselectAll:nil];
 }
 
-- (IBAction)generate:(id)sender {    
-    NSString *h_content = [self.dataStore h_content:self.entities className:self.className superClassName:self.superClassName];
-    NSString *m_content = [self.dataStore m_content:self.entities className:self.className];
+- (IBAction)generate:(id)sender {
+    Generator *generator = [[Generator alloc] init];
+    generator.className = self.className;
+    generator.superClassName = self.superClassName;
+    generator.entities = self.entities;
+    
+    NSString *h_content = generator.h_content;
+    NSString *m_content = generator.m_content;
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;
@@ -125,8 +131,8 @@
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], self.dataStore.className]];
-            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], self.dataStore.className]];
+            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], self.className]];
+            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], self.className]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
 
