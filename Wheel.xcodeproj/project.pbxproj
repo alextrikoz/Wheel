@@ -221,9 +221,9 @@
 		11EF743C1539426800D341B5 /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				21F2C803157A57030048DA4D /* Models */,
 				1145D56415866B650089DBC3 /* Document.h */,
 				1145D56515866B650089DBC3 /* Document.m */,
-				21F2C803157A57030048DA4D /* Models */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,

@@ -16,6 +16,10 @@
 
 @property (strong) IBOutlet NSTableView *tableView;
 
+@property (strong) NSMutableArray *entities;
+@property (strong) NSIndexSet *selectedEntities;
+- (void)loadEntities;
+
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
 - (IBAction)generate:(id)sender;

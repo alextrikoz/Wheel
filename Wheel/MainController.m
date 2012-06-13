@@ -22,10 +22,15 @@
 
 @synthesize tableView = _tableView;
 
+@synthesize entities = _entities;
+@synthesize selectedEntities = _selectedEntities;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.tableView deselectAll:nil];   
+    [self loadEntities];
+    
+    [self.tableView deselectAll:nil];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -39,6 +44,60 @@
     if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
         [self remove:nil];
     }
+}
+
+- (void)loadEntities {
+    self.entities = [NSMutableArray array];
+    
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"title";
+    [self.entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"subtitle";
+    [self.entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSDate *";
+    entity.name = @"date";
+    [self.entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    [self.entities addObject:entity];
+    
+    self.entities = self.entities;
+}
+
+- (void)addEntity {
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    [self.entities addObject:entity];
+    self.entities = self.entities;
+}
+
+- (void)removeSelectedEntities {
+    [self.entities removeObjectsAtIndexes:self.selectedEntities];
+    self.entities = self.entities;
 }
 
 - (IBAction)add:(id)sender {
