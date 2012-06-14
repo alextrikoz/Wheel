@@ -26,14 +26,4 @@
 - (void)addType;
 - (void)removeSelectedTypes;
 
-- (BOOL)isDeallocEnabled;
-- (BOOL)isInitWithDictionaryEnabled;
-- (BOOL)isObjectWithDictionaryEnabled;
-- (BOOL)isObjectsWithArrayEnabled;
-- (BOOL)isDictionaryRepresentationEnabled;
-- (BOOL)isDescriptionEnabled;
-- (BOOL)isCopyingEnabled;
-- (BOOL)isCodingEnabled;
-- (BOOL)isARCEnabled;
-
 @end

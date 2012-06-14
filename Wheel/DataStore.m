@@ -224,40 +224,4 @@
     self.types = self.types;
 }
 
-- (BOOL)isDeallocEnabled {
-    return [((Option *)[self.options objectAtIndex:0]).enabled boolValue] && !self.isARCEnabled;
-}
-
-- (BOOL)isInitWithDictionaryEnabled {
-    return [((Option *)[self.options objectAtIndex:1]).enabled boolValue];
-}
-
-- (BOOL)isObjectWithDictionaryEnabled {
-    return [((Option *)[self.options objectAtIndex:2]).enabled boolValue];
-}
-
-- (BOOL)isObjectsWithArrayEnabled {
-    return [((Option *)[self.options objectAtIndex:3]).enabled boolValue];
-}
-
-- (BOOL)isDictionaryRepresentationEnabled {
-    return [((Option *)[self.options objectAtIndex:4]).enabled boolValue];    
-}
-
-- (BOOL)isDescriptionEnabled {
-    return [((Option *)[self.options objectAtIndex:5]).enabled boolValue];
-}
-
-- (BOOL)isCopyingEnabled {
-    return [((Option *)[self.options objectAtIndex:6]).enabled boolValue];
-}
-
-- (BOOL)isCodingEnabled {
-    return [((Option *)[self.options objectAtIndex:7]).enabled boolValue];
-}
-
-- (BOOL)isARCEnabled {
-    return [((Option *)[self.options objectAtIndex:8]).enabled boolValue];
-}
-
 @end
