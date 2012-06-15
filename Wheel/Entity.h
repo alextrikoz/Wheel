@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Entity : NSObject
+@interface Entity : NSObject <NSCoding>
 
 @property (strong) NSString *setter;
 @property (strong) NSString *atomicity;

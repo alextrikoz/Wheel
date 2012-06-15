@@ -32,7 +32,9 @@
     self.className = @"MyClass";
     self.superClassName = @"NSObject";
     
-    [self loadEntities];
+    if (!self.entities) {
+        [self loadEntities];
+    }
     
     [self.tableView deselectAll:nil];
 }

@@ -33,6 +33,10 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wheel</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>Document</string>
 			<key>CFBundleTypeName</key>

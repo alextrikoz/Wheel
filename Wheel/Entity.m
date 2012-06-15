@@ -63,4 +63,24 @@
     return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:\"%@\"];\n", self.name, self.name];
 }
 
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.setter forKey:@"setter"];
+    [coder encodeObject:self.atomicity forKey:@"atomicity"];
+    [coder encodeObject:self.writability forKey:@"writability"];
+    [coder encodeObject:self.type forKey:@"type"];
+    [coder encodeObject:self.name forKey:@"name"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        self.setter = [decoder decodeObjectForKey:@"setter"];
+        self.atomicity = [decoder decodeObjectForKey:@"atomicity"];
+        self.writability = [decoder decodeObjectForKey:@"writability"];
+        self.type = [decoder decodeObjectForKey:@"type"];
+        self.name = [decoder decodeObjectForKey:@"name"];
+    }
+    return self;
+}
+
 @end
