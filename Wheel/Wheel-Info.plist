@@ -40,7 +40,7 @@
 			<key>NSDocumentClass</key>
 			<string>Document</string>
 			<key>CFBundleTypeName</key>
-			<string></string>
+			<string>wheel</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>CFBundleTypeRole</key>

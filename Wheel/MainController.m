@@ -29,9 +29,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.className = @"MyClass";
-    self.superClassName = @"NSObject";
-    
+    if (!self.className) {
+        self.className = @"MyClass";
+    }
+    if (!self.superClassName) {
+        self.superClassName = @"NSObject";
+    }    
     if (!self.entities) {
         [self loadEntities];
     }

@@ -12,13 +12,17 @@
 
 @interface Document ()
 
-@property (strong) NSArray *entities;
+@property (strong) NSMutableArray *entities;
+@property (copy) NSString *className;
+@property (copy) NSString *superClassName;
 
 @end
 
 @implementation Document
 
 @synthesize entities = _entities;
+@synthesize className = _className;
+@synthesize superClassName = _superClassName;
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
     MainController *viewController = self.windowControllers.lastObject;    
@@ -30,15 +34,18 @@
     MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
     [self addWindowController:windowController];
     if (self.entities) {
-        windowController.entities = [self.entities mutableCopy];
-        self.entities = nil;
+        windowController.entities = self.entities;
+        windowController.className = self.className;
+        windowController.superClassName = self.superClassName;
     }
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     @try {
         NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        self.entities = [properties objectForKey:@"entities"];
+        self.entities = [[properties objectForKey:@"entities"] mutableCopy];
+        self.className = [properties objectForKey:@"className"];
+        self.superClassName = [properties objectForKey:@"superClassName"];
         return YES;
     } @catch (NSException *exception) {
         return NO;
@@ -46,13 +53,18 @@
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    
     MainController *viewController = self.windowControllers.lastObject;
     NSArray *entities = viewController.entities;
+    NSString *className = viewController.className;
+    NSString *superClassName = viewController.superClassName;
+    
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     [properties setObject:entities forKey:@"entities"];
+    [properties setObject:className forKey:@"className"];
+    [properties setObject:superClassName forKey:@"superClassName"];
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:properties];
+    
     return data;
 }
 

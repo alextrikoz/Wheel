@@ -53,7 +53,7 @@ className]
 "
 
 #define M_DICTIONARYREPRESENTATION_PROTOTYPE @"\
-- (NSDictionary *)dictionaryRepresentation\n\
+- (NSDictionary *)dictionaryRepresentation;\n\
 "
 
 #define H_DESCRIPTION_PROTOTYPE @"\

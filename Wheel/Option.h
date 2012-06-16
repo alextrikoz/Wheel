@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface Option : NSManagedObject {
-    NSNumber * _enabled;
-}
+@interface Option : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * active;
 @property (nonatomic, retain) NSNumber * enabled;
