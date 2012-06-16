@@ -20,6 +20,12 @@
 
 @synthesize entities = _entities;
 
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
+    MainController *viewController = self.windowControllers.lastObject;    
+    savePanel.nameFieldStringValue = viewController.className;  
+    return [super prepareSavePanel:savePanel];
+}
+
 - (void)makeWindowControllers {
     MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
     [self addWindowController:windowController];

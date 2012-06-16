@@ -65,7 +65,7 @@ className]
 \n\
 %@@implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@%@@end\n\
+%@%@%@%@%@%@%@%@%@%@@end\n\
 ",\
 header, className, defines, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
 
@@ -137,7 +137,7 @@ className, className]
 properties]
 
 #define M_COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
-#pragma mark - NSCoding\n\
+#pragma mark - NSCopying\n\
 \n\
 + (id)copyWithZone:(NSZone *)zone {\n\
     %@ *object = [[self class] allocWithZone:zone] init];\n\
