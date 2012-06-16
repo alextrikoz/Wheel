@@ -37,7 +37,8 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     @try {
-        self.entities = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        self.entities = [properties objectForKey:@"entities"];
         return YES;
     } @catch (NSException *exception) {
         return NO;
@@ -45,9 +46,13 @@
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+    
     MainController *viewController = self.windowControllers.lastObject;
     NSArray *entities = viewController.entities;
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:entities];
+    [properties setObject:entities forKey:@"entities"];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:properties];
     return data;
 }
 
