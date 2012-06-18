@@ -10,4 +10,8 @@
 
 @interface Document : NSDocument
 
+@property (strong) NSMutableArray *entities;
+@property (copy) NSString *className;
+@property (copy) NSString *superClassName;
+
 @end

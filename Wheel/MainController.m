@@ -12,6 +12,8 @@
 
 #import "Config.h"
 
+#import "Document.h"
+
 #import "Option.h"
 #import "Entity.h"
 #import "DataStore.h"
@@ -29,59 +31,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    if (!self.className) {
-        self.className = @"MyClass";
-    }
-    if (!self.superClassName) {
-        self.superClassName = @"NSObject";
-    }    
-    if (!self.entities) {
-        [self loadEntities];
-    }
-    
     [self.tableView deselectAll:nil];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.className;
-}
-
-- (void)loadEntities {
-    self.entities = [NSMutableArray array];
-    
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"title";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"subtitle";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSDate *";
-    entity.name = @"date";
-    [self.entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.entities addObject:entity];
-    
-    self.entities = self.entities;
+    return ((Document *)self.document).className;
 }
 
 - (void)addEntity {

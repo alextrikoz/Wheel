@@ -8,13 +8,13 @@
 
 #import "Document.h"
 
+#import "Entity.h"
+
 #import "MainController.h"
 
 @interface Document ()
 
-@property (strong) NSMutableArray *entities;
-@property (copy) NSString *className;
-@property (copy) NSString *superClassName;
+- (NSMutableArray *)defaultEnities;
 
 @end
 
@@ -24,20 +24,61 @@
 @synthesize className = _className;
 @synthesize superClassName = _superClassName;
 
-- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
-    MainController *viewController = self.windowControllers.lastObject;    
-    savePanel.nameFieldStringValue = viewController.className;  
-    return [super prepareSavePanel:savePanel];
+- (NSMutableArray *)defaultEnities {
+    NSMutableArray *entities = [NSMutableArray array];
+    
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"title";
+    [entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"subtitle";
+    [entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSDate *";
+    entity.name = @"date";
+    [entities addObject:entity];
+    
+    entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    [entities addObject:entity];
+    
+    return entities;        
 }
 
 - (void)makeWindowControllers {
     MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
     [self addWindowController:windowController];
-    if (self.entities) {
-        windowController.entities = self.entities;
-        windowController.className = self.className;
-        windowController.superClassName = self.superClassName;
+    
+    if (!self.entities) {
+        self.entities = self.defaultEnities;
     }
+    if (!self.className) {
+        self.className = @"MyClass";
+    }
+    if (!self.superClassName) {
+        self.superClassName = @"NSObject";
+    }
+    
+    windowController.entities = self.entities;
+    windowController.className = self.className;
+    windowController.superClassName = self.superClassName;
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
@@ -66,6 +107,12 @@
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:properties];
     
     return data;
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
+    MainController *viewController = self.windowControllers.lastObject;    
+    savePanel.nameFieldStringValue = viewController.className;  
+    return [super prepareSavePanel:savePanel];
 }
 
 @end

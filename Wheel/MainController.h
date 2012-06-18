@@ -17,7 +17,6 @@
 
 @property (strong) NSMutableArray *entities;
 @property (strong) NSIndexSet *selectedEntities;
-- (void)loadEntities;
 
 @property (strong) IBOutlet DataStore *dataStore;
 
