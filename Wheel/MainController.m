@@ -21,10 +21,6 @@
 
 @implementation MainController
 
-@synthesize className = _className;
-@synthesize superClassName = _superClassName;
-@synthesize entities = _entities;
-@synthesize selectedEntities = _selectedEntities;
 @synthesize dataStore = _dataStore;
 @synthesize tableView = _tableView;
 
@@ -38,22 +34,6 @@
     return ((Document *)self.document).className;
 }
 
-- (void)addEntity {
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    [self.entities addObject:entity];
-    self.entities = self.entities;
-}
-
-- (void)removeSelectedEntities {
-    [self.entities removeObjectsAtIndexes:self.selectedEntities];
-    self.entities = self.entities;
-}
-
 - (void)keyDown:(NSEvent *)theEvent {
     [super keyDown:theEvent];
     
@@ -64,20 +44,20 @@
 }
 
 - (IBAction)add:(id)sender {
-    [self addEntity];
+    [(Document *)self.document addEntity];
     [self.tableView deselectAll:nil];
 }
 
 - (IBAction)remove:(id)sender {
-    [self removeSelectedEntities];
+    [(Document *)self.document removeSelectedEntities];
     [self.tableView deselectAll:nil];
 }
 
 - (IBAction)generate:(id)sender {
     Generator *generator = [[Generator alloc] init];
-    generator.className = self.className;
-    generator.superClassName = self.superClassName;
-    generator.entities = self.entities;
+    generator.className = ((Document *)self.document).className;
+    generator.superClassName = ((Document *)self.document).superClassName;
+    generator.entities = ((Document *)self.document).entities;
     
     NSTimeInterval startInterval = [[NSDate date] timeIntervalSince1970];
     
@@ -96,8 +76,8 @@
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], self.className]];
-            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], self.className]];
+            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], ((Document *)self.document).className]];
+            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], ((Document *)self.document).className]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
 

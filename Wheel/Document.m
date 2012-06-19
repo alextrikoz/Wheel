@@ -20,9 +20,10 @@
 
 @implementation Document
 
-@synthesize entities = _entities;
 @synthesize className = _className;
 @synthesize superClassName = _superClassName;
+@synthesize entities = _entities;
+@synthesize selectedEntities = _selectedEntities;
 
 - (NSMutableArray *)defaultEnities {
     NSMutableArray *entities = [NSMutableArray array];
@@ -62,6 +63,22 @@
     return entities;        
 }
 
+- (void)addEntity {
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    [self.entities addObject:entity];
+    self.entities = self.entities;
+}
+
+- (void)removeSelectedEntities {
+    [self.entities removeObjectsAtIndexes:self.selectedEntities];
+    self.entities = self.entities;
+}
+
 - (void)makeWindowControllers {
     MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
     [self addWindowController:windowController];
@@ -75,10 +92,6 @@
     if (!self.superClassName) {
         self.superClassName = @"NSObject";
     }
-    
-    windowController.entities = self.entities;
-    windowController.className = self.className;
-    windowController.superClassName = self.superClassName;
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
@@ -93,16 +106,11 @@
     }
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    MainController *viewController = self.windowControllers.lastObject;
-    NSArray *entities = viewController.entities;
-    NSString *className = viewController.className;
-    NSString *superClassName = viewController.superClassName;
-    
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {    
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    [properties setObject:entities forKey:@"entities"];
-    [properties setObject:className forKey:@"className"];
-    [properties setObject:superClassName forKey:@"superClassName"];
+    [properties setObject:self.entities forKey:@"entities"];
+    [properties setObject:self.className forKey:@"className"];
+    [properties setObject:self.superClassName forKey:@"superClassName"];
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:properties];
     
@@ -110,8 +118,7 @@
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
-    MainController *viewController = self.windowControllers.lastObject;    
-    savePanel.nameFieldStringValue = viewController.className;  
+    savePanel.nameFieldStringValue = self.className;  
     return [super prepareSavePanel:savePanel];
 }
 

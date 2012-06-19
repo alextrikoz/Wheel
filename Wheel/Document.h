@@ -10,8 +10,13 @@
 
 @interface Document : NSDocument
 
-@property (strong) NSMutableArray *entities;
 @property (copy) NSString *className;
 @property (copy) NSString *superClassName;
+
+@property (strong) NSMutableArray *entities;
+@property (strong) NSIndexSet *selectedEntities;
+
+- (void)addEntity;
+- (void)removeSelectedEntities;
 
 @end
