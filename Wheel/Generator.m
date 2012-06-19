@@ -14,6 +14,8 @@
 #import "Option.h"
 #import "DataStore.h"
 
+#import "Document.h"
+
 @interface Generator ()
 
 @property (strong) DataStore *dataStore;
@@ -71,13 +73,10 @@
     }
     return _dataStore;
 }
-
-@synthesize entities = _entities;
-@synthesize className = _className;
-@synthesize superClassName = _superClassName;
+@synthesize document = _doc;
 
 - (BOOL)isPropertiesEnabled {
-    return self.entities.count;
+    return self.document.entities.count;
 }
 
 - (BOOL)isPrototypesEnabled {
@@ -85,11 +84,11 @@
 }
 
 - (BOOL)isDefinesEnabled {
-    return self.entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
+    return self.document.entities.count && (self.isInitWithDictionaryEnabled || self.isDictionaryRepresentationEnabled);
 }
 
 - (BOOL)isSynthesizesEnabled {
-    return self.entities.count;
+    return self.document.entities.count;
 }
 
 - (BOOL)isDeallocEnabled {
@@ -132,7 +131,7 @@
     id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@", self.className, fileType];
+    NSString *fileName = [NSString stringWithFormat:@"%@.%@", self.document.className, fileType];
     NSString *myProjectName = [defaultValues valueForKey:@"MyProjectName"];
     NSString *myName = [defaultValues valueForKey:@"MyName"];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
@@ -166,7 +165,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
     }
     return H_PROPERTIES(stuff);
@@ -177,11 +176,11 @@
 }
 
 - (NSString *)h_initWithDictionaryPrototype {
-    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE(self.className) : @"";
+    return self.isInitWithDictionaryEnabled ? H_INITWITHDICTIONARY_PROTOTYPE(self.document.className) : @"";
 }
 
 - (NSString *)h_objectWithDictionaryPrototype {
-    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE(self.className) : @"";
+    return self.isObjectWithDictionaryEnabled ? H_OBJECTWITHDICTIONARY_PROTOTYPE(self.document.className) : @"";
 }
 
 - (NSString *)h_objectsWithArrayPrototype {
@@ -197,7 +196,7 @@
 }
 
 - (NSString *)h_content {    
-    return H_CONTENT(self.h_header, self.className, self.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
+    return H_CONTENT(self.h_header, self.document.className, self.document.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
 }
 
 - (NSString *)m_header {
@@ -210,7 +209,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
     }
     return M_DEFINES(stuff);
@@ -222,7 +221,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
     }
     return M_SYNTHESIZES(stuff);
@@ -234,7 +233,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
     }
     return M_DEALLOC(stuff);
@@ -246,14 +245,14 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
     }
-    return M_INITWITHDICTIONARY(self.className, stuff);
+    return M_INITWITHDICTIONARY(self.document.className, stuff);
 }
 
 - (NSString *)m_objectWithDictionary {
-    return self.isObjectWithDictionaryEnabled ? self.isARCEnabled ? M_OBJECTWITHDICTIONARY_ARC(self.className) : M_OBJECTWITHDICTIONARY_MRR(self.className) : @"";
+    return self.isObjectWithDictionaryEnabled ? self.isARCEnabled ? M_OBJECTWITHDICTIONARY_ARC(self.document.className) : M_OBJECTWITHDICTIONARY_MRR(self.document.className) : @"";
 }
 
 - (NSString *)m_objectsWithArray {
@@ -266,7 +265,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
     }
     return M_DICTIONARYREPRESENTATION(stuff);
@@ -278,7 +277,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
     }
     return M_DESCRIPTION(stuff);
@@ -290,10 +289,10 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
     }
-    return M_COPYWITHZONE(self.className, stuff);
+    return M_COPYWITHZONE(self.document.className, stuff);
 }
 
 - (NSString *)m_initWithCoder {
@@ -302,7 +301,7 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithCoderStuff]];
     }
     return M_INITWITHCODER(stuff);
@@ -314,14 +313,14 @@
     }
     
     NSString *stuff = @"";
-    for (Entity *entity in self.entities) {
+    for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
     }
     return M_ENCODEWITHCODER(stuff);
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self .m_encodeWithCoder);
+    return M_CONTENT(self.m_header, self.document.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self .m_encodeWithCoder);
 }
 
 @end

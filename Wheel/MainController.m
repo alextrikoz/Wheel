@@ -21,7 +21,13 @@
 
 @implementation MainController
 
-@synthesize dataStore = _dataStore;
+@synthesize document = _doc;
+- (void)setDocument:(Document *)document {
+    super.document = document;
+}
+- (Document *)document {
+    return super.document;
+}
 @synthesize tableView = _tableView;
 
 - (void)awakeFromNib {
@@ -31,7 +37,7 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return ((Document *)self.document).className;
+    return self.document.className;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -55,18 +61,9 @@
 
 - (IBAction)generate:(id)sender {
     Generator *generator = [[Generator alloc] init];
-    generator.className = ((Document *)self.document).className;
-    generator.superClassName = ((Document *)self.document).superClassName;
-    generator.entities = ((Document *)self.document).entities;
-    
-    NSTimeInterval startInterval = [[NSDate date] timeIntervalSince1970];
-    
+    generator.document = self.document;   
     NSString *h_content = generator.h_content;
     NSString *m_content = generator.m_content;
-    
-    NSTimeInterval endInterval = [[NSDate date] timeIntervalSince1970];
-    
-    NSLog(@"%f", endInterval - startInterval);
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;

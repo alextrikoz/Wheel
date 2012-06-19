@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class Document;
+
 @interface Generator : NSObject
 
-@property (strong) NSArray *entities;
-@property (strong) NSString *className;
-@property (strong) NSString *superClassName;
+@property (strong) Document *document;
 
 - (NSString *)h_content;
 - (NSString *)m_content;

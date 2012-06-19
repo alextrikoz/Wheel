@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class DataStore;
+@class Document;
 
 @interface MainController : NSWindowController <NSTableViewDataSource>
 
-@property (strong) IBOutlet DataStore *dataStore;
+@property (strong) Document *document;
+
 @property (strong) IBOutlet NSTableView *tableView;
 
 - (IBAction)add:(id)sender;
