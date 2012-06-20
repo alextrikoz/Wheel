@@ -8,11 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Document;
-
 @interface MainController : NSWindowController <NSTableViewDataSource>
-
-@property (strong) Document *document;
 
 @property (strong) IBOutlet NSTableView *tableView;
 

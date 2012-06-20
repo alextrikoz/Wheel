@@ -9,25 +9,11 @@
 #import "MainController.h"
 
 #import <Carbon/Carbon.h>
-
-#import "Config.h"
-
 #import "Document.h"
-
-#import "Option.h"
-#import "Entity.h"
-#import "DataStore.h"
 #import "Generator.h"
 
 @implementation MainController
 
-@synthesize document = _doc;
-- (void)setDocument:(Document *)document {
-    super.document = document;
-}
-- (Document *)document {
-    return super.document;
-}
 @synthesize tableView = _tableView;
 
 - (void)awakeFromNib {
@@ -37,7 +23,7 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.document.className;
+    return ((Document *)self.document).className;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {

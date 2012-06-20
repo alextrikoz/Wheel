@@ -64,16 +64,15 @@
 @implementation Generator
 
 @synthesize dataStore = _dataStore;
-- (void)setDataStore:(DataStore *)dataStore {
-    _dataStore = dataStore;
-}
-- (DataStore *)dataStore {
-    if (!_dataStore) {
-        _dataStore = [[DataStore alloc] init];
+@synthesize document = _document;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.dataStore = [[DataStore alloc] init];
     }
-    return _dataStore;
+    return self;
 }
-@synthesize document = _doc;
 
 - (BOOL)isPropertiesEnabled {
     return self.document.entities.count;
