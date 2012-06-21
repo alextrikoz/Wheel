@@ -9,16 +9,11 @@
 #import "PreferencesController.h"
 
 #import <Carbon/Carbon.h>
-
-#import "Type.h"
 #import "DataStore.h"
-#import "AppDelegate.h"
 
 @implementation PreferencesController
 
 @synthesize generalItem = _generalItem;
-@synthesize libraryItem = _libraryItem;
-@synthesize optionsItem = _optionsItem;
 @synthesize addItem = _addItem;
 @synthesize removeItem = _removeItem;
 

@@ -41,7 +41,7 @@
     NSString *version = [defaults objectForKey:@"version"];
     if (![version isEqualToString:@"1.1"]) {
         [defaults setObject:@"1.1" forKey:@"version"];
-        [defaults synchronize];        
+        [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:self.applicationFilesDirectory error:nil];
     }
 }

@@ -48,7 +48,7 @@
 }
 
 - (NSString *)m_descriptionStuff {
-    return [NSString stringWithFormat:@"    description = [description stringByAppendingFormat:@\"\tself.%@ = %%@\", self.%@];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"    description = [description stringByAppendingFormat:@\"    self.%@ = %%@\\n\", self.%@];\n", self.name, self.name];
 }
 
 - (NSString *)m_copyWithZoneStuff {

@@ -129,7 +129,7 @@ className, className]
 
 #define M_DESCRIPTION(properties) [NSString stringWithFormat:@"\
 - (NSString *)description {\n\
-    NSString *description = [NSString stringWithFormat:@\"<%%@ %%p> = \t{\\n\", NSStringFromClass([self class]), self];\n\
+    NSString *description = [NSString stringWithFormat:@\"<%%@ %%p> = {\\n\", NSStringFromClass([self class]), self];\n\
 %@    description = [description stringByAppendingString:@\"}\"];\n\
     return description;\n\
 }\n\n\
