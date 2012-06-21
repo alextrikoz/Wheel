@@ -60,14 +60,14 @@ className]
 - (NSString *)description;\n\
 "
 
-#define M_CONTENT(header, className, defines, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+#define M_CONTENT(header, className, defines, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
 %@#import \"%@.h\"\n\
 \n\
 %@@implementation %@\n\
 \n\
 %@%@%@%@%@%@%@%@%@%@@end\n\
 ",\
-header, className, defines, className, synthesize, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
+header, className, defines, className, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
 
 #define M_DEFINES(properties) [NSString stringWithFormat:@"\
 %@\n\

@@ -9,14 +9,7 @@
 #import "Document.h"
 
 #import "Entity.h"
-
 #import "MainController.h"
-
-@interface Document ()
-
-- (NSMutableArray *)defaultEnities;
-
-@end
 
 @implementation Document
 
@@ -60,7 +53,7 @@
     entity.name = @"items";
     [entities addObject:entity];
     
-    return entities;        
+    return entities;
 }
 
 - (void)addEntity {
@@ -100,25 +93,23 @@
         self.entities = [[properties objectForKey:@"entities"] mutableCopy];
         self.className = [properties objectForKey:@"className"];
         self.superClassName = [properties objectForKey:@"superClassName"];
+        
         return YES;
     } @catch (NSException *exception) {
         return NO;
     }
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {    
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     [properties setObject:self.entities forKey:@"entities"];
     [properties setObject:self.className forKey:@"className"];
     [properties setObject:self.superClassName forKey:@"superClassName"];
-    
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:properties];
-    
-    return data;
+    return [NSKeyedArchiver archivedDataWithRootObject:properties];
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
-    savePanel.nameFieldStringValue = self.className;  
+    savePanel.nameFieldStringValue = self.className;
     return [super prepareSavePanel:savePanel];
 }
 

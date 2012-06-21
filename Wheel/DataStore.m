@@ -11,17 +11,13 @@
 #import "Type.h"
 #import "Entity.h"
 #import "Option.h"
-
 #import "AppDelegate.h"
-
-#import "Config.h"
 
 @implementation DataStore
 
 @synthesize setters = _setters;
 @synthesize atomicities = _atomicities;
 @synthesize writabilities = _writabilities;
-
 @synthesize types = _types;
 - (NSArray *)types {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
@@ -30,9 +26,7 @@
     return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
 }
 - (void)setTypes:(NSArray *)types {}
-
 @synthesize selectedTypes = _selectedTypes;
-
 @synthesize options = _options;
 - (NSArray *)options {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
@@ -97,7 +91,7 @@
     self.setters = self.setters;
 }
 
-- (void)loadAtomicities {    
+- (void)loadAtomicities {
     self.atomicities = [NSMutableArray array];
     [self.atomicities addObject:@"atomic"];
     [self.atomicities addObject:@"nonatomic"];
@@ -213,7 +207,7 @@
     self.types = self.types;
 }
 
-- (void)removeSelectedTypes {    
+- (void)removeSelectedTypes {
     AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
     NSArray *selectedTypes = [self.types objectsAtIndexes:self.selectedTypes];
     for (Type *type in selectedTypes) {

@@ -63,8 +63,8 @@
 
 @implementation Generator
 
-@synthesize dataStore = _dataStore;
 @synthesize document = _document;
+@synthesize dataStore = _dataStore;
 
 - (id)init {
     self = [super init];
@@ -107,7 +107,7 @@
 }
 
 - (BOOL)isDictionaryRepresentationEnabled {
-    return [((Option *)[self.dataStore.options objectAtIndex:4]).enabled boolValue];    
+    return [((Option *)[self.dataStore.options objectAtIndex:4]).enabled boolValue];
 }
 
 - (BOOL)isDescriptionEnabled {
@@ -159,10 +159,6 @@
 }
 
 - (NSString *)h_properties {
-    if (!self.isPropertiesEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
@@ -170,7 +166,7 @@
     return H_PROPERTIES(stuff);
 }
 
-- (NSString *)h_prototypes {
+- (NSString *)h_prototypes {    
     return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
 }
 
@@ -194,8 +190,14 @@
     return self.isDescriptionEnabled ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)h_content {    
-    return H_CONTENT(self.h_header, self.document.className, self.document.superClassName, self.h_protocols, self.h_properties, self.h_prototypes);
+- (NSString *)h_content {
+    NSString *header = self.h_header;
+    NSString *className = self.document.className;
+    NSString *superClassName = self.document.superClassName;
+    NSString *protocols = self.h_protocols;
+    NSString *properties = self.isPropertiesEnabled ? self.h_properties : @"";
+    NSString *prototypes = self.h_prototypes;
+    return H_CONTENT(header, className, superClassName, protocols, properties, prototypes);
 }
 
 - (NSString *)m_header {
@@ -203,10 +205,6 @@
 }
 
 - (NSString *)m_defines {
-    if (!self.isDefinesEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
@@ -215,10 +213,6 @@
 }
 
 - (NSString *)m_synthesizes {
-    if (!self.isSynthesizesEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
@@ -227,10 +221,6 @@
 }
 
 - (NSString *)m_dealloc {
-    if (!self.isDeallocEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
@@ -239,10 +229,6 @@
 }
 
 - (NSString *)m_initWithDictionary {
-    if (!self.isInitWithDictionaryEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
@@ -259,10 +245,6 @@
 }
 
 - (NSString *)m_dictionaryRepresentation {
-    if (!self.isDictionaryRepresentationEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
@@ -271,10 +253,6 @@
 }
 
 - (NSString *)m_description {
-    if (!self.isDescriptionEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
@@ -283,10 +261,6 @@
 }
 
 - (NSString *)m_copyWithZone {
-    if (!self.isCopyingEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
@@ -295,10 +269,6 @@
 }
 
 - (NSString *)m_initWithCoder {
-    if (!self.isCodingEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_initWithCoderStuff]];
@@ -307,10 +277,6 @@
 }
 
 - (NSString *)m_encodeWithCoder {
-    if (!self.isCodingEnabled) {
-        return @"";
-    }
-    
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
@@ -319,7 +285,21 @@
 }
 
 - (NSString *)m_content {
-    return M_CONTENT(self.m_header, self.document.className, self.m_defines, self.m_synthesizes, self.m_dealloc, self.m_initWithDictionary, self.m_objectWithDictionary, self.m_objectsWithArray, self.m_dictionaryRepresentation, self.m_description, self.m_copyWithZone, self.m_initWithCoder, self .m_encodeWithCoder);
+    NSString *header = self.m_header;
+    NSString *className = self.document.className;
+    NSString *defines = self.isDefinesEnabled ? self.m_defines : @"";
+    NSString *synthesizes = self.isSynthesizesEnabled ? self.m_synthesizes : @"";
+    NSString *dealloc = self.isDeallocEnabled ? self.m_dealloc : @"";
+    NSString *initWithDictionary = self.isInitWithDictionaryEnabled ? self.m_initWithDictionary : @"";
+    NSString *objectWithDictionary = self.isObjectWithDictionaryEnabled ? self.m_objectWithDictionary : @"";
+    NSString *objectsWithArray = self.isObjectsWithArrayEnabled ? self.m_objectsWithArray : @"";
+    NSString *dictionaryRepresentation = self.isDictionaryRepresentationEnabled ? self.m_dictionaryRepresentation : @"";
+    NSString *description = self.isDescriptionEnabled ? self.m_description : @"";
+    NSString *copyWithZone = self.isCopyingEnabled ? self.m_copyWithZone : @"";
+    NSString *initWithCoder = self.isCodingEnabled ? self.m_initWithCoder : @"";
+    NSString *encodeWithCoder = self.isCodingEnabled ? self .m_encodeWithCoder : @"";
+    
+    return M_CONTENT(header, className, defines, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder);
 }
 
 @end
