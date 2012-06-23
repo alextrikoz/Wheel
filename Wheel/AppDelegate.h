@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainController;
 @class PreferencesController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>

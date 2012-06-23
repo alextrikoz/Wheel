@@ -166,7 +166,7 @@
     return H_PROPERTIES(stuff);
 }
 
-- (NSString *)h_prototypes {    
+- (NSString *)h_prototypes {
     return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
 }
 

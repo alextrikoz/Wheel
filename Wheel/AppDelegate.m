@@ -7,10 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainController.h"
 #import "PreferencesController.h"
-
-#import "DataStore.h"
 
 @implementation AppDelegate
 
@@ -67,7 +64,6 @@
     Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Wheel" in the user's Library directory.
  */
 - (NSURL *)applicationFilesDirectory {
-
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *libraryURL = [[fileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
     return [libraryURL URLByAppendingPathComponent:@"Wheel"];
@@ -82,7 +78,7 @@
     }
 	
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Wheel" withExtension:@"momd"];
-    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
+    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return __managedObjectModel;
 }
 
@@ -93,19 +89,19 @@
     if (__persistentStoreCoordinator) {
         return __persistentStoreCoordinator;
     }
-
+    
     NSManagedObjectModel *mom = [self managedObjectModel];
     if (!mom) {
         NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
-
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
     
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
-        
+    
     if (!properties) {
         BOOL ok = NO;
         if ([error code] == NSFileReadNoSuchFileError) {
@@ -119,7 +115,7 @@
     else {
         if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
             // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
+            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
             
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
@@ -137,19 +133,19 @@
         return nil;
     }
     __persistentStoreCoordinator = coordinator;
-
+    
     return __persistentStoreCoordinator;
 }
 
 /**
     Returns the managed object context for the application (which is already
-    bound to the persistent store coordinator for the application.) 
+    bound to the persistent store coordinator for the application.)
  */
 - (NSManagedObjectContext *)managedObjectContext {
     if (__managedObjectContext) {
         return __managedObjectContext;
     }
-
+    
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (!coordinator) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -161,7 +157,7 @@
     }
     __managedObjectContext = [[NSManagedObjectContext alloc] init];
     [__managedObjectContext setPersistentStoreCoordinator:coordinator];
-
+    
     return __managedObjectContext;
 }
 
@@ -181,7 +177,7 @@
     if (![[self managedObjectContext] commitEditing]) {
         NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
     }
-
+    
     if (![[self managedObjectContext] save:&error]) {
         [[NSApplication sharedApplication] presentError:error];
     }
@@ -193,29 +189,29 @@
     }
     
     // Save changes in the application's managed object context before the application terminates.
-
+    
     if (!__managedObjectContext) {
         return NSTerminateNow;
     }
-
+    
     if (![[self managedObjectContext] commitEditing]) {
         NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
-
+    
     if (![[self managedObjectContext] hasChanges]) {
         return NSTerminateNow;
     }
-
+    
     NSError *error = nil;
     if (![[self managedObjectContext] save:&error]) {
-
-        // Customize this code block to include application-specific recovery steps.              
+        
+        // Customize this code block to include application-specific recovery steps.
         BOOL result = [sender presentError:error];
         if (result) {
             return NSTerminateCancel;
         }
-
+        
         NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
         NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
         NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
@@ -225,14 +221,14 @@
         [alert setInformativeText:info];
         [alert addButtonWithTitle:quitButton];
         [alert addButtonWithTitle:cancelButton];
-
+        
         NSInteger answer = [alert runModal];
         
         if (answer == NSAlertAlternateReturn) {
             return NSTerminateCancel;
         }
     }
-
+    
     return NSTerminateNow;
 }
 

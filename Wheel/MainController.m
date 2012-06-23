@@ -47,7 +47,7 @@
 
 - (IBAction)generate:(id)sender {
     Generator *generator = [[Generator alloc] init];
-    generator.document = self.document;   
+    generator.document = self.document;
     NSString *h_content = generator.h_content;
     NSString *m_content = generator.m_content;
     
@@ -62,7 +62,7 @@
             NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], ((Document *)self.document).className]];
             NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], ((Document *)self.document).className]];
             
-            [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];            
+            [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
             [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
         }
