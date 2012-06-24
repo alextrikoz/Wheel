@@ -14,10 +14,34 @@
 @implementation Document
 
 @synthesize className = _className;
+- (void)setClassName:(NSString *)className {
+    if (![_className isEqual:className]) {
+        if (_className) {
+            [self.undoManager registerUndoWithTarget:self selector:@selector(setClassName:) object:_className];
+        }
+        
+        _className = className;
+    }
+}
+- (NSString *)className {
+    return _className;
+}
 @synthesize superClassName = _superClassName;
+- (void)setSuperClassName:(NSString *)superClassName {
+    if (![_superClassName isEqual:superClassName]) {
+        if (_superClassName) {
+            [self.undoManager registerUndoWithTarget:self selector:@selector(setSuperClassName:) object:_superClassName];
+        }
+        
+        _superClassName = superClassName;
+    }
+}
+- (NSString *)superClassName {
+    return _superClassName;
+}
 @synthesize entities = _entities;
 - (void)setEntities:(NSMutableArray *)entities {
-    if ([entities isEqual:_entities]) {
+    if (![_entities isEqual:entities]) {
         if (_entities) {
             [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:_entities.mutableCopy];
         }
