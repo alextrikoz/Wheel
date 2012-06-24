@@ -16,6 +16,18 @@
 @synthesize className = _className;
 @synthesize superClassName = _superClassName;
 @synthesize entities = _entities;
+- (void)setEntities:(NSMutableArray *)entities {
+    if ([entities isEqual:_entities]) {
+        if (_entities) {
+            [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:_entities.mutableCopy];
+        }
+        
+        _entities = entities;
+    }
+}
+- (NSMutableArray *)entities {
+    return _entities;
+}
 @synthesize selectedEntities = _selectedEntities;
 
 - (NSMutableArray *)defaultEnities {
