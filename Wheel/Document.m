@@ -57,6 +57,8 @@
 }
 
 - (void)addEntity {
+    [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:[self.entities mutableCopy]];
+    
     Entity *entity = [[Entity alloc] init];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
@@ -68,6 +70,8 @@
 }
 
 - (void)removeSelectedEntities {
+    [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:[self.entities mutableCopy]];
+    
     [self.entities removeObjectsAtIndexes:self.selectedEntities];
     self.entities = self.entities;
 }

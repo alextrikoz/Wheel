@@ -60,7 +60,7 @@
 }
 
 - (NSString *)m_encodeWithCoderStuff {
-    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:\"%@\"];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {

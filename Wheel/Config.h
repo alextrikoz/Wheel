@@ -44,12 +44,12 @@ initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayProt
 className]
 
 #define H_OBJECTWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
-- (%@ *)objectWithDictionary:(NSDictionary *)dictionary;\n\
++ (%@ *)objectWithDictionary:(NSDictionary *)dictionary;\n\
 ",\
 className]
 
 #define H_OBJECTSWITHARRAY_PROTOTYPE @"\
-- (NSMutableArray *)objectsWithArray:(NSArray *)array;\n\
++ (NSMutableArray *)objectsWithArray:(NSArray *)array;\n\
 "
 
 #define M_DICTIONARYREPRESENTATION_PROTOTYPE @"\
