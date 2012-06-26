@@ -139,8 +139,8 @@ properties]
 #define M_COPYWITHZONE(className, properties) [NSString stringWithFormat:@"\
 #pragma mark - NSCopying\n\
 \n\
-+ (id)copyWithZone:(NSZone *)zone {\n\
-    %@ *object = [[self class] allocWithZone:zone] init];\n\
+- (id)copyWithZone:(NSZone *)zone {\n\
+    %@ *object = [[[self class] allocWithZone:zone] init];\n\
 %@    return object;\n\
 }\n\n\
 ",\
@@ -150,7 +150,7 @@ className, properties]
 #pragma mark - NSCoding\n\
 \n\
 - (id)initWithCoder:(NSCoder *)decoder {\n\
-    self = [super initWithCoder:decoder];\n\
+    self = [super init];\n\
     if (self) {\n\
 %@    }\n\
     return self;\n\
