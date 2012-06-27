@@ -244,7 +244,7 @@
     for (Entity *entity in self.document.entities) {
         stuff = [stuff stringByAppendingString:[entity m_setAttributesWithDictionaryStuff]];
     }
-    return M_SETATTRIBUTESWITHDICTIONARY(self.document.className, stuff);
+    return M_SETATTRIBUTESWITHDICTIONARY(stuff);
 }
 
 - (NSString *)m_initWithDictionary {

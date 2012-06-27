@@ -91,11 +91,11 @@ properties]
 ",\
 properties]
 
-#define M_SETATTRIBUTESWITHDICTIONARY(className, properties) [NSString stringWithFormat:@"\
-- (%@ *)setAttributesWithDictionary:(NSDictionary *)dictionary {\n\
+#define M_SETATTRIBUTESWITHDICTIONARY(properties) [NSString stringWithFormat:@"\
+- (void)setAttributesWithDictionary:(NSDictionary *)dictionary {\n\
 %@}\n\n\
 ",\
-className, properties]
+properties]
 
 #define M_INITWITHDICTIONARY(className) [NSString stringWithFormat:@"\
 - (%@ *)initWithDictionary:(NSDictionary *)dictionary {\n\
