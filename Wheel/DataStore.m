@@ -119,50 +119,56 @@
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
+        option.name = @"- (id)setAttributesWithDictionary:(NSDictionary *)dictionary;";
         option.order = [NSNumber numberWithInt:1];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
+        option.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
         option.order = [NSNumber numberWithInt:2];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
+        option.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
         option.order = [NSNumber numberWithInt:3];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"- (NSDictionary *)dictionaryRepresentation;";
+        option.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
         option.order = [NSNumber numberWithInt:4];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"- (NSString *)description;";
+        option.name = @"- (NSDictionary *)dictionaryRepresentation;";
         option.order = [NSNumber numberWithInt:5];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"NSCopying";
+        option.name = @"- (NSString *)description;";
         option.order = [NSNumber numberWithInt:6];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:YES];
-        option.name = @"NSCoding";
+        option.name = @"NSCopying";
         option.order = [NSNumber numberWithInt:7];
+        
+        option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
+        option.active = [NSNumber numberWithBool:YES];
+        option.enabled = [NSNumber numberWithBool:YES];
+        option.name = @"NSCoding";
+        option.order = [NSNumber numberWithInt:8];
         
         option = [NSEntityDescription insertNewObjectForEntityForName:@"Option" inManagedObjectContext:appDelegate.managedObjectContext];
         option.active = [NSNumber numberWithBool:YES];
         option.enabled = [NSNumber numberWithBool:NO];
         option.name = @"ARC";
-        option.order = [NSNumber numberWithInt:8];
+        option.order = [NSNumber numberWithInt:9];
         
         [appDelegate.managedObjectContext save:nil];
         
@@ -171,24 +177,25 @@
     
     [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:1] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
     [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:2] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
-    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:8] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
+    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:3] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
+    [self.options addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:9] forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isKindOfClass:[Option class]]) {
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
         
-        Option *initWithDictionaryOption = [self.options objectAtIndex:1];
-        Option *objectWithDictionaryOption = [self.options objectAtIndex:2];
-        Option *ARCOption = [self.options objectAtIndex:8];
-        
         Option *deallocOption = [self.options objectAtIndex:0];
+        Option *setAttributesWithDictionaryOption = [self.options objectAtIndex:1];
+        Option *initWithDictionaryOption = [self.options objectAtIndex:2];
+        Option *objectWithDictionaryOption = [self.options objectAtIndex:3];
+        Option *objectsWithArrayOption = [self.options objectAtIndex:4];
+        Option *ARCOption = [self.options objectAtIndex:9];
+        
         deallocOption.active = [NSNumber numberWithBool:![ARCOption.enabled boolValue]];
-        
-        objectWithDictionaryOption.active = initWithDictionaryOption.enabled;
-        
-        Option *objectsWithArrayOption = [self.options objectAtIndex:3];
-        objectsWithArrayOption.active = objectWithDictionaryOption.active;
+        initWithDictionaryOption.active = setAttributesWithDictionaryOption.enabled;
+        objectWithDictionaryOption.active = [NSNumber numberWithBool:initWithDictionaryOption.active.boolValue && initWithDictionaryOption.enabled.boolValue];        
+        objectsWithArrayOption.active = [NSNumber numberWithBool:objectWithDictionaryOption.active.boolValue && objectWithDictionaryOption.enabled.boolValue];
         
         [appDelegate.managedObjectContext save:nil];
         

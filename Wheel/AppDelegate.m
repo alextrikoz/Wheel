@@ -36,8 +36,8 @@
 - (void)setupCoreData {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
-    if (![version isEqualToString:@"1.1"]) {
-        [defaults setObject:@"1.1" forKey:@"version"];
+    if (![version isEqualToString:@"1.2"]) {
+        [defaults setObject:@"1.2" forKey:@"version"];
         [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:self.applicationFilesDirectory error:nil];
     }

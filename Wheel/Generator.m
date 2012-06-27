@@ -25,6 +25,7 @@
 - (BOOL)isDefinesEnabled;
 - (BOOL)isSynthesizesEnabled;
 - (BOOL)isDeallocEnabled;
+- (BOOL)isSetAttributesWithDictionaryEnabled;
 - (BOOL)isInitWithDictionaryEnabled;
 - (BOOL)isObjectWithDictionaryEnabled;
 - (BOOL)isObjectsWithArrayEnabled;
@@ -40,6 +41,7 @@
 - (NSString *)h_protocols;
 - (NSString *)h_properties;
 - (NSString *)h_prototypes;
+- (NSString *)h_setAttributesWithDictionary;
 - (NSString *)h_initWithDictionaryPrototype;
 - (NSString *)h_objectWithDictionaryPrototype;
 - (NSString *)h_objectsWithArrayPrototype;
@@ -50,6 +52,7 @@
 - (NSString *)m_defines;
 - (NSString *)m_synthesizes;
 - (NSString *)m_dealloc;
+- (NSString *)m_setAttributesWithDictionary;
 - (NSString *)m_initWithDictionary;
 - (NSString *)m_objectWithDictionary;
 - (NSString *)m_objectsWithArray;
@@ -79,7 +82,7 @@
 }
 
 - (BOOL)isPrototypesEnabled {
-    return self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled || self.isDictionaryRepresentationEnabled;
+    return self.isSetAttributesWithDictionaryEnabled || self.isInitWithDictionaryEnabled || self.isObjectWithDictionaryEnabled || self.isObjectsWithArrayEnabled || self.isDictionaryRepresentationEnabled;
 }
 
 - (BOOL)isDefinesEnabled {
@@ -94,36 +97,40 @@
     return [((Option *)[self.dataStore.options objectAtIndex:0]).enabled boolValue] && !self.isARCEnabled;
 }
 
-- (BOOL)isInitWithDictionaryEnabled {
+- (BOOL)isSetAttributesWithDictionaryEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:1]).enabled boolValue];
 }
 
-- (BOOL)isObjectWithDictionaryEnabled {
+- (BOOL)isInitWithDictionaryEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:2]).enabled boolValue];
 }
 
-- (BOOL)isObjectsWithArrayEnabled {
+- (BOOL)isObjectWithDictionaryEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:3]).enabled boolValue];
 }
 
-- (BOOL)isDictionaryRepresentationEnabled {
+- (BOOL)isObjectsWithArrayEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:4]).enabled boolValue];
 }
 
-- (BOOL)isDescriptionEnabled {
+- (BOOL)isDictionaryRepresentationEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:5]).enabled boolValue];
 }
 
-- (BOOL)isCopyingEnabled {
+- (BOOL)isDescriptionEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:6]).enabled boolValue];
 }
 
-- (BOOL)isCodingEnabled {
+- (BOOL)isCopyingEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:7]).enabled boolValue];
 }
 
-- (BOOL)isARCEnabled {
+- (BOOL)isCodingEnabled {
     return [((Option *)[self.dataStore.options objectAtIndex:8]).enabled boolValue];
+}
+
+- (BOOL)isARCEnabled {
+    return [((Option *)[self.dataStore.options objectAtIndex:9]).enabled boolValue];
 }
 
 - (NSString *)headerWithFileType:(NSString *)fileType {
@@ -167,7 +174,11 @@
 }
 
 - (NSString *)h_prototypes {
-    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
+    return self.isPrototypesEnabled ? H_PROTOTYPES(self.h_setAttributesWithDictionary, self.h_initWithDictionaryPrototype, self.h_objectWithDictionaryPrototype, self.h_objectsWithArrayPrototype, self.h_dictionaryRepresentationPrototype, self.h_descriptionPrototype) : @"";
+}
+
+- (NSString *)h_setAttributesWithDictionary {
+    return self.isSetAttributesWithDictionaryEnabled ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE(self.document.className) : @"";
 }
 
 - (NSString *)h_initWithDictionaryPrototype {
@@ -228,12 +239,16 @@
     return M_DEALLOC(stuff);
 }
 
-- (NSString *)m_initWithDictionary {
+- (NSString *)m_setAttributesWithDictionary {
     NSString *stuff = @"";
     for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_initWithDictionaryStuff]];
+        stuff = [stuff stringByAppendingString:[entity m_setAttributesWithDictionaryStuff]];
     }
-    return M_INITWITHDICTIONARY(self.document.className, stuff);
+    return M_SETATTRIBUTESWITHDICTIONARY(self.document.className, stuff);
+}
+
+- (NSString *)m_initWithDictionary {
+    return self.isInitWithDictionaryEnabled ? M_INITWITHDICTIONARY(self.document.className) : @"";
 }
 
 - (NSString *)m_objectWithDictionary {
@@ -290,6 +305,7 @@
     NSString *defines = self.isDefinesEnabled ? self.m_defines : @"";
     NSString *synthesizes = self.isSynthesizesEnabled ? self.m_synthesizes : @"";
     NSString *dealloc = self.isDeallocEnabled ? self.m_dealloc : @"";
+    NSString *setAttributesWithDictionary = self.isSetAttributesWithDictionaryEnabled ? self.m_setAttributesWithDictionary : @"";
     NSString *initWithDictionary = self.isInitWithDictionaryEnabled ? self.m_initWithDictionary : @"";
     NSString *objectWithDictionary = self.isObjectWithDictionaryEnabled ? self.m_objectWithDictionary : @"";
     NSString *objectsWithArray = self.isObjectsWithArrayEnabled ? self.m_objectsWithArray : @"";
@@ -299,7 +315,7 @@
     NSString *initWithCoder = self.isCodingEnabled ? self.m_initWithCoder : @"";
     NSString *encodeWithCoder = self.isCodingEnabled ? self .m_encodeWithCoder : @"";
     
-    return M_CONTENT(header, className, defines, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder);
+    return M_CONTENT(header, className, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder);
 }
 
 @end

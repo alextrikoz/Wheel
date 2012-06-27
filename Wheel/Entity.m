@@ -39,8 +39,8 @@
     return [NSString stringWithFormat:@"    [_%@ release];\n", self.name];
 }
 
-- (NSString *)m_initWithDictionaryStuff {
-    return [NSString stringWithFormat:@"        self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+- (NSString *)m_setAttributesWithDictionaryStuff {
+    return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
 - (NSString *)m_dictionaryRepresentationStuff {

@@ -33,10 +33,15 @@ header, className, superClassName, protocols, properties, prototypes]
 ",\
 properties]
 
-#define H_PROTOTYPES(initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype) [NSString stringWithFormat:@"\
-%@%@%@%@%@\n\
+#define H_PROTOTYPES(setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype) [NSString stringWithFormat:@"\
+%@%@%@%@%@%@\n\
 ",\
-initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
+setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
+
+#define H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
+- (%@ *)setAttributesWithDictionary:(NSDictionary *)dictionary;\n\
+",\
+className]
 
 #define H_INITWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
 - (%@ *)initWithDictionary:(NSDictionary *)dictionary;\n\
@@ -60,14 +65,14 @@ className]
 - (NSString *)description;\n\
 "
 
-#define M_CONTENT(header, className, defines, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
+#define M_CONTENT(header, className, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder) [NSString stringWithFormat:@"\
 %@#import \"%@.h\"\n\
 \n\
 %@@implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@%@%@@end\n\
+%@%@%@%@%@%@%@%@%@%@%@@end\n\
 ",\
-header, className, defines, className, synthesizes, dealloc, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
+header, className, defines, className, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copyWithZone, initWithCoder, encodeWithCoder]
 
 #define M_DEFINES(properties) [NSString stringWithFormat:@"\
 %@\n\
@@ -86,15 +91,22 @@ properties]
 ",\
 properties]
 
-#define M_INITWITHDICTIONARY(className, properties) [NSString stringWithFormat:@"\
+#define M_SETATTRIBUTESWITHDICTIONARY(className, properties) [NSString stringWithFormat:@"\
+- (%@ *)setAttributesWithDictionary:(NSDictionary *)dictionary {\n\
+%@}\n\n\
+",\
+className, properties]
+
+#define M_INITWITHDICTIONARY(className) [NSString stringWithFormat:@"\
 - (%@ *)initWithDictionary:(NSDictionary *)dictionary {\n\
     self = [super init];\n\
     if (self) {\n\
-%@    }\n\
+        [self setAttributesWithDictionary:dictionary];\n\
+    }\n\
     return self;\n\
 }\n\n\
 ",\
-className, properties]
+className]
 
 #define M_OBJECTWITHDICTIONARY_MRR(className) [NSString stringWithFormat:@"\
 + (%@ *)objectWithDictionary:(NSDictionary *)dictionary {\n\
