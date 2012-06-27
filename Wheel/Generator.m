@@ -178,7 +178,7 @@
 }
 
 - (NSString *)h_setAttributesWithDictionary {
-    return self.isSetAttributesWithDictionaryEnabled ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE(self.document.className) : @"";
+    return self.isSetAttributesWithDictionaryEnabled ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
 }
 
 - (NSString *)h_initWithDictionaryPrototype {

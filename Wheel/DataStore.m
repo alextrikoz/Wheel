@@ -194,7 +194,7 @@
         
         deallocOption.active = [NSNumber numberWithBool:![ARCOption.enabled boolValue]];
         initWithDictionaryOption.active = setAttributesWithDictionaryOption.enabled;
-        objectWithDictionaryOption.active = [NSNumber numberWithBool:initWithDictionaryOption.active.boolValue && initWithDictionaryOption.enabled.boolValue];        
+        objectWithDictionaryOption.active = [NSNumber numberWithBool:initWithDictionaryOption.active.boolValue && initWithDictionaryOption.enabled.boolValue];
         objectsWithArrayOption.active = [NSNumber numberWithBool:objectWithDictionaryOption.active.boolValue && objectWithDictionaryOption.enabled.boolValue];
         
         [appDelegate.managedObjectContext save:nil];

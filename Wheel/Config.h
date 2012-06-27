@@ -38,10 +38,9 @@ properties]
 ",\
 setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
 
-#define H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
-- (%@ *)setAttributesWithDictionary:(NSDictionary *)dictionary;\n\
-",\
-className]
+#define H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE @"\
+- (void)setAttributesWithDictionary:(NSDictionary *)dictionary;\n\
+"
 
 #define H_INITWITHDICTIONARY_PROTOTYPE(className) [NSString stringWithFormat:@"\
 - (%@ *)initWithDictionary:(NSDictionary *)dictionary;\n\
