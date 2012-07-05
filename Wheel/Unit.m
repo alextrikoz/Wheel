@@ -45,6 +45,7 @@
 @end
 
 @implementation DefinesUnit
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!document.entities.count) {
         return @"";
@@ -55,9 +56,11 @@
     }
     return M_DEFINES(stuff);
 }
+
 @end
 
 @implementation SynthesizesUnit
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!document.entities.count) {
         return @"";
@@ -68,9 +71,11 @@
     }
     return M_SYNTHESIZES(stuff);
 }
+
 @end
 
 @implementation DeallocUnit
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -81,9 +86,15 @@
     }
     return M_DEALLOC(stuff);
 }
+
 @end
 
 @implementation SetAttributesWithDictionaryUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -94,27 +105,51 @@
     }
     return M_SETATTRIBUTESWITHDICTIONARY(stuff);
 }
+
 @end
 
 @implementation InitWithDictionaryUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document  {
     return self.available ? M_INITWITHDICTIONARY(document.className) : @"";
 }
+
 @end
 
 @implementation ObjectWithDictionaryUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document {
     return self.available ? M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
 }
+
 @end
 
 @implementation ObjectsWithArrayUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document {
     return self.available ? M_OBJECTSWITHARRAY : @"";
 }
+
 @end
 
 @implementation DictionaryRepresentationUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -125,9 +160,15 @@
     }
     return M_DICTIONARYREPRESENTATION(stuff);
 }
+
 @end
 
 @implementation DescriptionUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    return self.available ? H_DESCRIPTION_PROTOTYPE : @"";
+}
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -138,9 +179,11 @@
     }
     return M_DESCRIPTION(stuff);
 }
+
 @end
 
 @implementation NSCopyingUnit
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -151,9 +194,11 @@
     }
     return M_COPYWITHZONE(document.className, stuff);
 }
+
 @end
 
 @implementation NSCodingUnit
+
 - (NSString *)bodyWithDocument:(Document *)document {
     if (!self.available) {
         return @"";
@@ -166,4 +211,5 @@
     }
     return [NSString stringWithFormat:@"%@%@", M_INITWITHCODER(initWithCoderStuff), M_ENCODEWITHCODER(encodeWithCoderStuff)];
 }
+
 @end

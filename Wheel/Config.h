@@ -56,7 +56,7 @@ className]
 + (NSMutableArray *)objectsWithArray:(NSArray *)array;\n\
 "
 
-#define M_DICTIONARYREPRESENTATION_PROTOTYPE @"\
+#define H_DICTIONARYREPRESENTATION_PROTOTYPE @"\
 - (NSDictionary *)dictionaryRepresentation;\n\
 "
 

@@ -161,7 +161,7 @@
 }
 
 - (NSString *)h_dictionaryRepresentationPrototype {
-    return self.isDictionaryRepresentationEnabled ? M_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
+    return self.isDictionaryRepresentationEnabled ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
 - (NSString *)h_descriptionPrototype {
