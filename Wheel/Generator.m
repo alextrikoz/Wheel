@@ -15,6 +15,7 @@
 #import "DataStore.h"
 
 #import "Document.h"
+#import "Unit.h"
 
 @interface Generator ()
 
@@ -35,9 +36,6 @@
 - (BOOL)isCodingEnabled;
 - (BOOL)isARCEnabled;
 
-- (NSString *)headerWithFileType:(NSString *)fileType;
-
-- (NSString *)h_header;
 - (NSString *)h_protocols;
 - (NSString *)h_properties;
 - (NSString *)h_prototypes;
@@ -48,17 +46,6 @@
 - (NSString *)h_dictionaryRepresentationPrototype;
 - (NSString *)h_descriptionPrototype;
 
-- (NSString *)m_header;
-- (NSString *)m_defines;
-- (NSString *)m_synthesizes;
-- (NSString *)m_dealloc;
-- (NSString *)m_setAttributesWithDictionary;
-- (NSString *)m_initWithDictionary;
-- (NSString *)m_objectWithDictionary;
-- (NSString *)m_objectsWithArray;
-- (NSString *)m_dictionaryRepresentation;
-- (NSString *)m_description;
-- (NSString *)m_copyWithZone;
 - (NSString *)m_initWithCoder;
 - (NSString *)m_encodeWithCoder;
 
@@ -133,26 +120,6 @@
     return [((Option *)[self.dataStore.options objectAtIndex:9]).enabled boolValue];
 }
 
-- (NSString *)headerWithFileType:(NSString *)fileType {
-    id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    NSString *fileName = [NSString stringWithFormat:@"%@.%@", self.document.className, fileType];
-    NSString *myProjectName = [defaultValues valueForKey:@"MyProjectName"];
-    NSString *myName = [defaultValues valueForKey:@"MyName"];
-    [dateFormatter setDateFormat:@"dd.MM.YY"];
-    NSString *createdDate = [dateFormatter stringFromDate:[NSDate date]];
-    [dateFormatter setDateFormat:@"YYYY"];
-    NSString *copyrightDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSString *myCompanyName = [defaultValues valueForKey:@"MyCompanyName"];
-    
-    return HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
-}
-
-- (NSString *)h_header {
-    return [self headerWithFileType:@"h"];
-}
-
 - (NSString *)h_protocols {
     if (self.isCopyingEnabled && self.isCodingEnabled) {
         return @"<NSCopying, NSCoding>";
@@ -202,85 +169,18 @@
 }
 
 - (NSString *)h_content {
-    NSString *header = self.h_header;
+    HeaderUnit *headerUnit = [[HeaderUnit alloc] init];
+    headerUnit.enable = [NSNumber numberWithBool:YES];
+    headerUnit.on = [NSNumber numberWithBool:YES];
+    NSString *header = [headerUnit bodyWithDocument:self.document pathExtension:@"h"];
+    
     NSString *className = self.document.className;
     NSString *superClassName = self.document.superClassName;
+    
     NSString *protocols = self.h_protocols;
     NSString *properties = self.isPropertiesEnabled ? self.h_properties : @"";
     NSString *prototypes = self.h_prototypes;
     return H_CONTENT(header, className, superClassName, protocols, properties, prototypes);
-}
-
-- (NSString *)m_header {
-    return [self headerWithFileType:@"m"];
-}
-
-- (NSString *)m_defines {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
-    }
-    return M_DEFINES(stuff);
-}
-
-- (NSString *)m_synthesizes {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
-    }
-    return M_SYNTHESIZES(stuff);
-}
-
-- (NSString *)m_dealloc {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
-    }
-    return M_DEALLOC(stuff);
-}
-
-- (NSString *)m_setAttributesWithDictionary {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_setAttributesWithDictionaryStuff]];
-    }
-    return M_SETATTRIBUTESWITHDICTIONARY(stuff);
-}
-
-- (NSString *)m_initWithDictionary {
-    return self.isInitWithDictionaryEnabled ? M_INITWITHDICTIONARY(self.document.className) : @"";
-}
-
-- (NSString *)m_objectWithDictionary {
-    return self.isObjectWithDictionaryEnabled ? self.isARCEnabled ? M_OBJECTWITHDICTIONARY_ARC(self.document.className) : M_OBJECTWITHDICTIONARY_MRR(self.document.className) : @"";
-}
-
-- (NSString *)m_objectsWithArray {
-    return self.isObjectsWithArrayEnabled ? M_OBJECTSWITHARRAY : @"";
-}
-
-- (NSString *)m_dictionaryRepresentation {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
-    }
-    return M_DICTIONARYREPRESENTATION(stuff);
-}
-
-- (NSString *)m_description {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
-    }
-    return M_DESCRIPTION(stuff);
-}
-
-- (NSString *)m_copyWithZone {
-    NSString *stuff = @"";
-    for (Entity *entity in self.document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
-    }
-    return M_COPYWITHZONE(self.document.className, stuff);
 }
 
 - (NSString *)m_initWithCoder {
@@ -299,19 +199,104 @@
     return M_ENCODEWITHCODER(stuff);
 }
 
-- (NSString *)m_content {
-    NSString *header = self.m_header;
+- (Option *)DeallocOption {
+    return [self.dataStore.options objectAtIndex:0];
+}
+
+- (Option *)SetAttributesWithDictionaryOption {
+    return [self.dataStore.options objectAtIndex:1];
+}
+
+- (Option *)InitWithDictionaryOption {
+    return [self.dataStore.options objectAtIndex:2];
+}
+
+- (Option *)ObjectWithDictionaryOption {
+    return [self.dataStore.options objectAtIndex:3];
+}
+
+- (Option *)ObjectsWithArrayOption {
+    return [self.dataStore.options objectAtIndex:4];
+}
+
+- (Option *)DictionaryRepresentationOption {
+    return [self.dataStore.options objectAtIndex:5];
+}
+
+- (Option *)DescriptionOption {
+    return [self.dataStore.options objectAtIndex:6];
+}
+
+- (Option *)CopyingOption {
+    return [self.dataStore.options objectAtIndex:7];
+}
+
+- (Option *)CodingOption {
+    return [self.dataStore.options objectAtIndex:8];
+}
+
+- (Option *)ARCOption {
+    return [self.dataStore.options objectAtIndex:9];
+}
+
+- (NSString *)m_content {    
+    HeaderUnit *headerUnit = [[HeaderUnit alloc] init];
+    headerUnit.enable = [NSNumber numberWithBool:YES];
+    headerUnit.on = [NSNumber numberWithBool:YES];
+    NSString *header = [headerUnit bodyWithDocument:self.document pathExtension:@"m"];
+    
     NSString *className = self.document.className;
-    NSString *defines = self.isDefinesEnabled ? self.m_defines : @"";
-    NSString *synthesizes = self.isSynthesizesEnabled ? self.m_synthesizes : @"";
-    NSString *dealloc = self.isDeallocEnabled ? self.m_dealloc : @"";
-    NSString *setAttributesWithDictionary = self.isSetAttributesWithDictionaryEnabled ? self.m_setAttributesWithDictionary : @"";
-    NSString *initWithDictionary = self.isInitWithDictionaryEnabled ? self.m_initWithDictionary : @"";
-    NSString *objectWithDictionary = self.isObjectWithDictionaryEnabled ? self.m_objectWithDictionary : @"";
-    NSString *objectsWithArray = self.isObjectsWithArrayEnabled ? self.m_objectsWithArray : @"";
-    NSString *dictionaryRepresentation = self.isDictionaryRepresentationEnabled ? self.m_dictionaryRepresentation : @"";
-    NSString *description = self.isDescriptionEnabled ? self.m_description : @"";
-    NSString *copyWithZone = self.isCopyingEnabled ? self.m_copyWithZone : @"";
+    
+    DefinesUnit *definesUnit = [[DefinesUnit alloc] init];
+    definesUnit.enable = [NSNumber numberWithBool:YES];
+    definesUnit.on = [NSNumber numberWithBool:YES];
+    NSString *defines = [definesUnit bodyWithDocument:self.document];
+    
+    SynthesizesUnit *synthesizesUnit = [[SynthesizesUnit alloc] init];
+    synthesizesUnit.enable = [NSNumber numberWithBool:YES];
+    synthesizesUnit.on = [NSNumber numberWithBool:YES];
+    NSString *synthesizes = [synthesizesUnit bodyWithDocument:self.document];
+    
+    DeallocUnit *deallocUnit = [[DeallocUnit alloc] init];
+    deallocUnit.enable = self.DeallocOption.active;
+    deallocUnit.on = self.DeallocOption.enabled;
+    NSString *dealloc = [deallocUnit bodyWithDocument:self.document];
+    
+    SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit = [[SetAttributesWithDictionaryUnit alloc] init];
+    setAttributesWithDictionaryUnit.enable = self.SetAttributesWithDictionaryOption.active;
+    setAttributesWithDictionaryUnit.on = self.SetAttributesWithDictionaryOption.enabled;
+    NSString *setAttributesWithDictionary = [setAttributesWithDictionaryUnit bodyWithDocument:self.document];
+    
+    InitWithDictionaryUnit *initWithDictionaryUnit = [[InitWithDictionaryUnit alloc] init];
+    initWithDictionaryUnit.enable = self.InitWithDictionaryOption.active;
+    initWithDictionaryUnit.on = self.InitWithDictionaryOption.enabled;
+    NSString *initWithDictionary = [initWithDictionaryUnit bodyWithDocument:self.document];
+    
+    ObjectWithDictionaryUnit *objectWithDictionaryUnit = [[ObjectWithDictionaryUnit alloc] init];
+    objectWithDictionaryUnit.enable = self.ObjectWithDictionaryOption.active;
+    objectWithDictionaryUnit.on = self.ObjectWithDictionaryOption.enabled;
+    NSString *objectWithDictionary = [objectWithDictionaryUnit bodyWithDocument:self.document];
+    
+    ObjectsWithArrayUnit *objectsWithArrayUnit = [[ObjectsWithArrayUnit alloc] init];
+    objectsWithArrayUnit.enable = self.ObjectsWithArrayOption.active;
+    objectsWithArrayUnit.on = self.ObjectsWithArrayOption.enabled;
+    NSString *objectsWithArray = [objectsWithArrayUnit bodyWithDocument:self.document];
+    
+    DictionaryRepresentationUnit *dictionaryRepresentationUnit = [[DictionaryRepresentationUnit alloc] init];
+    dictionaryRepresentationUnit.enable = self.DictionaryRepresentationOption.active;
+    dictionaryRepresentationUnit.on = self.DictionaryRepresentationOption.enabled;
+    NSString *dictionaryRepresentation = [dictionaryRepresentationUnit bodyWithDocument:self.document];
+    
+    DescriptionUnit *descriptionUnit = [[DescriptionUnit alloc] init];
+    descriptionUnit.enable = self.DescriptionOption.active;
+    descriptionUnit.on = self.DescriptionOption.enabled;
+    NSString *description = [descriptionUnit bodyWithDocument:self.document];
+    
+    NSCopyingUnit *copyingUnit = [[NSCopyingUnit alloc] init];
+    copyingUnit.enable = self.CopyingOption.active;
+    copyingUnit.on = self.CopyingOption.enabled;
+    NSString *copyWithZone = [copyingUnit bodyWithDocument:self.document];
+    
     NSString *initWithCoder = self.isCodingEnabled ? self.m_initWithCoder : @"";
     NSString *encodeWithCoder = self.isCodingEnabled ? self .m_encodeWithCoder : @"";
     
