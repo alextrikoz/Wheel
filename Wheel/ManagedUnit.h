@@ -39,6 +39,9 @@
 
 @end
 
+@interface HContentUnit : Unit  @end
+@interface MContentUnit : Unit @end
+
 @interface HeaderUnit : Unit @end
 @interface ProtocolsUnit : Unit  @end
 @interface PropertiesUnit : Unit @end

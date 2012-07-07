@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HContentUnit;
+@class MContentUnit;
 @class HeaderUnit;
 @class ProtocolsUnit;
 @class PropertiesUnit;
@@ -34,6 +36,8 @@
 @property (strong) NSIndexSet *selectedTypes;
 @property (strong) NSArray *units;
 
+@property (strong) HContentUnit *HContentUnit;
+@property (strong) MContentUnit *MContentUnit;
 @property (strong) HeaderUnit *headerUnit;
 @property (strong) ProtocolsUnit *protocolsUnit;
 @property (strong) PropertiesUnit *propertiesUnit;

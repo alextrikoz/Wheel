@@ -35,6 +35,9 @@
     return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
 }
 - (void)setUnits:(NSArray *)units {}
+
+@synthesize HContentUnit = _HContentUnit;
+@synthesize MContentUnit = _MContentUnit;
 @synthesize headerUnit = _headerUnit;
 @synthesize protocolsUnit = _protocolsUnit;
 @synthesize propertiesUnit = _propertiesUnit;
@@ -190,6 +193,10 @@
         
         self.units = self.units;
     }
+    
+    self.HContentUnit = [[HContentUnit alloc] init];
+    
+    self.MContentUnit = [[MContentUnit alloc] init];
     
     self.headerUnit = [[HeaderUnit alloc] init];
     

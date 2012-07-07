@@ -10,7 +10,8 @@
 
 #import <Carbon/Carbon.h>
 #import "Document.h"
-#import "Generator.h"
+#import "DataStore.h"
+#import "ManagedUnit.h"
 
 @implementation MainController
 
@@ -54,10 +55,9 @@
 }
 
 - (IBAction)generate:(id)sender {
-    Generator *generator = [[Generator alloc] init];
-    generator.document = self.document;
-    NSString *h_content = generator.h_content;
-    NSString *m_content = generator.m_content;
+    DataStore *dataStore = [[DataStore alloc] init];
+    NSString *h_content = [dataStore.HContentUnit bodyWithDocument:self.document pathExtension:@"h"];
+    NSString *m_content = [dataStore.MContentUnit bodyWithDocument:self.document pathExtension:@"m"];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;

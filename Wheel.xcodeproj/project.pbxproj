@@ -42,7 +42,6 @@
 		2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2147F3DC1545BD4F0015D6EF /* CustomCell.m */; };
 		21871882153F055E005A1540 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871881153F055E005A1540 /* plus.png */; };
 		21871885153F0830005A1540 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 21871884153F0830005A1540 /* minus.png */; };
-		218DE5AE1588A8AD00887D9B /* Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = 218DE5AD1588A8AD00887D9B /* Generator.m */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
 		21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesWnd.xib */; };
 /* End PBXBuildFile section */
@@ -122,8 +121,6 @@
 		2147F3DC1545BD4F0015D6EF /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		21871881153F055E005A1540 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		21871884153F0830005A1540 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
-		218DE5AC1588A8AC00887D9B /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
-		218DE5AD1588A8AD00887D9B /* Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Generator.m; sourceTree = "<group>"; };
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		21E5715B153D8D1600A7138F /* PreferencesWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWnd.xib; sourceTree = "<group>"; };
@@ -230,8 +227,6 @@
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
-				218DE5AC1588A8AC00887D9B /* Generator.h */,
-				218DE5AD1588A8AD00887D9B /* Generator.m */,
 				2147F3DB1545BD4F0015D6EF /* CustomCell.h */,
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
 				1135C46B153942E000F2AEA4 /* EntityCollectionView.h */,
@@ -471,7 +466,6 @@
 				212402F415458CD20043D929 /* Type.m in Sources */,
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
 				1145D56615866B650089DBC3 /* Document.m in Sources */,
-				218DE5AE1588A8AD00887D9B /* Generator.m in Sources */,
 				11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

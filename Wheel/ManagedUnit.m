@@ -36,6 +36,47 @@
 
 @end
 
+@implementation HContentUnit
+
+- (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
+    DataStore *dataStore = [[DataStore alloc] init];
+    
+    NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"h"];
+    NSString *className = document.className;
+    NSString *superClassName = document.superClassName;
+    NSString *protocols = [dataStore.protocolsUnit bodyWithDocument:document];
+    NSString *properties = [dataStore.propertiesUnit bodyWithDocument:document];
+    NSString *prototypes = [dataStore.prototypesUnit bodyWithDocument:document];
+    
+    return H_CONTENT(header, className, superClassName, protocols, properties, prototypes);
+}
+
+@end
+
+@implementation MContentUnit
+
+- (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
+    DataStore *dataStore = [[DataStore alloc] init];
+    
+    NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"m"];
+    NSString *className = document.className;
+    NSString *defines = [dataStore.definesUnit bodyWithDocument:document];
+    NSString *synthesizes = [dataStore.synthesizesUnit bodyWithDocument:document];
+    NSString *dealloc = [dataStore.deallocUnit bodyWithDocument:document];
+    NSString *setAttributesWithDictionary = [dataStore.setAttributesWithDictionaryUnit bodyWithDocument:document];
+    NSString *initWithDictionary = [dataStore.initWithDictionaryUnit bodyWithDocument:document];
+    NSString *objectWithDictionary = [dataStore.objectWithDictionaryUnit bodyWithDocument:document];
+    NSString *objectsWithArray = [dataStore.objectsWithArrayUnit bodyWithDocument:document];
+    NSString *dictionaryRepresentation = [dataStore.dictionaryRepresentationUnit bodyWithDocument:document];
+    NSString *description = [dataStore.descriptionUnit bodyWithDocument:document];
+    NSString *copying = [dataStore.copyingUnit bodyWithDocument:document];
+    NSString *coding = [dataStore.codingUnit bodyWithDocument:document];
+    
+    return M_CONTENT(header, className, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
+}
+
+@end
+
 @implementation HeaderUnit
 
 - (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
