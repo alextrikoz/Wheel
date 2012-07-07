@@ -1,25 +1,37 @@
 //
-//  Method.m
+//  ManagedUnit.m
 //  Wheel
 //
 //  Created by Alexander on 29.06.12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Unit.h"
+#import "ManagedUnit.h"
+
 #import "Entity.h"
+#import "DataStore.h"
 #import "Document.h"
 #import "Config.h"
 
-@implementation Unit
+@implementation ManagedUnit
 
-@synthesize name;
-@synthesize visible;
-@synthesize enable;
-@synthesize on;
+@dynamic enable;
+@dynamic name;
+@dynamic number;
+@dynamic on;
 
 - (BOOL)available {
     return self.enable.boolValue && self.on.boolValue;
+}
+
+@end
+
+@implementation Unit
+
+@synthesize managedUnit = _managedUnit;
+
+- (BOOL)available {
+    return self.managedUnit.available;
 }
 
 @end
@@ -40,6 +52,65 @@
     NSString *myCompanyName = [defaultValues valueForKey:@"MyCompanyName"];
     
     return HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
+}
+
+@end
+
+@implementation ProtocolsUnit
+
+- (NSString *)bodyWithDocument:(Document *)document {
+    DataStore *dataStore = [[DataStore alloc] init];
+    
+    if (dataStore.copyingUnit.available && dataStore.codingUnit.available) {
+        return @"<NSCopying, NSCoding>";
+    } else if (dataStore.copyingUnit.available) {
+        return @"<NSCopying>";
+    } else if (dataStore.codingUnit.available) {
+        return @"<NSCoding>";
+    } else {
+        return @"";
+    }
+}
+
+@end
+
+@implementation PropertiesUnit
+
+- (NSString *)bodyWithDocument:(Document *)document {
+    if (!document.entities.count) {
+        return @"";
+    }
+    NSString *stuff = @"";
+    for (Entity *entity in document.entities) {
+        stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
+    }
+    return H_PROPERTIES(stuff);
+}
+
+@end
+
+@implementation PrototypesUnit
+
+- (NSString *)bodyWithDocument:(Document *)document {
+    DataStore *dataStore = [[DataStore alloc] init];
+    
+    NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithDocument:document];
+    NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithDocument:document];
+    NSString *objectWithDictionaryPrototype = [dataStore.objectWithDictionaryUnit prototypeWithDocument:document];
+    NSString *objectsWithArrayPrototype = [dataStore.objectsWithArrayUnit prototypeWithDocument:document];
+    NSString *dictionaryRepresentationPrototype = [dataStore.dictionaryRepresentationUnit prototypeWithDocument:document];
+    NSString *descriptionPrototype = [dataStore.descriptionUnit prototypeWithDocument:document];
+    
+    if (setAttributesWithDictionaryPrototype.length ||
+        initWithDictionaryPrototype.length ||
+        objectsWithArrayPrototype.length ||
+        objectsWithArrayPrototype.length ||
+        dictionaryRepresentationPrototype.length ||
+        descriptionPrototype.length) {
+        return H_PROTOTYPES(setAttributesWithDictionaryPrototype, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype);
+    } else {
+        return @"";
+    }
 }
 
 @end
@@ -77,7 +148,7 @@
 @implementation DeallocUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.available) {
+    if (!self.managedUnit.available) {
         return @"";
     }
     NSString *stuff = @"";
@@ -92,11 +163,11 @@
 @implementation SetAttributesWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
+    return self.managedUnit.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.available) {
+    if (!self.managedUnit.available) {
         return @"";
     }
     NSString *stuff = @"";
@@ -111,11 +182,11 @@
 @implementation InitWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+    return self.managedUnit.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document  {
-    return self.available ? M_INITWITHDICTIONARY(document.className) : @"";
+    return self.managedUnit.available ? M_INITWITHDICTIONARY(document.className) : @"";
 }
 
 @end
@@ -123,11 +194,13 @@
 @implementation ObjectWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+    return self.managedUnit.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    return self.available ? M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
+    DataStore *dataStore = [[DataStore alloc] init];
+    ARCUnit *ARCUnit = dataStore.ARCUnit;
+    return self.managedUnit.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
 }
 
 @end
@@ -135,11 +208,11 @@
 @implementation ObjectsWithArrayUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+    return self.managedUnit.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    return self.available ? M_OBJECTSWITHARRAY : @"";
+    return self.managedUnit.available ? M_OBJECTSWITHARRAY : @"";
 }
 
 @end
@@ -147,11 +220,11 @@
 @implementation DictionaryRepresentationUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
+    return self.managedUnit.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.available) {
+    if (!self.managedUnit.available) {
         return @"";
     }
     NSString *stuff = @"";
@@ -211,5 +284,9 @@
     }
     return [NSString stringWithFormat:@"%@%@", M_INITWITHCODER(initWithCoderStuff), M_ENCODEWITHCODER(encodeWithCoderStuff)];
 }
+
+@end
+
+@implementation ARCUnit
 
 @end

@@ -1,5 +1,5 @@
 //
-//  Method.h
+//  ManagedUnit.h
 //  Wheel
 //
 //  Created by Alexander on 29.06.12.
@@ -7,6 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+@interface ManagedUnit : NSManagedObject
+
+@property (nonatomic, retain) NSNumber * enable;
+@property (nonatomic, retain) NSNumber * on;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * number;
+
+- (BOOL)available;
+
+@end
 
 @class Document;
 
@@ -19,26 +31,27 @@
 
 @end
 
-@interface Unit : NSObject
+@interface Unit : NSObject <UnitProtocol>
 
-@property (strong) NSString *name;
-@property (strong) NSNumber *visible;
-@property (strong) NSNumber *enable;
-@property (strong) NSNumber *on;
+@property (strong) ManagedUnit *managedUnit;
 
 - (BOOL)available;
 
 @end
 
-@interface HeaderUnit : Unit <UnitProtocol> @end
-@interface DefinesUnit : Unit <UnitProtocol> @end
-@interface SynthesizesUnit : Unit <UnitProtocol> @end
-@interface DeallocUnit : Unit <UnitProtocol> @end
-@interface SetAttributesWithDictionaryUnit : Unit <UnitProtocol> @end
-@interface InitWithDictionaryUnit : Unit <UnitProtocol> @end
-@interface ObjectWithDictionaryUnit : Unit <UnitProtocol> @end
-@interface ObjectsWithArrayUnit : Unit <UnitProtocol> @end
-@interface DictionaryRepresentationUnit : Unit <UnitProtocol> @end
-@interface DescriptionUnit : Unit <UnitProtocol> @end
-@interface NSCopyingUnit : Unit <UnitProtocol> @end
-@interface NSCodingUnit : Unit <UnitProtocol> @end
+@interface HeaderUnit : Unit @end
+@interface ProtocolsUnit : Unit  @end
+@interface PropertiesUnit : Unit @end
+@interface PrototypesUnit : Unit  @end
+@interface DefinesUnit : Unit @end
+@interface SynthesizesUnit : Unit @end
+@interface DeallocUnit : Unit @end
+@interface SetAttributesWithDictionaryUnit : Unit @end
+@interface InitWithDictionaryUnit : Unit @end
+@interface ObjectWithDictionaryUnit : Unit @end
+@interface ObjectsWithArrayUnit : Unit @end
+@interface DictionaryRepresentationUnit : Unit @end
+@interface DescriptionUnit : Unit @end
+@interface NSCopyingUnit : Unit @end
+@interface NSCodingUnit : Unit @end
+@interface ARCUnit : Unit @end
