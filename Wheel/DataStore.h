@@ -55,6 +55,8 @@
 @property (strong) NSCodingUnit *codingUnit;
 @property (strong) ARCUnit *ARCUnit;
 
++ (DataStore *)sharedDataStore;
+
 - (void)loadTypes;
 - (void)loadSetters;
 - (void)loadAtomicities;

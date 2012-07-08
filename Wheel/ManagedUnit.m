@@ -39,7 +39,7 @@
 @implementation HContentUnit
 
 - (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
-    DataStore *dataStore = [[DataStore alloc] init];
+    DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"h"];
     NSString *className = document.className;
@@ -56,7 +56,7 @@
 @implementation MContentUnit
 
 - (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
-    DataStore *dataStore = [[DataStore alloc] init];
+    DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"m"];
     NSString *className = document.className;
@@ -100,7 +100,7 @@
 @implementation ProtocolsUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    DataStore *dataStore = [[DataStore alloc] init];
+    DataStore *dataStore = DataStore.sharedDataStore;
     
     if (dataStore.copyingUnit.available && dataStore.codingUnit.available) {
         return @"<NSCopying, NSCoding>";
@@ -133,7 +133,7 @@
 @implementation PrototypesUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    DataStore *dataStore = [[DataStore alloc] init];
+    DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithDocument:document];
     NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithDocument:document];
@@ -239,8 +239,8 @@
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    DataStore *dataStore = [[DataStore alloc] init];
-    ARCUnit *ARCUnit = dataStore.ARCUnit;
+    DataStore *dataStore = DataStore.sharedDataStore;
+    ARCUnit *ARCUnit = dataStore.ARCUnit;    
     return self.managedUnit.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
 }
 

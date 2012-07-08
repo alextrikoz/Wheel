@@ -55,7 +55,7 @@
 }
 
 - (IBAction)generate:(id)sender {
-    DataStore *dataStore = [[DataStore alloc] init];
+    DataStore *dataStore = DataStore.sharedDataStore;
     NSString *h_content = [dataStore.HContentUnit bodyWithDocument:self.document pathExtension:@"h"];
     NSString *m_content = [dataStore.MContentUnit bodyWithDocument:self.document pathExtension:@"m"];
     

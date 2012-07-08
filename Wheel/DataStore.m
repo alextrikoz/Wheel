@@ -55,12 +55,20 @@
 @synthesize codingUnit = _codingUnit;
 @synthesize ARCUnit = _ARCUnit;
 
-- (id)init {
-    static id sharedInstance = nil;
-    if (sharedInstance == nil) {
-        sharedInstance = [super init];
+static DataStore *_sharedDataStore = nil;
+
++ (DataStore *)sharedDataStore {
+    if(_sharedDataStore == nil) {
+        _sharedDataStore = [[self alloc] init];
     }
-    return sharedInstance;
+    return _sharedDataStore;
+}
+
+- (id)init {
+    if (_sharedDataStore == nil) {
+        _sharedDataStore = [super init];
+    }
+    return _sharedDataStore;
 }
 
 - (void)awakeFromNib {
@@ -200,7 +208,11 @@
     
     self.headerUnit = [[HeaderUnit alloc] init];
     
+    self.protocolsUnit = [[ProtocolsUnit alloc] init];
+    
     self.propertiesUnit = [[PropertiesUnit alloc] init];
+    
+    self.prototypesUnit = [[PrototypesUnit alloc] init];
     
     self.definesUnit = [[DefinesUnit alloc] init];
     
