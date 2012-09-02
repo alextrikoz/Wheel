@@ -225,7 +225,7 @@ static DataStore *_sharedDataStore = nil;
     self.setAttributesWithDictionaryUnit.managedUnit = [self.units objectAtIndex:1];
     
     self.initWithDictionaryUnit = [[InitWithDictionaryUnit alloc] init];
-    self.initWithDictionaryUnit.managedUnit = [self.units objectAtIndex:2];
+    [self.initWithDictionaryUnit setManagedUnit:[self.units objectAtIndex:2]];
     
     self.objectWithDictionaryUnit = [[ObjectWithDictionaryUnit alloc] init];
     self.objectWithDictionaryUnit.managedUnit = [self.units objectAtIndex:3];
@@ -248,10 +248,10 @@ static DataStore *_sharedDataStore = nil;
     self.ARCUnit = [[ARCUnit alloc] init];
     self.ARCUnit.managedUnit = [self.units objectAtIndex:9];
     
-    [self.units addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:1] forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
-    [self.units addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:2] forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
-    [self.units addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:3] forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
-    [self.units addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndex:9] forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
+    [self.setAttributesWithDictionaryUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
+    [[self.initWithDictionaryUnit managedUnit] addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
+    [self.objectWithDictionaryUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
+    [self.ARCUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -259,8 +259,8 @@ static DataStore *_sharedDataStore = nil;
         AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
         
         self.deallocUnit.managedUnit.enable = [NSNumber numberWithBool:!self.ARCUnit.managedUnit.on.boolValue];
-        self.initWithDictionaryUnit.managedUnit.enable = [NSNumber numberWithBool:self.setAttributesWithDictionaryUnit.available];
-        self.objectWithDictionaryUnit.managedUnit.enable = [NSNumber numberWithBool:self.initWithDictionaryUnit.available];
+        [self.initWithDictionaryUnit managedUnit].enable = [NSNumber numberWithBool:self.setAttributesWithDictionaryUnit.available];
+        [self.objectWithDictionaryUnit managedUnit].enable = [NSNumber numberWithBool:[self.initWithDictionaryUnit available]];
         self.objectsWithArrayUnit.managedUnit.enable = [NSNumber numberWithBool:self.objectWithDictionaryUnit.available];
         
         [appDelegate.managedObjectContext save:nil];

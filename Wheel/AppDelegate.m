@@ -21,9 +21,7 @@
 }
 
 - (IBAction)preferences:(id)sender {
-    if (!self.preferencesController.window.isVisible) {
-        [self.preferencesController.window makeKeyAndOrderFront:nil];
-    }
+    [self.preferencesController.window makeKeyAndOrderFront:nil];
 }
 
 - (void)setupDefaults {

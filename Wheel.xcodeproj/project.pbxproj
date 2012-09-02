@@ -376,7 +376,7 @@
 		11EF74291539426700D341B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 11EF742C1539426700D341B5 /* Build configuration list for PBXProject "Wheel" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -598,6 +598,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WheelImporter/WheelImporter-Prefix.pch";
 				INFOPLIST_FILE = "WheelImporter/WheelImporter-Info.plist";
@@ -613,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WheelImporter/WheelImporter-Prefix.pch";
 				INFOPLIST_FILE = "WheelImporter/WheelImporter-Info.plist";
@@ -627,6 +629,7 @@
 		11EF748A1539426800D341B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
 				INFOPLIST_FILE = "Wheel/Wheel-Info.plist";
@@ -638,6 +641,7 @@
 		11EF748B1539426800D341B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
 				INFOPLIST_FILE = "Wheel/Wheel-Info.plist";
@@ -650,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Contents/MacOS/Wheel";
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";
@@ -664,6 +669,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Contents/MacOS/Wheel";
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wheel/Wheel-Prefix.pch";

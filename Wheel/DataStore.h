@@ -46,7 +46,8 @@
 @property (strong) SynthesizesUnit *synthesizesUnit;
 @property (strong) DeallocUnit *deallocUnit;
 @property (strong) SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit;
-@property (strong) InitWithDictionaryUnit *initWithDictionaryUnit;
+//NOTE: id type make this method ARC compliant
+@property (strong) id initWithDictionaryUnit;
 @property (strong) ObjectWithDictionaryUnit *objectWithDictionaryUnit;
 @property (strong) ObjectsWithArrayUnit *objectsWithArrayUnit;
 @property (strong) DictionaryRepresentationUnit *dictionaryRepresentationUnit;
