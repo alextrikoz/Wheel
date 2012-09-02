@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MainController : NSWindowController <NSTableViewDataSource>
+@interface MainController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (strong) IBOutlet NSTableView *tableView;
 

@@ -11,6 +11,7 @@
 #import <Carbon/Carbon.h>
 #import "Document.h"
 #import "DataStore.h"
+#import "Entity.h"
 #import "ManagedUnit.h"
 
 @implementation MainController
@@ -29,6 +30,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidRedoChangeNotification object:nil];
     
     [self.tableView deselectAll:nil];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView registerForDraggedTypes:[NSArray arrayWithObject:@"Entity"]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -75,6 +80,44 @@
             [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
         }
     }];
+}
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    NSMutableArray *indexesArray = [NSMutableArray array];
+    NSUInteger index = [rowIndexes firstIndex];
+    while(index != NSNotFound) {
+        [indexesArray addObject:[NSNumber numberWithInteger:index]];
+        index = [rowIndexes indexGreaterThanIndex:index];
+    }
+    [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
+    NSData *indexesData = [NSKeyedArchiver archivedDataWithRootObject:indexesArray];
+    [pboard setData:indexesData forType:@"Entity"];
+    return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation {
+    return NSDragOperationMove;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
+    NSPasteboard *pboard = [info draggingPasteboard];
+    NSData *indexesData = [pboard dataForType:@"Entity"];
+    NSArray *indexesArray = [NSKeyedUnarchiver unarchiveObjectWithData:indexesData];
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+    for (NSNumber *index in indexesArray) {
+        [indexSet addIndex:[index integerValue]];
+    }    
+    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:indexSet];
+    [((Document *)self.document).entities removeObjectsAtIndexes:indexSet];
+    for (Entity *object in objects) {
+        if (row > [((Document *)self.document).entities count]) {
+            [((Document *)self.document).entities addObject:object];
+        } else {
+            [((Document *)self.document).entities insertObject:object atIndex:row];
+        }
+    }
+    ((Document *)self.document).entities = ((Document *)self.document).entities;
+    return YES;
 }
 
 @end
