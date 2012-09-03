@@ -83,15 +83,14 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    NSMutableArray *indexesArray = [NSMutableArray array];
+    NSMutableArray *indexes = [NSMutableArray array];
     NSUInteger index = [rowIndexes firstIndex];
     while(index != NSNotFound) {
-        [indexesArray addObject:[NSNumber numberWithInteger:index]];
+        [indexes addObject:[NSNumber numberWithInteger:index]];
         index = [rowIndexes indexGreaterThanIndex:index];
     }
     [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
-    NSData *indexesData = [NSKeyedArchiver archivedDataWithRootObject:indexesArray];
-    [pboard setData:indexesData forType:@"Entity"];
+    [pboard setPropertyList:indexes forType:@"Entity"];
     return YES;
 }
 
@@ -101,19 +100,19 @@
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
     NSPasteboard *pboard = [info draggingPasteboard];
-    NSData *indexesData = [pboard dataForType:@"Entity"];
-    NSArray *indexesArray = [NSKeyedUnarchiver unarchiveObjectWithData:indexesData];
-    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-    for (NSNumber *index in indexesArray) {
-        [indexSet addIndex:[index integerValue]];
+    NSArray *indexes = [pboard propertyListForType:@"Entity"];
+    NSMutableIndexSet *rowIndexes = [NSMutableIndexSet indexSet];
+    for (NSNumber *index in indexes) {
+        [rowIndexes addIndex:[index integerValue]];
     }    
-    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:indexSet];
-    [((Document *)self.document).entities removeObjectsAtIndexes:indexSet];
+    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
+    [((Document *)self.document).entities removeObjectsAtIndexes:rowIndexes];
+    NSUInteger index = row;
     for (Entity *object in objects) {
-        if (row > [((Document *)self.document).entities count]) {
+        if (index > [((Document *)self.document).entities count]) {
             [((Document *)self.document).entities addObject:object];
         } else {
-            [((Document *)self.document).entities insertObject:object atIndex:row];
+            [((Document *)self.document).entities insertObject:object atIndex:index++];
         }
     }
     ((Document *)self.document).entities = ((Document *)self.document).entities;
