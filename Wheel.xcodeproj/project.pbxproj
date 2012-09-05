@@ -11,6 +11,8 @@
 		1135C472153942E000F2AEA4 /* EntityCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C46C153942E000F2AEA4 /* EntityCollectionView.m */; };
 		1135C475153942E000F2AEA4 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1135C470153942E000F2AEA4 /* MainController.m */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
+		1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */; };
+		1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */; };
 		1145D56615866B650089DBC3 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 1145D56515866B650089DBC3 /* Document.m */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
 		11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */; };
@@ -71,6 +73,10 @@
 		1135C46F153942E000F2AEA4 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		1135C470153942E000F2AEA4 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
+		1140048E15F7C074007C3F61 /* NSArray+NSIndexSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSIndexSet.h"; sourceTree = "<group>"; };
+		1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NSIndexSet.m"; sourceTree = "<group>"; };
+		1140049015F7C074007C3F61 /* NSIndexSet+NSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+NSArray.h"; sourceTree = "<group>"; };
+		1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+NSArray.m"; sourceTree = "<group>"; };
 		1145D56415866B650089DBC3 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		1145D56515866B650089DBC3 /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -171,9 +177,21 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		1140048D15F7C074007C3F61 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1140048E15F7C074007C3F61 /* NSArray+NSIndexSet.h */,
+				1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */,
+				1140049015F7C074007C3F61 /* NSIndexSet+NSArray.h */,
+				1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */,
+			);
+			path = Extensions;
+			sourceTree = SOURCE_ROOT;
+		};
 		11EF74271539426700D341B5 = {
 			isa = PBXGroup;
 			children = (
+				1140048D15F7C074007C3F61 /* Extensions */,
 				11EF743C1539426800D341B5 /* Wheel */,
 				1135C47B153943D300F2AEA4 /* Images */,
 				11EF745C1539426800D341B5 /* WheelTests */,
@@ -467,6 +485,8 @@
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
 				1145D56615866B650089DBC3 /* Document.m in Sources */,
 				11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */,
+				1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */,
+				1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

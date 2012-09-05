@@ -7,7 +7,8 @@
 //
 
 #import "MainController.h"
-
+#import "NSArray+NSIndexSet.h"
+#import "NSIndexSet+NSArray.h"
 #import <Carbon/Carbon.h>
 #import "Document.h"
 #import "DataStore.h"
@@ -32,8 +33,10 @@
     [self.tableView deselectAll:nil];
     
     self.tableView.dataSource = self;
-    self.tableView.delegate = self;
     [self.tableView registerForDraggedTypes:[NSArray arrayWithObject:@"Entity"]];
+    
+    self.collectionView.delegate = self;
+    [self.collectionView registerForDraggedTypes:[NSArray arrayWithObject:@"Entity"]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -82,15 +85,10 @@
     }];
 }
 
+#pragma mark - NSTableViewDataSource
+
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    NSMutableArray *indexes = [NSMutableArray array];
-    NSUInteger index = [rowIndexes firstIndex];
-    while(index != NSNotFound) {
-        [indexes addObject:[NSNumber numberWithInteger:index]];
-        index = [rowIndexes indexGreaterThanIndex:index];
-    }
-    [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
-    [pboard setPropertyList:indexes forType:@"Entity"];
+    [self writeRowsWithIndexes:rowIndexes toPasteboard:pboard];
     return YES;
 }
 
@@ -98,25 +96,47 @@
     return NSDragOperationMove;
 }
 
-- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
+    [self acceptDrop:info row:row];
+    return YES;
+}
+
+#pragma mark - NSCollectionViewDelegate
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
+    [self writeRowsWithIndexes:indexes toPasteboard:pasteboard];
+    return YES;
+}
+
+- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
+    return NSDragOperationMove;
+}
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
+    [self acceptDrop:draggingInfo row:index];
+    return YES;
+}
+
+#pragma mark - Private
+
+- (void)writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
+    [pboard setPropertyList:[rowIndexes array] forType:@"Entity"];
+}
+
+- (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
-    NSArray *indexes = [pboard propertyListForType:@"Entity"];
-    NSMutableIndexSet *rowIndexes = [NSMutableIndexSet indexSet];
-    for (NSNumber *index in indexes) {
-        [rowIndexes addIndex:[index integerValue]];
-    }    
-    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
-    [((Document *)self.document).entities removeObjectsAtIndexes:rowIndexes];
-    NSUInteger index = row;
+    NSIndexSet *indexes = [[pboard propertyListForType:@"Entity"] indexSet];
+    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:indexes];
+    [((Document *)self.document).entities removeObjectsAtIndexes:indexes];
     for (Entity *object in objects) {
-        if (index > [((Document *)self.document).entities count]) {
+        if (row > [((Document *)self.document).entities count]) {
             [((Document *)self.document).entities addObject:object];
         } else {
-            [((Document *)self.document).entities insertObject:object atIndex:index++];
+            [((Document *)self.document).entities insertObject:object atIndex:row++];
         }
     }
     ((Document *)self.document).entities = ((Document *)self.document).entities;
-    return YES;
 }
 
 @end

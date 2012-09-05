@@ -8,9 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MainController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
+@interface MainController : NSWindowController <NSTableViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) IBOutlet NSTableView *tableView;
+@property (strong) IBOutlet NSCollectionView *collectionView;
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
