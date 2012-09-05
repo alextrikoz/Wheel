@@ -93,10 +93,13 @@
 }
 
 - (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation {
-    return NSDragOperationMove;
+    return (dropOperation == NSTableViewDropAbove) ? NSDragOperationMove : NSDragOperationNone;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
+    if ([[info draggingSource] isEqual:tableView]) {
+        [((Document *)self.document).entities removeObjectsAtIndexes:((Document *)self.document).selectedEntities];
+    }
     [self acceptDrop:info row:row];
     return YES;
 }
@@ -113,6 +116,9 @@
 }
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
+    if ([[draggingInfo draggingSource] isEqual:collectionView]) {
+        [((Document *)self.document).entities removeObjectsAtIndexes:((Document *)self.document).selectedEntities];
+    }
     [self acceptDrop:draggingInfo row:index];
     return YES;
 }
@@ -121,14 +127,15 @@
 
 - (void)writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
     [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
-    [pboard setPropertyList:[rowIndexes array] forType:@"Entity"];
+    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
+    [pboard setData:data forType:@"Entity"];
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
-    NSIndexSet *indexes = [[pboard propertyListForType:@"Entity"] indexSet];
-    NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:indexes];
-    [((Document *)self.document).entities removeObjectsAtIndexes:indexes];
+    NSData *data = [pboard dataForType:@"Entity"];
+    NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     for (Entity *object in objects) {
         if (row > [((Document *)self.document).entities count]) {
             [((Document *)self.document).entities addObject:object];
@@ -137,6 +144,7 @@
         }
     }
     ((Document *)self.document).entities = ((Document *)self.document).entities;
+    [self.tableView deselectAll:nil];
 }
 
 @end
