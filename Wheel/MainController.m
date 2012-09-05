@@ -88,6 +88,7 @@
 #pragma mark - NSTableViewDataSource
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    [tableView selectRowIndexes:rowIndexes byExtendingSelection:YES];
     [self writeRowsWithIndexes:rowIndexes toPasteboard:pboard];
     return YES;
 }
@@ -98,7 +99,7 @@
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
     if ([[info draggingSource] isEqual:tableView]) {
-        [((Document *)self.document).entities removeObjectsAtIndexes:((Document *)self.document).selectedEntities];
+        [(Document *)self.document removeSelectedEntities];
     }
     [self acceptDrop:info row:row];
     return YES;
@@ -117,7 +118,7 @@
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
     if ([[draggingInfo draggingSource] isEqual:collectionView]) {
-        [((Document *)self.document).entities removeObjectsAtIndexes:((Document *)self.document).selectedEntities];
+        [(Document *)self.document removeSelectedEntities];
     }
     [self acceptDrop:draggingInfo row:index];
     return YES;
