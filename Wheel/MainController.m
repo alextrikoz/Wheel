@@ -98,9 +98,6 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
-    if ([[info draggingSource] isEqual:tableView]) {
-        [(Document *)self.document removeSelectedEntities];
-    }
     [self acceptDrop:info row:row];
     return YES;
 }
@@ -113,13 +110,10 @@
 }
 
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
-    return NSDragOperationMove;
+    return (*proposedDropOperation == NSCollectionViewDropBefore) ? NSDragOperationMove : NSDragOperationNone;
 }
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
-    if ([[draggingInfo draggingSource] isEqual:collectionView]) {
-        [(Document *)self.document removeSelectedEntities];
-    }
     [self acceptDrop:draggingInfo row:index];
     return YES;
 }
@@ -131,21 +125,43 @@
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
+    
+    [pboard setPropertyList:[rowIndexes array] forType:@"IndexSet"];
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
+    if ([[info draggingSource] isEqual:self.tableView] || [[info draggingSource] isEqual:self.collectionView]) {
+        [self acceptDropInsideWindow:info row:row];
+    } else {
+        [self acceptDropBetweenWindows:info row:row];
+    }
+}
+
+- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
+    NSPasteboard *pboard = [info draggingPasteboard];
+    
+    NSIndexSet *sourceIndexes = [[pboard propertyListForType:@"IndexSet"] indexSet];
+    NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, [sourceIndexes count])];
+    NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:sourceIndexes];
+    
+    if ([sourceIndexes firstIndex] < [destinationIndexes firstIndex]) {
+        [((Document *)self.document).entities insertObjects:sourceObjects atIndexes:destinationIndexes];
+        [((Document *)self.document).entities removeObjectsAtIndexes:sourceIndexes];
+    } else {
+        [((Document *)self.document).entities removeObjectsAtIndexes:sourceIndexes];
+        [((Document *)self.document).entities insertObjects:sourceObjects atIndexes:destinationIndexes];        
+    }
+    
+    ((Document *)self.document).entities = ((Document *)self.document).entities;
+}
+
+- (void)acceptDropBetweenWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
     NSData *data = [pboard dataForType:@"Entity"];
     NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    for (Entity *object in objects) {
-        if (row > [((Document *)self.document).entities count]) {
-            [((Document *)self.document).entities addObject:object];
-        } else {
-            [((Document *)self.document).entities insertObject:object atIndex:row++];
-        }
-    }
+    [((Document *)self.document).entities insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [objects count])]];
+    
     ((Document *)self.document).entities = ((Document *)self.document).entities;
-    [self.tableView deselectAll:nil];
 }
 
 @end
