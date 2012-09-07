@@ -22,6 +22,7 @@ fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName]
 %@#import <Foundation/Foundation.h>\n\
 \n\
 @interface %@ : %@ %@ %@\n\
+\n\
 %@%@\
 @end\n\
 ",\
@@ -30,8 +31,7 @@ header, className, superClassName, protocols, iVars, properties, prototypes]
 #define H_IVARS(properties) [NSString stringWithFormat:@"\
 {\n\
 @private\n\
-%@}\n\
-",\
+%@}",\
 properties]
 
 #define H_PROPERTIES(properties) [NSString stringWithFormat:@"\

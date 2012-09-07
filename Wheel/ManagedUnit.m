@@ -119,7 +119,7 @@
 @implementation IVarsUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!document.entities.count) {
+    if (!self.available || !document.entities.count) {
         return @"";
     }
     NSString *stuff = @"";

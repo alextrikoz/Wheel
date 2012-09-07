@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 
 enum {
+    IVARS_UNIT_NUMBER,
     SYNTHESIZES_UNIT_NUMBER,
     DEALLOC_UNIT_NUMBER,
     SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER,
@@ -155,6 +156,12 @@ static DataStore *_sharedDataStore = nil;
         ManagedUnit *managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
         managedUnit.enable = [NSNumber numberWithBool:YES];
         managedUnit.on = [NSNumber numberWithBool:YES];
+        managedUnit.name = @"iVar";
+        managedUnit.number = [NSNumber numberWithInt:IVARS_UNIT_NUMBER];
+        
+        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
+        managedUnit.enable = [NSNumber numberWithBool:YES];
+        managedUnit.on = [NSNumber numberWithBool:YES];
         managedUnit.name = @"@synthesize";
         managedUnit.number = [NSNumber numberWithInt:SYNTHESIZES_UNIT_NUMBER];
         
@@ -232,6 +239,7 @@ static DataStore *_sharedDataStore = nil;
     self.protocolsUnit = [[ProtocolsUnit alloc] init];
     
     self.iVarsUnit = [[IVarsUnit alloc] init];
+    self.iVarsUnit.managedUnit = [self.units objectAtIndex:IVARS_UNIT_NUMBER];
     
     self.propertiesUnit = [[PropertiesUnit alloc] init];
     
