@@ -17,7 +17,7 @@
 @synthesize addItem = _addItem;
 @synthesize removeItem = _removeItem;
 
-@synthesize generalView =_generalView;
+@synthesize generalView = _generalView;
 @synthesize libraryView = _libraryView;
 @synthesize optionsView = _optionsView;
 

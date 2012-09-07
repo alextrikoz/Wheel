@@ -56,11 +56,11 @@
 }
 
 - (NSString *)m_initWithCoderStuff {
-    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:@\"%@\"];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
 - (NSString *)m_encodeWithCoderStuff {
-    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:@\"%@\"];\n", self.name, self.name];
+    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {

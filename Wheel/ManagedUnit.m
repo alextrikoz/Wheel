@@ -174,7 +174,7 @@
 @implementation SynthesizesUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!document.entities.count) {
+    if (!self.available || !document.entities.count) {
         return @"";
     }
     NSString *stuff = @"";
@@ -189,7 +189,7 @@
 @implementation DeallocUnit
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.managedUnit.available) {
+    if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
@@ -204,11 +204,11 @@
 @implementation SetAttributesWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.managedUnit.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
+    return self.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.managedUnit.available) {
+    if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
@@ -223,11 +223,11 @@
 @implementation InitWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.managedUnit.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+    return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document  {
-    return self.managedUnit.available ? M_INITWITHDICTIONARY(document.className) : @"";
+    return self.available ? M_INITWITHDICTIONARY(document.className) : @"";
 }
 
 @end
@@ -235,13 +235,13 @@
 @implementation ObjectWithDictionaryUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.managedUnit.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+    return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
     DataStore *dataStore = DataStore.sharedDataStore;
     ARCUnit *ARCUnit = dataStore.ARCUnit;    
-    return self.managedUnit.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
+    return self.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
 }
 
 @end
@@ -249,11 +249,11 @@
 @implementation ObjectsWithArrayUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.managedUnit.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
+    return self.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    return self.managedUnit.available ? M_OBJECTSWITHARRAY : @"";
+    return self.available ? M_OBJECTSWITHARRAY : @"";
 }
 
 @end
@@ -261,11 +261,11 @@
 @implementation DictionaryRepresentationUnit
 
 - (NSString *)prototypeWithDocument:(Document *)document {
-    return self.managedUnit.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
+    return self.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
 - (NSString *)bodyWithDocument:(Document *)document {
-    if (!self.managedUnit.available) {
+    if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
