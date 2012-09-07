@@ -13,6 +13,7 @@
 @class HeaderUnit;
 @class ProtocolsUnit;
 @class PropertiesUnit;
+@class IVarsUnit;
 @class PrototypesUnit;
 @class DefinesUnit;
 @class SynthesizesUnit;
@@ -40,6 +41,7 @@
 @property (strong) MContentUnit *MContentUnit;
 @property (strong) HeaderUnit *headerUnit;
 @property (strong) ProtocolsUnit *protocolsUnit;
+@property (strong) IVarsUnit *iVarsUnit;
 @property (strong) PropertiesUnit *propertiesUnit;
 @property (strong) PrototypesUnit *prototypesUnit;
 @property (strong) DefinesUnit *definesUnit;

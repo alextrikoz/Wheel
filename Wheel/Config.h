@@ -18,15 +18,21 @@
 ",\
 fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName]
 
-#define H_CONTENT(header, className, superClassName, protocols, properties, prototypes) [NSString stringWithFormat:@"\
+#define H_CONTENT(header, className, superClassName, protocols, iVars, properties, prototypes) [NSString stringWithFormat:@"\
 %@#import <Foundation/Foundation.h>\n\
 \n\
-@interface %@ : %@ %@\n\
-\n\
+@interface %@ : %@ %@ %@\n\
 %@%@\
 @end\n\
 ",\
-header, className, superClassName, protocols, properties, prototypes]
+header, className, superClassName, protocols, iVars, properties, prototypes]
+
+#define H_IVARS(properties) [NSString stringWithFormat:@"\
+{\n\
+@private\n\
+%@}\n\
+",\
+properties]
 
 #define H_PROPERTIES(properties) [NSString stringWithFormat:@"\
 %@\n\

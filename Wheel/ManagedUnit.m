@@ -45,10 +45,11 @@
     NSString *className = document.className;
     NSString *superClassName = document.superClassName;
     NSString *protocols = [dataStore.protocolsUnit bodyWithDocument:document];
+    NSString *iVars = [dataStore.iVarsUnit bodyWithDocument:document];
     NSString *properties = [dataStore.propertiesUnit bodyWithDocument:document];
     NSString *prototypes = [dataStore.prototypesUnit bodyWithDocument:document];
     
-    return H_CONTENT(header, className, superClassName, protocols, properties, prototypes);
+    return H_CONTENT(header, className, superClassName, protocols, iVars, properties, prototypes);
 }
 
 @end
@@ -111,6 +112,21 @@
     } else {
         return @"";
     }
+}
+
+@end
+
+@implementation IVarsUnit
+
+- (NSString *)bodyWithDocument:(Document *)document {
+    if (!document.entities.count) {
+        return @"";
+    }
+    NSString *stuff = @"";
+    for (Entity *entity in document.entities) {
+        stuff = [stuff stringByAppendingString:[entity h_iVarStuff]];
+    }
+    return H_IVARS(stuff);
 }
 
 @end

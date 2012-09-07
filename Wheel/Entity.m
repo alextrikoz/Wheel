@@ -16,6 +16,10 @@
 @synthesize type = _type;
 @synthesize name = _name;
 
+- (NSString *)h_iVarStuff {
+    return [NSString stringWithFormat:@"    %@_%@;\n", self.type, self.name];
+}
+
 - (NSString *)h_propertyStuff {
     NSString *atomicity = [self.atomicity isEqualToString:@"nonatomic"] ? @", nonatomic" : @"";
     NSString *writability = [self.writability isEqualToString:@"readonly"] ? @", readonly" : @"";

@@ -16,6 +16,7 @@
 @property (strong) NSString *type;
 @property (strong) NSString *name;
 
+- (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
 - (NSString *)m_defineStuff;
 - (NSString *)m_synthesizeStuff;

@@ -54,6 +54,7 @@ enum {
 @synthesize MContentUnit = _MContentUnit;
 @synthesize headerUnit = _headerUnit;
 @synthesize protocolsUnit = _protocolsUnit;
+@synthesize iVarsUnit = _iVarsUnit;
 @synthesize propertiesUnit = _propertiesUnit;
 @synthesize prototypesUnit = _prototypesUnit;
 @synthesize definesUnit = _definesUnit;
@@ -229,6 +230,8 @@ static DataStore *_sharedDataStore = nil;
     self.headerUnit = [[HeaderUnit alloc] init];
     
     self.protocolsUnit = [[ProtocolsUnit alloc] init];
+    
+    self.iVarsUnit = [[IVarsUnit alloc] init];
     
     self.propertiesUnit = [[PropertiesUnit alloc] init];
     

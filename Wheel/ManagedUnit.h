@@ -44,6 +44,7 @@
 
 @interface HeaderUnit : Unit @end
 @interface ProtocolsUnit : Unit  @end
+@interface IVarsUnit : Unit  @end
 @interface PropertiesUnit : Unit @end
 @interface PrototypesUnit : Unit  @end
 @interface DefinesUnit : Unit @end
