@@ -33,10 +33,10 @@
     [self.tableView deselectAll:nil];
     
     self.tableView.dataSource = self;
-    [self.tableView registerForDraggedTypes:[NSArray arrayWithObject:@"Entity"]];
+    [self.tableView registerForDraggedTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil]];
     
     self.collectionView.delegate = self;
-    [self.collectionView registerForDraggedTypes:[NSArray arrayWithObject:@"Entity"]];
+    [self.collectionView registerForDraggedTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -121,12 +121,12 @@
 #pragma mark - Private
 
 - (void)writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    [pboard declareTypes:[NSArray arrayWithObject:@"Entity"] owner:nil];
+    [pboard declareTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil] owner:nil];
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
     
-    [pboard setPropertyList:[rowIndexes array] forType:@"IndexSet"];
+    [pboard setPropertyList:[rowIndexes array] forType:@"EntityIndexSet"];
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
@@ -140,7 +140,7 @@
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
     
-    NSIndexSet *sourceIndexes = [[pboard propertyListForType:@"IndexSet"] indexSet];
+    NSIndexSet *sourceIndexes = [[pboard propertyListForType:@"EntityIndexSet"] indexSet];
     NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, [sourceIndexes count])];
     NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:sourceIndexes];
     
