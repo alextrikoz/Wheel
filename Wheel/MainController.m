@@ -144,24 +144,27 @@
     NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, [sourceIndexes count])];
     NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:sourceIndexes];
     
+    NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
     if ([sourceIndexes firstIndex] < [destinationIndexes firstIndex]) {
-        [((Document *)self.document).entities insertObjects:sourceObjects atIndexes:destinationIndexes];
-        [((Document *)self.document).entities removeObjectsAtIndexes:sourceIndexes];
+        [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
+        [entities removeObjectsAtIndexes:sourceIndexes];
     } else {
-        [((Document *)self.document).entities removeObjectsAtIndexes:sourceIndexes];
-        [((Document *)self.document).entities insertObjects:sourceObjects atIndexes:destinationIndexes];        
+        [entities removeObjectsAtIndexes:sourceIndexes];
+        [entities insertObjects:sourceObjects atIndexes:destinationIndexes];        
     }
     
-    ((Document *)self.document).entities = ((Document *)self.document).entities;
+    ((Document *)self.document).entities = entities;
 }
 
 - (void)acceptDropBetweenWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
     NSData *data = [pboard dataForType:@"Entity"];
     NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    [((Document *)self.document).entities insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [objects count])]];
     
-    ((Document *)self.document).entities = ((Document *)self.document).entities;
+    NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
+    [entities insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [objects count])]];
+    
+    ((Document *)self.document).entities = entities;
 }
 
 @end
