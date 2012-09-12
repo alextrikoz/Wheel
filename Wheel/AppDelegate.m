@@ -32,19 +32,18 @@
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValues];
 }
 
-- (void)setupCoreData {
+- (void)removeStoreIfNeeded {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
     if (![version isEqualToString:@"1.6"]) {
         [defaults setObject:@"1.6" forKey:@"version"];
         [defaults synchronize];
-        [[NSFileManager defaultManager] removeItemAtURL:self.applicationFilesDirectory error:nil];
+        [[NSFileManager defaultManager] removeItemAtURL:[self.applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"] error:nil];
     }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self setupDefaults];
-    [self setupCoreData];
     
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSArray *documents = [sharedDocumentController documents];
@@ -126,6 +125,9 @@
     }
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"];
+    
+    [self removeStoreIfNeeded];
+    
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
     if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
