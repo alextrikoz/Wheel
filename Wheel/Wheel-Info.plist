@@ -46,6 +46,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wheel</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>OutlineDocument</string>
+			<key>CFBundleTypeName</key>
+			<string>outline</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 </dict>
 </plist>

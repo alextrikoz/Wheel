@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #import "PreferencesController.h"
+#import "Document.h"
+#import "OutlineDocument.h"
 
 @implementation AppDelegate
 
@@ -48,10 +50,26 @@
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSArray *documents = [sharedDocumentController documents];
     if (!documents.count) {
-        [sharedDocumentController newDocument:nil];
+        [self newWheel:nil];        
     }
     
     [NSApplication.sharedApplication.windows makeObjectsPerformSelector:@selector(orderFront:)];
+}
+
+- (IBAction)newWheel:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"wheel"];
+}
+
+- (IBAction)newOutline:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"outline"];
+}
+
+- (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {
+    NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
+    NSDocument *document = [sharedDocumentController makeUntitledDocumentOfType:typeName error:nil];
+    [sharedDocumentController addDocument:document];
+    [document makeWindowControllers];
+    [document showWindows];
 }
 
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;

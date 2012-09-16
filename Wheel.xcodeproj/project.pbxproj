@@ -38,6 +38,9 @@
 		11EF747C1539426800D341B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747B1539426800D341B5 /* main.c */; };
 		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
+		11FD51FF160646390096AEC1 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD51FD160646390096AEC1 /* OutlineDocument.m */; };
+		11FD5205160646670096AEC1 /* OutlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD5203160646670096AEC1 /* OutlineController.m */; };
+		11FD5206160646670096AEC1 /* OutlineWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11FD5204160646670096AEC1 /* OutlineWnd.xib */; };
 		212402E115456DFE0043D929 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 212402E015456DFE0043D929 /* library.png */; };
 		212402F415458CD20043D929 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 212402F315458CD20043D929 /* Type.m */; };
 		212403061545B48C0043D929 /* alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 212403051545B48C0043D929 /* alert.png */; };
@@ -119,6 +122,11 @@
 		11EF74801539426800D341B5 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		11EF74821539426800D341B5 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
+		11FD51FC160646390096AEC1 /* OutlineDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineDocument.h; sourceTree = "<group>"; };
+		11FD51FD160646390096AEC1 /* OutlineDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineDocument.m; sourceTree = "<group>"; };
+		11FD5202160646670096AEC1 /* OutlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineController.h; sourceTree = "<group>"; };
+		11FD5203160646670096AEC1 /* OutlineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineController.m; sourceTree = "<group>"; };
+		11FD5204160646670096AEC1 /* OutlineWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutlineWnd.xib; sourceTree = "<group>"; };
 		212402E015456DFE0043D929 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		212402F215458CD20043D929 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type.h; sourceTree = "<group>"; };
 		212402F315458CD20043D929 /* Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Type.m; sourceTree = "<group>"; };
@@ -242,6 +250,8 @@
 				21F2C803157A57030048DA4D /* Models */,
 				1145D56415866B650089DBC3 /* Document.h */,
 				1145D56515866B650089DBC3 /* Document.m */,
+				11FD51FC160646390096AEC1 /* OutlineDocument.h */,
+				11FD51FD160646390096AEC1 /* OutlineDocument.m */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
@@ -255,6 +265,9 @@
 				1135C46F153942E000F2AEA4 /* MainController.h */,
 				1135C470153942E000F2AEA4 /* MainController.m */,
 				11D727D6154342C300952265 /* MainWnd.xib */,
+				11FD5202160646670096AEC1 /* OutlineController.h */,
+				11FD5203160646670096AEC1 /* OutlineController.m */,
+				11FD5204160646670096AEC1 /* OutlineWnd.xib */,
 				11EF74481539426800D341B5 /* AppDelegate.h */,
 				11EF74491539426800D341B5 /* AppDelegate.m */,
 				11EF744B1539426800D341B5 /* MainMenu.xib */,
@@ -431,6 +444,7 @@
 				11D727D7154342C300952265 /* MainWnd.xib in Resources */,
 				212402E115456DFE0043D929 /* library.png in Resources */,
 				212403061545B48C0043D929 /* alert.png in Resources */,
+				11FD5206160646670096AEC1 /* OutlineWnd.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +501,8 @@
 				11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */,
 				1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */,
 				1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */,
+				11FD51FF160646390096AEC1 /* OutlineDocument.m in Sources */,
+				11FD5205160646670096AEC1 /* OutlineController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
