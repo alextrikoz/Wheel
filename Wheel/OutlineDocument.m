@@ -24,14 +24,69 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"title";
-    entity.children = [NSMutableArray arrayWithObject:entity];
     [entities addObject:entity];
-
+    
+    entity = [[OutlineEntity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"subtitle";
+    [entities addObject:entity];
+    
+    entity = [[OutlineEntity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSDate *";
+    entity.name = @"date";
+    [entities addObject:entity];
+    
+    entity = [[OutlineEntity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSMutableArray *";
+    entity.name = @"items";
+    entity.children = [NSMutableArray array];
+    
+    OutlineEntity *subentity = [[OutlineEntity alloc] init];
+    subentity.setter = @"strong";
+    subentity.atomicity = @"nonatomic";
+    subentity.writability = @"readwrite";
+    subentity.type = @"Product *";
+    subentity.name = @"items";
+    subentity.children = [NSMutableArray array];
+    
+    OutlineEntity *subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"copy";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"NSString *";
+    subsubentity.name = @"name";
+    [subentity.children addObject:subsubentity];
+    
+    subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"strong";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"UIImage *";
+    subsubentity.name = @"image";
+    [subentity.children addObject:subsubentity];
+    
+    subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"strong";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"NSDecimalNumber *";
+    subsubentity.name = @"price";
+    [subentity.children addObject:subsubentity];
+    
+    [entity.children addObject:subentity];
+    
+    [entities addObject:entity];
+    
     return entities;
-}
-
-- (id)valueForUndefinedKey:(NSString *)key {
-    return nil;
 }
 
 - (void)makeWindowControllers {

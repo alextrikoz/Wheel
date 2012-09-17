@@ -10,6 +10,6 @@
 
 @interface OutlineEntity : Entity
 
-@property (strong, nonatomic) NSArray *children;
+@property (strong, nonatomic) NSMutableArray *children;
 
 @end
