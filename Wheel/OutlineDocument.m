@@ -8,13 +8,39 @@
 
 #import "OutlineDocument.h"
 
+#import "OutlineEntity.h"
 #import "OutlineController.h"
 
 @implementation OutlineDocument
 
+@synthesize outlineEntities = _outlineEntities;
+
+- (NSMutableArray *)defaultOutlineEntities {
+    NSMutableArray *entities = [NSMutableArray array];
+    
+    OutlineEntity *entity = [[OutlineEntity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"title";
+    entity.children = [NSMutableArray arrayWithObject:entity];
+    [entities addObject:entity];
+
+    return entities;
+}
+
+- (id)valueForUndefinedKey:(NSString *)key {
+    return nil;
+}
+
 - (void)makeWindowControllers {
     OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineWnd"];
     [self addWindowController:windowController];
+    
+    if (!self.outlineEntities) {
+        self.outlineEntities = self.defaultOutlineEntities;
+    }
 }
 
 - (NSString *)displayName {
@@ -41,5 +67,6 @@
     }
     return YES;
 }
+
 
 @end

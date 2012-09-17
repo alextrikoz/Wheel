@@ -148,6 +148,10 @@
     return [NSKeyedArchiver archivedDataWithRootObject:properties];
 }
 
+- (NSString *)displayName {
+    return self.className;
+}
+
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
     savePanel.nameFieldStringValue = self.className;
     return [super prepareSavePanel:savePanel];

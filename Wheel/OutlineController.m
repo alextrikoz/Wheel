@@ -8,6 +8,10 @@
 
 #import "OutlineController.h"
 
+@interface OutlineController ()
+
+@end
+
 @implementation OutlineController
 
 @end

@@ -10,4 +10,6 @@
 
 @interface OutlineDocument : NSDocument
 
+@property (strong) NSMutableArray *outlineEntities;
+
 @end
