@@ -16,39 +16,43 @@
 @synthesize outlineEntities = _outlineEntities;
 
 - (NSMutableArray *)defaultOutlineEntities {
-    NSMutableArray *entities = [NSMutableArray array];
+    NSMutableArray *outlineEntities = [NSMutableArray array];
     
-    OutlineEntity *entity = [[OutlineEntity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"title";
-    [entities addObject:entity];
+    OutlineEntity *outlineEntity = [[OutlineEntity alloc] init];
+    outlineEntity.setter = @"copy";
+    outlineEntity.atomicity = @"nonatomic";
+    outlineEntity.writability = @"readwrite";
+    outlineEntity.type = @"NSString *";
+    outlineEntity.name = @"title";
+    [outlineEntities addObject:outlineEntity];
     
-    entity = [[OutlineEntity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"subtitle";
-    [entities addObject:entity];
+    outlineEntity = [[OutlineEntity alloc] init];
+    outlineEntity.setter = @"copy";
+    outlineEntity.atomicity = @"nonatomic";
+    outlineEntity.writability = @"readwrite";
+    outlineEntity.type = @"NSString *";
+    outlineEntity.name = @"subtitle";
+    [outlineEntities addObject:outlineEntity];
     
-    entity = [[OutlineEntity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSDate *";
-    entity.name = @"date";
-    [entities addObject:entity];
+    outlineEntity = [[OutlineEntity alloc] init];
+    outlineEntity.setter = @"strong";
+    outlineEntity.atomicity = @"nonatomic";
+    outlineEntity.writability = @"readwrite";
+    outlineEntity.type = @"NSDate *";
+    outlineEntity.name = @"date";
+    [outlineEntities addObject:outlineEntity];
     
-    entity = [[OutlineEntity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSMutableArray *";
-    entity.name = @"items";
-    entity.children = [NSMutableArray array];
+    return outlineEntities;
+}
+
+- (void)addOutlineEntity {
+    OutlineEntity *outlineEntity = [[OutlineEntity alloc] init];
+    outlineEntity.setter = @"strong";
+    outlineEntity.atomicity = @"nonatomic";
+    outlineEntity.writability = @"readwrite";
+    outlineEntity.type = @"NSMutableArray *";
+    outlineEntity.name = @"items";
+    outlineEntity.children = [NSMutableArray array];
     
     OutlineEntity *subentity = [[OutlineEntity alloc] init];
     subentity.setter = @"strong";
@@ -82,11 +86,11 @@
     subsubentity.name = @"price";
     [subentity.children addObject:subsubentity];
     
-    [entity.children addObject:subentity];
+    [outlineEntity.children addObject:subentity];
     
-    [entities addObject:entity];
+    [self.outlineEntities addObject:outlineEntity];
     
-    return entities;
+    self.outlineEntities = self.outlineEntities;
 }
 
 - (void)makeWindowControllers {
@@ -95,6 +99,7 @@
     
     if (!self.outlineEntities) {
         self.outlineEntities = self.defaultOutlineEntities;
+        [self addOutlineEntity];
     }
 }
 

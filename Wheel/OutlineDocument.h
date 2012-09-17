@@ -12,4 +12,6 @@
 
 @property (strong) NSMutableArray *outlineEntities;
 
+- (void)addOutlineEntity;
+
 @end
