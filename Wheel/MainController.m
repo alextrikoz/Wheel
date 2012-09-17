@@ -20,8 +20,7 @@
 @synthesize tableView = _tableView;
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView name:NSUndoManagerDidUndoChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView name:NSUndoManagerDidRedoChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)awakeFromNib {

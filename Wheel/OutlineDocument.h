@@ -10,8 +10,10 @@
 
 @interface OutlineDocument : NSDocument
 
-@property (strong) NSMutableArray *outlineEntities;
+@property (strong) NSMutableArray *entities;
+@property (strong) NSMutableArray *selectedEntities;
 
-- (void)addOutlineEntity;
+- (void)addEntity;
+- (void)removeSelectedEntities;
 
 @end

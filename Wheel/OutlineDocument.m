@@ -13,46 +13,46 @@
 
 @implementation OutlineDocument
 
-@synthesize outlineEntities = _outlineEntities;
+@synthesize entities = _outlineEntities;
 
 - (NSMutableArray *)defaultOutlineEntities {
-    NSMutableArray *outlineEntities = [NSMutableArray array];
+    NSMutableArray *entities = [NSMutableArray array];
     
-    OutlineEntity *outlineEntity = [[OutlineEntity alloc] init];
-    outlineEntity.setter = @"copy";
-    outlineEntity.atomicity = @"nonatomic";
-    outlineEntity.writability = @"readwrite";
-    outlineEntity.type = @"NSString *";
-    outlineEntity.name = @"title";
-    [outlineEntities addObject:outlineEntity];
+    OutlineEntity *entity = [[OutlineEntity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"title";
+    [entities addObject:entity];
     
-    outlineEntity = [[OutlineEntity alloc] init];
-    outlineEntity.setter = @"copy";
-    outlineEntity.atomicity = @"nonatomic";
-    outlineEntity.writability = @"readwrite";
-    outlineEntity.type = @"NSString *";
-    outlineEntity.name = @"subtitle";
-    [outlineEntities addObject:outlineEntity];
+    entity = [[OutlineEntity alloc] init];
+    entity.setter = @"copy";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSString *";
+    entity.name = @"subtitle";
+    [entities addObject:entity];
     
-    outlineEntity = [[OutlineEntity alloc] init];
-    outlineEntity.setter = @"strong";
-    outlineEntity.atomicity = @"nonatomic";
-    outlineEntity.writability = @"readwrite";
-    outlineEntity.type = @"NSDate *";
-    outlineEntity.name = @"date";
-    [outlineEntities addObject:outlineEntity];
+    entity = [[OutlineEntity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSDate *";
+    entity.name = @"date";
+    [entities addObject:entity];
     
-    return outlineEntities;
+    return entities;
 }
 
-- (void)addOutlineEntity {
-    OutlineEntity *outlineEntity = [[OutlineEntity alloc] init];
-    outlineEntity.setter = @"strong";
-    outlineEntity.atomicity = @"nonatomic";
-    outlineEntity.writability = @"readwrite";
-    outlineEntity.type = @"NSMutableArray *";
-    outlineEntity.name = @"items";
-    outlineEntity.children = [NSMutableArray array];
+- (void)addEntity {
+    OutlineEntity *entity = [[OutlineEntity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSMutableArray *";
+    entity.name = @"items";
+    entity.children = [NSMutableArray array];
     
     OutlineEntity *subentity = [[OutlineEntity alloc] init];
     subentity.setter = @"strong";
@@ -86,20 +86,42 @@
     subsubentity.name = @"price";
     [subentity.children addObject:subsubentity];
     
-    [outlineEntity.children addObject:subentity];
+    [entity.children addObject:subentity];
     
-    [self.outlineEntities addObject:outlineEntity];
+    [self.entities addObject:entity];
     
-    self.outlineEntities = self.outlineEntities;
+    self.entities = self.entities;
+}
+
+- (void)removeSelectedEntities {
+    for (long i = self.selectedEntities.count - 1; i > -1;i--) {
+        NSIndexPath *indexPath = [self.selectedEntities objectAtIndex:i];
+        if (indexPath.length == 1) {
+            [self.entities removeObjectAtIndex:i];
+            continue;
+        }
+        OutlineEntity *entity = nil;
+        for (int i = 0; i < indexPath.length; i++) {
+            NSUInteger index = [indexPath indexAtPosition:i];
+            if (i == 0) {
+                entity = [self.entities objectAtIndex:index];
+            } else if (i == indexPath.length - 1) {
+                [entity.children removeObjectAtIndex:index];
+            } else {
+                entity = [entity.children objectAtIndex:index];
+            }
+        }
+    }
+    self.entities = self.entities;
 }
 
 - (void)makeWindowControllers {
     OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineWnd"];
     [self addWindowController:windowController];
     
-    if (!self.outlineEntities) {
-        self.outlineEntities = self.defaultOutlineEntities;
-        [self addOutlineEntity];
+    if (!self.entities) {
+        self.entities = self.defaultOutlineEntities;
+        [self addEntity];
     }
 }
 
