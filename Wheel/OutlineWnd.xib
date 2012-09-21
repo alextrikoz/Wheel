@@ -115,14 +115,52 @@
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">3D171DDC-DE1A-4796-A52C-FDAC99B631E2</characters>
 							</object>
-							<string key="NSToolbarItemLabel">Add</string>
-							<string key="NSToolbarItemPaletteLabel">Add</string>
+							<string key="NSToolbarItemLabel">Object</string>
+							<string key="NSToolbarItemPaletteLabel">Object</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
+							<object class="NSCustomResource" key="NSToolbarItemImage" id="214553138">
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">plus</string>
 							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="B4463F10-C176-4813-B187-B2D0B0507BD3" id="391231470">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">B4463F10-C176-4813-B187-B2D0B0507BD3</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Collection</string>
+							<string key="NSToolbarItemPaletteLabel">Collection</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<reference key="NSToolbarItemImage" ref="214553138"/>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="E4996DD4-BDE9-42B4-8380-F68A72316A63" id="749916550">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">E4996DD4-BDE9-42B4-8380-F68A72316A63</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Model</string>
+							<string key="NSToolbarItemPaletteLabel">Model</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<reference key="NSToolbarItemImage" ref="214553138"/>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
 							<string key="NSToolbarItemMinSize">{0, 0}</string>
@@ -156,12 +194,16 @@
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
 					</dictionary>
-					<array key="NSToolbarIBAllowedItems">
+					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<reference ref="475249190"/>
+						<reference ref="749916550"/>
+						<reference ref="391231470"/>
 						<reference ref="73813519"/>
 					</array>
 					<array key="NSToolbarIBDefaultItems">
 						<reference ref="475249190"/>
+						<reference ref="749916550"/>
+						<reference ref="391231470"/>
 						<reference ref="73813519"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
@@ -553,7 +595,6 @@
 									<string key="NSFrame">{{1, 224}, {798, 15}}</string>
 									<reference key="NSSuperview" ref="130850459"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:60</string>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="130850459"/>
@@ -596,7 +637,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="130850459"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">32</double>
@@ -615,14 +656,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">add:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="475249190"/>
-					</object>
-					<int key="connectionID">116</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">remove:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="73813519"/>
@@ -636,6 +669,30 @@
 						<reference key="destination" ref="644348756"/>
 					</object>
 					<int key="connectionID">134</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addModel:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="749916550"/>
+					</object>
+					<int key="connectionID">140</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addCollection:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="391231470"/>
+					</object>
+					<int key="connectionID">141</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addObject:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="475249190"/>
+					</object>
+					<int key="connectionID">142</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1026,6 +1083,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="475249190"/>
 							<reference ref="73813519"/>
+							<reference ref="749916550"/>
+							<reference ref="391231470"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -1187,6 +1246,16 @@
 						<reference key="object" ref="59928797"/>
 						<reference key="parent" ref="677431843"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">136</int>
+						<reference key="object" ref="749916550"/>
+						<reference key="parent" ref="1034426581"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">138</int>
+						<reference key="object" ref="391231470"/>
+						<reference key="parent" ref="1034426581"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1206,6 +1275,8 @@
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="115.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="117.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="138.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1234,7 +1305,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">135</int>
+			<int key="maxID">142</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1250,12 +1321,22 @@
 					<string key="className">OutlineController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="add:">id</string>
+						<string key="addCollection:">id</string>
+						<string key="addModel:">id</string>
+						<string key="addObject:">id</string>
 						<string key="remove:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="add:">
-							<string key="name">add:</string>
+						<object class="IBActionInfo" key="addCollection:">
+							<string key="name">addCollection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addModel:">
+							<string key="name">addModel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addObject:">
+							<string key="name">addObject:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="remove:">

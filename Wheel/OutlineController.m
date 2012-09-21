@@ -15,7 +15,9 @@
 
 @property (strong) IBOutlet NSOutlineView *outlineView;
 
-- (IBAction)add:(id)sender;
+- (IBAction)addObject:(id)sender;
+- (IBAction)addModel:(id)sender;
+- (IBAction)addCollection:(id)sender;
 - (IBAction)remove:(id)sender;
 
 @end
@@ -39,8 +41,18 @@
     }
 }
 
-- (IBAction)add:(id)sender {
-    [(OutlineDocument *)self.document addEntity];
+- (IBAction)addObject:(id)sender {
+    [(OutlineDocument *)self.document addObject];
+    [self.outlineView deselectAll:nil];
+}
+
+- (IBAction)addModel:(id)sender {
+    [(OutlineDocument *)self.document addModel];
+    [self.outlineView deselectAll:nil];
+}
+
+- (IBAction)addCollection:(id)sender {
+    [(OutlineDocument *)self.document addCollection];
     [self.outlineView deselectAll:nil];
 }
 

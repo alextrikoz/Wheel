@@ -13,7 +13,9 @@
 @property (strong) NSMutableArray *entities;
 @property (strong) NSMutableArray *selectedEntities;
 
-- (void)addEntity;
+- (void)addObject;
+- (void)addModel;
+- (void)addCollection;
 - (void)removeSelectedEntities;
 
 @end

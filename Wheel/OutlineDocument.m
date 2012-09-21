@@ -45,7 +45,58 @@
     return entities;
 }
 
-- (void)addEntity {
+- (void)addObject {
+    OutlineEntity *entity = [[OutlineEntity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSMutableArray *";
+    entity.name = @"items";
+    
+    [self.entities addObject:entity];
+    
+    self.entities = self.entities;
+}
+
+- (void)addModel {
+    OutlineEntity *subentity = [[OutlineEntity alloc] init];
+    subentity.setter = @"strong";
+    subentity.atomicity = @"nonatomic";
+    subentity.writability = @"readwrite";
+    subentity.type = @"Product *";
+    subentity.name = @"items";
+    subentity.children = [NSMutableArray array];
+    
+    OutlineEntity *subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"copy";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"NSString *";
+    subsubentity.name = @"name";
+    [subentity.children addObject:subsubentity];
+    
+    subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"strong";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"UIImage *";
+    subsubentity.name = @"image";
+    [subentity.children addObject:subsubentity];
+    
+    subsubentity = [[OutlineEntity alloc] init];
+    subsubentity.setter = @"strong";
+    subsubentity.atomicity = @"nonatomic";
+    subsubentity.writability = @"readwrite";
+    subsubentity.type = @"NSDecimalNumber *";
+    subsubentity.name = @"price";
+    [subentity.children addObject:subsubentity];
+    
+    [self.entities addObject:subentity];
+    
+    self.entities = self.entities;
+}
+
+- (void)addCollection {
     OutlineEntity *entity = [[OutlineEntity alloc] init];
     entity.setter = @"strong";
     entity.atomicity = @"nonatomic";
@@ -94,7 +145,7 @@
 }
 
 - (void)removeSelectedEntities {
-    for (long i = self.selectedEntities.count - 1; i > -1;i--) {
+    for (long i = self.selectedEntities.count - 1; i > -1; i--) {
         NSIndexPath *indexPath = [self.selectedEntities objectAtIndex:i];
         if (indexPath.length == 1) {
             [self.entities removeObjectAtIndex:i];
@@ -121,7 +172,7 @@
     
     if (!self.entities) {
         self.entities = self.defaultOutlineEntities;
-        [self addEntity];
+        [self addCollection];
     }
 }
 
