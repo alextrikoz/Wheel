@@ -124,7 +124,6 @@
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
-    
     [pboard setPropertyList:[rowIndexes array] forType:@"EntityIndexSet"];
 }
 
@@ -139,18 +138,23 @@
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
     NSPasteboard *pboard = [info draggingPasteboard];
     
+    NSArray *sourceIndexesArray = [pboard propertyListForType:@"EntityIndexSet"];
+    
+    int decrement = 0;
+    for (NSNumber *sourceIndex in sourceIndexesArray) {
+        if ([sourceIndex intValue] < row) {
+            decrement++;
+        }
+    }
+    row -= decrement;
+    
     NSIndexSet *sourceIndexes = [[pboard propertyListForType:@"EntityIndexSet"] indexSet];
     NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, [sourceIndexes count])];
     NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:sourceIndexes];
     
     NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
-    if ([sourceIndexes firstIndex] < [destinationIndexes firstIndex]) {
-        [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
-        [entities removeObjectsAtIndexes:sourceIndexes];
-    } else {
-        [entities removeObjectsAtIndexes:sourceIndexes];
-        [entities insertObjects:sourceObjects atIndexes:destinationIndexes];        
-    }
+    [entities removeObjectsAtIndexes:sourceIndexes];
+    [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
     
     ((Document *)self.document).entities = entities;
 }
@@ -159,7 +163,6 @@
     NSPasteboard *pboard = [info draggingPasteboard];
     NSData *data = [pboard dataForType:@"Entity"];
     NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
     NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
     [entities insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [objects count])]];
     
