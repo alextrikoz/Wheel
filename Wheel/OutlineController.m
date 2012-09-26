@@ -11,7 +11,7 @@
 #import "OutlineDocument.h"
 #import <Carbon/Carbon.h>
 
-@interface OutlineController ()
+@interface OutlineController () <NSOutlineViewDataSource>
 
 @property (strong) IBOutlet NSOutlineView *outlineView;
 
@@ -30,6 +30,10 @@
     [super awakeFromNib];
     
     [self.outlineView deselectAll:nil];
+    
+    self.outlineView.dataSource = self;
+    
+    [self.outlineView registerForDraggedTypes:[NSArray arrayWithObjects:@"OutlineEntity", @"OutlineEntityIndexPath", nil]];
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -59,6 +63,27 @@
 - (IBAction)remove:(id)sender {
     [(OutlineDocument *)self.document removeSelectedEntities];
     [self.outlineView deselectAll:nil];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
+    [pboard declareTypes:[NSArray arrayWithObjects:@"OutlineEntity", @"OutlineEntityIndexPath", nil] owner:nil];
+    NSMutableArray *entities = [NSMutableArray array];
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (NSTreeNode *node in items) {
+        [entities addObject:node.representedObject];
+        [indexPaths addObject:node.indexPath];
+    }
+    NSLog(@"%@ %@", entities, indexPaths);    
+    
+    return YES;
+}
+
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
+    return NSDragOperationMove;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+    return YES;
 }
 
 @end
