@@ -73,7 +73,9 @@
         [entities addObject:node.representedObject];
         [indexPaths addObject:node.indexPath];
     }
-    NSLog(@"%@ %@", entities, indexPaths);    
+    
+    [pboard setData:[NSKeyedArchiver archivedDataWithRootObject:entities] forType:@"OutlineEntity"];
+    [pboard setData:[NSKeyedArchiver archivedDataWithRootObject:indexPaths] forType:@"OutlineEntityIndexPath"];
     
     return YES;
 }

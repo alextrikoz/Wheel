@@ -65,7 +65,6 @@
     subentity.writability = @"readwrite";
     subentity.type = @"Product *";
     subentity.name = @"items";
-    subentity.children = [NSMutableArray array];
     
     OutlineEntity *subsubentity = [[OutlineEntity alloc] init];
     subsubentity.setter = @"copy";
@@ -103,7 +102,6 @@
     entity.writability = @"readwrite";
     entity.type = @"NSMutableArray *";
     entity.name = @"items";
-    entity.children = [NSMutableArray array];
     
     OutlineEntity *subentity = [[OutlineEntity alloc] init];
     subentity.setter = @"strong";
@@ -111,7 +109,6 @@
     subentity.writability = @"readwrite";
     subentity.type = @"Product *";
     subentity.name = @"items";
-    subentity.children = [NSMutableArray array];
     
     OutlineEntity *subsubentity = [[OutlineEntity alloc] init];
     subsubentity.setter = @"copy";
@@ -148,7 +145,8 @@
     for (long i = self.selectedEntities.count - 1; i > -1; i--) {
         NSIndexPath *indexPath = [self.selectedEntities objectAtIndex:i];
         if (indexPath.length == 1) {
-            [self.entities removeObjectAtIndex:i];
+            NSUInteger index = [indexPath indexAtPosition:i];
+            [self.entities removeObjectAtIndex:index];
             continue;
         }
         OutlineEntity *entity = nil;

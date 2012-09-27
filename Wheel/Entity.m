@@ -67,6 +67,8 @@
     return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
+#pragma mark - NSCoding
+
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.setter forKey:@"setter"];
     [coder encodeObject:self.atomicity forKey:@"atomicity"];
