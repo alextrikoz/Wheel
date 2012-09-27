@@ -26,7 +26,7 @@
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
+    self = [super initWithCoder:decoder];
     if (self) {
         self.children = [decoder decodeObjectForKey:@"children"];
     }

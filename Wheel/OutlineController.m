@@ -8,6 +8,7 @@
 
 #import "OutlineController.h"
 
+#import "OutlineEntity.h"
 #import "OutlineDocument.h"
 #import <Carbon/Carbon.h>
 
@@ -67,6 +68,7 @@
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
     [pboard declareTypes:[NSArray arrayWithObjects:@"OutlineEntity", @"OutlineEntityIndexPath", nil] owner:nil];
+    
     NSMutableArray *entities = [NSMutableArray array];
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (NSTreeNode *node in items) {
@@ -84,7 +86,56 @@
     return NSDragOperationMove;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {    
+    NSPasteboard *pboard = [info draggingPasteboard];
+    
+    NSArray *sourceIndexesArray = [NSKeyedUnarchiver unarchiveObjectWithData:[pboard dataForType:@"OutlineEntityIndexPath"]];
+    
+    int decrement = 0;
+    NSMutableArray *entities = ((OutlineDocument *)self.document).entities;
+    for (long i = sourceIndexesArray.count - 1; i > -1; i--) {
+        NSIndexPath *indexPath = [sourceIndexesArray objectAtIndex:i];
+        if (indexPath.length == 1) {
+            NSUInteger index = [indexPath indexAtPosition:i];
+            [entities removeObjectAtIndex:index];
+            if (index < childIndex && item == 0) {
+                decrement++;
+            }
+            continue;
+        }
+        OutlineEntity *entity = nil;
+        for (int i = 0; i < indexPath.length; i++) {
+            NSUInteger index = [indexPath indexAtPosition:i];
+            if (i == 0) {
+                entity = [entities objectAtIndex:index];
+            } else if (i == indexPath.length - 1) {
+                [entity.children removeObjectAtIndex:index];
+                if (index < childIndex && [entity isEqual:[item representedObject]]) {
+                    decrement++;
+                }
+            } else {
+                entity = [entity.children objectAtIndex:index];
+            }
+        }
+    }
+    childIndex -= decrement;
+    
+    if (childIndex == NSOutlineViewDropOnItemIndex) {
+        childIndex = 0;
+    }
+    
+    NSArray *sourceObjects = [NSKeyedUnarchiver unarchiveObjectWithData:[pboard dataForType:@"OutlineEntity"]];
+    NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(childIndex--, [sourceIndexesArray count])];
+    
+    if (item) {
+        [[(OutlineEntity *)[item representedObject] children] insertObjects:sourceObjects atIndexes:destinationIndexes];
+    } else {
+        [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
+    }
+    
+    ((OutlineDocument *)self.document).entities = ((OutlineDocument *)self.document).entities;
+    [self.outlineView deselectAll:nil];
+    
     return YES;
 }
 
