@@ -32,10 +32,10 @@
     [self.tableView deselectAll:nil];
     
     self.tableView.dataSource = self;
-    [self.tableView registerForDraggedTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil]];
+    [self.tableView registerForDraggedTypes:@[@"Entity"]];
     
     self.collectionView.delegate = self;
-    [self.collectionView registerForDraggedTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil]];
+    [self.collectionView registerForDraggedTypes:@[@"Entity"]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -74,8 +74,8 @@
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", [directoryURL absoluteString], ((Document *)self.document).className]];
-            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", [directoryURL absoluteString], ((Document *)self.document).className]];
+            NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", directoryURL.absoluteString, ((Document *)self.document).className]];
+            NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", directoryURL.absoluteString, ((Document *)self.document).className]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
 
@@ -120,15 +120,17 @@
 #pragma mark - Private
 
 - (void)writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    [pboard declareTypes:[NSArray arrayWithObjects:@"Entity", @"EntityIndexSet", nil] owner:nil];
+    [pboard declareTypes:@[@"Entity"] owner:nil];
+    
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
-    [pboard setPropertyList:[rowIndexes array] forType:@"EntityIndexSet"];
+    
+    self.sourceIndexes = rowIndexes;
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    if ([[info draggingSource] isEqual:self.tableView] || [[info draggingSource] isEqual:self.collectionView]) {
+    if ([info.draggingSource isEqual:self.tableView] || [info.draggingSource isEqual:self.collectionView]) {
         [self acceptDropInsideWindow:info row:row];
     } else {
         [self acceptDropBetweenWindows:info row:row];
@@ -136,31 +138,28 @@
 }
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    NSPasteboard *pboard = [info draggingPasteboard];
-    
-    NSArray *sourceIndexesArray = [pboard propertyListForType:@"EntityIndexSet"];
-    
     int decrement = 0;
-    for (NSNumber *sourceIndex in sourceIndexesArray) {
-        if ([sourceIndex intValue] < row) {
+    NSUInteger index = self.sourceIndexes.firstIndex;
+    while(index != NSNotFound) {
+        if (index < row) {
             decrement++;
         }
+        index = [self.sourceIndexes indexGreaterThanIndex:index];
     }
     row -= decrement;
     
-    NSIndexSet *sourceIndexes = [[pboard propertyListForType:@"EntityIndexSet"] indexSet];
-    NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, [sourceIndexes count])];
-    NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:sourceIndexes];
+    NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, self.sourceIndexes.count)];
+    NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:self.sourceIndexes];
     
     NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
-    [entities removeObjectsAtIndexes:sourceIndexes];
+    [entities removeObjectsAtIndexes:self.sourceIndexes];
     [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
     
     ((Document *)self.document).entities = entities;
 }
 
-- (void)acceptDropBetweenWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    NSPasteboard *pboard = [info draggingPasteboard];
+- (void)acceptDropBetweenWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {    
+    NSPasteboard *pboard = info.draggingPasteboard;
     NSData *data = [pboard dataForType:@"Entity"];
     NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;

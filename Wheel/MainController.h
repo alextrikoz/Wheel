@@ -13,6 +13,8 @@
 @property (strong) IBOutlet NSTableView *tableView;
 @property (strong) IBOutlet NSCollectionView *collectionView;
 
+@property (strong) IBOutlet NSIndexSet *sourceIndexes;
+
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
 - (IBAction)generate:(id)sender;
