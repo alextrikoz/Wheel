@@ -25,7 +25,7 @@
     return nodes;
 }
 
-+ (OutlineEntity *)rootNode {
++ (OutlineEntity *)rootEntity {
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
     return [self objectWithDictionary:dictionary];
 }

@@ -11,8 +11,10 @@
 @interface OutlineEntity : NSObject
 
 @property (strong) NSString *name;
-@property (strong) NSArray *children;
+@property (strong) NSMutableArray *children;
 
-+ (NSTreeNode *)rootNode;
++ (OutlineEntity *)objectWithDictionary:(NSDictionary *)dictionary;
++ (NSMutableArray *)objectsWithArray:(NSArray *)array;
++ (OutlineEntity *)rootEntity;
 
 @end

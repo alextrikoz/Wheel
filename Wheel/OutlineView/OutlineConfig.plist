@@ -32,7 +32,7 @@
 					<string>date</string>
 				</dict>
 				<dict>
-					<key>New item</key>
+					<key>Name</key>
 					<string>description</string>
 				</dict>
 			</array>

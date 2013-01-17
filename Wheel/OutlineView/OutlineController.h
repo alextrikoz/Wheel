@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OutlineController : NSWindowController <NSOutlineViewDataSource>
+@interface OutlineController : NSWindowController
 
 @end
