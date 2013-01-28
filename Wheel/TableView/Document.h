@@ -13,10 +13,8 @@
 @property (strong) NSString *className;
 @property (strong) NSString *superClassName;
 @property (strong) NSMutableArray *entities;
-//@property (strong) NSIndexSet *selectedEntities;
 
 - (NSMutableArray *)defaultEnities;
 - (void)addEntity;
-- (void)removeSelectedEntities;
 
 @end

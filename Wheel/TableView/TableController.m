@@ -32,7 +32,7 @@
 @implementation TableController
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
     [self.document removeObserver:self forKeyPath:@"entities"];
 }
 
@@ -77,6 +77,10 @@
 }
 
 - (IBAction)remove:(id)sender {
+    if ([[self.tableView selectedRowIndexes] count] == 0) {
+        return;
+    }
+    
     [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
     
     [self.tableView beginUpdates];

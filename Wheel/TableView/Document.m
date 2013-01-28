@@ -110,13 +110,6 @@
     self.entities = self.entities;
 }
 
-- (void)removeSelectedEntities {
-    [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:[self.entities mutableCopy]];
-    
-//    [self.entities removeObjectsAtIndexes:self.selectedEntities];
-    self.entities = self.entities;
-}
-
 - (void)makeWindowControllers {
     TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableWnd"];
     [self addWindowController:windowController];
