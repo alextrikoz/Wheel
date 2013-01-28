@@ -52,7 +52,7 @@
 - (NSMutableArray *)entities {
     return _entities;
 }
-@synthesize selectedEntities = _selectedEntities;
+//@synthesize selectedEntities = _selectedEntities;
 
 - (NSMutableArray *)defaultEnities {
     NSMutableArray *entities = [NSMutableArray array];
@@ -113,7 +113,7 @@
 - (void)removeSelectedEntities {
     [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:[self.entities mutableCopy]];
     
-    [self.entities removeObjectsAtIndexes:self.selectedEntities];
+//    [self.entities removeObjectsAtIndexes:self.selectedEntities];
     self.entities = self.entities;
 }
 
