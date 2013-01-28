@@ -30,7 +30,7 @@
     
     self.rootNode = [self rootNodeWithDictionary:dictionary];
     
-    [self.outlineView registerForDraggedTypes:@[@"OutlineEntity"]];
+    [self.outlineView registerForDraggedTypes:@[@"OutlineEntity", NSPasteboardTypeString]];
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate
@@ -65,6 +65,10 @@
     return YES;
 }
 
+- (id <NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {
+    return [item representedObject];
+}
+
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
     return NSDragOperationMove;
 }
@@ -90,6 +94,10 @@
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         NSTreeNode *draggedNode = self.draggedNodes[index];
+        
+        if (draggedNode == newParent || draggedNode == newParent.parentNode) {
+            return;
+        }
         
         NSTreeNode *oldParent = draggedNode.parentNode;
         NSMutableArray *oldParentChildren = [oldParent mutableChildNodes];

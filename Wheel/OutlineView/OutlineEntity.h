@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OutlineEntity : NSObject
+@interface OutlineEntity : NSObject <NSPasteboardWriting>
 
 @property (strong) NSString *name;
 @property (strong) NSMutableArray *children;

@@ -30,4 +30,14 @@
     return [self objectWithDictionary:dictionary];
 }
 
+#pragma mark - NSPasteboardWriting
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return @[NSPasteboardTypeString];
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    return self.name;
+}
+
 @end
