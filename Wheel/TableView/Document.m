@@ -52,7 +52,6 @@
 - (NSMutableArray *)entities {
     return _entities;
 }
-//@synthesize selectedEntities = _selectedEntities;
 
 - (NSMutableArray *)defaultEnities {
     NSMutableArray *entities = [NSMutableArray array];

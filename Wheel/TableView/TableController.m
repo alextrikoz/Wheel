@@ -32,8 +32,8 @@
 @implementation TableController
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
-    [self.document removeObserver:self forKeyPath:@"entities"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"document.entities" context:nil];
 }
 
 - (void)awakeFromNib {
@@ -41,8 +41,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidUndoChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidRedoChangeNotification object:nil];
-    
-    [self.document addObserver:self forKeyPath:@"entities" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"document.entities" options:NSKeyValueObservingOptionNew context:nil];
     
     [self.tableView deselectAll:nil];
     [self.tableView registerForDraggedTypes:@[NSPasteboardTypeString]];
