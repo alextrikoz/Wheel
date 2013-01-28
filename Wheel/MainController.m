@@ -17,8 +17,6 @@
 
 @implementation MainController
 
-@synthesize tableView = _tableView;
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -33,13 +31,14 @@
     
     self.tableView.dataSource = self;
     [self.tableView registerForDraggedTypes:@[@"Entity"]];
-    
-    self.collectionView.delegate = self;
-    [self.collectionView registerForDraggedTypes:@[@"Entity"]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
     return ((Document *)self.document).className;
+}
+
+- (Document *)document {
+    return [super document];
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -101,20 +100,12 @@
     return YES;
 }
 
-#pragma mark - NSCollectionViewDelegate
-
-- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
-    [self writeRowsWithIndexes:indexes toPasteboard:pasteboard];
-    return YES;
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
+    self.draggedItems = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
 }
 
-- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
-    return (*proposedDropOperation == NSCollectionViewDropBefore) ? NSDragOperationMove : NSDragOperationNone;
-}
-
-- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation {
-    [self acceptDrop:draggingInfo row:index];
-    return YES;
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
+    self.draggedItems = nil;
 }
 
 #pragma mark - Private
@@ -130,35 +121,34 @@
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    if ([info.draggingSource isEqual:self.tableView] || [info.draggingSource isEqual:self.collectionView]) {
+    [self.tableView beginUpdates];
+    if ([info.draggingSource isEqual:self.tableView]) {
         [self acceptDropInsideWindow:info row:row];
     } else {
-        [self acceptDropBetweenWindows:info row:row];
+        [self acceptDropOutsideWindows:info row:row];
     }
+    [self.tableView endUpdates];
 }
 
-- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    int decrement = 0;
-    NSUInteger index = self.sourceIndexes.firstIndex;
-    while(index != NSNotFound) {
-        if (index < row) {
-            decrement++;
+- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {    
+    __block NSInteger currentIndex = row;
+    [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
+        Entity *draggedItem = self.draggedItems[index];
+        
+        NSInteger oldIndex = [self.document.entities indexOfObject:draggedItem];
+        [self.document.entities removeObjectAtIndex:oldIndex];
+        [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:oldIndex] withAnimation:NSTableViewAnimationEffectFade];
+        
+        if (currentIndex > oldIndex) {
+            currentIndex--;
         }
-        index = [self.sourceIndexes indexGreaterThanIndex:index];
-    }
-    row -= decrement;
-    
-    NSIndexSet *destinationIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row--, self.sourceIndexes.count)];
-    NSArray *sourceObjects = [((Document *)self.document).entities objectsAtIndexes:self.sourceIndexes];
-    
-    NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
-    [entities removeObjectsAtIndexes:self.sourceIndexes];
-    [entities insertObjects:sourceObjects atIndexes:destinationIndexes];
-    
-    ((Document *)self.document).entities = entities;
+        
+        [self.document.entities insertObject:draggedItem atIndex:currentIndex];
+        [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] withAnimation:NSTableViewAnimationEffectFade];
+    }];
 }
 
-- (void)acceptDropBetweenWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {    
+- (void)acceptDropOutsideWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {    
     NSPasteboard *pboard = info.draggingPasteboard;
     NSData *data = [pboard dataForType:@"Entity"];
     NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
