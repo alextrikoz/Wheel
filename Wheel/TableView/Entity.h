@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Entity : NSObject <NSCoding>
+@interface Entity : NSObject <NSCoding, NSPasteboardWriting>
 
 @property NSUndoManager *undoManager;
 

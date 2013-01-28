@@ -42,14 +42,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"reloadData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidUndoChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidRedoChangeNotification object:nil];
     
     [self.tableView deselectAll:nil];
     
     self.tableView.dataSource = self;
-    [self.tableView registerForDraggedTypes:@[@"Entity"]];
+    [self.tableView registerForDraggedTypes:@[@"Entity", NSPasteboardTypeString]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -100,16 +99,31 @@
 
 #pragma mark - NSTableViewDataSource
 
+- (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
+    return self.document.entities[row];
+}
+
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
     self.draggedItems = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
 }
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
-    self.draggedItems = nil;
+    if (self.draggedItems) {
+        [self.tableView beginUpdates];
+        
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+        for (Entity *item in self.draggedItems) {
+            [indexSet addIndex:[self.document.entities indexOfObject:item]];
+        }
+        
+        [self.document.entities removeObjectsAtIndexes:indexSet];
+        [self.tableView removeRowsAtIndexes:indexSet withAnimation:NSTableViewAnimationEffectFade];
+        
+        [self.tableView endUpdates];
+    }
 }
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    [tableView selectRowIndexes:rowIndexes byExtendingSelection:YES];
     [self writeRowsWithIndexes:rowIndexes toPasteboard:pboard];
     return YES;
 }
@@ -127,6 +141,8 @@
     }
     [self.tableView endUpdates];
     
+    self.draggedItems = nil;
+    
     return YES;
 }
 
@@ -138,10 +154,6 @@
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
-}
-
-- (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    
 }
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {    
@@ -163,13 +175,11 @@
 }
 
 - (void)acceptDropOutsideWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {    
-    NSPasteboard *pboard = info.draggingPasteboard;
-    NSData *data = [pboard dataForType:@"Entity"];
-    NSArray *objects = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSMutableArray *entities = ((Document *)self.document).entities.mutableCopy;
-    [entities insertObjects:objects atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [objects count])]];
-    
-    ((Document *)self.document).entities = entities;
+    [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
+        Entity *entity = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
+        [self.document.entities insertObject:entity atIndex:row];
+        [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectGap];
+    }];
 }
 
 @end

@@ -75,6 +75,16 @@
     return _name;
 }
 
+#pragma mark - NSPasteboardWriting
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return @[NSPasteboardTypeString];
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    return [NSKeyedArchiver archivedDataWithRootObject:self];
+}
+
 #pragma mark - gentrator
 
 - (NSString *)h_iVarStuff {
