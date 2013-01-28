@@ -9,7 +9,7 @@
 #import "Document.h"
 
 #import "Entity.h"
-#import "MainController.h"
+#import "TableController.h"
 
 @implementation Document
 
@@ -63,6 +63,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"title";
+    entity.undoManager = self.undoManager;
     [entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -71,6 +72,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSString *";
     entity.name = @"subtitle";
+    entity.undoManager = self.undoManager;
     [entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -79,6 +81,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSDate *";
     entity.name = @"date";
+    entity.undoManager = self.undoManager;
     [entities addObject:entity];
     
     entity = [[Entity alloc] init];
@@ -87,6 +90,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
+    entity.undoManager = self.undoManager;
     [entities addObject:entity];
     
     return entities;
@@ -101,6 +105,7 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
+    entity.undoManager = self.undoManager;
     [self.entities addObject:entity];
     self.entities = self.entities;
 }
@@ -113,7 +118,7 @@
 }
 
 - (void)makeWindowControllers {
-    MainController *windowController = [[MainController alloc] initWithWindowNibName:@"MainWnd"];
+    TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableWnd"];
     [self addWindowController:windowController];
     
     if (!self.entities) {

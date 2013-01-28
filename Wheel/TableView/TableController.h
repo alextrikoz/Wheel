@@ -1,5 +1,5 @@
 //
-//  EntityView.h
+//  WindowController.h
 //  Wheel
 //
 //  Created by Alexander on 14.04.12.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface EntityCollectionView : NSCollectionViewItem
+@interface TableController : NSWindowController <NSTableViewDataSource>
 
 @end

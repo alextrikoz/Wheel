@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MainController.h"
+#import "TableController.h"
 #import "NSArray+NSIndexSet.h"
 #import "NSIndexSet+NSArray.h"
 #import <Carbon/Carbon.h>
@@ -15,7 +15,25 @@
 #import "Entity.h"
 #import "ManagedUnit.h"
 
-@implementation MainController
+@interface TableController ()
+
+- (Document *)document;
+
+@property IBOutlet NSTableView *tableView;
+
+@property NSArray *draggedItems;
+
+- (IBAction)add:(id)sender;
+- (IBAction)remove:(id)sender;
+- (IBAction)generate:(id)sender;
+
+@end
+
+@implementation TableController
+
+- (Document *)document {
+    return [super document];
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -24,6 +42,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"reloadData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidUndoChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidRedoChangeNotification object:nil];
     
@@ -35,10 +54,6 @@
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
     return ((Document *)self.document).className;
-}
-
-- (Document *)document {
-    return [super document];
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -85,6 +100,14 @@
 
 #pragma mark - NSTableViewDataSource
 
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
+    self.draggedItems = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
+}
+
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
+    self.draggedItems = nil;
+}
+
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
     [tableView selectRowIndexes:rowIndexes byExtendingSelection:YES];
     [self writeRowsWithIndexes:rowIndexes toPasteboard:pboard];
@@ -96,16 +119,15 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
-    [self acceptDrop:info row:row];
+    [self.tableView beginUpdates];
+    if ([info.draggingSource isEqual:self.tableView]) {
+        [self acceptDropInsideWindow:info row:row];
+    } else {
+        [self acceptDropOutsideWindows:info row:row];
+    }
+    [self.tableView endUpdates];
+    
     return YES;
-}
-
-- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
-    self.draggedItems = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
-}
-
-- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
-    self.draggedItems = nil;
 }
 
 #pragma mark - Private
@@ -116,18 +138,10 @@
     NSArray *objects = [((Document *)self.document).entities objectsAtIndexes:rowIndexes];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:objects];
     [pboard setData:data forType:@"Entity"];
-    
-    self.sourceIndexes = rowIndexes;
 }
 
 - (void)acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    [self.tableView beginUpdates];
-    if ([info.draggingSource isEqual:self.tableView]) {
-        [self acceptDropInsideWindow:info row:row];
-    } else {
-        [self acceptDropOutsideWindows:info row:row];
-    }
-    [self.tableView endUpdates];
+    
 }
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {    
@@ -144,7 +158,7 @@
         }
         
         [self.document.entities insertObject:draggedItem atIndex:currentIndex];
-        [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] withAnimation:NSTableViewAnimationEffectFade];
+        [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] withAnimation:NSTableViewAnimationEffectGap];
     }];
 }
 

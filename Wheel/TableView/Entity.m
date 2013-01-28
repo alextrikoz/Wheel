@@ -10,11 +10,72 @@
 
 @implementation Entity
 
+#pragma mark - setter
+
 @synthesize setter = _setter;
+
+- (void)setSetter:(NSString *)setter {
+    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setSetter:_setter];
+    _setter = setter;
+}
+
+- (NSString *)setter {
+    return _setter;
+}
+
+#pragma mark - atomicity
+
 @synthesize atomicity = _atomicity;
+
+- (void)setAtomicity:(NSString *)atomicity {
+    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setAtomicity:_atomicity];
+    _atomicity = atomicity;
+}
+
+- (NSString *)atomicity {
+    return _atomicity;
+}
+
+#pragma mark - writability
+
 @synthesize writability = _writability;
+
+- (void)setWritability:(NSString *)writability {
+    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setWritability:_writability];
+    _writability = writability;
+}
+
+- (NSString *)writability {
+    return _writability;
+}
+
+#pragma mark - type
+
 @synthesize type = _type;
+
+- (void)setType:(NSString *)type {
+    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setType:_type];
+    _type = type;
+}
+
+- (NSString *)type {
+    return _type;
+}
+
+#pragma mark - name
+
 @synthesize name = _name;
+
+- (void)setName:(NSString *)name {
+    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setName:_name];
+    _name = name;
+}
+
+- (NSString *)name {
+    return _name;
+}
+
+#pragma mark - gentrator
 
 - (NSString *)h_iVarStuff {
     return [NSString stringWithFormat:@"    %@_%@;\n", self.type, self.name];

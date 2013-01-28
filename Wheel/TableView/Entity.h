@@ -10,11 +10,13 @@
 
 @interface Entity : NSObject <NSCoding>
 
-@property (strong) NSString *setter;
-@property (strong) NSString *atomicity;
-@property (strong) NSString *writability;
-@property (strong) NSString *type;
-@property (strong) NSString *name;
+@property NSUndoManager *undoManager;
+
+@property NSString *setter;
+@property NSString *atomicity;
+@property NSString *writability;
+@property NSString *type;
+@property NSString *name;
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
