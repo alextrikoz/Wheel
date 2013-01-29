@@ -37,7 +37,21 @@
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
-    return self.name;
+    return [NSKeyedArchiver archivedDataWithRootObject:self];
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.name forKey:@"name"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        self.name = [decoder decodeObjectForKey:@"name"];
+    }
+    return self;
 }
 
 @end

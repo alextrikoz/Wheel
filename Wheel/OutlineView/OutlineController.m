@@ -68,7 +68,6 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
-    [pboard setData:[NSData data] forType:@"OutlineEntity"];
     return YES;
 }
 
@@ -77,6 +76,22 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
+    
+    
+    [self.outlineView beginUpdates];
+    
+    if ([info.draggingSource isEqual:self.outlineView]) {
+        [self acceptDropInsideWindow:info item:item childIndex:childIndex];
+    } else {
+        [self acceptDropOutsideWindow:info item:item childIndex:childIndex];
+    }
+    
+    [self.outlineView endUpdates];
+    
+    return YES;
+}
+
+- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
     NSTreeNode *newParent = item == nil ? _rootNode : item;
     
     if (!newParent.childNodes.count) {
@@ -91,8 +106,6 @@
             childIndex = 0;
         }
     }
-    
-    [self.outlineView beginUpdates];
     
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
@@ -128,10 +141,27 @@
             }
         }
     }];
+}
+
+- (void)acceptDropOutsideWindow:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
+    NSTreeNode *newParent = item == nil ? _rootNode : item;
     
-    [self.outlineView endUpdates];
+    if (!newParent.childNodes.count) {
+        if (childIndex == NSOutlineViewDropOnItemIndex) {
+            childIndex = 0;
+        } else {
+            childIndex = [newParent.parentNode.childNodes indexOfObject:newParent] + 1;
+            newParent = [newParent parentNode];
+        }
+    } else {
+        if (childIndex == NSOutlineViewDropOnItemIndex) {
+            childIndex = 0;
+        }
+    }
     
-    return YES;
+    [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
+        NSLog(@"%@", [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]]);
+    }];
 }
 
 - (NSTreeNode *)rootNodeWithDictionary:(NSDictionary *)dictionary {
