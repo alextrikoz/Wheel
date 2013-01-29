@@ -71,8 +71,25 @@
 #pragma mark - IBAction
 
 - (IBAction)add:(id)sender {
-    [self.document addEntity];
-    [self.tableView deselectAll:nil];
+    NSUInteger index = self.document.entities.count;
+    if ([self.tableView selectedRowIndexes].count) {
+        index = [[self.tableView selectedRowIndexes] lastIndex] + 1;
+    }
+    
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    entity.undoManager = self.document.undoManager;
+    
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+    
+    [self.tableView beginUpdates];
+    [self.document.entities insertObject:entity atIndex:index];
+    [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:index] withAnimation:NSTableViewAnimationEffectFade];
+    [self.tableView endUpdates];
 }
 
 - (IBAction)remove:(id)sender {

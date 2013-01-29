@@ -95,20 +95,6 @@
     return entities;
 }
 
-- (void)addEntity {
-    [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:[self.entities mutableCopy]];
-    
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    entity.undoManager = self.undoManager;
-    [self.entities addObject:entity];
-    self.entities = self.entities;
-}
-
 - (void)makeWindowControllers {
     TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableWnd"];
     [self addWindowController:windowController];

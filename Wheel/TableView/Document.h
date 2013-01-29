@@ -15,6 +15,5 @@
 @property (strong) NSMutableArray *entities;
 
 - (NSMutableArray *)defaultEnities;
-- (void)addEntity;
 
 @end
