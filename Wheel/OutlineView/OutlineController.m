@@ -64,7 +64,15 @@
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
-    self.draggedNodes = nil;
+    if (self.draggedNodes) {
+        [self.outlineView beginUpdates];
+        
+        //remove items here
+        
+        [self.outlineView endUpdates];
+        
+        self.draggedNodes = nil;
+    }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
@@ -76,8 +84,6 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
-    
-    
     [self.outlineView beginUpdates];
     
     if ([info.draggingSource isEqual:self.outlineView]) {
@@ -116,9 +122,10 @@
         }
         
         NSTreeNode *oldParent = draggedNode.parentNode;
-        NSMutableArray *oldParentChildren = [oldParent mutableChildNodes];
+        NSMutableArray *oldParentChildren = oldParent.mutableChildNodes;
         NSInteger oldIndex = [oldParentChildren indexOfObject:draggedNode];
         [oldParentChildren removeObjectAtIndex:oldIndex];
+        [((OutlineEntity *)oldParent.representedObject).children removeObjectAtIndex:oldIndex];
         [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:oldIndex] inParent:oldParent == self.rootNode ? nil : oldParent withAnimation:NSTableViewAnimationEffectFade];
         
         if (oldParent == newParent) {
@@ -128,6 +135,7 @@
         }
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
+        [((OutlineEntity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
         [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;
@@ -162,9 +170,10 @@
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         OutlineEntity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
-        NSTreeNode *draggedNode = [NSTreeNode treeNodeWithRepresentedObject:modelObject];
+        NSTreeNode *draggedNode = [self rootNodeWithDictionary:modelObject.dictionaryRepresentation];
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
+        [((OutlineEntity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
         [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;

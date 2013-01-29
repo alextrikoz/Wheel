@@ -25,6 +25,19 @@
     return nodes;
 }
 
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    [dictionary setObject:self.name forKey:@"Name"];
+    
+    NSMutableArray *childrenRepresentation = [NSMutableArray array];
+    for (OutlineEntity *entity in self.children) {
+        [childrenRepresentation addObject:entity.dictionaryRepresentation];
+    }
+    [dictionary setObject:childrenRepresentation forKey:@"Children"];
+    
+    return dictionary;
+}
+
 + (OutlineEntity *)rootEntity {
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
     return [self objectWithDictionary:dictionary];
@@ -44,12 +57,14 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.children forKey:@"children"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
         self.name = [decoder decodeObjectForKey:@"name"];
+        self.children = [decoder decodeObjectForKey:@"children"];
     }
     return self;
 }

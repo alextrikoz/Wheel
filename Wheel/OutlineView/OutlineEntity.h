@@ -15,6 +15,8 @@
 
 + (OutlineEntity *)objectWithDictionary:(NSDictionary *)dictionary;
 + (NSMutableArray *)objectsWithArray:(NSArray *)array;
+- (NSDictionary *)dictionaryRepresentation;
+
 + (OutlineEntity *)rootEntity;
 
 @end
