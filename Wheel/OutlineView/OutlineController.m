@@ -159,8 +159,15 @@
         }
     }
     
+    __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
-        NSLog(@"%@", [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]]);
+        OutlineEntity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
+        NSTreeNode *draggedNode = [NSTreeNode treeNodeWithRepresentedObject:modelObject];
+        
+        [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
+        [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
+        
+        currentIndex++;
     }];
 }
 
