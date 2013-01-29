@@ -13,45 +13,41 @@
 
 @implementation Document
 
+#pragma mark - className
+
 @synthesize className = _className;
+
 - (void)setClassName:(NSString *)className {
     if (![_className isEqual:className]) {
         if (_className) {
-            [self.undoManager registerUndoWithTarget:self selector:@selector(setClassName:) object:_className];
+            [[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
         }
-        
         _className = className;
     }
 }
+
 - (NSString *)className {
     return _className;
 }
+
+#pragma mark - superClassName
+
 @synthesize superClassName = _superClassName;
+
 - (void)setSuperClassName:(NSString *)superClassName {
     if (![_superClassName isEqual:superClassName]) {
         if (_superClassName) {
-            [self.undoManager registerUndoWithTarget:self selector:@selector(setSuperClassName:) object:_superClassName];
+            [[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
         }
-        
         _superClassName = superClassName;
     }
 }
+
 - (NSString *)superClassName {
     return _superClassName;
 }
-@synthesize entities = _entities;
-- (void)setEntities:(NSMutableArray *)entities {
-    if (![_entities isEqual:entities]) {
-        if (_entities) {
-            [self.undoManager registerUndoWithTarget:self selector:@selector(setEntities:) object:_entities.mutableCopy];
-        }
-        
-        _entities = entities;
-    }
-}
-- (NSMutableArray *)entities {
-    return _entities;
-}
+
+#pragma mark - Config
 
 - (NSMutableArray *)defaultEnities {
     NSMutableArray *entities = [NSMutableArray array];
@@ -94,6 +90,8 @@
     
     return entities;
 }
+
+#pragma mark - NSDocument
 
 - (void)makeWindowControllers {
     TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableWnd"];
