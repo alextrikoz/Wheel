@@ -52,7 +52,18 @@
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    return [[item representedObject] name];
+    Entity *entity = [item representedObject];
+    if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+        return entity.setter;
+    } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
+        return entity.atomicity;
+    } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
+        return entity.writability;
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        return entity.type;
+    } else {
+        return entity.name;
+    }
 }
 
 - (id <NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {

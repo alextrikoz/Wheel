@@ -28,9 +28,9 @@
 
 - (void)setupDefaults {
     NSMutableDictionary *initialValues = [NSMutableDictionary dictionary];
-    [initialValues setObject:@"__MyName__" forKey:@"MyName"];
-    [initialValues setObject:@"__MyCompanyName__" forKey:@"MyCompanyName"];
-    [initialValues setObject:@"__MyProjectName__" forKey:@"MyProjectName"];
+    [initialValues setValue:@"__MyName__" forKey:@"MyName"];
+    [initialValues setValue:@"__MyCompanyName__" forKey:@"MyCompanyName"];
+    [initialValues setValue:@"__MyProjectName__" forKey:@"MyProjectName"];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValues];
 }
 
@@ -38,7 +38,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
     if (![version isEqualToString:@"1.6"]) {
-        [defaults setObject:@"1.6" forKey:@"version"];
+        [defaults setValue:@"1.6" forKey:@"version"];
         [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:[self.applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"] error:nil];
     }

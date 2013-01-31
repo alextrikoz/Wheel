@@ -7,31 +7,87 @@
 	<key>children</key>
 	<array>
 		<dict>
+			<key>setter</key>
+			<string>copy</string>
+			<key>atomicity</key>
+			<string>nonatomic</string>
+			<key>writability</key>
+			<string>readwrite</string>
+			<key>type</key>
+			<string>NSString *</string>
 			<key>name</key>
 			<string>title</string>
 		</dict>
 		<dict>
+			<key>setter</key>
+			<string>copy</string>
+			<key>atomicity</key>
+			<string>nonatomic</string>
+			<key>writability</key>
+			<string>readwrite</string>
+			<key>type</key>
+			<string>NSString *</string>
 			<key>name</key>
 			<string>subtitle</string>
 		</dict>
 		<dict>
+			<key>setter</key>
+			<string>strong</string>
+			<key>atomicity</key>
+			<string>nonatomic</string>
+			<key>writability</key>
+			<string>readwrite</string>
+			<key>type</key>
+			<string>NSDate *</string>
 			<key>name</key>
 			<string>date</string>
 		</dict>
 		<dict>
+			<key>setter</key>
+			<string>strong</string>
+			<key>atomicity</key>
+			<string>nonatomic</string>
+			<key>writability</key>
+			<string>readwrite</string>
+			<key>type</key>
+			<string>NSArray *</string>
 			<key>name</key>
 			<string>product</string>
 			<key>children</key>
 			<array>
 				<dict>
+					<key>setter</key>
+					<string>copy</string>
+					<key>atomicity</key>
+					<string>nonatomic</string>
+					<key>writability</key>
+					<string>readwrite</string>
+					<key>type</key>
+					<string>NSString *</string>
 					<key>name</key>
 					<string>name</string>
 				</dict>
 				<dict>
+					<key>setter</key>
+					<string>copy</string>
+					<key>atomicity</key>
+					<string>nonatomic</string>
+					<key>writability</key>
+					<string>readwrite</string>
+					<key>type</key>
+					<string>NSDate *</string>
 					<key>name</key>
 					<string>date</string>
 				</dict>
 				<dict>
+					<key>setter</key>
+					<string>copy</string>
+					<key>atomicity</key>
+					<string>nonatomic</string>
+					<key>writability</key>
+					<string>readwrite</string>
+					<key>type</key>
+					<string>NSString *</string>
 					<key>name</key>
 					<string>description</string>
 				</dict>
