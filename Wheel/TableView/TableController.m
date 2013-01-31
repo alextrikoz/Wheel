@@ -87,8 +87,10 @@
     [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
     
     [self.tableView beginUpdates];
+    
     [self.document.entities insertObject:entity atIndex:index];
     [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:index] withAnimation:NSTableViewAnimationEffectFade];
+    
     [self.tableView endUpdates];
 }
 
@@ -100,10 +102,12 @@
     [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
     
     [self.tableView beginUpdates];
+    
     [[self.tableView selectedRowIndexes] enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger row, BOOL *stop) {
         [self.document.entities removeObjectAtIndex:row];
         [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectFade];
     }];
+    
     [self.tableView endUpdates];
 }
 
@@ -166,11 +170,13 @@
 
 - (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
     [self.tableView beginUpdates];
+    
     if ([info.draggingSource isEqual:self.tableView]) {
         [self acceptDropInsideWindow:info row:row];
     } else {
         [self acceptDropOutsideWindows:info row:row];
     }
+    
     [self.tableView endUpdates];
     
     self.draggedItems = nil;

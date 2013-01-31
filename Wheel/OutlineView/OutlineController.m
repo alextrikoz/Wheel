@@ -28,7 +28,7 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
     
-    self.rootNode = [self rootNodeWithDictionary:dictionary];
+    self.rootNode = [OutlineEntity nodeWithDictionary:dictionary];
     
     [self.outlineView registerForDraggedTypes:@[@"OutlineEntity", NSPasteboardTypeString]];
 }
@@ -67,7 +67,17 @@
     if (self.draggedNodes) {
         [self.outlineView beginUpdates];
         
-        //remove items here
+        [self.draggedNodes enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSTreeNode *obj, NSUInteger idx, BOOL *stop) {
+            NSTreeNode *parentNode = obj.parentNode;
+            NSUInteger index = [parentNode.mutableChildNodes indexOfObject:obj];
+            [parentNode.mutableChildNodes removeObjectAtIndex:index];
+            [((OutlineEntity *)parentNode.representedObject).children removeObjectAtIndex:index];
+            [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
+            
+            if (!parentNode.childNodes.count) {
+                [self.outlineView reloadItem:parentNode];
+            }
+        }];
         
         [self.outlineView endUpdates];
         
@@ -84,12 +94,24 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
+    NSTreeNode *newParent = item == nil ? self.rootNode : item;
+    
+    if (!newParent.childNodes.count) {
+        if (childIndex == NSOutlineViewDropOnItemIndex) {
+            childIndex = 0;
+        }
+    } else {
+        if (childIndex == NSOutlineViewDropOnItemIndex) {
+            childIndex = newParent.childNodes.count;
+        }
+    }
+    
     [self.outlineView beginUpdates];
     
     if ([info.draggingSource isEqual:self.outlineView]) {
-        [self acceptDropInsideWindow:info item:item childIndex:childIndex];
+        [self acceptDropInsideWindow:info item:newParent childIndex:childIndex];
     } else {
-        [self acceptDropOutsideWindow:info item:item childIndex:childIndex];
+        [self acceptDropOutsideWindow:info item:newParent childIndex:childIndex];
     }
     
     [self.outlineView endUpdates];
@@ -97,22 +119,7 @@
     return YES;
 }
 
-- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
-    NSTreeNode *newParent = item == nil ? _rootNode : item;
-    
-    if (!newParent.childNodes.count) {
-        if (childIndex == NSOutlineViewDropOnItemIndex) {
-            childIndex = 0;
-        } else {
-            childIndex = [newParent.parentNode.childNodes indexOfObject:newParent] + 1;
-            newParent = [newParent parentNode];
-        }
-    } else {
-        if (childIndex == NSOutlineViewDropOnItemIndex) {
-            childIndex = 0;
-        }
-    }
-    
+- (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info item:(NSTreeNode *)newParent childIndex:(NSInteger)childIndex {
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         NSTreeNode *draggedNode = self.draggedNodes[index];
@@ -149,47 +156,26 @@
             }
         }
     }];
+    
+    self.draggedNodes = nil;
 }
 
-- (void)acceptDropOutsideWindow:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
-    NSTreeNode *newParent = item == nil ? _rootNode : item;
-    
-    if (!newParent.childNodes.count) {
-        if (childIndex == NSOutlineViewDropOnItemIndex) {
-            childIndex = 0;
-        } else {
-            childIndex = [newParent.parentNode.childNodes indexOfObject:newParent] + 1;
-            newParent = [newParent parentNode];
-        }
-    } else {
-        if (childIndex == NSOutlineViewDropOnItemIndex) {
-            childIndex = 0;
-        }
-    }
-    
+- (void)acceptDropOutsideWindow:(id <NSDraggingInfo>)info item:(NSTreeNode *)newParent childIndex:(NSInteger)childIndex {    
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         OutlineEntity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
-        NSTreeNode *draggedNode = [self rootNodeWithDictionary:modelObject.dictionaryRepresentation];
+        NSTreeNode *draggedNode = [OutlineEntity nodeWithDictionary:modelObject.dictionaryRepresentation];
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
         [((OutlineEntity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
         [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;
+        
+        if (newParent.childNodes.count) {
+            [self.outlineView reloadItem:newParent];
+        }
     }];
-}
-
-- (NSTreeNode *)rootNodeWithDictionary:(NSDictionary *)dictionary {
-    OutlineEntity *entity = [OutlineEntity objectWithDictionary:dictionary];
-    
-    NSArray *children = [dictionary objectForKey:@"Children"];
-    
-    NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
-    for (NSDictionary *child in children) {
-        [node.mutableChildNodes addObject:[self rootNodeWithDictionary:child]];
-    }
-    return node;
 }
 
 @end

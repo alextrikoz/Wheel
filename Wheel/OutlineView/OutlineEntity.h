@@ -18,5 +18,6 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 + (OutlineEntity *)rootEntity;
++ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -43,6 +43,18 @@
     return [self objectWithDictionary:dictionary];
 }
 
++ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
+    OutlineEntity *entity = [OutlineEntity objectWithDictionary:dictionary];
+    
+    NSArray *children = [dictionary objectForKey:@"Children"];
+    
+    NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
+    for (NSDictionary *child in children) {
+        [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
+    }
+    return node;
+}
+
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
