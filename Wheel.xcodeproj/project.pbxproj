@@ -36,7 +36,6 @@
 		11FD51FF160646390096AEC1 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD51FD160646390096AEC1 /* OutlineDocument.m */; };
 		2109227116A7F012008D2C88 /* OutlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109226E16A7F012008D2C88 /* OutlineController.m */; };
 		2109227216A7F012008D2C88 /* OutlineWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109226F16A7F012008D2C88 /* OutlineWnd.xib */; };
-		2109227416A7F236008D2C88 /* OutlineConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2109227316A7F236008D2C88 /* OutlineConfig.plist */; };
 		212402E115456DFE0043D929 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 212402E015456DFE0043D929 /* library.png */; };
 		212402F415458CD20043D929 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 212402F315458CD20043D929 /* Type.m */; };
 		212403061545B48C0043D929 /* alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 212403051545B48C0043D929 /* alert.png */; };
@@ -47,6 +46,8 @@
 		2188166416B682CA008022EE /* TableWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2188166216B682CA008022EE /* TableWnd.xib */; };
 		2188166916B682FB008022EE /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188166616B682FA008022EE /* Document.m */; };
 		2188166A16B682FB008022EE /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188166816B682FA008022EE /* Entity.m */; };
+		21BF21D516BAE201002C8419 /* Outline.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D416BAE201002C8419 /* Outline.plist */; };
+		21BF21D716BAE22E002C8419 /* Plain.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D616BAE22E002C8419 /* Plain.plist */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
 		21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesWnd.xib */; };
 /* End PBXBuildFile section */
@@ -118,7 +119,6 @@
 		2109226D16A7F012008D2C88 /* OutlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineController.h; sourceTree = "<group>"; };
 		2109226E16A7F012008D2C88 /* OutlineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineController.m; sourceTree = "<group>"; };
 		2109226F16A7F012008D2C88 /* OutlineWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutlineWnd.xib; sourceTree = "<group>"; };
-		2109227316A7F236008D2C88 /* OutlineConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OutlineConfig.plist; sourceTree = "<group>"; };
 		212402E015456DFE0043D929 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = library.png; sourceTree = "<group>"; };
 		212402F215458CD20043D929 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type.h; sourceTree = "<group>"; };
 		212402F315458CD20043D929 /* Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Type.m; sourceTree = "<group>"; };
@@ -134,6 +134,8 @@
 		2188166616B682FA008022EE /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Document.m; path = TableView/Document.m; sourceTree = "<group>"; };
 		2188166716B682FA008022EE /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = TableView/Entity.h; sourceTree = "<group>"; };
 		2188166816B682FA008022EE /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entity.m; path = TableView/Entity.m; sourceTree = "<group>"; };
+		21BF21D416BAE201002C8419 /* Outline.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Outline.plist; sourceTree = "<group>"; };
+		21BF21D616BAE22E002C8419 /* Plain.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Plain.plist; sourceTree = "<group>"; };
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		21E5715B153D8D1600A7138F /* PreferencesWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWnd.xib; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				1140048D15F7C074007C3F61 /* Extensions */,
 				11EF743C1539426800D341B5 /* Wheel */,
+				21BF21D316BAE201002C8419 /* Stubs */,
 				1135C47B153943D300F2AEA4 /* Images */,
 				11EF745C1539426800D341B5 /* WheelTests */,
 				11EF74751539426800D341B5 /* WheelImporter */,
@@ -323,7 +326,6 @@
 		2109226A16A7F012008D2C88 /* OutlineView */ = {
 			isa = PBXGroup;
 			children = (
-				2109227316A7F236008D2C88 /* OutlineConfig.plist */,
 				11FD51FC160646390096AEC1 /* OutlineDocument.h */,
 				11FD51FD160646390096AEC1 /* OutlineDocument.m */,
 				2109226D16A7F012008D2C88 /* OutlineController.h */,
@@ -345,6 +347,15 @@
 				2188166216B682CA008022EE /* TableWnd.xib */,
 			);
 			name = TableView;
+			sourceTree = "<group>";
+		};
+		21BF21D316BAE201002C8419 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				21BF21D616BAE22E002C8419 /* Plain.plist */,
+				21BF21D416BAE201002C8419 /* Outline.plist */,
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 		21F2C803157A57030048DA4D /* Models */ = {
@@ -458,8 +469,9 @@
 				212402E115456DFE0043D929 /* library.png in Resources */,
 				212403061545B48C0043D929 /* alert.png in Resources */,
 				2109227216A7F012008D2C88 /* OutlineWnd.xib in Resources */,
-				2109227416A7F236008D2C88 /* OutlineConfig.plist in Resources */,
 				2188166416B682CA008022EE /* TableWnd.xib in Resources */,
+				21BF21D516BAE201002C8419 /* Outline.plist in Resources */,
+				21BF21D716BAE22E002C8419 /* Plain.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Outline" ofType:@"plist"]];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
     

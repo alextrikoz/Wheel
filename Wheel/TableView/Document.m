@@ -50,45 +50,8 @@
 #pragma mark - Config
 
 - (NSMutableArray *)defaultEnities {
-    NSMutableArray *entities = [NSMutableArray array];
-    
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"title";
-    entity.undoManager = self.undoManager;
-    [entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"copy";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSString *";
-    entity.name = @"subtitle";
-    entity.undoManager = self.undoManager;
-    [entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSDate *";
-    entity.name = @"date";
-    entity.undoManager = self.undoManager;
-    [entities addObject:entity];
-    
-    entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    entity.undoManager = self.undoManager;
-    [entities addObject:entity];
-    
-    return entities;
+    NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"]];
+    return [Entity objectsWithArray:array];
 }
 
 #pragma mark - NSDocument

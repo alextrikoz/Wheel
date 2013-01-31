@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>setter</key>
+		<string>copy</string>
+		<key>atomicity</key>
+		<string>nonatomic</string>
+		<key>writability</key>
+		<string>readwrite</string>
+		<key>type</key>
+		<string>NSString *</string>
+		<key>name</key>
+		<string>title</string>
+	</dict>
+	<dict>
+		<key>setter</key>
+		<string>copy</string>
+		<key>atomicity</key>
+		<string>nonatomic</string>
+		<key>writability</key>
+		<string>readwrite</string>
+		<key>type</key>
+		<string>NSString *</string>
+		<key>name</key>
+		<string>subtitle</string>
+	</dict>
+	<dict>
+		<key>setter</key>
+		<string>copy</string>
+		<key>atomicity</key>
+		<string>nonatomic</string>
+		<key>writability</key>
+		<string>readwrite</string>
+		<key>type</key>
+		<string>NSDate *</string>
+		<key>name</key>
+		<string>date</string>
+	</dict>
+	<dict>
+		<key>setter</key>
+		<string>copy</string>
+		<key>atomicity</key>
+		<string>nonatomic</string>
+		<key>writability</key>
+		<string>readwrite</string>
+		<key>type</key>
+		<string>NSArray *</string>
+		<key>name</key>
+		<string>items</string>
+	</dict>
+</array>
+</plist>
