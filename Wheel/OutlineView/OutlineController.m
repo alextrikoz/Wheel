@@ -10,6 +10,7 @@
 
 #import "Entity.h"
 #import "OutlineDocument.h"
+#import "DataStore.h"
 #import <Carbon/Carbon.h>
 
 @interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
@@ -54,15 +55,30 @@
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Setter"]) {
-        return entity.setter;
+        NSUInteger index = [[DataStore sharedDataStore].setters  indexOfObject:entity.setter];
+        return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
-        return entity.atomicity;
+        NSUInteger index = [[DataStore sharedDataStore].atomicities  indexOfObject:entity.atomicity];
+        return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
-        return entity.writability;
+        NSUInteger index = [[DataStore sharedDataStore].writabilities  indexOfObject:entity.writability];
+        return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        return entity.type;
+        NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+        return [NSNumber numberWithInteger:index];
     } else {
         return entity.name;
+    }
+}
+
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item; {
+    Entity *entity = [item representedObject];
+    if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+    } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
+    } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+    } else {
+        entity.name = object;
     }
 }
 
