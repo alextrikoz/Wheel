@@ -51,7 +51,9 @@
 
 - (NSMutableArray *)defaultEnities {
     NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"]];
-    return [Entity objectsWithArray:array];
+    NSMutableArray *objects = [Entity objectsWithArray:array];
+    [objects makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
+    return objects;
 }
 
 #pragma mark - NSDocument

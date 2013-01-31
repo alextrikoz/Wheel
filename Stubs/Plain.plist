@@ -28,7 +28,7 @@
 	</dict>
 	<dict>
 		<key>setter</key>
-		<string>copy</string>
+		<string>strong</string>
 		<key>atomicity</key>
 		<string>nonatomic</string>
 		<key>writability</key>
@@ -40,7 +40,7 @@
 	</dict>
 	<dict>
 		<key>setter</key>
-		<string>copy</string>
+		<string>strong</string>
 		<key>atomicity</key>
 		<string>nonatomic</string>
 		<key>writability</key>
