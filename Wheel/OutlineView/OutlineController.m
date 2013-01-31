@@ -8,7 +8,7 @@
 
 #import "OutlineController.h"
 
-#import "OutlineEntity.h"
+#import "Entity.h"
 #import "OutlineDocument.h"
 #import <Carbon/Carbon.h>
 
@@ -28,9 +28,9 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
     
-    self.rootNode = [OutlineEntity nodeWithDictionary:dictionary];
+    self.rootNode = [Entity nodeWithDictionary:dictionary];
     
-    [self.outlineView registerForDraggedTypes:@[@"OutlineEntity", NSPasteboardTypeString]];
+    [self.outlineView registerForDraggedTypes:@[@"Entity", NSPasteboardTypeString]];
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate
@@ -71,7 +71,7 @@
             NSTreeNode *parentNode = obj.parentNode;
             NSUInteger index = [parentNode.mutableChildNodes indexOfObject:obj];
             [parentNode.mutableChildNodes removeObjectAtIndex:index];
-            [((OutlineEntity *)parentNode.representedObject).children removeObjectAtIndex:index];
+            [((Entity *)parentNode.representedObject).children removeObjectAtIndex:index];
             [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
             
             if (!parentNode.childNodes.count) {
@@ -132,7 +132,7 @@
         NSMutableArray *oldParentChildren = oldParent.mutableChildNodes;
         NSInteger oldIndex = [oldParentChildren indexOfObject:draggedNode];
         [oldParentChildren removeObjectAtIndex:oldIndex];
-        [((OutlineEntity *)oldParent.representedObject).children removeObjectAtIndex:oldIndex];
+        [((Entity *)oldParent.representedObject).children removeObjectAtIndex:oldIndex];
         [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:oldIndex] inParent:oldParent == self.rootNode ? nil : oldParent withAnimation:NSTableViewAnimationEffectFade];
         
         if (oldParent == newParent) {
@@ -142,7 +142,7 @@
         }
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
-        [((OutlineEntity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
+        [((Entity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
         [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;
@@ -163,11 +163,11 @@
 - (void)acceptDropOutsideWindow:(id <NSDraggingInfo>)info item:(NSTreeNode *)newParent childIndex:(NSInteger)childIndex {    
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
-        OutlineEntity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
-        NSTreeNode *draggedNode = [OutlineEntity nodeWithDictionary:modelObject.dictionaryRepresentation];
+        Entity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
+        NSTreeNode *draggedNode = [Entity nodeWithDictionary:modelObject.dictionaryRepresentation];
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
-        [((OutlineEntity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
+        [((Entity *)newParent.representedObject).children insertObject:draggedNode.representedObject atIndex:currentIndex];
         [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] inParent:newParent == self.rootNode ? nil : newParent withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;

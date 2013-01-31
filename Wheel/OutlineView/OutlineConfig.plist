@@ -2,37 +2,37 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Name</key>
+	<key>name</key>
 	<string>Root</string>
-	<key>Children</key>
+	<key>children</key>
 	<array>
 		<dict>
-			<key>Name</key>
+			<key>name</key>
 			<string>title</string>
 		</dict>
 		<dict>
-			<key>Name</key>
+			<key>name</key>
 			<string>subtitle</string>
 		</dict>
 		<dict>
-			<key>Name</key>
+			<key>name</key>
 			<string>date</string>
 		</dict>
 		<dict>
-			<key>Name</key>
+			<key>name</key>
 			<string>product</string>
-			<key>Children</key>
+			<key>children</key>
 			<array>
 				<dict>
-					<key>Name</key>
+					<key>name</key>
 					<string>name</string>
 				</dict>
 				<dict>
-					<key>Name</key>
+					<key>name</key>
 					<string>date</string>
 				</dict>
 				<dict>
-					<key>Name</key>
+					<key>name</key>
 					<string>description</string>
 				</dict>
 			</array>

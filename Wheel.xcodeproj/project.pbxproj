@@ -34,7 +34,6 @@
 		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
 		11FD51FF160646390096AEC1 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FD51FD160646390096AEC1 /* OutlineDocument.m */; };
-		2109227016A7F012008D2C88 /* OutlineEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109226C16A7F012008D2C88 /* OutlineEntity.m */; };
 		2109227116A7F012008D2C88 /* OutlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109226E16A7F012008D2C88 /* OutlineController.m */; };
 		2109227216A7F012008D2C88 /* OutlineWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109226F16A7F012008D2C88 /* OutlineWnd.xib */; };
 		2109227416A7F236008D2C88 /* OutlineConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2109227316A7F236008D2C88 /* OutlineConfig.plist */; };
@@ -116,8 +115,6 @@
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
 		11FD51FC160646390096AEC1 /* OutlineDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OutlineDocument.h; path = ../OutlineDocument.h; sourceTree = "<group>"; };
 		11FD51FD160646390096AEC1 /* OutlineDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OutlineDocument.m; path = ../OutlineDocument.m; sourceTree = "<group>"; };
-		2109226B16A7F012008D2C88 /* OutlineEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineEntity.h; sourceTree = "<group>"; };
-		2109226C16A7F012008D2C88 /* OutlineEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineEntity.m; sourceTree = "<group>"; };
 		2109226D16A7F012008D2C88 /* OutlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineController.h; sourceTree = "<group>"; };
 		2109226E16A7F012008D2C88 /* OutlineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineController.m; sourceTree = "<group>"; };
 		2109226F16A7F012008D2C88 /* OutlineWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutlineWnd.xib; sourceTree = "<group>"; };
@@ -327,8 +324,6 @@
 			isa = PBXGroup;
 			children = (
 				2109227316A7F236008D2C88 /* OutlineConfig.plist */,
-				2109226B16A7F012008D2C88 /* OutlineEntity.h */,
-				2109226C16A7F012008D2C88 /* OutlineEntity.m */,
 				11FD51FC160646390096AEC1 /* OutlineDocument.h */,
 				11FD51FD160646390096AEC1 /* OutlineDocument.m */,
 				2109226D16A7F012008D2C88 /* OutlineController.h */,
@@ -518,7 +513,6 @@
 				1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */,
 				1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */,
 				11FD51FF160646390096AEC1 /* OutlineDocument.m in Sources */,
-				2109227016A7F012008D2C88 /* OutlineEntity.m in Sources */,
 				2109227116A7F012008D2C88 /* OutlineController.m in Sources */,
 				2188166316B682CA008022EE /* TableController.m in Sources */,
 				2188166916B682FB008022EE /* Document.m in Sources */,

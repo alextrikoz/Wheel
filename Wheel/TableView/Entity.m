@@ -138,6 +138,53 @@
     return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
+#pragma mark - 
+
++ (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
+    Entity *object = [[Entity alloc] init];
+    object.name = dictionary[@"name"];
+    object.children = [self objectsWithArray:dictionary[@"children"]];
+    return object;
+}
+
++ (NSMutableArray *)objectsWithArray:(NSArray *)array {
+    NSMutableArray *objects = [NSMutableArray array];
+    for (NSDictionary *dictionary in array) {
+        [objects addObject:[Entity objectWithDictionary:dictionary]];
+    }
+    return objects;
+}
+
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    [dictionary setObject:self.name forKey:@"name"];
+    
+    NSMutableArray *childrenRepresentation = [NSMutableArray array];
+    for (Entity *entity in self.children) {
+        [childrenRepresentation addObject:entity.dictionaryRepresentation];
+    }
+    [dictionary setObject:childrenRepresentation forKey:@"children"];
+    
+    return dictionary;
+}
+
++ (Entity *)rootEntity {
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OutlineConfig" ofType:@"plist"]];
+    return [self objectWithDictionary:dictionary];
+}
+
++ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
+    Entity *entity = [Entity objectWithDictionary:dictionary];
+    
+    NSArray *children = [dictionary objectForKey:@"children"];
+    
+    NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
+    for (NSDictionary *child in children) {
+        [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
+    }
+    return node;
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)coder {
@@ -146,6 +193,7 @@
     [coder encodeObject:self.writability forKey:@"writability"];
     [coder encodeObject:self.type forKey:@"type"];
     [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.children forKey:@"children"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -156,6 +204,7 @@
         self.writability = [decoder decodeObjectForKey:@"writability"];
         self.type = [decoder decodeObjectForKey:@"type"];
         self.name = [decoder decodeObjectForKey:@"name"];
+        self.children = [decoder decodeObjectForKey:@"children"];
     }
     return self;
 }

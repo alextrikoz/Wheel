@@ -8,7 +8,6 @@
 
 #import "OutlineDocument.h"
 
-#import "OutlineEntity.h"
 #import "OutlineController.h"
 
 @implementation OutlineDocument

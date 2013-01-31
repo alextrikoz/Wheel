@@ -17,6 +17,14 @@
 @property NSString *writability;
 @property NSString *type;
 @property NSString *name;
+@property NSMutableArray *children;
+
++ (Entity *)objectWithDictionary:(NSDictionary *)dictionary;
++ (NSMutableArray *)objectsWithArray:(NSArray *)array;
+- (NSDictionary *)dictionaryRepresentation;
+
++ (Entity *)rootEntity;
++ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
