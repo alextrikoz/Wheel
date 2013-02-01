@@ -200,6 +200,16 @@
     return [self nodeWithDictionary:dictionary];
 }
 
++ (Entity *)defaultEntity {
+    Entity *entity = [[Entity alloc] init];
+    entity.setter = @"strong";
+    entity.atomicity = @"nonatomic";
+    entity.writability = @"readwrite";
+    entity.type = @"NSArray *";
+    entity.name = @"items";
+    return entity;
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)coder {

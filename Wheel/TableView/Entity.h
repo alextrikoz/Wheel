@@ -28,6 +28,8 @@
 + (NSMutableArray *)plainStub;
 + (NSTreeNode *)outlineStub;
 
++ (Entity *)defaultEntity;
+
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
 - (NSString *)m_defineStuff;

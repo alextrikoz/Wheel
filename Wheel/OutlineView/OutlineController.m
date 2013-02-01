@@ -36,15 +36,12 @@
     [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
 }
 
+#pragma mark - Actions
+
 - (IBAction)add:(id)sender {
-    Entity *modelObject = [[Entity alloc] init];
-    modelObject.setter = @"strong";
-    modelObject.atomicity = @"nonatomic";
-    modelObject.writability = @"readwrite";
-    modelObject.type = @"NSArray *";
-    modelObject.name = @"items";
-    modelObject.children = [NSMutableArray array];
-    NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:modelObject];
+    Entity *entity = [Entity defaultEntity];
+    entity.children = [NSMutableArray array];
+    NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:entity];
     
     [self.outlineView beginUpdates];
     
@@ -202,6 +199,8 @@
     
     return YES;
 }
+
+#pragma mark - AcceptDrop
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info item:(NSTreeNode *)newParent childIndex:(NSInteger)childIndex {
     __block NSInteger currentIndex = childIndex;

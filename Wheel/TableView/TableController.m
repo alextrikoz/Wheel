@@ -76,12 +76,7 @@
         index = [[self.tableView selectedRowIndexes] lastIndex] + 1;
     }
     
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
+    Entity *entity = [Entity defaultEntity];
     entity.undoManager = self.document.undoManager;
     
     [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
