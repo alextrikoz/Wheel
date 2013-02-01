@@ -21,11 +21,11 @@
 
 @property IBOutlet NSTableView *tableView;
 
-@property NSArray *draggedItems;
-
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
 - (IBAction)generate:(id)sender;
+
+@property NSArray *draggedItems;
 
 @end
 

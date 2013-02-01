@@ -15,13 +15,15 @@
 
 @interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
 
-@property (strong) IBOutlet NSOutlineView *outlineView;
+- (OutlineDocument *)document;
 
-@property (strong) NSTreeNode *rootNode;
-@property (strong) NSArray *draggedNodes;
+@property (strong) IBOutlet NSOutlineView *outlineView;
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
+
+@property (strong) NSTreeNode *rootNode;
+@property (strong) NSArray *draggedNodes;
 
 @end
 
@@ -34,6 +36,23 @@
     
     [self.outlineView deselectAll:nil];
     [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
+}
+
+- (OutlineDocument *)document {
+    return [super document];
+}
+
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+    return self.document.className;
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [super keyDown:theEvent];
+    
+    unichar keyCode = [theEvent keyCode];
+    if (keyCode == kVK_ForwardDelete || keyCode == kVK_Delete) {
+        [self remove:nil];
+    }
 }
 
 #pragma mark - Actions

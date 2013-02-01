@@ -10,4 +10,7 @@
 
 @interface OutlineDocument : NSDocument
 
+@property (strong) NSString *className;
+@property (strong) NSString *superClassName;
+
 @end
