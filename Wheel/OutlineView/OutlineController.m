@@ -37,6 +37,30 @@
 }
 
 - (IBAction)add:(id)sender {
+    Entity *modelObject = [[Entity alloc] init];
+    modelObject.setter = @"strong";
+    modelObject.atomicity = @"nonatomic";
+    modelObject.writability = @"readwrite";
+    modelObject.type = @"NSArray *";
+    modelObject.name = @"items";
+    modelObject.children = [NSMutableArray array];
+    NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:modelObject];
+    
+    [self.outlineView beginUpdates];
+    
+    NSTreeNode *selectedNode = self.rootNode.mutableChildNodes.lastObject;
+    if (self.outlineView.selectedRowIndexes.count) {
+        selectedNode = [self.outlineView itemAtRow:self.outlineView.selectedRowIndexes.lastIndex];
+    }
+    
+    NSTreeNode *parentNode = selectedNode.parentNode;
+    NSUInteger index = [parentNode.mutableChildNodes indexOfObject:selectedNode] + 1;
+    
+    [parentNode.mutableChildNodes insertObject:object atIndex:index];
+    [((Entity *)parentNode.representedObject).children insertObject:object.representedObject atIndex:index];
+    [self.outlineView insertItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
+    
+    [self.outlineView endUpdates];
 }
 
 - (IBAction)remove:(id)sender {
@@ -50,6 +74,7 @@
         NSTreeNode *selectedNode = [self.outlineView itemAtRow:idx];
         NSTreeNode *parentNode = selectedNode.parentNode;
         NSUInteger index = [parentNode.mutableChildNodes indexOfObject:selectedNode];
+        
         [parentNode.mutableChildNodes removeObjectAtIndex:index];
         [((Entity *)parentNode.representedObject).children removeObjectAtIndex:index];
         [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
