@@ -20,6 +20,9 @@
 @property (strong) NSTreeNode *rootNode;
 @property (strong) NSArray *draggedNodes;
 
+- (IBAction)add:(id)sender;
+- (IBAction)remove:(id)sender;
+
 @end
 
 @implementation OutlineController
@@ -31,6 +34,32 @@
     
     [self.outlineView deselectAll:nil];
     [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
+}
+
+- (IBAction)add:(id)sender {
+}
+
+- (IBAction)remove:(id)sender {
+    if (self.outlineView.selectedRowIndexes.count == 0) {
+        return;
+    }
+    
+    [self.outlineView beginUpdates];
+    
+    [self.outlineView.selectedRowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop) {
+        NSTreeNode *selectedNode = [self.outlineView itemAtRow:idx];
+        NSTreeNode *parentNode = selectedNode.parentNode;
+        NSUInteger index = [parentNode.mutableChildNodes indexOfObject:selectedNode];
+        [parentNode.mutableChildNodes removeObjectAtIndex:index];
+        [((Entity *)parentNode.representedObject).children removeObjectAtIndex:index];
+        [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
+        
+        if (!parentNode.childNodes.count) {
+            [self.outlineView reloadItem:parentNode];
+        }
+    }];
+    
+    [self.outlineView endUpdates];
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate
