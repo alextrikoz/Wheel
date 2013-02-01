@@ -27,11 +27,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Outline" ofType:@"plist"]];
+    self.rootNode = [Entity outlineStub];
     
-    self.rootNode = [Entity nodeWithDictionary:dictionary];
-    
-    [self.outlineView registerForDraggedTypes:@[@"Entity", NSPasteboardTypeString]];
+    [self.outlineView deselectAll:nil];
+    [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate

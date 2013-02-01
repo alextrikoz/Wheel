@@ -23,8 +23,10 @@
 + (NSMutableArray *)objectsWithArray:(NSArray *)array;
 - (NSDictionary *)dictionaryRepresentation;
 
-+ (Entity *)rootEntity;
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
+
++ (NSMutableArray *)plainStub;
++ (NSTreeNode *)outlineStub;
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;

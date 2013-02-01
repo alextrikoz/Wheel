@@ -171,14 +171,9 @@
     for (Entity *entity in self.children) {
         [childrenRepresentation addObject:entity.dictionaryRepresentation];
     }
-    [dictionary setObject:childrenRepresentation forKey:@"children"];
+    [dictionary setValue:childrenRepresentation forKey:@"children"];
     
     return dictionary;
-}
-
-+ (Entity *)rootEntity {
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Outline" ofType:@"plist"]];
-    return [self objectWithDictionary:dictionary];
 }
 
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
@@ -191,6 +186,18 @@
         [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
     }
     return node;
+}
+
++ (NSMutableArray *)plainStub {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"];
+    NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:path];
+    return [Entity objectsWithArray:array];
+}
+
++ (NSTreeNode *)outlineStub {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Outline" ofType:@"plist"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    return [self nodeWithDictionary:dictionary];
 }
 
 #pragma mark - NSCoding

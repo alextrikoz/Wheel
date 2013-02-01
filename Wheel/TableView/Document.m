@@ -50,8 +50,7 @@
 #pragma mark - Config
 
 - (NSMutableArray *)defaultEnities {
-    NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"]];
-    NSMutableArray *objects = [Entity objectsWithArray:array];
+    NSMutableArray *objects = [Entity plainStub];
     [objects makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
     return objects;
 }
