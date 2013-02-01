@@ -71,12 +71,16 @@
     }
 }
 
-- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item; {
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+        entity.setter = [[DataStore sharedDataStore].setters objectAtIndex:[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
+        entity.atomicity = [[DataStore sharedDataStore].atomicities objectAtIndex:[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
+        entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
     } else {
         entity.name = object;
     }
