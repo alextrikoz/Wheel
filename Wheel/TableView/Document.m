@@ -20,7 +20,7 @@
 - (void)setClassName:(NSString *)className {
     if (![_className isEqual:className]) {
         if (_className) {
-            [[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
+            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
         }
         _className = className;
     }
@@ -37,7 +37,7 @@
 - (void)setSuperClassName:(NSString *)superClassName {
     if (![_superClassName isEqual:superClassName]) {
         if (_superClassName) {
-            [[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
+            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
         }
         _superClassName = superClassName;
     }
@@ -47,12 +47,21 @@
     return _superClassName;
 }
 
-#pragma mark - Config
+#pragma mark - entities
 
-- (NSMutableArray *)defaultEnities {
-    NSMutableArray *objects = [Entity plainStub];
-    [objects makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
-    return objects;
+@synthesize entities = _entities;
+
+- (void)setEntities:(NSMutableArray *)entities {
+    if (![_entities isEqual:entities]) {
+        if (_entities) {
+            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setEntities:_entities.mutableCopy];
+        }
+        _entities = entities;
+    }
+}
+
+- (NSMutableArray *)entities {
+    return _entities;
 }
 
 #pragma mark - NSDocument
@@ -62,7 +71,9 @@
     [self addWindowController:windowController];
     
     if (!self.entities) {
-        self.entities = self.defaultEnities;
+        NSMutableArray *entities = [Entity plainStub];
+        [entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
+        self.entities = entities;
     }
     if (!self.className) {
         self.className = @"MyClass";

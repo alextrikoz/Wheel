@@ -14,6 +14,4 @@
 @property (strong) NSString *superClassName;
 @property (strong) NSMutableArray *entities;
 
-- (NSMutableArray *)defaultEnities;
-
 @end

@@ -15,8 +15,10 @@
 @synthesize setter = _setter;
 
 - (void)setSetter:(NSString *)setter {
-    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setSetter:_setter];
-    _setter = setter;
+    if (![_setter isEqual:setter]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setSetter:_setter];
+        _setter = setter;
+    }
 }
 
 - (NSString *)setter {
@@ -28,8 +30,10 @@
 @synthesize atomicity = _atomicity;
 
 - (void)setAtomicity:(NSString *)atomicity {
-    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setAtomicity:_atomicity];
-    _atomicity = atomicity;
+    if (![_atomicity isEqual:atomicity]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setAtomicity:_atomicity];
+        _atomicity = atomicity;
+    }
 }
 
 - (NSString *)atomicity {
@@ -41,8 +45,10 @@
 @synthesize writability = _writability;
 
 - (void)setWritability:(NSString *)writability {
-    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setWritability:_writability];
-    _writability = writability;
+    if (![_writability isEqual:writability]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setWritability:_writability];
+        _writability = writability;
+    }
 }
 
 - (NSString *)writability {
@@ -54,8 +60,10 @@
 @synthesize type = _type;
 
 - (void)setType:(NSString *)type {
-    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setType:_type];
-    _type = type;
+    if (![_type isEqual:type]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setType:_type];
+        _type = type;
+    }
 }
 
 - (NSString *)type {
@@ -67,8 +75,10 @@
 @synthesize name = _name;
 
 - (void)setName:(NSString *)name {
-    [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setName:_name];
-    _name = name;
+    if (![_name isEqual:name]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setName:_name];
+        _name = name;
+    }
 }
 
 - (NSString *)name {
