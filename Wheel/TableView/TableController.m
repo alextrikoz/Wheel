@@ -47,6 +47,10 @@
     [self.tableView registerForDraggedTypes:@[NSPasteboardTypeString]];
 }
 
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+    return self.document.className;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self.tableView reloadData];
 }
@@ -55,8 +59,8 @@
     return [super document];
 }
 
-- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.document.className;
+- (NSMutableArray *)entities {
+    return self.document.entities;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -71,7 +75,7 @@
 #pragma mark - IBAction
 
 - (IBAction)add:(id)sender {
-    NSUInteger index = self.document.entities.count;
+    NSUInteger index = self.entities.count;
     if ([self.tableView selectedRowIndexes].count) {
         index = [[self.tableView selectedRowIndexes] lastIndex] + 1;
     }
@@ -79,11 +83,11 @@
     Entity *entity = [Entity defaultEntity];
     entity.undoManager = self.document.undoManager;
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
     
     [self.tableView beginUpdates];
     
-    [self.document.entities insertObject:entity atIndex:index];
+    [self.entities insertObject:entity atIndex:index];
     [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:index] withAnimation:NSTableViewAnimationEffectFade];
     
     [self.tableView endUpdates];
@@ -94,12 +98,12 @@
         return;
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
     
     [self.tableView beginUpdates];
     
     [[self.tableView selectedRowIndexes] enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger row, BOOL *stop) {
-        [self.document.entities removeObjectAtIndex:row];
+        [self.entities removeObjectAtIndex:row];
         [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectFade];
     }];
     
@@ -132,25 +136,25 @@
 #pragma mark - NSTableViewDataSource
 
 - (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
-    return self.document.entities[row];
+    return self.entities[row];
 }
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
-    self.draggedItems = [self.document.entities objectsAtIndexes:rowIndexes];
+    self.draggedItems = [self.entities objectsAtIndexes:rowIndexes];
 }
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
     if (self.draggedItems) {
-        [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+        [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
         
         [self.tableView beginUpdates];
         
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
         for (Entity *item in self.draggedItems) {
-            [indexSet addIndex:[self.document.entities indexOfObject:item]];
+            [indexSet addIndex:[self.entities indexOfObject:item]];
         }
         
-        [self.document.entities removeObjectsAtIndexes:indexSet];
+        [self.entities removeObjectsAtIndexes:indexSet];
         [self.tableView removeRowsAtIndexes:indexSet withAnimation:NSTableViewAnimationEffectFade];
         
         [self.tableView endUpdates];
@@ -182,21 +186,21 @@
 #pragma mark - AcceptDrop
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
     
     __block NSInteger currentIndex = row;    
     [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         Entity *draggedItem = self.draggedItems[index];
         
-        NSInteger oldIndex = [self.document.entities indexOfObject:draggedItem];
-        [self.document.entities removeObjectAtIndex:oldIndex];
+        NSInteger oldIndex = [self.entities indexOfObject:draggedItem];
+        [self.entities removeObjectAtIndex:oldIndex];
         [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:oldIndex] withAnimation:NSTableViewAnimationEffectFade];
         
         if (currentIndex > oldIndex) {
             currentIndex--;
         }
         
-        [self.document.entities insertObject:draggedItem atIndex:currentIndex];
+        [self.entities insertObject:draggedItem atIndex:currentIndex];
         [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:currentIndex] withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;
@@ -204,18 +208,18 @@
 }
 
 - (void)acceptDropOutsideWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.document.entities.mutableCopy];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
     
     __block NSInteger currentIndex = row;
     [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
         Entity *entity = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
-        [self.document.entities insertObject:entity atIndex:row];
+        [self.entities insertObject:entity atIndex:row];
         [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectGap];
         
         currentIndex++;        
     }];
     
-    [self.document.entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.document.undoManager];
+    [self.entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.document.undoManager];
 }
 
 @end

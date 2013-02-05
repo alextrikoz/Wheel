@@ -13,4 +13,8 @@
 @property (strong) NSString *className;
 @property (strong) NSString *superClassName;
 
+@property (strong) NSTreeNode *rootNode;
+
+- (void)backupRootNode:(NSDictionary *)dictionary;
+
 @end

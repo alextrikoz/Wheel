@@ -22,7 +22,6 @@
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
 
-@property (strong) NSTreeNode *rootNode;
 @property (strong) NSArray *draggedNodes;
 
 @end
@@ -32,18 +31,26 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.rootNode = [Entity outlineStub];
-    
     [self.outlineView deselectAll:nil];
     [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
+    
+    [self.document addObserver:self forKeyPath:@"rootNode" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+    return self.document.className;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self.outlineView reloadData];
 }
 
 - (OutlineDocument *)document {
     return [super document];
 }
 
-- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.document.className;
+- (NSTreeNode *)rootNode {
+    return self.document.rootNode;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -61,6 +68,8 @@
     Entity *entity = [Entity defaultEntity];
     entity.children = [NSMutableArray array];
     NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:entity];
+    
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     
@@ -83,6 +92,8 @@
     if (self.outlineView.selectedRowIndexes.count == 0) {
         return;
     }
+    
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     
@@ -165,6 +176,8 @@
 
 - (void)outlineView:(NSOutlineView *)outlineView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
     if (self.draggedNodes) {
+        [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
+        
         [self.outlineView beginUpdates];
         
         [self.draggedNodes enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSTreeNode *obj, NSUInteger idx, BOOL *stop) {
@@ -205,6 +218,8 @@
             childIndex = newParent.childNodes.count;
         }
     }
+    
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     

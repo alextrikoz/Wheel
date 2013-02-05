@@ -8,9 +8,18 @@
 
 #import "OutlineDocument.h"
 
+#import "Entity.h"
 #import "OutlineController.h"
 
 @implementation OutlineDocument
+
+@synthesize rootNode = _rootNode;
+
+- (void)backupRootNode:(NSDictionary *)dictionary {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNode:((Entity *)self.rootNode.representedObject).dictionaryRepresentation];
+    
+    self.rootNode = [Entity nodeWithDictionary:dictionary];
+}
 
 - (void)makeWindowControllers {
     OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineWnd"];
@@ -22,11 +31,14 @@
     if (!self.superClassName) {
         self.superClassName = @"NSObject";
     }
+    if (!self.rootNode) {
+        self.rootNode = [Entity outlineStub];
+    }
 }
 
-//- (NSString *)displayName {
-//    return @"Outline";
-//}
+- (NSString *)displayName {
+    return self.className;
+}
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
