@@ -112,6 +112,11 @@
 
 #pragma mark - gentrator
 
+- (NSString *)className {
+    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
+    return [className stringByReplacingOccurrencesOfString:@" " withString:@""];
+}
+
 - (NSString *)h_iVarStuff {
     return [NSString stringWithFormat:@"    %@_%@;\n", self.type, self.name];
 }
@@ -127,6 +132,22 @@
     return [NSString stringWithFormat:@"@property (%@%@%@) %@%@;\n", self.setter, atomicity, writability, type, self.name];
 }
 
+- (NSString *)h_importStuff {
+    if ([self.kind isEqualToString:@"object"]) {
+        return @"";
+    }
+    
+    return [NSString stringWithFormat:@"@class %@;\n", self.className];
+}
+
+- (NSString *)m_importStuff {
+    if ([self.kind isEqualToString:@"object"]) {
+        return @"";
+    }
+    
+    return [NSString stringWithFormat:@"#import \"%@.h\"\n", self.className];
+}
+
 - (NSString *)m_defineStuff {
     return [NSString stringWithFormat:@"#define %@_KEY @\"%@\"\n", self.name.uppercaseString, self.name];
 }
@@ -139,24 +160,17 @@
     return [NSString stringWithFormat:@"    [_%@ release];\n", self.name];
 }
 
-- (NSString *)m_setAttributesWithDictionaryStuff {
-    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
-    className = [className stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
+- (NSString *)m_setAttributesWithDictionaryStuff {    
     if ([self.kind isEqualToString:@"object"]) {
         return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
-        return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, className, self.name.uppercaseString];
+        return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
     } else {
-        return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, className, self.name.uppercaseString];
+        return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
     }
-    
 }
 
-- (NSString *)m_dictionaryRepresentationStuff {
-    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
-    className = [className stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
+- (NSString *)m_dictionaryRepresentationStuff {    
     if ([self.kind isEqualToString:@"object"]) {
         return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
@@ -164,7 +178,7 @@
     } else {
         NSMutableString *string = [NSMutableString string];
         [string appendFormat:@"    NSMutableArray *array = [NSMutableArray array];\n"];
-        [string appendFormat:@"    for (%@ *object self.%@) {\n", className, self.name];
+        [string appendFormat:@"    for (%@ *object self.%@) {\n", self.className, self.name];
         [string appendFormat:@"        [array addObject:object.dictionaryRepresentation];\n"];
         [string appendFormat:@"    }\n"];
         [string appendFormat:@"    [dictionary setObject:array forKey:%@_KEY];\n", self.name.uppercaseString];

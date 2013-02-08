@@ -33,6 +33,8 @@
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
+- (NSString *)h_importStuff;
+- (NSString *)m_importStuff;
 - (NSString *)m_defineStuff;
 - (NSString *)m_synthesizeStuff;
 - (NSString *)m_deallocStuff;

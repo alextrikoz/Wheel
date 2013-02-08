@@ -42,6 +42,7 @@
     DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"h"];
+    NSString *imoprts = [dataStore.importUnit prototypeWithDocument:document];
     NSString *className = document.className;
     NSString *superClassName = document.superClassName;
     NSString *protocols = [dataStore.protocolsUnit bodyWithDocument:document];
@@ -49,7 +50,7 @@
     NSString *properties = [dataStore.propertiesUnit bodyWithDocument:document];
     NSString *prototypes = [dataStore.prototypesUnit bodyWithDocument:document];
     
-    return H_CONTENT(header, className, superClassName, protocols, iVars, properties, prototypes);
+    return H_CONTENT(header, imoprts, className, superClassName, protocols, iVars, properties, prototypes);
 }
 
 @end
@@ -60,6 +61,7 @@
     DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"m"];
+    NSString *imoprts = [dataStore.importUnit bodyWithDocument:document];
     NSString *className = document.className;
     NSString *defines = [dataStore.definesUnit bodyWithDocument:document];
     NSString *synthesizes = [dataStore.synthesizesUnit bodyWithDocument:document];
@@ -73,7 +75,7 @@
     NSString *copying = [dataStore.copyingUnit bodyWithDocument:document];
     NSString *coding = [dataStore.codingUnit bodyWithDocument:document];
     
-    return M_CONTENT(header, className, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
+    return M_CONTENT(header, className, imoprts, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
 }
 
 @end
@@ -94,6 +96,38 @@
     NSString *myCompanyName = [defaultValues valueForKey:@"MyCompanyName"];
     
     return HEADER(fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName);
+}
+
+@end
+
+@implementation ImportUnit
+
+- (NSString *)prototypeWithDocument:(Document *)document {
+    if (!document.entities.count) {
+        return @"";
+    }
+    NSString *stuff = @"";
+    for (Entity *entity in document.entities) {
+        stuff = [stuff stringByAppendingString:[entity h_importStuff]];
+    }
+    if (stuff.length) {
+        stuff = [stuff stringByAppendingString:@"\n"];
+    }
+    return stuff;
+}
+
+- (NSString *)bodyWithDocument:(Document *)document {
+    if (!document.entities.count) {
+        return @"";
+    }
+    NSString *stuff = @"";
+    for (Entity *entity in document.entities) {
+        stuff = [stuff stringByAppendingString:[entity m_importStuff]];
+    }
+    if (stuff.length) {
+        stuff = [stuff stringByAppendingString:@"\n"];
+    }
+    return stuff;
 }
 
 @end

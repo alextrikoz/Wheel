@@ -18,15 +18,16 @@
 ",\
 fileName, myProjectName, myName, createdDate, copyrightDate, myCompanyName]
 
-#define H_CONTENT(header, className, superClassName, protocols, iVars, properties, prototypes) [NSString stringWithFormat:@"\
+#define H_CONTENT(header, imports, className, superClassName, protocols, iVars, properties, prototypes) [NSString stringWithFormat:@"\
 %@#import <Foundation/Foundation.h>\n\
 \n\
+%@\
 @interface %@ : %@ %@ %@\n\
 \n\
 %@%@\
 @end\n\
 ",\
-header, className, superClassName, protocols, iVars, properties, prototypes]
+header, imports, className, superClassName, protocols, iVars, properties, prototypes]
 
 #define H_IVARS(properties) [NSString stringWithFormat:@"\
 {\n\
@@ -70,14 +71,14 @@ className]
 - (NSString *)description;\n\
 "
 
-#define M_CONTENT(header, className, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding) [NSString stringWithFormat:@"\
+#define M_CONTENT(header, className, imports, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding) [NSString stringWithFormat:@"\
 %@#import \"%@.h\"\n\
 \n\
-%@@implementation %@\n\
+%@%@@implementation %@\n\
 \n\
 %@%@%@%@%@%@%@%@%@%@@end\n\
 ",\
-header, className, defines, className, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding]
+header, className, imports, defines, className, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding]
 
 #define M_DEFINES(properties) [NSString stringWithFormat:@"\
 %@\n\

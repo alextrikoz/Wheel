@@ -43,6 +43,7 @@
 @interface MContentUnit : Unit @end
 
 @interface HeaderUnit : Unit @end
+@interface ImportUnit : Unit @end
 @interface ProtocolsUnit : Unit  @end
 @interface IVarsUnit : Unit  @end
 @interface PropertiesUnit : Unit @end

@@ -51,26 +51,6 @@ enum {
 }
 - (void)setUnits:(NSArray *)units {}
 
-@synthesize HContentUnit = _HContentUnit;
-@synthesize MContentUnit = _MContentUnit;
-@synthesize headerUnit = _headerUnit;
-@synthesize protocolsUnit = _protocolsUnit;
-@synthesize iVarsUnit = _iVarsUnit;
-@synthesize propertiesUnit = _propertiesUnit;
-@synthesize prototypesUnit = _prototypesUnit;
-@synthesize definesUnit = _definesUnit;
-@synthesize synthesizesUnit = _synthesizesUnit;
-@synthesize deallocUnit = _deallocUnit;
-@synthesize setAttributesWithDictionaryUnit = _setAttributesWithDictionaryUnit;
-@synthesize initWithDictionaryUnit = _initWithDictionaryUnit;
-@synthesize objectWithDictionaryUnit = _objectWithDictionaryUnit;
-@synthesize objectsWithArrayUnit = _objectsWithArrayUnit;
-@synthesize dictionaryRepresentationUnit = _dictionaryRepresentationUnit;
-@synthesize descriptionUnit = _descriptionUnit;
-@synthesize copyingUnit = _copyingUnit;
-@synthesize codingUnit = _codingUnit;
-@synthesize ARCUnit = _ARCUnit;
-
 static DataStore *_sharedDataStore = nil;
 
 + (DataStore *)sharedDataStore {
@@ -247,6 +227,8 @@ static DataStore *_sharedDataStore = nil;
     self.MContentUnit = [[MContentUnit alloc] init];
     
     self.headerUnit = [[HeaderUnit alloc] init];
+    
+    self.importUnit = [[ImportUnit alloc] init];
     
     self.protocolsUnit = [[ProtocolsUnit alloc] init];
     

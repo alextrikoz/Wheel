@@ -11,6 +11,7 @@
 @class HContentUnit;
 @class MContentUnit;
 @class HeaderUnit;
+@class ImportUnit;
 @class ProtocolsUnit;
 @class PropertiesUnit;
 @class IVarsUnit;
@@ -41,6 +42,7 @@
 @property (strong) HContentUnit *HContentUnit;
 @property (strong) MContentUnit *MContentUnit;
 @property (strong) HeaderUnit *headerUnit;
+@property (strong) ImportUnit *importUnit;
 @property (strong) ProtocolsUnit *protocolsUnit;
 @property (strong) IVarsUnit *iVarsUnit;
 @property (strong) PropertiesUnit *propertiesUnit;
