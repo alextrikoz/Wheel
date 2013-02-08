@@ -12,12 +12,12 @@
 
 @property NSUndoManager *undoManager;
 
-@property NSString *name;
-@property NSString *type;
-@property NSString *kind;
 @property NSString *setter;
 @property NSString *atomicity;
 @property NSString *writability;
+@property NSString *type;
+@property NSString *name;
+@property NSString *kind;
 @property NSMutableArray *children;
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary;

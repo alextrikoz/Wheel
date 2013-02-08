@@ -90,46 +90,12 @@ static DataStore *_sharedDataStore = nil;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self loadTypes];
-    [self loadKinds];
     [self loadSetters];
     [self loadAtomicities];
     [self loadWritabilities];
+    [self loadTypes];
+    [self loadKinds];
     [self loadUnits];
-}
-
-- (void)loadTypes {
-    self.types = self.types;
-    if (!self.types.count) {
-        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-        
-        Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSArray *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSDate *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSDictionary *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSNumber *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSString *";
-        
-        [appDelegate.managedObjectContext save:nil];
-        
-        self.types = self.types;
-    }
-}
-
-- (void)loadKinds {
-    self.kinds = [NSMutableArray array];
-    [self.kinds addObject:@"object"];
-    [self.kinds addObject:@"model"];
-    [self.kinds addObject:@"collection"];
-    self.kinds = self.kinds;
 }
 
 - (void)loadSetters {
@@ -155,6 +121,43 @@ static DataStore *_sharedDataStore = nil;
     [self.writabilities addObject:@"readonly"];
     [self.writabilities addObject:@"readwrite"];
     self.writabilities = self.writabilities;
+}
+
+- (void)loadTypes {
+    self.types = self.types;
+    if (!self.types.count) {
+        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+        
+        Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSArray *";
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSDate *";
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSDictionary *";
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSNumber *";
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSString *";
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"Product *";
+        
+        [appDelegate.managedObjectContext save:nil];
+        
+        self.types = self.types;
+    }
+}
+
+- (void)loadKinds {
+    self.kinds = [NSMutableArray array];
+    [self.kinds addObject:@"object"];
+    [self.kinds addObject:@"model"];
+    [self.kinds addObject:@"collection"];
+    self.kinds = self.kinds;
 }
 
 - (void)loadUnits {

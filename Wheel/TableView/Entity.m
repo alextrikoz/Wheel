@@ -85,6 +85,21 @@
     return _name;
 }
 
+#pragma mark - kind
+
+@synthesize kind = _kind;
+
+- (void)setKind:(NSString *)kind {
+    if (![_kind isEqual:kind]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKind:kind];
+        _kind = kind;
+    }
+}
+
+- (NSString *)kind {
+    return _kind;
+}
+
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
@@ -125,11 +140,36 @@
 }
 
 - (NSString *)m_setAttributesWithDictionaryStuff {
-    return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
+    className = [className stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if ([self.kind isEqualToString:@"object"]) {
+        return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    } else if ([self.kind isEqualToString:@"model"]) {
+        return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, className, self.name.uppercaseString];
+    } else {
+        return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, className, self.name.uppercaseString];
+    }
+    
 }
 
 - (NSString *)m_dictionaryRepresentationStuff {
-    return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
+    className = [className stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if ([self.kind isEqualToString:@"object"]) {
+        return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    } else if ([self.kind isEqualToString:@"model"]) {
+        return [NSString stringWithFormat:@"    [dictionary setObject:self.%@.dictionaryRepresentation forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    } else {
+        NSMutableString *string = [NSMutableString string];
+        [string appendFormat:@"    NSMutableArray *array = [NSMutableArray array];\n"];
+        [string appendFormat:@"    for (%@ *object self.%@) {\n", className, self.name];
+        [string appendFormat:@"        [array addObject:object.dictionaryRepresentation];\n"];
+        [string appendFormat:@"    }\n"];
+        [string appendFormat:@"    [dictionary setObject:array forKey:%@_KEY];\n", self.name.uppercaseString];
+        return string;
+    }
 }
 
 - (NSString *)m_descriptionStuff {
@@ -152,12 +192,12 @@
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
     Entity *object = [[Entity alloc] init];
-    object.name = dictionary[@"name"];
-    object.type = dictionary[@"type"];
-    object.kind = @"object";
     object.setter = dictionary[@"setter"];
     object.atomicity = dictionary[@"atomicity"];
     object.writability = dictionary[@"writability"];
+    object.type = dictionary[@"type"];
+    object.name = dictionary[@"name"];
+    object.kind = dictionary[@"kind"];
     object.children = [self objectsWithArray:dictionary[@"children"]];
     return object;
 }
@@ -172,11 +212,12 @@
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setValue:self.name forKey:@"name"];
-    [dictionary setValue:self.type forKey:@"type"];
     [dictionary setValue:self.setter forKey:@"setter"];
     [dictionary setValue:self.atomicity forKey:@"atomicity"];
     [dictionary setValue:self.writability forKey:@"writability"];
+    [dictionary setValue:self.type forKey:@"type"];
+    [dictionary setValue:self.name forKey:@"name"];
+    [dictionary setValue:self.kind forKey:@"kind"];
     
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {
@@ -218,6 +259,8 @@
     entity.writability = @"readwrite";
     entity.type = @"NSArray *";
     entity.name = @"items";
+    entity.kind = @"object";
+    entity.children = [NSMutableArray array];
     return entity;
 }
 
@@ -229,6 +272,7 @@
     [coder encodeObject:self.writability forKey:@"writability"];
     [coder encodeObject:self.type forKey:@"type"];
     [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.kind forKey:@"kind"];
     [coder encodeObject:self.children forKey:@"children"];
 }
 
@@ -240,6 +284,7 @@
         self.writability = [decoder decodeObjectForKey:@"writability"];
         self.type = [decoder decodeObjectForKey:@"type"];
         self.name = [decoder decodeObjectForKey:@"name"];
+        self.kind = [decoder decodeObjectForKey:@"kind"];
         self.children = [decoder decodeObjectForKey:@"children"];
     }
     return self;

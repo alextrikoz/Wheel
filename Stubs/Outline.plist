@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>name</key>
-	<string>Root</string>
 	<key>children</key>
 	<array>
 		<dict>
@@ -17,6 +15,8 @@
 			<string>NSString *</string>
 			<key>name</key>
 			<string>title</string>
+			<key>kind</key>
+			<string>object</string>
 		</dict>
 		<dict>
 			<key>setter</key>
@@ -29,6 +29,8 @@
 			<string>NSString *</string>
 			<key>name</key>
 			<string>subtitle</string>
+			<key>kind</key>
+			<string>object</string>
 		</dict>
 		<dict>
 			<key>setter</key>
@@ -41,6 +43,8 @@
 			<string>NSDate *</string>
 			<key>name</key>
 			<string>date</string>
+			<key>kind</key>
+			<string>object</string>
 		</dict>
 		<dict>
 			<key>setter</key>
@@ -50,9 +54,11 @@
 			<key>writability</key>
 			<string>readwrite</string>
 			<key>type</key>
-			<string>NSArray *</string>
+			<string>Product *</string>
 			<key>name</key>
-			<string>product</string>
+			<string>products</string>
+			<key>kind</key>
+			<string>collection</string>
 			<key>children</key>
 			<array>
 				<dict>
@@ -66,6 +72,8 @@
 					<string>NSString *</string>
 					<key>name</key>
 					<string>name</string>
+					<key>kind</key>
+					<string>object</string>
 				</dict>
 				<dict>
 					<key>setter</key>
@@ -78,6 +86,8 @@
 					<string>NSDate *</string>
 					<key>name</key>
 					<string>date</string>
+					<key>kind</key>
+					<string>object</string>
 				</dict>
 				<dict>
 					<key>setter</key>
@@ -90,6 +100,8 @@
 					<string>NSString *</string>
 					<key>name</key>
 					<string>description</string>
+					<key>kind</key>
+					<string>object</string>
 				</dict>
 			</array>
 		</dict>
