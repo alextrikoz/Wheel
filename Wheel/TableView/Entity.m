@@ -254,6 +254,15 @@
     return node;
 }
 
++ (Entity *)entityWithNode:(NSTreeNode *)node {
+    Entity *entity = node.representedObject;
+    [entity.children removeAllObjects];
+    for (NSTreeNode *childNode in node.childNodes) {
+        [entity.children addObject:[self entityWithNode:childNode]];
+    }
+    return entity;
+}
+
 + (NSMutableArray *)plainStub {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"];
     NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:path];

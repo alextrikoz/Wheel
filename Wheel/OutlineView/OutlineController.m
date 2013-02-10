@@ -79,7 +79,7 @@
     entity.children = [NSMutableArray array];
     NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:entity];
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     
@@ -103,7 +103,7 @@
         return;
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     
@@ -211,7 +211,7 @@
 
 - (void)outlineView:(NSOutlineView *)outlineView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
     if (self.draggedNodes) {
-        [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
+        [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
         
         [self.outlineView beginUpdates];
         
@@ -254,7 +254,7 @@
         }
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[self.rootNode.representedObject dictionaryRepresentation]];
+    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
     
     [self.outlineView beginUpdates];
     

@@ -25,6 +25,7 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
++ (Entity *)entityWithNode:(NSTreeNode *)node;
 
 + (NSMutableArray *)plainStub;
 + (NSTreeNode *)outlineStub;
