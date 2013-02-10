@@ -1,12 +1,12 @@
 //
-//  TempController.m
+//  CombineController.m
 //  Wheel
 //
-//  Created by Alexander on 19.02.13.
+//  Created by Alexander on 10.02.13.
 //
 //
 
-#import "TempController.h"
+#import "CombineController.h"
 
 #import "Type.h"
 #import "Entity.h"
@@ -14,7 +14,7 @@
 #import "DataStore.h"
 #import "AppDelegate.h"
 
-@interface TempController ()
+@interface CombineController ()
 
 @property IBOutlet NSTextView *textView;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation TempController
+@implementation CombineController
 
 - (IBAction)generate:(id)sender {
     id object = [NSJSONSerialization JSONObjectWithData:[self.textView.textStorage.string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];

@@ -1,16 +1,16 @@
 //
-//  TempDocument.m
+//  JSONDocument.m
 //  Wheel
 //
-//  Created by Alexander on 19.02.13.
+//  Created by Alexander on 10.02.13.
 //
 //
 
-#import "TempDocument.h"
+#import "JSONDocument.h"
 
-#import "TempController.h"
+#import "CombineController.h"
 
-@implementation TempDocument
+@implementation JSONDocument
 
 - (id)init
 {
@@ -22,12 +22,18 @@
 }
 
 - (void)makeWindowControllers {
-    TempController *windowController = [[TempController alloc] initWithWindowNibName:@"TempController"];
+    CombineController *windowController = [[CombineController alloc] initWithWindowNibName:@"CombineController"];
     [self addWindowController:windowController];
 }
 
 - (NSString *)displayName {
     return @"Window";
+}
+
+- (void)windowControllerDidLoadNib:(NSWindowController *)aController
+{
+    [super windowControllerDidLoadNib:aController];
+    // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -48,6 +54,11 @@
     if (outError) {
         *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
     }
+    return YES;
+}
+
++ (BOOL)autosavesInPlace
+{
     return YES;
 }
 

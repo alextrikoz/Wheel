@@ -65,7 +65,7 @@
 }
 
 - (IBAction)newTemp:(id)sender {
-    [self makeAndDisplayUntitledDocumentOfType:@"temp"];
+    [self makeAndDisplayUntitledDocumentOfType:@"json"];
 }
 
 - (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {

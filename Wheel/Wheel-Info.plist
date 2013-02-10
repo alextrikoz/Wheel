@@ -66,9 +66,9 @@
 				<string>wheel</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>TempDocument</string>
+			<string>JSONDocument</string>
 			<key>CFBundleTypeName</key>
-			<string>temp</string>
+			<string>json</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>CFBundleTypeRole</key>
