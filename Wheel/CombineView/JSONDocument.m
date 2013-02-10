@@ -8,7 +8,7 @@
 
 #import "JSONDocument.h"
 
-#import "CombineController.h"
+#import "JSONController.h"
 
 @implementation JSONDocument
 
@@ -22,7 +22,7 @@
 }
 
 - (void)makeWindowControllers {
-    CombineController *windowController = [[CombineController alloc] initWithWindowNibName:@"CombineController"];
+    JSONController *windowController = [[JSONController alloc] initWithWindowNibName:@"JSONController"];
     [self addWindowController:windowController];
 }
 

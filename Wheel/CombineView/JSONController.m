@@ -1,12 +1,12 @@
 //
-//  CombineController.m
+//  JSONController.m
 //  Wheel
 //
 //  Created by Alexander on 10.02.13.
 //
 //
 
-#import "CombineController.h"
+#import "JSONController.h"
 
 #import "Type.h"
 #import "Entity.h"
@@ -14,7 +14,7 @@
 #import "DataStore.h"
 #import "AppDelegate.h"
 
-@interface CombineController ()
+@interface JSONController ()
 
 @property IBOutlet NSTextView *textView;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation CombineController
+@implementation JSONController
 
 - (IBAction)generate:(id)sender {
     id object = [NSJSONSerialization JSONObjectWithData:[self.textView.textStorage.string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
