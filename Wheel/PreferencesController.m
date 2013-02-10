@@ -13,19 +13,6 @@
 
 @implementation PreferencesController
 
-@synthesize generalItem = _generalItem;
-@synthesize addItem = _addItem;
-@synthesize removeItem = _removeItem;
-
-@synthesize generalView = _generalView;
-@synthesize libraryView = _libraryView;
-@synthesize optionsView = _optionsView;
-
-@synthesize libraryTableView = _libraryTableView;
-@synthesize optionsTableView = _optionsTableView;
-
-@synthesize dataStore = _dataStore;
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     

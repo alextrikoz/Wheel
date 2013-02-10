@@ -10,6 +10,16 @@
 		11151EE916C7B91100639A47 /* CombineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11151EE716C7B91100639A47 /* CombineController.m */; };
 		11151EEA16C7B91100639A47 /* CombineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11151EE816C7B91100639A47 /* CombineController.xib */; };
 		11151EEF16C7B9A800639A47 /* JSONDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11151EED16C7B9A800639A47 /* JSONDocument.m */; };
+		11151EFB16C7BEE100639A47 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF116C7BEE100639A47 /* 0.png */; };
+		11151EFC16C7BEE100639A47 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF216C7BEE100639A47 /* 1.png */; };
+		11151EFD16C7BEE100639A47 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF316C7BEE100639A47 /* 2.png */; };
+		11151EFE16C7BEE100639A47 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF416C7BEE100639A47 /* 3.png */; };
+		11151EFF16C7BEE100639A47 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF516C7BEE100639A47 /* 4.png */; };
+		11151F0016C7BEE100639A47 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF616C7BEE100639A47 /* 5.png */; };
+		11151F0116C7BEE100639A47 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF716C7BEE100639A47 /* 6.png */; };
+		11151F0216C7BEE100639A47 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF816C7BEE100639A47 /* 7.png */; };
+		11151F0316C7BEE100639A47 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF916C7BEE100639A47 /* 8.png */; };
+		11151F0416C7BEE100639A47 /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EFA16C7BEE100639A47 /* 9.png */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */; };
 		1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */; };
@@ -78,6 +88,16 @@
 		11151EE816C7B91100639A47 /* CombineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CombineController.xib; path = CombineView/CombineController.xib; sourceTree = "<group>"; };
 		11151EEC16C7B9A800639A47 /* JSONDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONDocument.h; path = CombineView/JSONDocument.h; sourceTree = "<group>"; };
 		11151EED16C7B9A800639A47 /* JSONDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONDocument.m; path = CombineView/JSONDocument.m; sourceTree = "<group>"; };
+		11151EF116C7BEE100639A47 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
+		11151EF216C7BEE100639A47 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		11151EF316C7BEE100639A47 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		11151EF416C7BEE100639A47 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		11151EF516C7BEE100639A47 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		11151EF616C7BEE100639A47 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		11151EF716C7BEE100639A47 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		11151EF816C7BEE100639A47 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		11151EF916C7BEE100639A47 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
+		11151EFA16C7BEE100639A47 /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
 		1140048E15F7C074007C3F61 /* NSArray+NSIndexSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSIndexSet.h"; sourceTree = "<group>"; };
 		1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NSIndexSet.m"; sourceTree = "<group>"; };
@@ -197,6 +217,16 @@
 		1135C47B153943D300F2AEA4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				11151EF116C7BEE100639A47 /* 0.png */,
+				11151EF216C7BEE100639A47 /* 1.png */,
+				11151EF316C7BEE100639A47 /* 2.png */,
+				11151EF416C7BEE100639A47 /* 3.png */,
+				11151EF516C7BEE100639A47 /* 4.png */,
+				11151EF616C7BEE100639A47 /* 5.png */,
+				11151EF716C7BEE100639A47 /* 6.png */,
+				11151EF816C7BEE100639A47 /* 7.png */,
+				11151EF916C7BEE100639A47 /* 8.png */,
+				11151EFA16C7BEE100639A47 /* 9.png */,
 				212403051545B48C0043D929 /* alert.png */,
 				1135C47C153943D300F2AEA4 /* hammer.png */,
 				212402E015456DFE0043D929 /* library.png */,
@@ -494,6 +524,16 @@
 				21BF21D516BAE201002C8419 /* Outline.plist in Resources */,
 				21BF21D716BAE22E002C8419 /* Plain.plist in Resources */,
 				11151EEA16C7B91100639A47 /* CombineController.xib in Resources */,
+				11151EFB16C7BEE100639A47 /* 0.png in Resources */,
+				11151EFC16C7BEE100639A47 /* 1.png in Resources */,
+				11151EFD16C7BEE100639A47 /* 2.png in Resources */,
+				11151EFE16C7BEE100639A47 /* 3.png in Resources */,
+				11151EFF16C7BEE100639A47 /* 4.png in Resources */,
+				11151F0016C7BEE100639A47 /* 5.png in Resources */,
+				11151F0116C7BEE100639A47 /* 6.png in Resources */,
+				11151F0216C7BEE100639A47 /* 7.png in Resources */,
+				11151F0316C7BEE100639A47 /* 8.png in Resources */,
+				11151F0416C7BEE100639A47 /* 9.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
