@@ -9,6 +9,7 @@
 #import "OutlineController.h"
 
 #import "Entity.h"
+#import "Document.h"
 #import "OutlineDocument.h"
 #import "DataStore.h"
 #import <Carbon/Carbon.h>
@@ -21,6 +22,7 @@
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
+- (IBAction)generate:(id)sender;
 
 @property (strong) NSArray *draggedNodes;
 
@@ -120,6 +122,26 @@
     }];
     
     [self.outlineView endUpdates];
+}
+
+- (IBAction)generate:(id)sender {
+    [self showModelWithEntity:self.rootNode.representedObject];
+}
+
+- (void)showModelWithEntity:(Entity *)entity {
+    Document *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+    document.className = entity.className;
+    document.superClassName = @"NSObject";
+    document.entities = entity.children;
+    [[NSDocumentController sharedDocumentController] addDocument:document];
+    [document makeWindowControllers];
+    [document showWindows];
+    
+    for (Entity *child in entity.children) {
+        if (![child.kind isEqualToString:@"object"]) {
+            [self showModelWithEntity:child];
+        }
+    }
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate

@@ -31,6 +31,8 @@
 
 + (Entity *)defaultEntity;
 
+- (NSString *)className;
+
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;
 - (NSString *)h_importStuff;
