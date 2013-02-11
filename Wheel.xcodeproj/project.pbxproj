@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11151EE916C7B91100639A47 /* JSONController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11151EE716C7B91100639A47 /* JSONController.m */; };
-		11151EEA16C7B91100639A47 /* JSONController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11151EE816C7B91100639A47 /* JSONController.xib */; };
-		11151EEF16C7B9A800639A47 /* JSONDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11151EED16C7B9A800639A47 /* JSONDocument.m */; };
 		11151EFB16C7BEE100639A47 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF116C7BEE100639A47 /* 0.png */; };
 		11151EFC16C7BEE100639A47 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF216C7BEE100639A47 /* 1.png */; };
 		11151EFD16C7BEE100639A47 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF316C7BEE100639A47 /* 2.png */; };
@@ -26,6 +23,9 @@
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
 		11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */; };
 		11C86B5215442F09009A0113 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C86B5115442F08009A0113 /* DataStore.m */; };
+		11C9E9D916C981D80024572B /* JSONController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C9E9D516C981D80024572B /* JSONController.m */; };
+		11C9E9DA16C981D80024572B /* JSONController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C9E9D616C981D80024572B /* JSONController.xib */; };
+		11C9E9DB16C981D80024572B /* JSONDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C9E9D816C981D80024572B /* JSONDocument.m */; };
 		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
 		11EF74411539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF743F1539426800D341B5 /* InfoPlist.strings */; };
 		11EF74431539426800D341B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74421539426800D341B5 /* main.m */; };
@@ -84,11 +84,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11151EE616C7B91100639A47 /* JSONController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONController.h; path = CombineView/JSONController.h; sourceTree = "<group>"; };
-		11151EE716C7B91100639A47 /* JSONController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONController.m; path = CombineView/JSONController.m; sourceTree = "<group>"; };
-		11151EE816C7B91100639A47 /* JSONController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JSONController.xib; path = CombineView/JSONController.xib; sourceTree = "<group>"; };
-		11151EEC16C7B9A800639A47 /* JSONDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONDocument.h; path = CombineView/JSONDocument.h; sourceTree = "<group>"; };
-		11151EED16C7B9A800639A47 /* JSONDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONDocument.m; path = CombineView/JSONDocument.m; sourceTree = "<group>"; };
 		11151EF116C7BEE100639A47 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		11151EF216C7BEE100639A47 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		11151EF316C7BEE100639A47 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -110,6 +105,11 @@
 		11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedUnit.m; sourceTree = "<group>"; };
 		11C86B5015442F08009A0113 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
 		11C86B5115442F08009A0113 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
+		11C9E9D416C981D80024572B /* JSONController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONController.h; sourceTree = "<group>"; };
+		11C9E9D516C981D80024572B /* JSONController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONController.m; sourceTree = "<group>"; };
+		11C9E9D616C981D80024572B /* JSONController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSONController.xib; sourceTree = "<group>"; };
+		11C9E9D716C981D80024572B /* JSONDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONDocument.h; sourceTree = "<group>"; };
+		11C9E9D816C981D80024572B /* JSONDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONDocument.m; sourceTree = "<group>"; };
 		11EF74321539426700D341B5 /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF74361539426700D341B5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11EF74391539426800D341B5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -204,18 +204,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		11151EEB16C7B91D00639A47 /* CombineView */ = {
-			isa = PBXGroup;
-			children = (
-				11151EEC16C7B9A800639A47 /* JSONDocument.h */,
-				11151EED16C7B9A800639A47 /* JSONDocument.m */,
-				11151EE616C7B91100639A47 /* JSONController.h */,
-				11151EE716C7B91100639A47 /* JSONController.m */,
-				11151EE816C7B91100639A47 /* JSONController.xib */,
-			);
-			name = CombineView;
-			sourceTree = "<group>";
-		};
 		1135C47B153943D300F2AEA4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +236,18 @@
 			);
 			path = Extensions;
 			sourceTree = SOURCE_ROOT;
+		};
+		11C9E9D316C981D80024572B /* JSONView */ = {
+			isa = PBXGroup;
+			children = (
+				11C9E9D416C981D80024572B /* JSONController.h */,
+				11C9E9D516C981D80024572B /* JSONController.m */,
+				11C9E9D616C981D80024572B /* JSONController.xib */,
+				11C9E9D716C981D80024572B /* JSONDocument.h */,
+				11C9E9D816C981D80024572B /* JSONDocument.m */,
+			);
+			path = JSONView;
+			sourceTree = "<group>";
 		};
 		11EF74271539426700D341B5 = {
 			isa = PBXGroup;
@@ -304,7 +304,7 @@
 				21F2C803157A57030048DA4D /* Models */,
 				2188165E16B6829A008022EE /* TableView */,
 				2109226A16A7F012008D2C88 /* OutlineView */,
-				11151EEB16C7B91D00639A47 /* CombineView */,
+				11C9E9D316C981D80024572B /* JSONView */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
@@ -526,7 +526,6 @@
 				2188166416B682CA008022EE /* TableWnd.xib in Resources */,
 				21BF21D516BAE201002C8419 /* Outline.plist in Resources */,
 				21BF21D716BAE22E002C8419 /* Plain.plist in Resources */,
-				11151EEA16C7B91100639A47 /* JSONController.xib in Resources */,
 				11151EFB16C7BEE100639A47 /* 0.png in Resources */,
 				11151EFC16C7BEE100639A47 /* 1.png in Resources */,
 				11151EFD16C7BEE100639A47 /* 2.png in Resources */,
@@ -538,6 +537,7 @@
 				11151F0316C7BEE100639A47 /* 8.png in Resources */,
 				11151F0416C7BEE100639A47 /* 9.png in Resources */,
 				21E0848B16C9083F00A302E4 /* JSONStub.json in Resources */,
+				11C9E9DA16C981D80024572B /* JSONController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,8 +595,8 @@
 				2188166316B682CA008022EE /* TableController.m in Sources */,
 				2188166916B682FB008022EE /* Document.m in Sources */,
 				2188166A16B682FB008022EE /* Entity.m in Sources */,
-				11151EE916C7B91100639A47 /* JSONController.m in Sources */,
-				11151EEF16C7B9A800639A47 /* JSONDocument.m in Sources */,
+				11C9E9D916C981D80024572B /* JSONController.m in Sources */,
+				11C9E9DB16C981D80024572B /* JSONDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
