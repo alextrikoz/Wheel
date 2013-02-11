@@ -22,10 +22,10 @@
         NSString *path = [[NSBundle mainBundle] pathForResource:@"JSONStub" ofType:@"json"];
         self.JSONString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
-}
-
-- (NSString *)displayName {
-    return @"Window";
+    
+    if ([self.displayName isEqualToString:@"Untitled"]) {
+        self.displayName = @"Window";
+    }
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
@@ -35,6 +35,14 @@
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     self.JSONString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return YES;
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
+{
+    if( [savePanel.nameFieldStringValue isEqualToString:@"Untitled"] )
+        [savePanel setNameFieldStringValue:@"hello"];
+    
+    return [super prepareSavePanel:savePanel];
 }
 
 @end
