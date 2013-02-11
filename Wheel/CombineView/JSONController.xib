@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2843</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -125,7 +125,7 @@
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="987196911">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSScrollView" id="1016216696">
@@ -158,9 +158,10 @@
 												<string>WebURLsWithTitlesPboardType</string>
 												<string>public.url</string>
 											</set>
-											<string key="NSFrame">{{0, 84}, {785, 84}}</string>
+											<string key="NSFrameSize">{785, 468}</string>
 											<reference key="NSSuperview" ref="1007414552"/>
-											<reference key="NSNextKeyView" ref="901905936"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="178378948"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="232827738">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -198,7 +199,7 @@ fQo</bytes>
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">100675555</int>
+												<int key="NSFlags">67121123</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="246279572">
@@ -243,12 +244,12 @@ fQo</bytes>
 											</object>
 											<int key="NSTVFlags">6</int>
 											<string key="NSMaxSize">{1002, 10000000}</string>
-											<string key="NSMinize">{223, 84}</string>
 											<nil key="NSDelegate"/>
 										</object>
 									</array>
 									<string key="NSFrame">{{1, 1}, {785, 468}}</string>
 									<reference key="NSSuperview" ref="1016216696"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="335245237"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<reference key="NSDocView" ref="335245237"/>
@@ -413,7 +414,10 @@ wGw</bytes>
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{786, 1}, {15, 468}}</string>
 									<reference key="NSSuperview" ref="1016216696"/>
+									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="1016216696"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSCurValue">1</double>
@@ -424,8 +428,10 @@ wGw</bytes>
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 									<reference key="NSSuperview" ref="1016216696"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1007414552"/>
 									<string key="NSReuseIdentifierKey">_NS:33</string>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="1016216696"/>
 									<string key="NSAction">_doScroller:</string>
@@ -435,17 +441,24 @@ wGw</bytes>
 							</array>
 							<string key="NSFrame">{{-1, 31}, {802, 470}}</string>
 							<reference key="NSSuperview" ref="987196911"/>
-							<reference key="NSNextKeyView" ref="1007414552"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="901905936"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133138</int>
 							<reference key="NSVScroller" ref="178378948"/>
 							<reference key="NSHScroller" ref="901905936"/>
 							<reference key="NSContentView" ref="1007414552"/>
+							<double key="NSMinMagnification">0.25</double>
+							<double key="NSMaxMagnification">4</double>
+							<double key="NSMagnification">1</double>
 						</object>
 					</array>
 					<string key="NSFrameSize">{800, 500}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="1016216696"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">32</double>
@@ -477,6 +490,22 @@ wGw</bytes>
 						<reference key="destination" ref="335245237"/>
 					</object>
 					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: document.JSONString</string>
+						<reference key="source" ref="335245237"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="335245237"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: document.JSONString</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">document.JSONString</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">72</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -588,9 +617,42 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">68</int>
+			<int key="maxID">72</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">JSONController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">generate:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">generate:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">generate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">textView</string>
+						<string key="NS.object.0">NSTextView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">textView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">textView</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/JSONController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

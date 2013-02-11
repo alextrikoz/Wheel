@@ -61,6 +61,7 @@
 		2188166A16B682FB008022EE /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188166816B682FA008022EE /* Entity.m */; };
 		21BF21D516BAE201002C8419 /* Outline.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D416BAE201002C8419 /* Outline.plist */; };
 		21BF21D716BAE22E002C8419 /* Plain.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D616BAE22E002C8419 /* Plain.plist */; };
+		21E0848B16C9083F00A302E4 /* JSONStub.json in Resources */ = {isa = PBXBuildFile; fileRef = 21E0848A16C9083F00A302E4 /* JSONStub.json */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
 		21E5715C153D8D1700A7138F /* PreferencesWnd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesWnd.xib */; };
 /* End PBXBuildFile section */
@@ -164,6 +165,7 @@
 		2188166816B682FA008022EE /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entity.m; path = TableView/Entity.m; sourceTree = "<group>"; };
 		21BF21D416BAE201002C8419 /* Outline.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Outline.plist; sourceTree = "<group>"; };
 		21BF21D616BAE22E002C8419 /* Plain.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Plain.plist; sourceTree = "<group>"; };
+		21E0848A16C9083F00A302E4 /* JSONStub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSONStub.json; sourceTree = "<group>"; };
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		21E5715B153D8D1600A7138F /* PreferencesWnd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWnd.xib; sourceTree = "<group>"; };
@@ -403,8 +405,9 @@
 		21BF21D316BAE201002C8419 /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
-				21BF21D616BAE22E002C8419 /* Plain.plist */,
+				21E0848A16C9083F00A302E4 /* JSONStub.json */,
 				21BF21D416BAE201002C8419 /* Outline.plist */,
+				21BF21D616BAE22E002C8419 /* Plain.plist */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				11151F0216C7BEE100639A47 /* 7.png in Resources */,
 				11151F0316C7BEE100639A47 /* 8.png in Resources */,
 				11151F0416C7BEE100639A47 /* 9.png in Resources */,
+				21E0848B16C9083F00A302E4 /* JSONStub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

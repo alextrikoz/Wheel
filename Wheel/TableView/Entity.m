@@ -118,14 +118,15 @@
 }
 
 - (NSString *)h_iVarStuff {
-    return [NSString stringWithFormat:@"    %@_%@;\n", self.type, self.name];
+    NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
+    return [NSString stringWithFormat:@"    %@_%@;\n", type, self.name];
 }
 
 - (NSString *)h_propertyStuff {
     NSString *atomicity = [self.atomicity isEqualToString:@"nonatomic"] ? @", nonatomic" : @"";
     NSString *writability = [self.writability isEqualToString:@"readonly"] ? @", readonly" : @"";
     
-    NSString *type = self.type;
+    NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
     if ([type rangeOfString:@"*"].location == NSNotFound && [type rangeOfString:@" "].location == NSNotFound) {
         type = [type stringByAppendingString:@" "];
     }

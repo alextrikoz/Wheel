@@ -126,6 +126,9 @@ static DataStore *_sharedDataStore = nil;
         type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
         type.name = @"Product *";
         
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
+        type.name = @"NSMutableArray *";
+        
         [appDelegate.managedObjectContext save:nil];
         
         self.types = self.types;

@@ -10,4 +10,6 @@
 
 @interface JSONDocument : NSDocument
 
+@property (strong) NSString *JSONString;
+
 @end
