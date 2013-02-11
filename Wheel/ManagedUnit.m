@@ -28,8 +28,6 @@
 
 @implementation Unit
 
-@synthesize managedUnit = _managedUnit;
-
 - (BOOL)available {
     return self.managedUnit.available;
 }

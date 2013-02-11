@@ -26,6 +26,7 @@
 
 - (IBAction)generate:(id)sender {
     id object = [NSJSONSerialization JSONObjectWithData:[self.textView.textStorage.string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
     Entity *entity = [self entityWithObject:object];
     
     OutlineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"outline" error:nil];
@@ -37,39 +38,49 @@
 
 - (Entity *)entityWithObject:(id)object {
     Entity *entity = [Entity new];
-    NSDictionary *info = nil;
-    if ([object isKindOfClass:[NSArray class]]) {
-        info = [object lastObject];
-    } else if ([object isKindOfClass:[NSDictionary class]]) {
-        info = object;
-    }
     
     entity.children = [NSMutableArray array];
     
-    if ([info isKindOfClass:[NSNull class]]) {
-        return entity;
+    NSDictionary *info = nil;
+    if ([object isKindOfClass:[NSArray class]]) {
+        info = [object lastObject];
+        if (![info isKindOfClass:[NSDictionary class]]) {
+            entity.setter = @"strong";
+            entity.atomicity = @"nonatomic";
+            entity.writability = @"readwrite";
+            entity.type = @"NSArray *";
+            entity.kind = @"object";
+            return entity;
+        }        
+    } else if ([object isKindOfClass:[NSDictionary class]]) {
+        info = object;
     }
     
     [info enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         Entity *child = nil;
         if ([obj isKindOfClass:[NSArray class]] ) {
             child = [self entityWithObject:obj];
-            child.setter = @"strong";
-            child.atomicity = @"nonatomic";
-            child.writability = @"readwrite";
             
-            NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
-            child.type = typeName;
-            
-            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-            request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", typeName];
-            if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
-                Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
-                type.name = typeName;
-                [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+            if ([child.kind isEqualToString:@"object"]) {
+                
+            } else {
+                child.setter = @"strong";
+                child.atomicity = @"nonatomic";
+                child.writability = @"readwrite";
+                
+                NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
+                child.type = typeName;
+                
+                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+                request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", typeName];
+                if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
+                    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
+                    type.name = typeName;
+                    [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+                }
+                
+                child.kind = @"collection";
             }
-            
-            child.kind = @"collection";
         } else if ([obj isKindOfClass:[NSDictionary class]]) {
             child = [self entityWithObject:obj];
             child.setter = @"strong";
