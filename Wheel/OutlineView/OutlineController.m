@@ -166,6 +166,8 @@
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Name"]) {
         return entity.name;
+    } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
+        return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
         NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
         return [NSNumber numberWithInteger:index];
@@ -188,7 +190,9 @@
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Name"]) {
         entity.name = object;
-    } if ([tableColumn.identifier isEqualToString:@"Type"]) {
+    } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
+        entity.key = object;
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
         entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
         entity.kind = [[DataStore sharedDataStore].kinds objectAtIndex:[object integerValue]];

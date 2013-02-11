@@ -100,6 +100,21 @@
     return _kind;
 }
 
+#pragma mark - key
+
+@synthesize key = _key;
+
+- (void)setKey:(NSString *)key {
+    if (![_key isEqual:key]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKey:key];
+        _key = key;
+    }
+}
+
+- (NSString *)key {
+    return _key;
+}
+
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
@@ -150,7 +165,7 @@
 }
 
 - (NSString *)m_defineStuff {
-    return [NSString stringWithFormat:@"#define %@_KEY @\"%@\"\n", self.name.uppercaseString, self.name];
+    return [NSString stringWithFormat:@"#define %@_KEY @\"%@\"\n", self.name.uppercaseString, self.key];
 }
 
 - (NSString *)m_synthesizeStuff {
@@ -213,6 +228,7 @@
     object.type = dictionary[@"type"];
     object.name = dictionary[@"name"];
     object.kind = dictionary[@"kind"];
+    object.key = dictionary[@"key"];
     object.children = [self objectsWithArray:dictionary[@"children"]];
     return object;
 }
@@ -233,6 +249,7 @@
     [dictionary setValue:self.type forKey:@"type"];
     [dictionary setValue:self.name forKey:@"name"];
     [dictionary setValue:self.kind forKey:@"kind"];
+    [dictionary setValue:self.key forKey:@"key"];
     
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {
@@ -284,6 +301,7 @@
     entity.type = @"NSArray *";
     entity.name = @"items";
     entity.kind = @"object";
+    entity.key = @"items";
     entity.children = [NSMutableArray array];
     return entity;
 }
@@ -297,6 +315,7 @@
     [coder encodeObject:self.type forKey:@"type"];
     [coder encodeObject:self.name forKey:@"name"];
     [coder encodeObject:self.kind forKey:@"kind"];
+    [coder encodeObject:self.key forKey:@"key"];
     [coder encodeObject:self.children forKey:@"children"];
 }
 
@@ -309,6 +328,7 @@
         self.type = [decoder decodeObjectForKey:@"type"];
         self.name = [decoder decodeObjectForKey:@"name"];
         self.kind = [decoder decodeObjectForKey:@"kind"];
+        self.key = [decoder decodeObjectForKey:@"key"];
         self.children = [decoder decodeObjectForKey:@"children"];
     }
     return self;

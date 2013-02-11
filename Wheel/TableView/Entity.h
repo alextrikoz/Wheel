@@ -18,6 +18,7 @@
 @property NSString *type;
 @property NSString *name;
 @property NSString *kind;
+@property NSString *key;
 @property NSMutableArray *children;
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary;

@@ -118,6 +118,7 @@
             child = [Entity new];
         }
         child.name = key;
+        child.key = key;
         [entity.children addObject:child];
     }];
     
