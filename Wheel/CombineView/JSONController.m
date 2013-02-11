@@ -10,6 +10,7 @@
 
 #import "Type.h"
 #import "Entity.h"
+#import "JSONDocument.h"
 #import "OutlineDocument.h"
 #import "DataStore.h"
 #import "AppDelegate.h"

@@ -13,6 +13,8 @@
 @implementation JSONDocument
 
 - (void)makeWindowControllers {
+    [super makeWindowControllers];
+    
     JSONController *windowController = [[JSONController alloc] initWithWindowNibName:@"JSONController"];
     [self addWindowController:windowController];
     
