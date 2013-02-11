@@ -15,6 +15,7 @@
 
 @property (strong) NSTreeNode *rootNode;
 
-- (void)backupRootNode:(NSDictionary *)dictionary;
+- (void)backupRootNode;
+- (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary;
 
 @end

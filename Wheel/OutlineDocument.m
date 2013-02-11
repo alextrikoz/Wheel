@@ -15,8 +15,12 @@
 
 @synthesize rootNode = _rootNode;
 
-- (void)backupRootNode:(NSDictionary *)dictionary {
-    [[self.undoManager prepareWithInvocationTarget:self] backupRootNode:((Entity *)self.rootNode.representedObject).dictionaryRepresentation];
+- (void)backupRootNode {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+}
+
+- (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:((Entity *)self.rootNode.representedObject).dictionaryRepresentation];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
 }

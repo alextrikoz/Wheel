@@ -79,7 +79,7 @@
     entity.children = [NSMutableArray array];
     NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:entity];
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+    [self.document backupRootNode];
     
     [self.outlineView beginUpdates];
     
@@ -103,7 +103,7 @@
         return;
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+    [self.document backupRootNode];
     
     [self.outlineView beginUpdates];
     
@@ -187,6 +187,8 @@
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+    [self.document backupRootNode];
+    
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Name"]) {
         entity.name = object;
@@ -203,6 +205,7 @@
     } else {
         entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
     }
+    
 }
 
 - (id <NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {
@@ -215,7 +218,7 @@
 
 - (void)outlineView:(NSOutlineView *)outlineView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
     if (self.draggedNodes) {
-        [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+        [self.document backupRootNode];
         
         [self.outlineView beginUpdates];
         
@@ -258,7 +261,7 @@
         }
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] backupRootNode:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+    [self.document backupRootNode];
     
     [self.outlineView beginUpdates];
     

@@ -91,7 +91,7 @@
 
 - (void)setKind:(NSString *)kind {
     if (![_kind isEqual:kind]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKind:kind];
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKind:_kind];
         _kind = kind;
     }
 }
@@ -106,7 +106,7 @@
 
 - (void)setKey:(NSString *)key {
     if (![_key isEqual:key]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKey:key];
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKey:_key];
         _key = key;
     }
 }
