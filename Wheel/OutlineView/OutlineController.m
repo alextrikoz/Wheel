@@ -162,7 +162,12 @@
     return [self childrenForItem:item].count;
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(NSTreeNode *)item {
+//    BOOL enabled = !([[(Entity *)item.parentNode.representedObject kind] isEqualToString:@"collection"] && !([tableColumn.identifier isEqualToString:@"Type"] || [tableColumn.identifier isEqualToString:@"Kind"]));
+//    if (!enabled) {
+//        return ([[tableColumn dataCell] isKindOfClass:[NSPopUpButton class]]) ? @(-1) : @"";
+//    }
+    
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Name"]) {
         return entity.name;
@@ -172,21 +177,21 @@
         NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
         return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
-        NSUInteger index = [[DataStore sharedDataStore].kinds  indexOfObject:entity.kind];
+        NSUInteger index = [[DataStore sharedDataStore].kinds indexOfObject:entity.kind];
         return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
-        NSUInteger index = [[DataStore sharedDataStore].setters  indexOfObject:entity.setter];
+        NSUInteger index = [[DataStore sharedDataStore].setters indexOfObject:entity.setter];
         return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
-        NSUInteger index = [[DataStore sharedDataStore].atomicities  indexOfObject:entity.atomicity];
+        NSUInteger index = [[DataStore sharedDataStore].atomicities indexOfObject:entity.atomicity];
         return [NSNumber numberWithInteger:index];
     } else {
-        NSUInteger index = [[DataStore sharedDataStore].writabilities  indexOfObject:entity.writability];
+        NSUInteger index = [[DataStore sharedDataStore].writabilities indexOfObject:entity.writability];
         return [NSNumber numberWithInteger:index];
     }
 }
 
-- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(NSTreeNode *)item {
     [self.document backupRootNode];
     
     Entity *entity = [item representedObject];
@@ -206,7 +211,12 @@
         entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
     }
     
+    [self.outlineView reloadItem:item reloadChildren:YES];
 }
+
+//- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode *)item {
+//    cell.enabled = !([[(Entity *)item.parentNode.representedObject kind] isEqualToString:@"collection"] && !([tableColumn.identifier isEqualToString:@"Type"] || [tableColumn.identifier isEqualToString:@"Kind"]));
+//}
 
 - (id <NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {
     return [item representedObject];

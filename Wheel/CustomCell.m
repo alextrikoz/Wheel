@@ -10,12 +10,10 @@
 
 @implementation CustomCell
 
-@synthesize regex = _regex;
-
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
     [super drawWithFrame:cellFrame inView:controlView];
     
-    if (!self.regex) {
+    if (!self.regex || !self.isEnabled) {
         return;
     }
     
