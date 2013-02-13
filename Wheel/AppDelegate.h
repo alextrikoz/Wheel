@@ -18,6 +18,7 @@
 - (IBAction)newWheel:(id)sender;
 - (IBAction)newOutline:(id)sender;
 - (IBAction)newTemp:(id)sender;
+- (IBAction)newCombine:(id)sender;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

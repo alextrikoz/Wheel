@@ -68,6 +68,10 @@
     [self makeAndDisplayUntitledDocumentOfType:@"json"];
 }
 
+- (IBAction)newCombine:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"combine"];
+}
+
 - (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSDocument *document = [sharedDocumentController makeUntitledDocumentOfType:typeName error:nil];

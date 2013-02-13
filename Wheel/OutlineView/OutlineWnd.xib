@@ -135,6 +135,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="55397F90-CF58-4BE9-8A36-1269737F793D" id="466208621">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">55397F90-CF58-4BE9-8A36-1269737F793D</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Combine</string>
+							<string key="NSToolbarItemPaletteLabel">Combine</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">file</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="5F490E3D-384D-460A-B889-D673AB38F14A" id="517001440">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">5F490E3D-384D-460A-B889-D673AB38F14A</characters>
@@ -213,16 +235,18 @@
 							</object>
 						</object>
 					</dictionary>
-					<array key="NSToolbarIBAllowedItems">
+					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<reference ref="517001440"/>
 						<reference ref="800372705"/>
 						<reference ref="879774482"/>
+						<reference ref="466208621"/>
 						<reference ref="184670009"/>
 					</array>
 					<array key="NSToolbarIBDefaultItems">
 						<reference ref="517001440"/>
 						<reference ref="800372705"/>
 						<reference ref="879774482"/>
+						<reference ref="466208621"/>
 						<reference ref="184670009"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
@@ -889,6 +913,14 @@
 					<int key="connectionID">254</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">combine:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="466208621"/>
+					</object>
+					<int key="connectionID">259</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="1005"/>
@@ -1373,6 +1405,7 @@
 							<reference ref="800372705"/>
 							<reference ref="184670009"/>
 							<reference ref="879774482"/>
+							<reference ref="466208621"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -1483,6 +1516,11 @@
 						<reference key="object" ref="762806414"/>
 						<reference key="parent" ref="618361796"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">257</int>
+						<reference key="object" ref="466208621"/>
+						<reference key="parent" ref="800396435"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1534,6 +1572,7 @@
 				<string key="253.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="255.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="256.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="257.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1545,7 +1584,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">256</int>
+			<int key="maxID">259</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1620,6 +1659,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
+			<string key="file">{512, 512}</string>
 			<string key="hammer">{48, 48}</string>
 			<string key="minus">{48, 48}</string>
 			<string key="plus">{48, 48}</string>

@@ -11,6 +11,7 @@
 #import "Entity.h"
 #import "Document.h"
 #import "OutlineDocument.h"
+#import "CombineDocument.h"
 #import "DataStore.h"
 #import <Carbon/Carbon.h>
 
@@ -144,6 +145,35 @@
     }
 }
 
+- (IBAction)combine:(id)sender {
+    CombineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"combine" error:nil];
+    
+    NSMutableArray *documents = [NSMutableArray array];
+    
+    Entity *rootEntity = self.rootNode.representedObject;
+    rootEntity.type = [self.document.className stringByAppendingString:@" *"];
+    [documents addObject:rootEntity];
+    
+    NSMutableArray *models = [NSMutableArray array];
+    [self modelsWithEntity:self.rootNode.representedObject models:models];
+    [documents addObjectsFromArray:models];
+    
+    document.documents = documents;
+    
+    [[NSDocumentController sharedDocumentController] addDocument:document];
+    [document makeWindowControllers];
+    [document showWindows];
+}
+
+- (void)modelsWithEntity:(Entity *)entity models:(NSMutableArray *)models {
+    for (Entity *child in entity.children) {
+        if (![child.kind isEqualToString:@"object"]) {
+            [models addObject:child];
+            [self modelsWithEntity:child models:models];
+        }
+    }
+}
+
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate
 
 - (NSArray *)childrenForItem:(NSTreeNode *)item {
@@ -162,12 +192,7 @@
     return [self childrenForItem:item].count;
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(NSTreeNode *)item {
-//    BOOL enabled = !([[(Entity *)item.parentNode.representedObject kind] isEqualToString:@"collection"] && !([tableColumn.identifier isEqualToString:@"Type"] || [tableColumn.identifier isEqualToString:@"Kind"]));
-//    if (!enabled) {
-//        return ([[tableColumn dataCell] isKindOfClass:[NSPopUpButton class]]) ? @(-1) : @"";
-//    }
-    
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(NSTreeNode *)item {    
     Entity *entity = [item representedObject];
     if ([tableColumn.identifier isEqualToString:@"Name"]) {
         return entity.name;
@@ -213,10 +238,6 @@
     
     [self.outlineView reloadItem:item reloadChildren:YES];
 }
-
-//- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode *)item {
-//    cell.enabled = !([[(Entity *)item.parentNode.representedObject kind] isEqualToString:@"collection"] && !([tableColumn.identifier isEqualToString:@"Type"] || [tableColumn.identifier isEqualToString:@"Kind"]));
-//}
 
 - (id <NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {
     return [item representedObject];

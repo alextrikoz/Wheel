@@ -74,6 +74,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>combine</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>CombineDocument</string>
+			<key>CFBundleTypeName</key>
+			<string>combine</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 </dict>
 </plist>
