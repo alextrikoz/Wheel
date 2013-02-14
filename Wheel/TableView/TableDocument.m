@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Document.h"
+#import "TableDocument.h"
 
 #import "Entity.h"
 #import "TableController.h"
 
-@implementation Document
+@implementation TableDocument
 
 #pragma mark - className
 
@@ -20,7 +20,7 @@
 - (void)setClassName:(NSString *)className {
     if (![_className isEqual:className]) {
         if (_className) {
-            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
+            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
         }
         _className = className;
     }
@@ -37,7 +37,7 @@
 - (void)setSuperClassName:(NSString *)superClassName {
     if (![_superClassName isEqual:superClassName]) {
         if (_superClassName) {
-            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
+            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
         }
         _superClassName = superClassName;
     }
@@ -54,7 +54,7 @@
 - (void)setEntities:(NSMutableArray *)entities {
     if (![_entities isEqual:entities]) {
         if (_entities) {
-            [(Document *)[self.undoManager prepareWithInvocationTarget:self] setEntities:_entities.mutableCopy];
+            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setEntities:_entities.mutableCopy];
         }
         _entities = entities;
     }
@@ -67,7 +67,7 @@
 #pragma mark - NSDocument
 
 - (void)makeWindowControllers {
-    TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableWnd"];
+    TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableController"];
     [self addWindowController:windowController];
     
     if (!self.entities) {

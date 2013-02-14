@@ -10,14 +10,14 @@
 #import "NSArray+NSIndexSet.h"
 #import "NSIndexSet+NSArray.h"
 #import <Carbon/Carbon.h>
-#import "Document.h"
+#import "TableDocument.h"
 #import "DataStore.h"
 #import "Entity.h"
 #import "ManagedUnit.h"
 
 @interface TableController ()
 
-- (Document *)document;
+- (TableDocument *)document;
 
 @property IBOutlet NSTableView *tableView;
 
@@ -55,7 +55,7 @@
     [self.tableView reloadData];
 }
 
-- (Document *)document {
+- (TableDocument *)document {
     return [super document];
 }
 

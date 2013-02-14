@@ -8,7 +8,7 @@
 
 #import <AppKit/AppKit.h>
 
-@interface Document : NSDocument
+@interface TableDocument : NSDocument
 
 @property (strong) NSString *className;
 @property (strong) NSString *superClassName;

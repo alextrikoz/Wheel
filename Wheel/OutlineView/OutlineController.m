@@ -9,9 +9,9 @@
 #import "OutlineController.h"
 
 #import "Entity.h"
-#import "Document.h"
+#import "TableDocument.h"
 #import "OutlineDocument.h"
-#import "CombineDocument.h"
+#import "CollectionDocument.h"
 #import "DataStore.h"
 #import <Carbon/Carbon.h>
 
@@ -130,7 +130,7 @@
 }
 
 - (void)showModelWithEntity:(Entity *)entity {
-    Document *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+    TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
     document.className = entity.className;
     document.superClassName = @"NSObject";
     document.entities = entity.children;
@@ -146,7 +146,7 @@
 }
 
 - (IBAction)combine:(id)sender {
-    CombineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"combine" error:nil];
+    CollectionDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"collection" error:nil];
     
     NSMutableArray *documents = [NSMutableArray array];
     

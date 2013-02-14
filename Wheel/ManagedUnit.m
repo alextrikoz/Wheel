@@ -10,7 +10,7 @@
 
 #import "Entity.h"
 #import "DataStore.h"
-#import "Document.h"
+#import "TableDocument.h"
 #import "Config.h"
 
 @implementation ManagedUnit
@@ -36,7 +36,7 @@
 
 @implementation HContentUnit
 
-- (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
     DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"h"];
@@ -55,7 +55,7 @@
 
 @implementation MContentUnit
 
-- (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
     DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"m"];
@@ -80,7 +80,7 @@
 
 @implementation HeaderUnit
 
-- (NSString *)bodyWithDocument:(Document *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
     id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
@@ -100,7 +100,7 @@
 
 @implementation ImportUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     if (!document.entities.count) {
         return @"";
     }
@@ -114,7 +114,7 @@
     return stuff;
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!document.entities.count) {
         return @"";
     }
@@ -132,7 +132,7 @@
 
 @implementation ProtocolsUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     DataStore *dataStore = DataStore.sharedDataStore;
     
     if (dataStore.copyingUnit.available && dataStore.codingUnit.available) {
@@ -150,7 +150,7 @@
 
 @implementation IVarsUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available || !document.entities.count) {
         return @"";
     }
@@ -165,7 +165,7 @@
 
 @implementation PropertiesUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!document.entities.count) {
         return @"";
     }
@@ -180,7 +180,7 @@
 
 @implementation PrototypesUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     DataStore *dataStore = DataStore.sharedDataStore;
     
     NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithDocument:document];
@@ -206,7 +206,7 @@
 
 @implementation DefinesUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!document.entities.count) {
         return @"";
     }
@@ -221,7 +221,7 @@
 
 @implementation SynthesizesUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available || !document.entities.count) {
         return @"";
     }
@@ -236,7 +236,7 @@
 
 @implementation DeallocUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }
@@ -251,11 +251,11 @@
 
 @implementation SetAttributesWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }
@@ -270,11 +270,11 @@
 
 @implementation InitWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document  {
+- (NSString *)bodyWithDocument:(TableDocument *)document  {
     return self.available ? M_INITWITHDICTIONARY(document.className) : @"";
 }
 
@@ -282,11 +282,11 @@
 
 @implementation ObjectWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     DataStore *dataStore = DataStore.sharedDataStore;
     ARCUnit *ARCUnit = dataStore.ARCUnit;    
     return self.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
@@ -296,11 +296,11 @@
 
 @implementation ObjectsWithArrayUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     return self.available ? M_OBJECTSWITHARRAY : @"";
 }
 
@@ -308,11 +308,11 @@
 
 @implementation DictionaryRepresentationUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }
@@ -327,11 +327,11 @@
 
 @implementation DescriptionUnit
 
-- (NSString *)prototypeWithDocument:(Document *)document {
+- (NSString *)prototypeWithDocument:(TableDocument *)document {
     return self.available ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }
@@ -346,7 +346,7 @@
 
 @implementation NSCopyingUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }
@@ -361,7 +361,7 @@
 
 @implementation NSCodingUnit
 
-- (NSString *)bodyWithDocument:(Document *)document {
+- (NSString *)bodyWithDocument:(TableDocument *)document {
     if (!self.available) {
         return @"";
     }

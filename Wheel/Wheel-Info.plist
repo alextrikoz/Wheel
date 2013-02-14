@@ -38,7 +38,7 @@
 				<string>wheel</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Document</string>
+			<string>TableDocument</string>
 			<key>CFBundleTypeName</key>
 			<string>wheel</string>
 			<key>LSHandlerRank</key>
@@ -77,16 +77,16 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>combine</string>
+				<string>collection</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>CombineDocument</string>
+			<string>CollectionDocument</string>
 			<key>CFBundleTypeName</key>
-			<string>combine</string>
+			<string>collection</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 		</dict>
 	</array>
 </dict>

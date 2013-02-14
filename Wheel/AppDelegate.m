@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "PreferencesController.h"
-#import "Document.h"
+#import "TableDocument.h"
 #import "OutlineDocument.h"
 
 @implementation AppDelegate
@@ -64,12 +64,12 @@
     [self makeAndDisplayUntitledDocumentOfType:@"outline"];
 }
 
-- (IBAction)newTemp:(id)sender {
+- (IBAction)newJSON:(id)sender {
     [self makeAndDisplayUntitledDocumentOfType:@"json"];
 }
 
-- (IBAction)newCombine:(id)sender {
-    [self makeAndDisplayUntitledDocumentOfType:@"combine"];
+- (IBAction)newCollection:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"collection"];
 }
 
 - (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {

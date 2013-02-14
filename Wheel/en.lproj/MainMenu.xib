@@ -210,7 +210,7 @@
 								</object>
 								<object class="NSMenuItem" id="326400648">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New Combine</string>
+									<string key="NSTitle">New Collection</string>
 									<string key="NSKeyEquiv">4</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -2013,19 +2013,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">newTemp:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="908713811"/>
-					</object>
-					<int key="connectionID">1088</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">newCombine:</string>
+						<string key="label">newCollection:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="326400648"/>
 					</object>
-					<int key="connectionID">1091</int>
+					<int key="connectionID">1092</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newJSON:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="908713811"/>
+					</object>
+					<int key="connectionID">1093</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3192,7 +3192,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1091</int>
+			<int key="maxID">1093</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3200,24 +3200,24 @@
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="newCombine:">id</string>
+						<string key="newCollection:">id</string>
+						<string key="newJSON:">id</string>
 						<string key="newOutline:">id</string>
-						<string key="newTemp:">id</string>
 						<string key="newWheel:">id</string>
 						<string key="preferences:">id</string>
 						<string key="saveAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="newCombine:">
-							<string key="name">newCombine:</string>
+						<object class="IBActionInfo" key="newCollection:">
+							<string key="name">newCollection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="newJSON:">
+							<string key="name">newJSON:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="newOutline:">
 							<string key="name">newOutline:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="newTemp:">
-							<string key="name">newTemp:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="newWheel:">

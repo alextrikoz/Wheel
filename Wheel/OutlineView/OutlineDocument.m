@@ -26,7 +26,7 @@
 }
 
 - (void)makeWindowControllers {
-    OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineWnd"];
+    OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineController"];
     [self addWindowController:windowController];
     
     if (!self.className) {
