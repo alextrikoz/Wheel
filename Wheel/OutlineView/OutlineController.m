@@ -147,31 +147,11 @@
 
 - (IBAction)combine:(id)sender {
     CollectionDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"collection" error:nil];
-    
-    NSMutableArray *documents = [NSMutableArray array];
-    
-    Entity *rootEntity = self.rootNode.representedObject;
-    rootEntity.type = [self.document.className stringByAppendingString:@" *"];
-    [documents addObject:rootEntity];
-    
-    NSMutableArray *models = [NSMutableArray array];
-    [self modelsWithEntity:self.rootNode.representedObject models:models];
-    [documents addObjectsFromArray:models];
-    
-    document.documents = documents;
-    
+    document.rootEntity = self.rootNode.representedObject;
+    document.rootEntity.type = self.document.className;
     [[NSDocumentController sharedDocumentController] addDocument:document];
     [document makeWindowControllers];
     [document showWindows];
-}
-
-- (void)modelsWithEntity:(Entity *)entity models:(NSMutableArray *)models {
-    for (Entity *child in entity.children) {
-        if (![child.kind isEqualToString:@"object"]) {
-            [models addObject:child];
-            [self modelsWithEntity:child models:models];
-        }
-    }
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate

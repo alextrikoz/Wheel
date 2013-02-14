@@ -8,8 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Entity;
+
 @interface CollectionDocument : NSDocument
 
-@property NSArray *documents;
+@property Entity *rootEntity;
+@property NSMutableArray *models;
 
 @end
