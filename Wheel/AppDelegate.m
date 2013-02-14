@@ -17,7 +17,7 @@
 @synthesize preferencesController = _preferencesController;
 - (PreferencesController *)preferencesController {
     if(!_preferencesController) {
-        _preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"PreferencesWnd"];
+        _preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"PreferencesController"];
     }
     return _preferencesController;
 }

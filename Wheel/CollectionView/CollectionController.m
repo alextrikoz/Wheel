@@ -10,8 +10,14 @@
 
 @interface CollectionController () <NSCollectionViewDelegate>
 
+- (IBAction)download:(id)sender;
+
 @end
 
 @implementation CollectionController
+
+- (IBAction)download:(id)sender {
+    
+}
 
 @end

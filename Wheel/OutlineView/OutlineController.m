@@ -319,6 +319,7 @@
         
         if (oldParent != newParent) {
             if (oldParent.isLeaf) {
+                [self.outlineView reloadItem:oldParent];
                 [self.outlineView collapseItem:oldParent];
             }
             if (!newParent.isLeaf) {
