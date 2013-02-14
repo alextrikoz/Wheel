@@ -12,8 +12,10 @@
 
 @property (strong) NSString *className;
 @property (strong) NSString *superClassName;
-
 @property (strong) NSTreeNode *rootNode;
+@property NSMutableArray *models;
+
+- (void)updateModels;
 
 - (void)backupRootNode;
 - (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary;

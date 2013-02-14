@@ -19,7 +19,21 @@
 
 - (OutlineDocument *)document;
 
-@property (strong) IBOutlet NSOutlineView *outlineView;
+@property IBOutlet NSOutlineView *outlineView;
+
+@property IBOutlet NSView *placeholder;
+@property IBOutlet NSView *outlinePleceholder;
+@property IBOutlet NSView *collectionPleceholder;
+
+@property IBOutlet NSToolbarItem *outlineItem;
+@property IBOutlet NSToolbarItem *collectionItem;
+@property IBOutlet NSToolbarItem *addItem;
+@property IBOutlet NSToolbarItem *removeItem;
+@property IBOutlet NSToolbarItem *generateItem;
+@property IBOutlet NSToolbarItem *downloadItem;
+
+- (IBAction)outline:(id)sender;
+- (IBAction)collection:(id)sender;
 
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
@@ -46,6 +60,9 @@
     for (int i = 0; i < self.outlineView.numberOfRows; i++) {
         [self.outlineView expandItem:[self.outlineView itemAtRow:i]];
     }
+    
+    [self outline:self.outlineItem];
+    self.window.toolbar.selectedItemIdentifier = self.outlineItem.itemIdentifier;
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -145,13 +162,59 @@
     }
 }
 
-- (IBAction)combine:(id)sender {
-    CollectionDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"collection" error:nil];
-    document.rootEntity = self.rootNode.representedObject;
-    document.rootEntity.type = self.document.className;
-    [[NSDocumentController sharedDocumentController] addDocument:document];
-    [document makeWindowControllers];
-    [document showWindows];
+- (IBAction)outline:(id)sender {
+    if (![sender isEqual:self.outlineItem]) {
+        return;
+    }
+    
+    [self.collectionPleceholder removeFromSuperview];
+    self.outlinePleceholder.frame = self.placeholder.bounds;
+    [self.placeholder addSubview:self.outlinePleceholder];
+    
+    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.addItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.removeItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.removeItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.generateItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.downloadItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+}
+
+- (IBAction)collection:(id)sender {
+    if (![sender isEqual:self.collectionItem]) {
+        return;
+    }
+    
+    [self.outlinePleceholder removeFromSuperview];
+    self.collectionPleceholder.frame = self.placeholder.bounds;
+    [self.placeholder addSubview:self.collectionPleceholder];
+    [self.document updateModels];
+    
+    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.removeItem];
+    if (index != NSNotFound) {
+        [self.window.toolbar removeItemAtIndex:index];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.generateItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.generateItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
+    index = [self.window.toolbar.items indexOfObject:self.downloadItem];
+    if (index == NSNotFound) {
+        [self.window.toolbar insertItemWithItemIdentifier:self.downloadItem.itemIdentifier atIndex:self.window.toolbar.items.count];
+    }
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate

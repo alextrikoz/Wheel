@@ -13,8 +13,6 @@
 
 @implementation OutlineDocument
 
-@synthesize rootNode = _rootNode;
-
 - (void)backupRootNode {
     [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
 }
@@ -23,6 +21,8 @@
     [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:((Entity *)self.rootNode.representedObject).dictionaryRepresentation];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
+    
+    [self updateModels];
 }
 
 - (void)makeWindowControllers {
@@ -42,6 +42,24 @@
 
 - (NSString *)displayName {
     return self.className;
+}
+
+- (void)updateModels {
+    self.models = [NSMutableArray array];
+    Entity *rootEntity = self.rootNode.representedObject;
+    rootEntity.type = self.className;
+    [self.models addObject:rootEntity];
+    [self modelsWithEntity:self.rootNode.representedObject];
+    self.models = self.models;
+}
+
+- (void)modelsWithEntity:(Entity *)entity {
+    for (Entity *child in entity.children) {
+        if (![child.kind isEqualToString:@"object"]) {
+            [_models addObject:child];
+            [self modelsWithEntity:child];
+        }
+    }
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {

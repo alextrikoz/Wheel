@@ -62,6 +62,7 @@
 		2188166316B682CA008022EE /* TableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188166116B682CA008022EE /* TableController.m */; };
 		2188166416B682CA008022EE /* TableController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2188166216B682CA008022EE /* TableController.xib */; };
 		2188166916B682FB008022EE /* TableDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188166616B682FA008022EE /* TableDocument.m */; };
+		21AF0F8316CCF17300991518 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = 21AF0F8216CCF17300991518 /* tree.png */; };
 		21BF21D516BAE201002C8419 /* Outline.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D416BAE201002C8419 /* Outline.plist */; };
 		21BF21D716BAE22E002C8419 /* Plain.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21BF21D616BAE22E002C8419 /* Plain.plist */; };
 		21CCA4D616CB9BF600D0C820 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CCA4D516CB9BF600D0C820 /* OutlineDocument.m */; };
@@ -172,6 +173,7 @@
 		2188166216B682CA008022EE /* TableController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableController.xib; path = TableView/TableController.xib; sourceTree = "<group>"; };
 		2188166516B682FA008022EE /* TableDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableDocument.h; path = TableView/TableDocument.h; sourceTree = "<group>"; };
 		2188166616B682FA008022EE /* TableDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableDocument.m; path = TableView/TableDocument.m; sourceTree = "<group>"; };
+		21AF0F8216CCF17300991518 /* tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree.png; sourceTree = "<group>"; };
 		21BF21D416BAE201002C8419 /* Outline.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Outline.plist; sourceTree = "<group>"; };
 		21BF21D616BAE22E002C8419 /* Plain.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Plain.plist; sourceTree = "<group>"; };
 		21CCA4D416CB9BF600D0C820 /* OutlineDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineDocument.h; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				212402E015456DFE0043D929 /* library.png */,
 				21871884153F0830005A1540 /* minus.png */,
 				21871881153F055E005A1540 /* plus.png */,
+				21AF0F8216CCF17300991518 /* tree.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				21CCA4E316CBB40E00D0C820 /* file.png in Resources */,
 				2101B31E16CCD6B60019BB0B /* CollectionController.xib in Resources */,
 				217BA6FD16CCDEA400C4C193 /* download.png in Resources */,
+				21AF0F8316CCF17300991518 /* tree.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
