@@ -46,6 +46,7 @@
 		11EF747C1539426800D341B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747B1539426800D341B5 /* main.c */; };
 		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
+		11F868A616CD801200DA261A /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F868A516CD801200DA261A /* CustomView.m */; };
 		2101B31D16CCD6B60019BB0B /* CollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2101B31916CCD6B60019BB0B /* CollectionController.m */; };
 		2101B31E16CCD6B60019BB0B /* CollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2101B31A16CCD6B60019BB0B /* CollectionController.xib */; };
 		2101B31F16CCD6B60019BB0B /* CollectionDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2101B31C16CCD6B60019BB0B /* CollectionDocument.m */; };
@@ -149,6 +150,8 @@
 		11EF74801539426800D341B5 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		11EF74821539426800D341B5 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
+		11F868A416CD801200DA261A /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		11F868A516CD801200DA261A /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 		2101B31816CCD6B60019BB0B /* CollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionController.h; sourceTree = "<group>"; };
 		2101B31916CCD6B60019BB0B /* CollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionController.m; sourceTree = "<group>"; };
 		2101B31A16CCD6B60019BB0B /* CollectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionController.xib; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 				11C86B5115442F08009A0113 /* DataStore.m */,
 				2147F3DB1545BD4F0015D6EF /* CustomCell.h */,
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
+				11F868A416CD801200DA261A /* CustomView.h */,
+				11F868A516CD801200DA261A /* CustomView.m */,
 				21E57151153D80CE00A7138F /* PreferencesController.h */,
 				21E57152153D80CE00A7138F /* PreferencesController.m */,
 				21E5715B153D8D1600A7138F /* PreferencesController.xib */,
@@ -633,6 +638,7 @@
 				2101B31D16CCD6B60019BB0B /* CollectionController.m in Sources */,
 				2101B31F16CCD6B60019BB0B /* CollectionDocument.m in Sources */,
 				2101B32216CCD6DD0019BB0B /* Entity.m in Sources */,
+				11F868A616CD801200DA261A /* CustomView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

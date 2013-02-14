@@ -163,7 +163,7 @@
 }
 
 - (IBAction)outline:(id)sender {
-    if (![sender isEqual:self.outlineItem]) {
+    if (self.outlinePleceholder.superview) {
         return;
     }
     
@@ -190,7 +190,7 @@
 }
 
 - (IBAction)collection:(id)sender {
-    if (![sender isEqual:self.collectionItem]) {
+    if (self.collectionPleceholder.superview) {
         return;
     }
     
