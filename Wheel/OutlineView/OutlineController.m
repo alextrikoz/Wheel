@@ -9,6 +9,7 @@
 #import "OutlineController.h"
 
 #import "Entity.h"
+#import "ManagedUnit.h"
 #import "TableDocument.h"
 #import "OutlineDocument.h"
 #import "CollectionDocument.h"
@@ -20,6 +21,7 @@
 - (OutlineDocument *)document;
 
 @property IBOutlet NSOutlineView *outlineView;
+@property IBOutlet NSCollectionView *collectionView;
 
 @property IBOutlet NSView *placeholder;
 @property IBOutlet NSView *outlinePleceholder;
@@ -143,7 +145,9 @@
 }
 
 - (IBAction)generate:(id)sender {
-    [self showModelWithEntity:self.rootNode.representedObject];
+    [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [self showModelWithEntity:[self.document.models objectAtIndex:idx]];
+    }];
 }
 
 - (void)showModelWithEntity:(Entity *)entity {
@@ -154,12 +158,12 @@
     [[NSDocumentController sharedDocumentController] addDocument:document];
     [document makeWindowControllers];
     [document showWindows];
-    
-    for (Entity *child in entity.children) {
-        if (![child.kind isEqualToString:@"object"]) {
-            [self showModelWithEntity:child];
-        }
-    }
+}
+
+- (IBAction)download:(id)sender {
+    [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        
+    }];
 }
 
 - (IBAction)outline:(id)sender {
