@@ -106,8 +106,8 @@
         [((Entity *)parentNode.representedObject).children removeObjectAtIndex:index];
         [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
         
-        if (!parentNode.childNodes.count) {
-            [self.outlineView reloadItem:parentNode];
+        if (parentNode.isLeaf) {
+            [self.outlineView collapseItem:parentNode];
         }
     }];
     
@@ -187,8 +187,8 @@
             [((Entity *)parentNode.representedObject).children removeObjectAtIndex:index];
             [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
             
-            if (!parentNode.childNodes.count) {
-                [self.outlineView reloadItem:parentNode];
+            if (parentNode.isLeaf) {
+                [self.outlineView collapseItem:parentNode];
             }
         }];
         
@@ -209,7 +209,7 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)childIndex {
     NSTreeNode *newParent = item == nil ? self.rootNode : item;
     
-    if (!newParent.childNodes.count) {
+    if (newParent.isLeaf) {
         if (childIndex == NSOutlineViewDropOnItemIndex) {
             childIndex = 0;
         }
@@ -265,11 +265,11 @@
         currentIndex++;
         
         if (oldParent != newParent) {
-            if (!oldParent.childNodes.count) {
-                [self.outlineView reloadItem:oldParent];
+            if (oldParent.isLeaf) {
+                [self.outlineView collapseItem:oldParent];
             }
-            if (newParent.childNodes.count) {
-                [self.outlineView reloadItem:newParent];
+            if (!newParent.isLeaf) {
+                [self.outlineView expandItem:newParent];
             }
         }
     }];
