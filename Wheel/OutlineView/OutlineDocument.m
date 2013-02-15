@@ -9,6 +9,7 @@
 #import "OutlineDocument.h"
 
 #import "Entity.h"
+#import "TableDocument.h"
 #import "OutlineController.h"
 
 @implementation OutlineDocument
@@ -46,9 +47,13 @@
 
 - (void)updateModels {
     self.models = [NSMutableArray array];
-    Entity *rootEntity = self.rootNode.representedObject;
-    rootEntity.type = self.className;
-    [self.models addObject:rootEntity];
+    
+    TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+    document.className = self.className;
+    document.superClassName = self.superClassName;
+    document.entities = ((Entity *)self.rootNode.representedObject).children;
+    
+    [self.models addObject:document];
     [self modelsWithEntity:self.rootNode.representedObject];
     self.models = self.models;
 }
@@ -56,7 +61,11 @@
 - (void)modelsWithEntity:(Entity *)entity {
     for (Entity *child in entity.children) {
         if (![child.kind isEqualToString:@"object"]) {
-            [_models addObject:child];
+            TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+            document.className = child.className;
+            document.superClassName = @"NSObject";
+            document.entities = child.children;
+            [self.models addObject:document];
             [self modelsWithEntity:child];
         }
     }

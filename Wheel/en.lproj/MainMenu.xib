@@ -190,18 +190,18 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="549223699">
+								<object class="NSMenuItem" id="908713811">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New Outline</string>
+									<string key="NSTitle">New JSON</string>
 									<string key="NSKeyEquiv">2</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="908713811">
+								<object class="NSMenuItem" id="549223699">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New JSON</string>
+									<string key="NSTitle">New Outline</string>
 									<string key="NSKeyEquiv">3</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -2114,8 +2114,8 @@
 							<reference ref="425164168"/>
 							<reference ref="579971712"/>
 							<reference ref="1010469920"/>
-							<reference ref="549223699"/>
 							<reference ref="908713811"/>
+							<reference ref="549223699"/>
 							<reference ref="326400648"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
