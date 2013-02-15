@@ -15,10 +15,9 @@
 @property (readonly, strong) PreferencesController *preferencesController;
 
 - (IBAction)preferences:(id)sender;
-- (IBAction)newWheel:(id)sender;
-- (IBAction)newOutline:(id)sender;
 - (IBAction)newJSON:(id)sender;
-- (IBAction)newCollection:(id)sender;
+- (IBAction)newOutline:(id)sender;
+- (IBAction)newWheel:(id)sender;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

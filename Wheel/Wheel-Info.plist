@@ -74,20 +74,6 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>collection</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>CollectionDocument</string>
-			<key>CFBundleTypeName</key>
-			<string>collection</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-		</dict>
 	</array>
 </dict>
 </plist>

@@ -22,10 +22,6 @@
     return _preferencesController;
 }
 
-- (IBAction)preferences:(id)sender {
-    [self.preferencesController.window makeKeyAndOrderFront:nil];
-}
-
 - (void)setupDefaults {
     NSMutableDictionary *initialValues = [NSMutableDictionary dictionary];
     [initialValues setValue:@"__MyName__" forKey:@"MyName"];
@@ -56,20 +52,20 @@
     [NSApplication.sharedApplication.windows makeObjectsPerformSelector:@selector(orderFront:)];
 }
 
-- (IBAction)newWheel:(id)sender {
-    [self makeAndDisplayUntitledDocumentOfType:@"wheel"];
-}
-
-- (IBAction)newOutline:(id)sender {
-    [self makeAndDisplayUntitledDocumentOfType:@"outline"];
+- (IBAction)preferences:(id)sender {
+    [self.preferencesController.window makeKeyAndOrderFront:nil];
 }
 
 - (IBAction)newJSON:(id)sender {
     [self makeAndDisplayUntitledDocumentOfType:@"json"];
 }
 
-- (IBAction)newCollection:(id)sender {
-    [self makeAndDisplayUntitledDocumentOfType:@"collection"];
+- (IBAction)newOutline:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"outline"];
+}
+
+- (IBAction)newWheel:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"wheel"];
 }
 
 - (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {

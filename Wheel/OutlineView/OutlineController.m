@@ -12,7 +12,6 @@
 #import "ManagedUnit.h"
 #import "TableDocument.h"
 #import "OutlineDocument.h"
-#import "CollectionDocument.h"
 #import "DataStore.h"
 #import <Carbon/Carbon.h>
 

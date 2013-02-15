@@ -47,9 +47,6 @@
 		11EF747E1539426800D341B5 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF747D1539426800D341B5 /* GetMetadataForFile.m */; };
 		11EF74811539426800D341B5 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74801539426800D341B5 /* MySpotlightImporter.m */; };
 		11F868A616CD801200DA261A /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F868A516CD801200DA261A /* CustomView.m */; };
-		2101B31D16CCD6B60019BB0B /* CollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2101B31916CCD6B60019BB0B /* CollectionController.m */; };
-		2101B31E16CCD6B60019BB0B /* CollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2101B31A16CCD6B60019BB0B /* CollectionController.xib */; };
-		2101B31F16CCD6B60019BB0B /* CollectionDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2101B31C16CCD6B60019BB0B /* CollectionDocument.m */; };
 		2101B32216CCD6DD0019BB0B /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2101B32116CCD6DD0019BB0B /* Entity.m */; };
 		2109227116A7F012008D2C88 /* OutlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109226E16A7F012008D2C88 /* OutlineController.m */; };
 		2109227216A7F012008D2C88 /* OutlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109226F16A7F012008D2C88 /* OutlineController.xib */; };
@@ -153,11 +150,6 @@
 		11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WheelImporter-Prefix.pch"; sourceTree = "<group>"; };
 		11F868A416CD801200DA261A /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		11F868A516CD801200DA261A /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
-		2101B31816CCD6B60019BB0B /* CollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionController.h; sourceTree = "<group>"; };
-		2101B31916CCD6B60019BB0B /* CollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionController.m; sourceTree = "<group>"; };
-		2101B31A16CCD6B60019BB0B /* CollectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionController.xib; sourceTree = "<group>"; };
-		2101B31B16CCD6B60019BB0B /* CollectionDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDocument.h; sourceTree = "<group>"; };
-		2101B31C16CCD6B60019BB0B /* CollectionDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDocument.m; sourceTree = "<group>"; };
 		2101B32016CCD6DD0019BB0B /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		2101B32116CCD6DD0019BB0B /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		2109226D16A7F012008D2C88 /* OutlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineController.h; sourceTree = "<group>"; };
@@ -325,10 +317,9 @@
 			isa = PBXGroup;
 			children = (
 				21F2C803157A57030048DA4D /* Models */,
-				2188165E16B6829A008022EE /* TableView */,
-				2109226A16A7F012008D2C88 /* OutlineView */,
 				11C9E9D316C981D80024572B /* JSONView */,
-				2101B31716CCD6B60019BB0B /* CollectionView */,
+				2109226A16A7F012008D2C88 /* OutlineView */,
+				2188165E16B6829A008022EE /* TableView */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
@@ -400,18 +391,6 @@
 				11EF74831539426800D341B5 /* WheelImporter-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2101B31716CCD6B60019BB0B /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				2101B31B16CCD6B60019BB0B /* CollectionDocument.h */,
-				2101B31C16CCD6B60019BB0B /* CollectionDocument.m */,
-				2101B31816CCD6B60019BB0B /* CollectionController.h */,
-				2101B31916CCD6B60019BB0B /* CollectionController.m */,
-				2101B31A16CCD6B60019BB0B /* CollectionController.xib */,
-			);
-			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		2109226A16A7F012008D2C88 /* OutlineView */ = {
@@ -577,7 +556,6 @@
 				21E0848B16C9083F00A302E4 /* JSONStub.json in Resources */,
 				11C9E9DA16C981D80024572B /* JSONController.xib in Resources */,
 				21CCA4E316CBB40E00D0C820 /* file.png in Resources */,
-				2101B31E16CCD6B60019BB0B /* CollectionController.xib in Resources */,
 				217BA6FD16CCDEA400C4C193 /* download.png in Resources */,
 				21AF0F8316CCF17300991518 /* tree.png in Resources */,
 				211B487D16CE370F00A842E9 /* loupe.png in Resources */,
@@ -639,8 +617,6 @@
 				11C9E9D916C981D80024572B /* JSONController.m in Sources */,
 				11C9E9DB16C981D80024572B /* JSONDocument.m in Sources */,
 				21CCA4D616CB9BF600D0C820 /* OutlineDocument.m in Sources */,
-				2101B31D16CCD6B60019BB0B /* CollectionController.m in Sources */,
-				2101B31F16CCD6B60019BB0B /* CollectionDocument.m in Sources */,
 				2101B32216CCD6DD0019BB0B /* Entity.m in Sources */,
 				11F868A616CD801200DA261A /* CustomView.m in Sources */,
 			);
