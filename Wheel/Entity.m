@@ -149,19 +149,11 @@
 }
 
 - (NSString *)h_importStuff {
-    if ([self.kind isEqualToString:@"object"]) {
-        return @"";
-    }
-    
-    return [NSString stringWithFormat:@"@class %@;\n", self.className];
+    return [self.kind isEqualToString:@"collection"] ? [NSString stringWithFormat:@"@class %@;\n", self.className] : @"";
 }
 
 - (NSString *)m_importStuff {
-    if ([self.kind isEqualToString:@"object"]) {
-        return @"";
-    }
-    
-    return [NSString stringWithFormat:@"#import \"%@.h\"\n", self.className];
+    return [self.kind isEqualToString:@"object"] ? @"" : [NSString stringWithFormat:@"#import \"%@.h\"\n", self.className];
 }
 
 - (NSString *)m_defineStuff {

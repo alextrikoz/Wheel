@@ -106,7 +106,9 @@
     }
     NSString *stuff = @"";
     for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity h_importStuff]];
+        if ([stuff rangeOfString:[entity h_importStuff]].location == NSNotFound) {
+            stuff = [stuff stringByAppendingString:[entity h_importStuff]];            
+        }
     }
     if (stuff.length) {
         stuff = [stuff stringByAppendingString:@"\n"];
@@ -120,7 +122,9 @@
     }
     NSString *stuff = @"";
     for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_importStuff]];
+        if ([stuff rangeOfString:[entity m_importStuff]].location == NSNotFound) {
+            stuff = [stuff stringByAppendingString:[entity m_importStuff]];
+        }
     }
     if (stuff.length) {
         stuff = [stuff stringByAppendingString:@"\n"];

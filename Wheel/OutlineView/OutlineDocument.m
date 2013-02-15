@@ -61,12 +61,15 @@
 - (void)modelsWithEntity:(Entity *)entity {
     for (Entity *child in entity.children) {
         if (![child.kind isEqualToString:@"object"]) {
-            TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-            document.className = child.className;
-            document.superClassName = @"NSObject";
-            document.entities = child.children;
-            [self.models addObject:document];
-            [self modelsWithEntity:child];
+            NSArray *classNames = [self.models valueForKey:@"className"];
+            if ([classNames indexOfObject:child.className] == NSNotFound) {
+                TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+                document.className = child.className;
+                document.superClassName = @"NSObject";
+                document.entities = child.children;
+                [self.models addObject:document];
+                [self modelsWithEntity:child];
+            }
         }
     }
 }
