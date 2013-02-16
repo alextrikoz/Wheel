@@ -8,112 +8,29 @@
 
 #import "Entity.h"
 
+#define SYNTHESIZE(setter, getter) \
+@synthesize getter = _##getter; \
+ \
+- (void)setter:(NSString *)getter { \
+    if (![_##getter isEqual:getter]) { \
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setter:_##getter]; \
+        _##getter = getter; \
+    } \
+} \
+ \
+- (NSString *)getter { \
+    return _##getter; \
+}
+
 @implementation Entity
 
-#pragma mark - setter
-
-@synthesize setter = _setter;
-
-- (void)setSetter:(NSString *)setter {
-    if (![_setter isEqual:setter]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setSetter:_setter];
-        _setter = setter;
-    }
-}
-
-- (NSString *)setter {
-    return _setter;
-}
-
-#pragma mark - atomicity
-
-@synthesize atomicity = _atomicity;
-
-- (void)setAtomicity:(NSString *)atomicity {
-    if (![_atomicity isEqual:atomicity]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setAtomicity:_atomicity];
-        _atomicity = atomicity;
-    }
-}
-
-- (NSString *)atomicity {
-    return _atomicity;
-}
-
-#pragma mark - writability
-
-@synthesize writability = _writability;
-
-- (void)setWritability:(NSString *)writability {
-    if (![_writability isEqual:writability]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setWritability:_writability];
-        _writability = writability;
-    }
-}
-
-- (NSString *)writability {
-    return _writability;
-}
-
-#pragma mark - type
-
-@synthesize type = _type;
-
-- (void)setType:(NSString *)type {
-    if (![_type isEqual:type]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setType:_type];
-        _type = type;
-    }
-}
-
-- (NSString *)type {
-    return _type;
-}
-
-#pragma mark - name
-
-@synthesize name = _name;
-
-- (void)setName:(NSString *)name {
-    if (![_name isEqual:name]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setName:_name];
-        _name = name;
-    }
-}
-
-- (NSString *)name {
-    return _name;
-}
-
-#pragma mark - kind
-
-@synthesize kind = _kind;
-
-- (void)setKind:(NSString *)kind {
-    if (![_kind isEqual:kind]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKind:_kind];
-        _kind = kind;
-    }
-}
-
-- (NSString *)kind {
-    return _kind;
-}
-
-#pragma mark - key
-
-@synthesize key = _key;
-
-- (void)setKey:(NSString *)key {
-    if (![_key isEqual:key]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setKey:_key];
-        _key = key;
-    }
-}
-
-- (NSString *)key {
-    return _key;
-}
+SYNTHESIZE(setSetter, setter);
+SYNTHESIZE(setAtomicity, atomicity);
+SYNTHESIZE(setWritability, writability);
+SYNTHESIZE(setType, type);
+SYNTHESIZE(setName, name);
+SYNTHESIZE(setKind, kind);
+SYNTHESIZE(setKey,key);
 
 #pragma mark - className
 
