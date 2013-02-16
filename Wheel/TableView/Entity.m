@@ -152,11 +152,12 @@
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
     Entity *object = [[Entity alloc] init];
+    object.name = dictionary[@"name"];
+    object.type = dictionary[@"type"];
+    object.kind = @"object";
     object.setter = dictionary[@"setter"];
     object.atomicity = dictionary[@"atomicity"];
     object.writability = dictionary[@"writability"];
-    object.type = dictionary[@"type"];
-    object.name = dictionary[@"name"];
     object.children = [self objectsWithArray:dictionary[@"children"]];
     return object;
 }
@@ -171,11 +172,11 @@
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    [dictionary setValue:self.name forKey:@"name"];
+    [dictionary setValue:self.type forKey:@"type"];
     [dictionary setValue:self.setter forKey:@"setter"];
     [dictionary setValue:self.atomicity forKey:@"atomicity"];
     [dictionary setValue:self.writability forKey:@"writability"];
-    [dictionary setValue:self.type forKey:@"type"];
-    [dictionary setValue:self.name forKey:@"name"];
     
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {

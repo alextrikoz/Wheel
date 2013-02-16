@@ -28,13 +28,21 @@
 
 @implementation OutlineController
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"document.rootNode"];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     [self.outlineView deselectAll:nil];
     [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
     
-    [self.document addObserver:self forKeyPath:@"rootNode" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"document.rootNode" options:NSKeyValueObservingOptionNew context:nil];
+    
+    for (int i = 0; i < self.outlineView.numberOfRows; i++) {
+        [self.outlineView expandItem:[self.outlineView itemAtRow:i]];
+    }
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -134,35 +142,40 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     Entity *entity = [item representedObject];
-    if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+    if ([tableColumn.identifier isEqualToString:@"Name"]) {
+        return entity.name;
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+        return [NSNumber numberWithInteger:index];
+    } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
+        NSUInteger index = [[DataStore sharedDataStore].kinds  indexOfObject:entity.kind];
+        return [NSNumber numberWithInteger:index];
+    } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
         NSUInteger index = [[DataStore sharedDataStore].setters  indexOfObject:entity.setter];
         return [NSNumber numberWithInteger:index];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
         NSUInteger index = [[DataStore sharedDataStore].atomicities  indexOfObject:entity.atomicity];
         return [NSNumber numberWithInteger:index];
-    } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
+    } else {
         NSUInteger index = [[DataStore sharedDataStore].writabilities  indexOfObject:entity.writability];
         return [NSNumber numberWithInteger:index];
-    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
-        return [NSNumber numberWithInteger:index];
-    } else {
-        return entity.name;
     }
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     Entity *entity = [item representedObject];
-    if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+    if ([tableColumn.identifier isEqualToString:@"Name"]) {
+        entity.name = object;
+    } if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
+    } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
+        entity.kind = [[DataStore sharedDataStore].kinds objectAtIndex:[object integerValue]];
+    } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
         entity.setter = [[DataStore sharedDataStore].setters objectAtIndex:[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
         entity.atomicity = [[DataStore sharedDataStore].atomicities objectAtIndex:[object integerValue]];
-    } else if ([tableColumn.identifier isEqualToString:@"Writability"]) {
-        entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
-    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
     } else {
-        entity.name = object;
+        entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
     }
 }
 
@@ -269,6 +282,7 @@
                 [self.outlineView collapseItem:oldParent];
             }
             if (!newParent.isLeaf) {
+                [self.outlineView reloadItem:newParent];
                 [self.outlineView expandItem:newParent];
             }
         }
@@ -291,6 +305,7 @@
         
         if (newParent.childNodes.count) {
             [self.outlineView reloadItem:newParent];
+            [self.outlineView expandItem:newParent];
         }
     }];
 }

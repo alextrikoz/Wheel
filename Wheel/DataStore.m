@@ -91,6 +91,7 @@ static DataStore *_sharedDataStore = nil;
     [super awakeFromNib];
     
     [self loadTypes];
+    [self loadKinds];
     [self loadSetters];
     [self loadAtomicities];
     [self loadWritabilities];
@@ -121,6 +122,14 @@ static DataStore *_sharedDataStore = nil;
         
         self.types = self.types;
     }
+}
+
+- (void)loadKinds {
+    self.kinds = [NSMutableArray array];
+    [self.kinds addObject:@"object"];
+    [self.kinds addObject:@"model"];
+    [self.kinds addObject:@"collection"];
+    self.kinds = self.kinds;
 }
 
 - (void)loadSetters {

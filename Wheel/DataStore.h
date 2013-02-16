@@ -33,6 +33,7 @@
 @property (strong) NSMutableArray *setters;
 @property (strong) NSMutableArray *atomicities;
 @property (strong) NSMutableArray *writabilities;
+@property (strong) NSMutableArray *kinds;
 @property (strong) NSArray *types;
 @property (strong) NSIndexSet *selectedTypes;
 @property (strong) NSArray *units;
