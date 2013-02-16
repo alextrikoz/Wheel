@@ -115,22 +115,14 @@
     return _key;
 }
 
-#pragma mark - NSPasteboardWriting
-
-- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[NSPasteboardTypeString];
-}
-
-- (id)pasteboardPropertyListForType:(NSString *)type {
-    return [NSKeyedArchiver archivedDataWithRootObject:self];
-}
-
-#pragma mark - gentrator
+#pragma mark - className
 
 - (NSString *)className {
     NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
     return [className stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
+
+#pragma mark - Gentration
 
 - (NSString *)h_iVarStuff {
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
@@ -210,7 +202,7 @@
     return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
-#pragma mark - 
+#pragma mark - Convertation
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
     Entity *object = [[Entity alloc] init];
@@ -233,7 +225,7 @@
     return objects;
 }
 
-- (NSDictionary *)dictionaryRepresentation {
+- (NSMutableDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setValue:self.setter forKey:@"setter"];
     [dictionary setValue:self.atomicity forKey:@"atomicity"];
@@ -242,21 +234,17 @@
     [dictionary setValue:self.name forKey:@"name"];
     [dictionary setValue:self.kind forKey:@"kind"];
     [dictionary setValue:self.key forKey:@"key"];
-    
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {
         [childrenRepresentation addObject:entity.dictionaryRepresentation];
     }
     [dictionary setValue:childrenRepresentation forKey:@"children"];
-    
     return dictionary;
 }
 
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
     Entity *entity = [Entity objectWithDictionary:dictionary];
-    
     NSArray *children = [dictionary objectForKey:@"children"];
-    
     NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
     for (NSDictionary *child in children) {
         [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
@@ -264,14 +252,18 @@
     return node;
 }
 
-+ (Entity *)entityWithNode:(NSTreeNode *)node {
++ (NSDictionary *)dictionaryWithNode:(NSTreeNode *)node {
     Entity *entity = node.representedObject;
-    [entity.children removeAllObjects];
+    NSMutableDictionary *dictionary = [entity dictionaryRepresentation];
+    NSMutableArray *array = [NSMutableArray array];
     for (NSTreeNode *childNode in node.childNodes) {
-        [entity.children addObject:[self entityWithNode:childNode]];
+        [array addObject:[childNode.representedObject dictionaryRepresentation]];
     }
-    return entity;
+    [dictionary setObject:array forKey:@"children"];
+    return dictionary;
 }
+
+#pragma mark - Stubs
 
 + (NSMutableArray *)plainStub {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"];
@@ -296,6 +288,16 @@
     entity.key = @"items";
     entity.children = [NSMutableArray array];
     return entity;
+}
+
+#pragma mark - NSPasteboardWriting
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return @[NSPasteboardTypeString];
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    return [NSKeyedArchiver archivedDataWithRootObject:self];
 }
 
 #pragma mark - NSCoding

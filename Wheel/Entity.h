@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Entity : NSObject <NSCoding, NSPasteboardWriting>
+@interface Entity : NSObject <NSPasteboardWriting, NSCoding>
 
 @property NSUndoManager *undoManager;
 
@@ -20,19 +20,6 @@
 @property NSString *kind;
 @property NSString *key;
 @property NSMutableArray *children;
-
-+ (Entity *)objectWithDictionary:(NSDictionary *)dictionary;
-+ (NSMutableArray *)objectsWithArray:(NSArray *)array;
-- (NSDictionary *)dictionaryRepresentation;
-
-+ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
-+ (Entity *)entityWithNode:(NSTreeNode *)node;
-
-+ (NSMutableArray *)plainStub;
-+ (NSTreeNode *)outlineStub;
-
-+ (Entity *)defaultEntity;
-
 - (NSString *)className;
 
 - (NSString *)h_iVarStuff;
@@ -48,5 +35,15 @@
 - (NSString *)m_copyWithZoneStuff;
 - (NSString *)m_initWithCoderStuff;
 - (NSString *)m_encodeWithCoderStuff;
+
++ (Entity *)objectWithDictionary:(NSDictionary *)dictionary;
++ (NSMutableArray *)objectsWithArray:(NSArray *)array;
+- (NSMutableDictionary *)dictionaryRepresentation;
++ (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary;
++ (NSDictionary *)dictionaryWithNode:(NSTreeNode *)node;
+
++ (NSMutableArray *)plainStub;
++ (NSTreeNode *)outlineStub;
++ (Entity *)defaultEntity;
 
 @end

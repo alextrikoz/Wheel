@@ -15,7 +15,7 @@
 @implementation OutlineDocument
 
 - (void)backupRootNode {
-    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation]];
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
 }
 
 - (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary {
@@ -76,7 +76,7 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    [properties setObject:[[Entity entityWithNode:self.rootNode] dictionaryRepresentation] forKey:@"rootNode"];
+    [properties setObject:[Entity dictionaryWithNode:self.rootNode] forKey:@"rootNode"];
     [properties setObject:self.className forKey:@"className"];
     [properties setObject:self.superClassName forKey:@"superClassName"];
     return [NSKeyedArchiver archivedDataWithRootObject:properties];
