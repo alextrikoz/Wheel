@@ -94,7 +94,7 @@
 #pragma mark - Actions
 
 - (IBAction)add:(id)sender {
-    Entity *entity = [Entity defaultEntity];
+    Entity *entity = [Entity objectStub];
     entity.children = [NSMutableArray array];
     NSTreeNode *object = [NSTreeNode treeNodeWithRepresentedObject:entity];
     

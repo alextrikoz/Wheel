@@ -183,28 +183,21 @@ SYNTHESIZE(setKey,key);
 #pragma mark - Stubs
 
 + (NSMutableArray *)plainStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Plain" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"PlainStub" ofType:@"plist"];
     NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:path];
     return [Entity objectsWithArray:array];
 }
 
 + (NSTreeNode *)outlineStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Outline" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"OutlineStub" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     return [self nodeWithDictionary:dictionary];
 }
 
-+ (Entity *)defaultEntity {
-    Entity *entity = [[Entity alloc] init];
-    entity.setter = @"strong";
-    entity.atomicity = @"nonatomic";
-    entity.writability = @"readwrite";
-    entity.type = @"NSArray *";
-    entity.name = @"items";
-    entity.kind = @"object";
-    entity.key = @"items";
-    entity.children = [NSMutableArray array];
-    return entity;
++ (Entity *)objectStub {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ObjectStub" ofType:@"plist"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    return [Entity objectWithDictionary:dictionary];
 }
 
 #pragma mark - NSPasteboardWriting

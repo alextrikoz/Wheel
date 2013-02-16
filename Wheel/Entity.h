@@ -44,6 +44,6 @@
 
 + (NSMutableArray *)plainStub;
 + (NSTreeNode *)outlineStub;
-+ (Entity *)defaultEntity;
++ (Entity *)objectStub;
 
 @end

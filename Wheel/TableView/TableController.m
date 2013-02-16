@@ -80,7 +80,7 @@
         index = [[self.tableView selectedRowIndexes] lastIndex] + 1;
     }
     
-    Entity *entity = [Entity defaultEntity];
+    Entity *entity = [Entity objectStub];
     entity.undoManager = self.document.undoManager;
     
     [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
