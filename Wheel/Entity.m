@@ -195,7 +195,7 @@ SYNTHESIZE(setKey,key);
 }
 
 + (Entity *)objectStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ObjectStub" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"EntityStub" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     return [Entity objectWithDictionary:dictionary];
 }

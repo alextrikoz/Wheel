@@ -54,22 +54,20 @@
     document.entities = ((Entity *)self.rootNode.representedObject).children;
     
     [self.models addObject:document];
-    [self modelsWithEntity:self.rootNode.representedObject];
+    [self modelsWithNode:self.rootNode];
     self.models = self.models;
 }
 
-- (void)modelsWithEntity:(Entity *)entity {
-    for (Entity *child in entity.children) {
-        if (![child.kind isEqualToString:@"object"]) {
-            NSArray *classNames = [self.models valueForKey:@"className"];
-            if ([classNames indexOfObject:child.className] == NSNotFound) {
-                TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-                document.className = child.className;
-                document.superClassName = @"NSObject";
-                document.entities = child.children;
-                [self.models addObject:document];
-                [self modelsWithEntity:child];
-            }
+- (void)modelsWithNode:(NSTreeNode *)node {
+    for (NSTreeNode *childNode in node.childNodes) {
+        Entity *childEntity = childNode.representedObject;
+        if (![childEntity.kind isEqualToString:@"object"]) {
+            TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+            document.className = childEntity.className;
+            document.superClassName = @"NSObject";
+            document.entities = childEntity.children;
+            [self.models addObject:document];
+            [self modelsWithNode:childNode];
         }
     }
 }
