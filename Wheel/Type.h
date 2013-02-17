@@ -13,4 +13,6 @@
 
 @property (nonatomic, retain) NSString * name;
 
++ (Type *)typeWithName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+
 @end

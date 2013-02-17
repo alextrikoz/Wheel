@@ -183,19 +183,19 @@ SYNTHESIZE(setKey,key);
 #pragma mark - Stubs
 
 + (NSMutableArray *)plainStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"PlainStub" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultTable" ofType:@"plist"];
     NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:path];
     return [Entity objectsWithArray:array];
 }
 
 + (NSTreeNode *)outlineStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"OutlineStub" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultOutline" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     return [self nodeWithDictionary:dictionary];
 }
 
 + (Entity *)objectStub {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"EntityStub" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultEntity" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     return [Entity objectWithDictionary:dictionary];
 }

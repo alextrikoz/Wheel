@@ -9,9 +9,9 @@
 #import "ManagedUnit.h"
 
 #import "Entity.h"
-#import "DataStore.h"
 #import "TableDocument.h"
 #import "Config.h"
+#import "DataStore.h"
 
 @implementation ManagedUnit
 
@@ -19,6 +19,15 @@
 @dynamic name;
 @dynamic number;
 @dynamic on;
+
++ (ManagedUnit *)managedUnitWithDictionary:(NSDictionary *)dictionary managedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    ManagedUnit *managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:managedObjectContext];
+    managedUnit.enable = [NSNumber numberWithBool:YES];
+    managedUnit.name = dictionary[@"name"];
+    managedUnit.number = dictionary[@"number"];
+    managedUnit.on = dictionary[@"on"];
+    return managedUnit;
+}
 
 - (BOOL)available {
     return self.enable.boolValue && self.on.boolValue;

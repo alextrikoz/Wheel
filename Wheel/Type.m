@@ -12,4 +12,10 @@
 
 @dynamic name;
 
++ (Type *)typeWithName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:managedObjectContext];
+    type.name = name;
+    return type;
+}
+
 @end

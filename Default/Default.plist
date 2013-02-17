@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>setters</key>
+	<array>
+		<string>assign</string>
+		<string>copy</string>
+		<string>retain</string>
+		<string>strong</string>
+		<string>unsafe_unretained</string>
+		<string>week</string>
+	</array>
+	<key>atomicities</key>
+	<array>
+		<string>atomic</string>
+		<string>nonatomic</string>
+	</array>
+	<key>writabilities</key>
+	<array>
+		<string>readonly</string>
+		<string>readwrite</string>
+	</array>
+	<key>kinds</key>
+	<array>
+		<string>object</string>
+		<string>model</string>
+		<string>collection</string>
+	</array>
+	<key>types</key>
+	<array>
+		<string>NSArray *</string>
+		<string>NSDictionary *</string>
+		<string>NSMutableArray *</string>
+		<string>NSDate *</string>
+		<string>NSNumber *</string>
+		<string>NSString *</string>
+		<string>Product *</string>
+	</array>
+	<key>units</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>iVar</string>
+			<key>number</key>
+			<integer>0</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>@synthesize</string>
+			<key>number</key>
+			<integer>1</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>- (void)dealloc;</string>
+			<key>number</key>
+			<integer>2</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>- (id)setAttributesWithDictionary:(NSDictionary *)dictionary;</string>
+			<key>number</key>
+			<integer>3</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>- (id)initWithDictionary:(NSDictionary *)dictionary;</string>
+			<key>number</key>
+			<integer>4</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>+ (id)objectWithDictionary:(NSDictionary *)dictionary;</string>
+			<key>number</key>
+			<integer>5</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>+ (NSArray *)objectsWithArray:(NSArray *)array;</string>
+			<key>number</key>
+			<integer>6</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>- (NSDictionary *)dictionaryRepresentation;</string>
+			<key>number</key>
+			<integer>7</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>- (NSString *)description;</string>
+			<key>number</key>
+			<integer>8</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>NSCopying</string>
+			<key>number</key>
+			<integer>9</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>NSCoding</string>
+			<key>number</key>
+			<integer>10</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>ARC</string>
+			<key>number</key>
+			<integer>11</integer>
+			<key>on</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>

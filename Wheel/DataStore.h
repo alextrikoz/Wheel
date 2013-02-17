@@ -63,12 +63,6 @@
 
 + (DataStore *)sharedDataStore;
 
-- (void)loadTypes;
-- (void)loadSetters;
-- (void)loadAtomicities;
-- (void)loadWritabilities;
-- (void)loadUnits;
-
 - (void)addType;
 - (void)removeSelectedTypes;
 

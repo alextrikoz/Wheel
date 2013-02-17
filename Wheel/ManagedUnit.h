@@ -16,6 +16,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * number;
 
++ (ManagedUnit *)managedUnitWithDictionary:(NSDictionary *)dictionary managedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+
 - (BOOL)available;
 
 @end

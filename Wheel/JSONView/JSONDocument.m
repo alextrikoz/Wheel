@@ -19,7 +19,7 @@
     [self addWindowController:windowController];
     
     if (!self.JSONString) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"JSONStub" ofType:@"json"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultJSON" ofType:@"json"];
         self.JSONString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
     

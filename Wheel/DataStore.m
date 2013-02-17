@@ -30,24 +30,32 @@ enum {
 
 @implementation DataStore
 
-@synthesize setters = _setters;
-@synthesize atomicities = _atomicities;
-@synthesize writabilities = _writabilities;
 @synthesize types = _types;
 - (NSArray *)types {
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
     request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-    return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+    _types = [managedObjectContext executeFetchRequest:request error:nil];
+    
+    if (!_types.count) {
+        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Default" ofType:@"plist"]];
+        for (NSString *typeName in dictionary[@"types"]) {
+            [Type typeWithName:typeName managedObjectContext:managedObjectContext];
+        }
+        [managedObjectContext save:nil];
+        self.units = self.units;
+    }
+    
+    return _types;
 }
 - (void)setTypes:(NSArray *)types {}
-@synthesize selectedTypes = _selectedTypes;
+
 @synthesize units = _units;
 - (NSArray *)units {
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"ManagedUnit"];
     request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES]];
-    return [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+    return [managedObjectContext executeFetchRequest:request error:nil];
 }
 - (void)setUnits:(NSArray *)units {}
 
@@ -55,7 +63,7 @@ static DataStore *_sharedDataStore = nil;
 
 + (DataStore *)sharedDataStore {
     if(_sharedDataStore == nil) {
-        _sharedDataStore = [[self alloc] init];
+        _sharedDataStore = [self new];
     }
     return _sharedDataStore;
 }
@@ -70,211 +78,94 @@ static DataStore *_sharedDataStore = nil;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self loadSetters];
-    [self loadAtomicities];
-    [self loadWritabilities];
-    [self loadTypes];
-    [self loadKinds];
-    [self loadUnits];
-}
-
-- (void)loadSetters {
-    self.setters = [NSMutableArray array];
-    [self.setters addObject:@"assign"];
-    [self.setters addObject:@"copy"];
-    [self.setters addObject:@"retain"];
-    [self.setters addObject:@"strong"];
-    [self.setters addObject:@"unsafe_unretained"];
-    [self.setters addObject:@"week"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Default" ofType:@"plist"]];
+    
+    self.setters = dictionary[@"setters"];
     self.setters = self.setters;
-}
-
-- (void)loadAtomicities {
-    self.atomicities = [NSMutableArray array];
-    [self.atomicities addObject:@"atomic"];
-    [self.atomicities addObject:@"nonatomic"];
+    
+    self.atomicities = dictionary[@"atomicities"];
     self.atomicities = self.atomicities;
-}
-
-- (void)loadWritabilities {
-    self.writabilities = [NSMutableArray array];
-    [self.writabilities addObject:@"readonly"];
-    [self.writabilities addObject:@"readwrite"];
+    
+    self.writabilities = dictionary[@"writabilities"];
     self.writabilities = self.writabilities;
-}
-
-- (void)loadTypes {
-    self.types = self.types;
-    if (!self.types.count) {
-        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-        
-        Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSArray *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSDate *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSDictionary *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSNumber *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSString *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"Product *";
-        
-        type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-        type.name = @"NSMutableArray *";
-        
-        [appDelegate.managedObjectContext save:nil];
-        
-        self.types = self.types;
-    }
-}
-
-- (void)loadKinds {
-    self.kinds = [NSMutableArray array];
-    [self.kinds addObject:@"object"];
-    [self.kinds addObject:@"model"];
-    [self.kinds addObject:@"collection"];
+    
+    self.kinds = dictionary[@"kinds"];
     self.kinds = self.kinds;
-}
-
-- (void)loadUnits {
+    
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
+    
     self.units = self.units;
     if (!self.units.count) {
-        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-        
-        ManagedUnit *managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"iVar";
-        managedUnit.number = [NSNumber numberWithInt:IVARS_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"@synthesize";
-        managedUnit.number = [NSNumber numberWithInt:SYNTHESIZES_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"- (void)dealloc;";
-        managedUnit.number = [NSNumber numberWithInt:DEALLOC_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"- (id)setAttributesWithDictionary:(NSDictionary *)dictionary;";
-        managedUnit.number = [NSNumber numberWithInt:SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"- (id)initWithDictionary:(NSDictionary *)dictionary;";
-        managedUnit.number = [NSNumber numberWithInt:INITWITHDICTIONARY_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"+ (id)objectWithDictionary:(NSDictionary *)dictionary;";
-        managedUnit.number = [NSNumber numberWithInt:OBJECTWITHDICTIONARY_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"+ (NSArray *)objectsWithArray:(NSArray *)array;";
-        managedUnit.number = [NSNumber numberWithInt:OBJECTSWITHARRAY_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"- (NSDictionary *)dictionaryRepresentation;";
-        managedUnit.number = [NSNumber numberWithInt:DICTIONARYREPRESENTATION_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"- (NSString *)description;";
-        managedUnit.number = [NSNumber numberWithInt:DESCRIPTION_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"NSCopying";
-        managedUnit.number = [NSNumber numberWithInt:COPYING_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:YES];
-        managedUnit.name = @"NSCoding";
-        managedUnit.number = [NSNumber numberWithInt:CODING_UNIT_NUMBER];
-        
-        managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:appDelegate.managedObjectContext];
-        managedUnit.enable = [NSNumber numberWithBool:YES];
-        managedUnit.on = [NSNumber numberWithBool:NO];
-        managedUnit.name = @"ARC";
-        managedUnit.number = [NSNumber numberWithInt:ARC_UNIT_NUMBER];
-        
-        [appDelegate.managedObjectContext save:nil];
-        
+        for (NSDictionary *unitInfo in dictionary[@"units"]) {
+            [ManagedUnit managedUnitWithDictionary:unitInfo managedObjectContext:managedObjectContext];
+        }
+        [managedObjectContext save:nil];
         self.units = self.units;
     }
     
-    self.HContentUnit = [[HContentUnit alloc] init];
+    self.types = self.types;
+    if (!self.types.count) {
+        for (NSString *typeName in dictionary[@"types"]) {
+            [Type typeWithName:typeName managedObjectContext:managedObjectContext];
+        }
+        [managedObjectContext save:nil];
+        self.units = self.units;
+    }
     
-    self.MContentUnit = [[MContentUnit alloc] init];
+    [self loadUnits];
+}
+
+- (void)loadUnits {    
+    self.HContentUnit = [HContentUnit new];
     
-    self.headerUnit = [[HeaderUnit alloc] init];
+    self.MContentUnit = [MContentUnit new];
     
-    self.importUnit = [[ImportUnit alloc] init];
+    self.headerUnit = [HeaderUnit new];
     
-    self.protocolsUnit = [[ProtocolsUnit alloc] init];
+    self.importUnit = [ImportUnit new];
     
-    self.iVarsUnit = [[IVarsUnit alloc] init];
+    self.protocolsUnit = [ProtocolsUnit new];
+    
+    self.iVarsUnit = [IVarsUnit new];
     self.iVarsUnit.managedUnit = [self.units objectAtIndex:IVARS_UNIT_NUMBER];
     
-    self.propertiesUnit = [[PropertiesUnit alloc] init];
+    self.propertiesUnit = [PropertiesUnit new];
     
-    self.prototypesUnit = [[PrototypesUnit alloc] init];
+    self.prototypesUnit = [PrototypesUnit new];
     
-    self.definesUnit = [[DefinesUnit alloc] init];
+    self.definesUnit = [DefinesUnit new];
     
-    self.synthesizesUnit = [[SynthesizesUnit alloc] init];
+    self.synthesizesUnit = [SynthesizesUnit new];
     self.synthesizesUnit.managedUnit = [self.units objectAtIndex:SYNTHESIZES_UNIT_NUMBER];
     
-    self.deallocUnit = [[DeallocUnit alloc] init];
+    self.deallocUnit = [DeallocUnit new];
     self.deallocUnit.managedUnit = [self.units objectAtIndex:DEALLOC_UNIT_NUMBER];
     
-    self.setAttributesWithDictionaryUnit = [[SetAttributesWithDictionaryUnit alloc] init];
+    self.setAttributesWithDictionaryUnit = [SetAttributesWithDictionaryUnit new];
     self.setAttributesWithDictionaryUnit.managedUnit = [self.units objectAtIndex:SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER];
     
-    self.initWithDictionaryUnit = [[InitWithDictionaryUnit alloc] init];
+    self.initWithDictionaryUnit = [InitWithDictionaryUnit new];
     [self.initWithDictionaryUnit setManagedUnit:[self.units objectAtIndex:INITWITHDICTIONARY_UNIT_NUMBER]];
     
-    self.objectWithDictionaryUnit = [[ObjectWithDictionaryUnit alloc] init];
+    self.objectWithDictionaryUnit = [ObjectWithDictionaryUnit new];
     self.objectWithDictionaryUnit.managedUnit = [self.units objectAtIndex:OBJECTWITHDICTIONARY_UNIT_NUMBER];
     
-    self.objectsWithArrayUnit = [[ObjectsWithArrayUnit alloc] init];
+    self.objectsWithArrayUnit = [ObjectsWithArrayUnit new];
     self.objectsWithArrayUnit.managedUnit = [self.units objectAtIndex:OBJECTSWITHARRAY_UNIT_NUMBER];
     
-    self.dictionaryRepresentationUnit = [[DictionaryRepresentationUnit alloc] init];
+    self.dictionaryRepresentationUnit = [DictionaryRepresentationUnit new];
     self.dictionaryRepresentationUnit.managedUnit = [self.units objectAtIndex:DICTIONARYREPRESENTATION_UNIT_NUMBER];
     
-    self.descriptionUnit = [[DescriptionUnit alloc] init];
+    self.descriptionUnit = [DescriptionUnit new];
     self.descriptionUnit.managedUnit = [self.units objectAtIndex:DESCRIPTION_UNIT_NUMBER];
     
-    self.copyingUnit = [[NSCopyingUnit alloc] init];
+    self.copyingUnit = [NSCopyingUnit new];
     self.copyingUnit.managedUnit = [self.units objectAtIndex:COPYING_UNIT_NUMBER];
     
-    self.codingUnit = [[NSCodingUnit alloc] init];
+    self.codingUnit = [NSCodingUnit new];
     self.codingUnit.managedUnit = [self.units objectAtIndex:CODING_UNIT_NUMBER];
     
-    self.ARCUnit = [[ARCUnit alloc] init];
+    self.ARCUnit = [ARCUnit new];
     self.ARCUnit.managedUnit = [self.units objectAtIndex:ARC_UNIT_NUMBER];
     
     [self.setAttributesWithDictionaryUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
