@@ -176,38 +176,31 @@ static DataStore *_sharedDataStore = nil;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isKindOfClass:[ManagedUnit class]]) {
-        AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-        
+        NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
         self.deallocUnit.managedUnit.enable = [NSNumber numberWithBool:!self.ARCUnit.managedUnit.on.boolValue];
         [self.initWithDictionaryUnit managedUnit].enable = [NSNumber numberWithBool:self.setAttributesWithDictionaryUnit.available];
         [self.objectWithDictionaryUnit managedUnit].enable = [NSNumber numberWithBool:[self.initWithDictionaryUnit available]];
         self.objectsWithArrayUnit.managedUnit.enable = [NSNumber numberWithBool:self.objectWithDictionaryUnit.available];
-        
-        [appDelegate.managedObjectContext save:nil];
-        
+        [managedObjectContext save:nil];
         self.units = self.units;
     }
 }
 
 - (void)addType {
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
-    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:appDelegate.managedObjectContext];
-    type.name = @"NSObject *";
-    [appDelegate.managedObjectContext save:nil];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-    request.sortDescriptors = [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;    
+    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:managedObjectContext];
+    type.name = @"NSObject *";    
+    [managedObjectContext save:nil];    
     self.types = self.types;
 }
 
 - (void)removeSelectedTypes {
-    AppDelegate *appDelegate = NSApplication.sharedApplication.delegate;
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;    
     NSArray *selectedTypes = [self.types objectsAtIndexes:self.selectedTypes];
     for (Type *type in selectedTypes) {
-        [appDelegate.managedObjectContext deleteObject:type];
-    }
-    [appDelegate.managedObjectContext save:nil];
-    
+        [managedObjectContext deleteObject:type];
+    }    
+    [managedObjectContext save:nil];    
     self.types = self.types;
 }
 

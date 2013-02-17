@@ -136,7 +136,7 @@
         [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
         
         if (parentNode.isLeaf) {
-            [self.outlineView collapseItem:parentNode];
+            [self.outlineView reloadItem:parentNode];
         }
     }];
     
@@ -331,7 +331,7 @@
             [self.outlineView removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index] inParent:parentNode == self.rootNode ? nil : parentNode withAnimation:NSTableViewAnimationEffectFade];
             
             if (parentNode.isLeaf) {
-                [self.outlineView collapseItem:parentNode];
+                [self.outlineView reloadItem:parentNode];
             }
         }];
         
@@ -410,11 +410,9 @@
         if (oldParent != newParent) {
             if (oldParent.isLeaf) {
                 [self.outlineView reloadItem:oldParent];
-                [self.outlineView collapseItem:oldParent];
             }
             if (!newParent.isLeaf) {
                 [self.outlineView reloadItem:newParent];
-                [self.outlineView expandItem:newParent];
             }
         }
     }];
@@ -436,7 +434,6 @@
         
         if (newParent.childNodes.count) {
             [self.outlineView reloadItem:newParent];
-            [self.outlineView expandItem:newParent];
         }
     }];
 }
