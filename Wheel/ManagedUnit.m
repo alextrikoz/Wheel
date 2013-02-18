@@ -9,7 +9,6 @@
 #import "ManagedUnit.h"
 
 #import "Entity.h"
-#import "TableDocument.h"
 #import "Config.h"
 #import "DataStore.h"
 
@@ -45,17 +44,17 @@
 
 @implementation HContentUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithEntity:(Entity *)entity pathExtension:(NSString *)pathExtension {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"h"];
-    NSString *imoprts = [dataStore.importUnit prototypeWithDocument:document];
-    NSString *className = document.className;
-    NSString *superClassName = document.superClassName;
-    NSString *protocols = [dataStore.protocolsUnit bodyWithDocument:document];
-    NSString *iVars = [dataStore.iVarsUnit bodyWithDocument:document];
-    NSString *properties = [dataStore.propertiesUnit bodyWithDocument:document];
-    NSString *prototypes = [dataStore.prototypesUnit bodyWithDocument:document];
+    NSString *header = [dataStore.headerUnit bodyWithEntity:entity pathExtension:@"h"];
+    NSString *imoprts = [dataStore.importUnit prototypeWithEntity:entity];
+    NSString *className = entity.className;
+    NSString *superClassName = entity.superClassName;
+    NSString *protocols = [dataStore.protocolsUnit bodyWithEntity:entity];
+    NSString *iVars = [dataStore.iVarsUnit bodyWithEntity:entity];
+    NSString *properties = [dataStore.propertiesUnit bodyWithEntity:entity];
+    NSString *prototypes = [dataStore.prototypesUnit bodyWithEntity:entity];
     
     return H_CONTENT(header, imoprts, className, superClassName, protocols, iVars, properties, prototypes);
 }
@@ -64,23 +63,23 @@
 
 @implementation MContentUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithEntity:(Entity *)entity pathExtension:(NSString *)pathExtension {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    NSString *header = [dataStore.headerUnit bodyWithDocument:document pathExtension:@"m"];
-    NSString *imoprts = [dataStore.importUnit bodyWithDocument:document];
-    NSString *className = document.className;
-    NSString *defines = [dataStore.definesUnit bodyWithDocument:document];
-    NSString *synthesizes = [dataStore.synthesizesUnit bodyWithDocument:document];
-    NSString *dealloc = [dataStore.deallocUnit bodyWithDocument:document];
-    NSString *setAttributesWithDictionary = [dataStore.setAttributesWithDictionaryUnit bodyWithDocument:document];
-    NSString *initWithDictionary = [dataStore.initWithDictionaryUnit bodyWithDocument:document];
-    NSString *objectWithDictionary = [dataStore.objectWithDictionaryUnit bodyWithDocument:document];
-    NSString *objectsWithArray = [dataStore.objectsWithArrayUnit bodyWithDocument:document];
-    NSString *dictionaryRepresentation = [dataStore.dictionaryRepresentationUnit bodyWithDocument:document];
-    NSString *description = [dataStore.descriptionUnit bodyWithDocument:document];
-    NSString *copying = [dataStore.copyingUnit bodyWithDocument:document];
-    NSString *coding = [dataStore.codingUnit bodyWithDocument:document];
+    NSString *header = [dataStore.headerUnit bodyWithEntity:entity pathExtension:@"m"];
+    NSString *imoprts = [dataStore.importUnit bodyWithEntity:entity];
+    NSString *className = entity.className;
+    NSString *defines = [dataStore.definesUnit bodyWithEntity:entity];
+    NSString *synthesizes = [dataStore.synthesizesUnit bodyWithEntity:entity];
+    NSString *dealloc = [dataStore.deallocUnit bodyWithEntity:entity];
+    NSString *setAttributesWithDictionary = [dataStore.setAttributesWithDictionaryUnit bodyWithEntity:entity];
+    NSString *initWithDictionary = [dataStore.initWithDictionaryUnit bodyWithEntity:entity];
+    NSString *objectWithDictionary = [dataStore.objectWithDictionaryUnit bodyWithEntity:entity];
+    NSString *objectsWithArray = [dataStore.objectsWithArrayUnit bodyWithEntity:entity];
+    NSString *dictionaryRepresentation = [dataStore.dictionaryRepresentationUnit bodyWithEntity:entity];
+    NSString *description = [dataStore.descriptionUnit bodyWithEntity:entity];
+    NSString *copying = [dataStore.copyingUnit bodyWithEntity:entity];
+    NSString *coding = [dataStore.codingUnit bodyWithEntity:entity];
     
     return M_CONTENT(header, className, imoprts, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
 }
@@ -89,11 +88,11 @@
 
 @implementation HeaderUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension {
+- (NSString *)bodyWithEntity:(Entity *)entity pathExtension:(NSString *)pathExtension {
     id defaultValues = [[NSUserDefaultsController sharedUserDefaultsController] values];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    NSString *fileName = [document.className stringByAppendingPathExtension:pathExtension];
+    NSString *fileName = [entity.className stringByAppendingPathExtension:pathExtension];
     NSString *myProjectName = [defaultValues valueForKey:@"MyProjectName"];
     NSString *myName = [defaultValues valueForKey:@"MyName"];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
@@ -109,14 +108,14 @@
 
 @implementation ImportUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
-    if (!document.entities.count) {
+- (NSString *)prototypeWithEntity:(Entity *)entity {
+    if (!entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        if ([stuff rangeOfString:[entity h_importStuff]].location == NSNotFound) {
-            stuff = [stuff stringByAppendingString:[entity h_importStuff]];            
+    for (Entity *child in entity.children) {
+        if ([stuff rangeOfString:[child h_importStuff]].location == NSNotFound) {
+            stuff = [stuff stringByAppendingString:[child h_importStuff]];            
         }
     }
     if (stuff.length) {
@@ -125,14 +124,14 @@
     return stuff;
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
-    if (!document.entities.count) {
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    if (!entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        if ([stuff rangeOfString:[entity m_importStuff]].location == NSNotFound) {
-            stuff = [stuff stringByAppendingString:[entity m_importStuff]];
+    for (Entity *child in entity.children) {
+        if ([stuff rangeOfString:[child m_importStuff]].location == NSNotFound) {
+            stuff = [stuff stringByAppendingString:[child m_importStuff]];
         }
     }
     if (stuff.length) {
@@ -145,7 +144,7 @@
 
 @implementation ProtocolsUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     DataStore *dataStore = DataStore.sharedDataStore;
     
     if (dataStore.copyingUnit.available && dataStore.codingUnit.available) {
@@ -163,13 +162,13 @@
 
 @implementation IVarsUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
-    if (!self.available || !document.entities.count) {
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    if (!self.available || !entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity h_iVarStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child h_iVarStuff]];
     }
     return H_IVARS(stuff);
 }
@@ -178,13 +177,13 @@
 
 @implementation PropertiesUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
-    if (!document.entities.count) {
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    if (!entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity h_propertyStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child h_propertyStuff]];
     }
     return H_PROPERTIES(stuff);
 }
@@ -193,15 +192,15 @@
 
 @implementation PrototypesUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithDocument:document];
-    NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithDocument:document];
-    NSString *objectWithDictionaryPrototype = [dataStore.objectWithDictionaryUnit prototypeWithDocument:document];
-    NSString *objectsWithArrayPrototype = [dataStore.objectsWithArrayUnit prototypeWithDocument:document];
-    NSString *dictionaryRepresentationPrototype = [dataStore.dictionaryRepresentationUnit prototypeWithDocument:document];
-    NSString *descriptionPrototype = [dataStore.descriptionUnit prototypeWithDocument:document];
+    NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithEntity:entity];
+    NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithEntity:entity];
+    NSString *objectWithDictionaryPrototype = [dataStore.objectWithDictionaryUnit prototypeWithEntity:entity];
+    NSString *objectsWithArrayPrototype = [dataStore.objectsWithArrayUnit prototypeWithEntity:entity];
+    NSString *dictionaryRepresentationPrototype = [dataStore.dictionaryRepresentationUnit prototypeWithEntity:entity];
+    NSString *descriptionPrototype = [dataStore.descriptionUnit prototypeWithEntity:entity];
     
     if (setAttributesWithDictionaryPrototype.length ||
         initWithDictionaryPrototype.length ||
@@ -219,13 +218,13 @@
 
 @implementation DefinesUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
-    if (!document.entities.count) {
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    if (!entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_defineStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_defineStuff]];
     }
     return M_DEFINES(stuff);
 }
@@ -234,13 +233,13 @@
 
 @implementation SynthesizesUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
-    if (!self.available || !document.entities.count) {
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    if (!self.available || !entity.children.count) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_synthesizeStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_synthesizeStuff]];
     }
     return M_SYNTHESIZES(stuff);
 }
@@ -249,13 +248,13 @@
 
 @implementation DeallocUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_deallocStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_deallocStuff]];
     }
     return M_DEALLOC(stuff);
 }
@@ -264,17 +263,17 @@
 
 @implementation SetAttributesWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
+- (NSString *)prototypeWithEntity:(Entity *)entity {
     return self.available ? H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_setAttributesWithDictionaryStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_setAttributesWithDictionaryStuff]];
     }
     return M_SETATTRIBUTESWITHDICTIONARY(stuff);
 }
@@ -283,37 +282,37 @@
 
 @implementation InitWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
-    return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+- (NSString *)prototypeWithEntity:(Entity *)entity {
+    return self.available ? H_INITWITHDICTIONARY_PROTOTYPE(entity.className) : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document  {
-    return self.available ? M_INITWITHDICTIONARY(document.className) : @"";
+- (NSString *)bodyWithEntity:(Entity *)entity  {
+    return self.available ? M_INITWITHDICTIONARY(entity.className) : @"";
 }
 
 @end
 
 @implementation ObjectWithDictionaryUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
-    return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(document.className) : @"";
+- (NSString *)prototypeWithEntity:(Entity *)entity {
+    return self.available ? H_OBJECTWITHDICTIONARY_PROTOTYPE(entity.className) : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     DataStore *dataStore = DataStore.sharedDataStore;
     ARCUnit *ARCUnit = dataStore.ARCUnit;    
-    return self.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(document.className) : M_OBJECTWITHDICTIONARY_MRR(document.className) : @"";
+    return self.available ? ARCUnit.available ?  M_OBJECTWITHDICTIONARY_ARC(entity.className) : M_OBJECTWITHDICTIONARY_MRR(entity.className) : @"";
 }
 
 @end
 
 @implementation ObjectsWithArrayUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
+- (NSString *)prototypeWithEntity:(Entity *)entity {
     return self.available ? H_OBJECTSWITHARRAY_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     return self.available ? M_OBJECTSWITHARRAY : @"";
 }
 
@@ -321,17 +320,17 @@
 
 @implementation DictionaryRepresentationUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
+- (NSString *)prototypeWithEntity:(Entity *)entity {
     return self.available ? H_DICTIONARYREPRESENTATION_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_dictionaryRepresentationStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_dictionaryRepresentationStuff]];
     }
     return M_DICTIONARYREPRESENTATION(stuff);
 }
@@ -340,17 +339,17 @@
 
 @implementation DescriptionUnit
 
-- (NSString *)prototypeWithDocument:(TableDocument *)document {
+- (NSString *)prototypeWithEntity:(Entity *)entity {
     return self.available ? H_DESCRIPTION_PROTOTYPE : @"";
 }
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_descriptionStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_descriptionStuff]];
     }
     return M_DESCRIPTION(stuff);
 }
@@ -359,30 +358,30 @@
 
 @implementation NSCopyingUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *stuff = @"";
-    for (Entity *entity in document.entities) {
-        stuff = [stuff stringByAppendingString:[entity m_copyWithZoneStuff]];
+    for (Entity *child in entity.children) {
+        stuff = [stuff stringByAppendingString:[child m_copyWithZoneStuff]];
     }
-    return M_COPYWITHZONE(document.className, stuff);
+    return M_COPYWITHZONE(entity.className, stuff);
 }
 
 @end
 
 @implementation NSCodingUnit
 
-- (NSString *)bodyWithDocument:(TableDocument *)document {
+- (NSString *)bodyWithEntity:(Entity *)entity {
     if (!self.available) {
         return @"";
     }
     NSString *initWithCoderStuff = @"";
     NSString *encodeWithCoderStuff = @"";
-    for (Entity *entity in document.entities) {
-        initWithCoderStuff = [initWithCoderStuff stringByAppendingString:[entity m_initWithCoderStuff]];
-        encodeWithCoderStuff = [encodeWithCoderStuff stringByAppendingString:[entity m_encodeWithCoderStuff]];
+    for (Entity *child in entity.children) {
+        initWithCoderStuff = [initWithCoderStuff stringByAppendingString:[child m_initWithCoderStuff]];
+        encodeWithCoderStuff = [encodeWithCoderStuff stringByAppendingString:[child m_encodeWithCoderStuff]];
     }
     return [NSString stringWithFormat:@"%@%@", M_INITWITHCODER(initWithCoderStuff), M_ENCODEWITHCODER(encodeWithCoderStuff)];
 }

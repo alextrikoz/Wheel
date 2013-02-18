@@ -112,8 +112,13 @@
 
 - (IBAction)generate:(id)sender {
     DataStore *dataStore = DataStore.sharedDataStore;
-    NSString *h_content = [dataStore.HContentUnit bodyWithDocument:self.document pathExtension:@"h"];
-    NSString *m_content = [dataStore.MContentUnit bodyWithDocument:self.document pathExtension:@"m"];
+    
+    Entity *entity = [Entity new];
+    entity.className = self.document.className;
+    entity.superClassName = self.document.className;
+    entity.children = self.document.entities;
+    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:entity pathExtension:@"h"];
+    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:entity pathExtension:@"m"];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;

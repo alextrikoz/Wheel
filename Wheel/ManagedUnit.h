@@ -22,14 +22,14 @@
 
 @end
 
-@class TableDocument;
+@class Entity;
 
 @protocol UnitProtocol <NSObject>
 
 @optional
-- (NSString *)prototypeWithDocument:(TableDocument *)document;
-- (NSString *)bodyWithDocument:(TableDocument *)document;
-- (NSString *)bodyWithDocument:(TableDocument *)document pathExtension:(NSString *)pathExtension;
+- (NSString *)prototypeWithEntity:(Entity *)entity;
+- (NSString *)bodyWithEntity:(Entity *)entity;
+- (NSString *)bodyWithEntity:(Entity *)entity pathExtension:(NSString *)pathExtension;
 
 @end
 

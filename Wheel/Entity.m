@@ -50,6 +50,10 @@ SYNTHESIZE(setChildren, children);
     return [className stringByReplacingOccurrencesOfString:@"*" withString:@""];
 }
 
+- (void)setClassName:(NSString *)className {
+    self.type = [className stringByAppendingString:@" *"];
+}
+
 - (NSString *)h_iVarStuff {
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
     return [NSString stringWithFormat:@"    %@_%@;\n", type, self.name];
