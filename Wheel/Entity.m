@@ -11,16 +11,25 @@
 #define SYNTHESIZE(setter, getter) \
 @synthesize getter = _##getter; \
  \
-- (void)setter:(NSString *)getter { \
+- (void)setter:(id)getter { \
     if (![_##getter isEqual:getter]) { \
         [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setter:_##getter]; \
         _##getter = getter; \
     } \
 } \
  \
-- (NSString *)getter { \
+- (id)getter { \
     return _##getter; \
 }
+
+#define SETTER_KEY @"setter"
+#define ATOMICITY_KEY @"atomicity"
+#define WRITABILITY_KEY @"writability"
+#define TYPE_KEY @"type"
+#define NAME_KEY @"name"
+#define KEY_KEY @"key"
+#define KIND_KEY @"kind"
+#define CHILDREN_KEY @"children"
 
 @implementation Entity
 
@@ -29,17 +38,17 @@ SYNTHESIZE(setAtomicity, atomicity);
 SYNTHESIZE(setWritability, writability);
 SYNTHESIZE(setType, type);
 SYNTHESIZE(setName, name);
-SYNTHESIZE(setKind, kind);
 SYNTHESIZE(setKey,key);
-
-#pragma mark - className
-
-- (NSString *)className {
-    NSString *className = [self.type stringByReplacingOccurrencesOfString:@"*" withString:@""];
-    return [className stringByReplacingOccurrencesOfString:@" " withString:@""];
-}
+SYNTHESIZE(setKind, kind);
+SYNTHESIZE(setSuperClassName, superClassName);
+SYNTHESIZE(setChildren, children);
 
 #pragma mark - Gentration
+
+- (NSString *)className {
+    NSString *className = [self.type stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [className stringByReplacingOccurrencesOfString:@"*" withString:@""];
+}
 
 - (NSString *)h_iVarStuff {
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
@@ -58,11 +67,11 @@ SYNTHESIZE(setKey,key);
 }
 
 - (NSString *)h_importStuff {
-    return [self.kind isEqualToString:@"collection"] ? [NSString stringWithFormat:@"@class %@;\n", self.className] : @"";
+    return [self.kind isEqualToString:@"model"] ? [NSString stringWithFormat:@"@class %@;\n", self.className] : @"";
 }
 
 - (NSString *)m_importStuff {
-    return [self.kind isEqualToString:@"object"] ? @"" : [NSString stringWithFormat:@"#import \"%@.h\"\n", self.className];
+    return ![self.kind isEqualToString:@"object"] ? [NSString stringWithFormat:@"#import \"%@.h\"\n", self.className] : @"";
 }
 
 - (NSString *)m_defineStuff {
@@ -123,14 +132,14 @@ SYNTHESIZE(setKey,key);
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
     Entity *object = [[Entity alloc] init];
-    object.setter = dictionary[@"setter"];
-    object.atomicity = dictionary[@"atomicity"];
-    object.writability = dictionary[@"writability"];
-    object.type = dictionary[@"type"];
-    object.name = dictionary[@"name"];
-    object.kind = dictionary[@"kind"];
-    object.key = dictionary[@"key"];
-    object.children = [self objectsWithArray:dictionary[@"children"]];
+    object.setter = dictionary[SETTER_KEY];
+    object.atomicity = dictionary[ATOMICITY_KEY];
+    object.writability = dictionary[WRITABILITY_KEY];
+    object.type = dictionary[TYPE_KEY];
+    object.name = dictionary[NAME_KEY];
+    object.key = dictionary[KEY_KEY];
+    object.kind = dictionary[KIND_KEY];
+    object.children = [self objectsWithArray:dictionary[CHILDREN_KEY]];
     return object;
 }
 
@@ -144,24 +153,24 @@ SYNTHESIZE(setKey,key);
 
 - (NSMutableDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setValue:self.setter forKey:@"setter"];
-    [dictionary setValue:self.atomicity forKey:@"atomicity"];
-    [dictionary setValue:self.writability forKey:@"writability"];
-    [dictionary setValue:self.type forKey:@"type"];
-    [dictionary setValue:self.name forKey:@"name"];
-    [dictionary setValue:self.kind forKey:@"kind"];
-    [dictionary setValue:self.key forKey:@"key"];
+    [dictionary setValue:self.setter forKey:SETTER_KEY];
+    [dictionary setValue:self.atomicity forKey:ATOMICITY_KEY];
+    [dictionary setValue:self.writability forKey:WRITABILITY_KEY];
+    [dictionary setValue:self.type forKey:TYPE_KEY];
+    [dictionary setValue:self.name forKey:NAME_KEY];
+    [dictionary setValue:self.key forKey:KEY_KEY];
+    [dictionary setValue:self.kind forKey:KIND_KEY];
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {
         [childrenRepresentation addObject:entity.dictionaryRepresentation];
     }
-    [dictionary setValue:childrenRepresentation forKey:@"children"];
+    [dictionary setValue:childrenRepresentation forKey:CHILDREN_KEY];
     return dictionary;
 }
 
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
     Entity *entity = [Entity objectWithDictionary:dictionary];
-    NSArray *children = [dictionary objectForKey:@"children"];
+    NSArray *children = [dictionary objectForKey:CHILDREN_KEY];
     NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
     for (NSDictionary *child in children) {
         [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
@@ -176,7 +185,7 @@ SYNTHESIZE(setKey,key);
     for (NSTreeNode *childNode in node.childNodes) {
         [array addObject:[childNode.representedObject dictionaryRepresentation]];
     }
-    [dictionary setObject:array forKey:@"children"];
+    [dictionary setObject:array forKey:CHILDREN_KEY];
     return dictionary;
 }
 
@@ -213,27 +222,27 @@ SYNTHESIZE(setKey,key);
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:self.setter forKey:@"setter"];
-    [coder encodeObject:self.atomicity forKey:@"atomicity"];
-    [coder encodeObject:self.writability forKey:@"writability"];
-    [coder encodeObject:self.type forKey:@"type"];
-    [coder encodeObject:self.name forKey:@"name"];
-    [coder encodeObject:self.kind forKey:@"kind"];
-    [coder encodeObject:self.key forKey:@"key"];
-    [coder encodeObject:self.children forKey:@"children"];
+    [coder encodeObject:self.setter forKey:SETTER_KEY];
+    [coder encodeObject:self.atomicity forKey:ATOMICITY_KEY];
+    [coder encodeObject:self.writability forKey:WRITABILITY_KEY];
+    [coder encodeObject:self.type forKey:TYPE_KEY];
+    [coder encodeObject:self.name forKey:NAME_KEY];
+    [coder encodeObject:self.key forKey:KEY_KEY];
+    [coder encodeObject:self.kind forKey:KIND_KEY];
+    [coder encodeObject:self.children forKey:CHILDREN_KEY];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-        self.setter = [decoder decodeObjectForKey:@"setter"];
-        self.atomicity = [decoder decodeObjectForKey:@"atomicity"];
-        self.writability = [decoder decodeObjectForKey:@"writability"];
-        self.type = [decoder decodeObjectForKey:@"type"];
-        self.name = [decoder decodeObjectForKey:@"name"];
-        self.kind = [decoder decodeObjectForKey:@"kind"];
-        self.key = [decoder decodeObjectForKey:@"key"];
-        self.children = [decoder decodeObjectForKey:@"children"];
+        self.setter = [decoder decodeObjectForKey:SETTER_KEY];
+        self.atomicity = [decoder decodeObjectForKey:ATOMICITY_KEY];
+        self.writability = [decoder decodeObjectForKey:WRITABILITY_KEY];
+        self.type = [decoder decodeObjectForKey:TYPE_KEY];
+        self.name = [decoder decodeObjectForKey:NAME_KEY];
+        self.key = [decoder decodeObjectForKey:KEY_KEY];
+        self.kind = [decoder decodeObjectForKey:KIND_KEY];
+        self.children = [decoder decodeObjectForKey:CHILDREN_KEY];
     }
     return self;
 }

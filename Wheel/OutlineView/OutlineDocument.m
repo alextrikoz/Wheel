@@ -19,7 +19,7 @@
 }
 
 - (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary {
-    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:((Entity *)self.rootNode.representedObject).dictionaryRepresentation];
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
     
@@ -48,10 +48,12 @@
 - (void)updateModels {
     self.models = [NSMutableArray array];
     
+    Entity *rootEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
+    
     TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
     document.className = self.className;
     document.superClassName = self.superClassName;
-    document.entities = ((Entity *)self.rootNode.representedObject).children;
+    document.entities = ((Entity *)rootEntity).children;
     
     [self.models addObject:document];
     [self modelsWithNode:self.rootNode];
@@ -60,7 +62,7 @@
 
 - (void)modelsWithNode:(NSTreeNode *)node {
     for (NSTreeNode *childNode in node.childNodes) {
-        Entity *childEntity = childNode.representedObject;
+        Entity *childEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:childNode]];
         if (![childEntity.kind isEqualToString:@"object"]) {
             TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
             document.className = childEntity.className;

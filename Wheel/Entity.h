@@ -17,9 +17,11 @@
 @property NSString *writability;
 @property NSString *type;
 @property NSString *name;
-@property NSString *kind;
 @property NSString *key;
+@property NSString *kind;
+@property NSString *superClassName;
 @property NSMutableArray *children;
+
 - (NSString *)className;
 
 - (NSString *)h_iVarStuff;
