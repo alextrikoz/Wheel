@@ -49,11 +49,10 @@
     self.models = [NSMutableArray array];
     
     Entity *rootEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
-    
+    rootEntity.className = self.className;
+    rootEntity.superClassName = self.superClassName;
     TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-    document.className = self.className;
-    document.superClassName = self.superClassName;
-    document.entities = ((Entity *)rootEntity).children;
+    document.rootEntity = rootEntity;
     
     [self.models addObject:document];
     [self modelsWithNode:self.rootNode];
@@ -65,9 +64,7 @@
         Entity *childEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:childNode]];
         if (![childEntity.kind isEqualToString:@"object"]) {
             TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-            document.className = childEntity.className;
-            document.superClassName = @"NSObject";
-            document.entities = childEntity.children;
+            document.rootEntity = childEntity;
             [self.models addObject:document];
             [self modelsWithNode:childNode];
         }

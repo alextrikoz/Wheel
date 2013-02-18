@@ -8,10 +8,12 @@
 
 #import <AppKit/AppKit.h>
 
+@class Entity;
+
 @interface TableDocument : NSDocument
 
-@property (strong) NSString *className;
-@property (strong) NSString *superClassName;
-@property (strong) NSMutableArray *entities;
+@property Entity *rootEntity;
+
+- (void)backupRootEntity;
 
 @end

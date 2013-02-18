@@ -178,18 +178,13 @@
 - (void)saveDocument:(TableDocument *)document directoryURL:(NSURL *)directoryURL {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    Entity *entity = [Entity new];
-    entity.className = document.className;
-    entity.superClassName = document.className;
-    entity.children = document.entities;
-    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:entity pathExtension:@"h"];
-    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:entity pathExtension:@"m"];
+    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:document.rootEntity pathExtension:@"h"];
+    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:document.rootEntity pathExtension:@"m"];
     
     NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", directoryURL.absoluteString, document.className]];
     NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", directoryURL.absoluteString, document.className]];
     
     [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
     [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 

@@ -48,7 +48,7 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.document.className;
+    return self.document.rootEntity.className;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -60,7 +60,7 @@
 }
 
 - (NSMutableArray *)entities {
-    return self.document.entities;
+    return self.document.rootEntity.children;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -83,7 +83,7 @@
     Entity *entity = [Entity objectStub];
     entity.undoManager = self.document.undoManager;
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
+    [self.document backupRootEntity];
     
     [self.tableView beginUpdates];
     
@@ -98,7 +98,7 @@
         return;
     }
     
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
+    [self.document backupRootEntity];
     
     [self.tableView beginUpdates];
     
@@ -113,12 +113,8 @@
 - (IBAction)generate:(id)sender {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    Entity *entity = [Entity new];
-    entity.className = self.document.className;
-    entity.superClassName = self.document.className;
-    entity.children = self.document.entities;
-    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:entity pathExtension:@"h"];
-    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:entity pathExtension:@"m"];
+    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:self.document.rootEntity pathExtension:@"h"];
+    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:self.document.rootEntity pathExtension:@"m"];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;
@@ -132,7 +128,6 @@
             NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", directoryURL.absoluteString, self.document.className]];
             
             [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
-
             [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
         }
     }];
@@ -150,7 +145,7 @@
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation {
     if (self.draggedItems) {
-        [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
+        [self.document backupRootEntity];
         
         [self.tableView beginUpdates];
         
@@ -191,7 +186,7 @@
 #pragma mark - AcceptDrop
 
 - (void)acceptDropInsideWindow:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
+    [self.document backupRootEntity];
     
     __block NSInteger currentIndex = row;    
     [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
@@ -213,7 +208,7 @@
 }
 
 - (void)acceptDropOutsideWindows:(id <NSDraggingInfo>)info row:(NSInteger)row {
-    [[self.document.undoManager prepareWithInvocationTarget:self.document] setEntities:self.entities.mutableCopy];
+    [self.document backupRootEntity];
     
     __block NSInteger currentIndex = row;
     [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {

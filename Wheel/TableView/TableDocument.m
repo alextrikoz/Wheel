@@ -13,55 +13,14 @@
 
 @implementation TableDocument
 
-#pragma mark - className
-
-@synthesize className = _className;
-
-- (void)setClassName:(NSString *)className {
-    if (![_className isEqual:className]) {
-        if (_className) {
-            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
-        }
-        _className = className;
-    }
+- (void)backupRootEntity {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootEntityWithDictionary:self.rootEntity.dictionaryRepresentation];
 }
 
-- (NSString *)className {
-    return _className;
-}
-
-#pragma mark - superClassName
-
-@synthesize superClassName = _superClassName;
-
-- (void)setSuperClassName:(NSString *)superClassName {
-    if (![_superClassName isEqual:superClassName]) {
-        if (_superClassName) {
-            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setSuperClassName:_superClassName];
-        }
-        _superClassName = superClassName;
-    }
-}
-
-- (NSString *)superClassName {
-    return _superClassName;
-}
-
-#pragma mark - entities
-
-@synthesize entities = _entities;
-
-- (void)setEntities:(NSMutableArray *)entities {
-    if (![_entities isEqual:entities]) {
-        if (_entities) {
-            [(TableDocument *)[self.undoManager prepareWithInvocationTarget:self] setEntities:_entities.mutableCopy];
-        }
-        _entities = entities;
-    }
-}
-
-- (NSMutableArray *)entities {
-    return _entities;
+- (void)backupRootEntityWithDictionary:(NSDictionary *)dictionary {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootEntityWithDictionary:self.rootEntity.dictionaryRepresentation];
+    
+    self.rootEntity = [Entity objectWithDictionary:dictionary];
 }
 
 #pragma mark - NSDocument
@@ -70,26 +29,20 @@
     TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableController"];
     [self addWindowController:windowController];
     
-    if (!self.entities) {
+    if (!self.rootEntity) {
+        self.rootEntity = [Entity new];
+        self.rootEntity.className = @"MyClass";
+        self.rootEntity.superClassName = @"NSObject";
         NSMutableArray *entities = [Entity plainStub];
         [entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
-        self.entities = entities;
-    }
-    if (!self.className) {
-        self.className = @"MyClass";
-    }
-    if (!self.superClassName) {
-        self.superClassName = @"NSObject";
+        self.rootEntity.children = entities;
+        self.rootEntity.undoManager = self.undoManager;
     }
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     @try {
-        NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        self.entities = [[properties objectForKey:@"entities"] mutableCopy];
-        self.className = [properties objectForKey:@"className"];
-        self.superClassName = [properties objectForKey:@"superClassName"];
-        
+        self.rootEntity = [NSKeyedUnarchiver unarchiveObjectWithData:data];        
         return YES;
     } @catch (NSException *exception) {
         return NO;
@@ -97,19 +50,15 @@
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    [properties setObject:self.entities forKey:@"entities"];
-    [properties setObject:self.className forKey:@"className"];
-    [properties setObject:self.superClassName forKey:@"superClassName"];
-    return [NSKeyedArchiver archivedDataWithRootObject:properties];
+    return [NSKeyedArchiver archivedDataWithRootObject:self.rootEntity];
 }
 
 - (NSString *)displayName {
-    return self.className;
+    return self.rootEntity.className;
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
-    savePanel.nameFieldStringValue = self.className;
+    savePanel.nameFieldStringValue = self.rootEntity.className;
     return [super prepareSavePanel:savePanel];
 }
 
