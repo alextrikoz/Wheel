@@ -60,6 +60,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wheel</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>TempDocument</string>
+			<key>CFBundleTypeName</key>
+			<string>temp</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
 	</array>
 </dict>
 </plist>

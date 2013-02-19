@@ -64,6 +64,10 @@
     [self makeAndDisplayUntitledDocumentOfType:@"outline"];
 }
 
+- (IBAction)newTemp:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"temp"];
+}
+
 - (void)makeAndDisplayUntitledDocumentOfType:(NSString *)typeName {
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSDocument *document = [sharedDocumentController makeUntitledDocumentOfType:typeName error:nil];
