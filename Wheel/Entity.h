@@ -19,11 +19,12 @@
 @property NSString *name;
 @property NSString *key;
 @property NSString *kind;
+@property NSString *className;
 @property NSString *superClassName;
 @property NSMutableArray *children;
 
-- (NSString *)className;
-- (void)setClassName:(NSString *)className;
+//- (NSString *)className;
+//- (void)setClassName:(NSString *)className;
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;

@@ -29,6 +29,7 @@
 #define NAME_KEY @"name"
 #define KEY_KEY @"key"
 #define KIND_KEY @"kind"
+#define SUPERCLASSNAME_KEY @"superClassName"
 #define CHILDREN_KEY @"children"
 
 @implementation Entity
@@ -41,9 +42,10 @@ SYNTHESIZE(setName, name);
 SYNTHESIZE(setKey,key);
 SYNTHESIZE(setKind, kind);
 SYNTHESIZE(setSuperClassName, superClassName);
-SYNTHESIZE(setChildren, children);
 
 #pragma mark - Gentration
+
+@synthesize className = _className;
 
 - (NSString *)className {
     NSString *className = [self.type stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -51,7 +53,12 @@ SYNTHESIZE(setChildren, children);
 }
 
 - (void)setClassName:(NSString *)className {
-    self.type = [className stringByAppendingString:@" *"];
+    if (![_className isEqual:className]) {
+        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
+        _className = className;
+        
+        self.type = [className stringByAppendingString:@" *"];
+    }
 }
 
 - (NSString *)h_iVarStuff {
@@ -143,6 +150,7 @@ SYNTHESIZE(setChildren, children);
     object.name = dictionary[NAME_KEY];
     object.key = dictionary[KEY_KEY];
     object.kind = dictionary[KIND_KEY];
+    object.superClassName = dictionary[SUPERCLASSNAME_KEY];
     object.children = [self objectsWithArray:dictionary[CHILDREN_KEY]];
     return object;
 }
@@ -164,6 +172,7 @@ SYNTHESIZE(setChildren, children);
     [dictionary setValue:self.name forKey:NAME_KEY];
     [dictionary setValue:self.key forKey:KEY_KEY];
     [dictionary setValue:self.kind forKey:KIND_KEY];
+    [dictionary setValue:self.superClassName forKey:SUPERCLASSNAME_KEY];
     NSMutableArray *childrenRepresentation = [NSMutableArray array];
     for (Entity *entity in self.children) {
         [childrenRepresentation addObject:entity.dictionaryRepresentation];
@@ -233,6 +242,7 @@ SYNTHESIZE(setChildren, children);
     [coder encodeObject:self.name forKey:NAME_KEY];
     [coder encodeObject:self.key forKey:KEY_KEY];
     [coder encodeObject:self.kind forKey:KIND_KEY];
+    [coder encodeObject:self.superClassName forKey:SUPERCLASSNAME_KEY];
     [coder encodeObject:self.children forKey:CHILDREN_KEY];
 }
 
@@ -246,6 +256,7 @@ SYNTHESIZE(setChildren, children);
         self.name = [decoder decodeObjectForKey:NAME_KEY];
         self.key = [decoder decodeObjectForKey:KEY_KEY];
         self.kind = [decoder decodeObjectForKey:KIND_KEY];
+        self.superClassName = [decoder decodeObjectForKey:SUPERCLASSNAME_KEY];
         self.children = [decoder decodeObjectForKey:CHILDREN_KEY];
     }
     return self;
