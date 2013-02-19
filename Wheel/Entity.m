@@ -166,7 +166,7 @@
     NSMutableDictionary *dictionary = [entity dictionaryRepresentation];
     NSMutableArray *array = [NSMutableArray array];
     for (NSTreeNode *childNode in node.childNodes) {
-        [array addObject:[childNode.representedObject dictionaryRepresentation]];
+        [array addObject:[self dictionaryWithNode:childNode]];
     }
     [dictionary setObject:array forKey:CHILDREN_KEY];
     return dictionary;
