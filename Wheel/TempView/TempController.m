@@ -81,6 +81,14 @@
             child.writability = @"readwrite";
             child.type = @"NSString *";
             child.kind = @"object";
+        } else if ([obj isKindOfClass:[NSNumber class]]) {
+            child = [Entity new];
+            child.setter = @"strong";
+            child.atomicity = @"nonatomic";
+            child.writability = @"readwrite";
+            child.type = @"NSNumber *";
+            child.kind = @"object";
+            NSLog(@"%@", object);
         }
         child.name = key;
         [entity.children addObject:child];
