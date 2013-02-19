@@ -35,7 +35,7 @@
 
 @interface Unit : NSObject <UnitProtocol>
 
-@property (strong) ManagedUnit *managedUnit;
+@property ManagedUnit *managedUnit;
 
 - (BOOL)available;
 

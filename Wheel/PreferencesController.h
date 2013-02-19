@@ -12,18 +12,18 @@
 
 @interface PreferencesController : NSWindowController <NSWindowDelegate>
 
-@property (strong) IBOutlet NSToolbarItem *generalItem;
-@property (strong) IBOutlet NSToolbarItem *addItem;
-@property (strong) IBOutlet NSToolbarItem *removeItem;
+@property IBOutlet NSToolbarItem *generalItem;
+@property IBOutlet NSToolbarItem *addItem;
+@property IBOutlet NSToolbarItem *removeItem;
 
-@property (strong) IBOutlet NSView *generalView;
-@property (strong) IBOutlet NSView *libraryView;
-@property (strong) IBOutlet NSView *optionsView;
+@property IBOutlet NSView *generalView;
+@property IBOutlet NSView *libraryView;
+@property IBOutlet NSView *optionsView;
 
-@property (strong) IBOutlet NSTableView *libraryTableView;
-@property (strong) IBOutlet NSTableView *optionsTableView;
+@property IBOutlet NSTableView *libraryTableView;
+@property IBOutlet NSTableView *optionsTableView;
 
-@property (strong) IBOutlet DataStore *dataStore;
+@property IBOutlet DataStore *dataStore;
 
 - (IBAction)general:(id)sender;
 - (IBAction)library:(id)sender;

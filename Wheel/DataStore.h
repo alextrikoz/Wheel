@@ -31,35 +31,35 @@
 
 @interface DataStore : NSObject
 
-@property (strong) NSMutableArray *setters;
-@property (strong) NSMutableArray *atomicities;
-@property (strong) NSMutableArray *writabilities;
-@property (strong) NSMutableArray *kinds;
-@property (strong) NSArray *types;
-@property (strong) NSIndexSet *selectedTypes;
-@property (strong) NSArray *units;
+@property NSMutableArray *setters;
+@property NSMutableArray *atomicities;
+@property NSMutableArray *writabilities;
+@property NSMutableArray *kinds;
+@property NSArray *types;
+@property NSIndexSet *selectedTypes;
+@property NSArray *units;
 
-@property (strong) HContentUnit *HContentUnit;
-@property (strong) MContentUnit *MContentUnit;
-@property (strong) HeaderUnit *headerUnit;
-@property (strong) ImportUnit *importUnit;
-@property (strong) ProtocolsUnit *protocolsUnit;
-@property (strong) IVarsUnit *iVarsUnit;
-@property (strong) PropertiesUnit *propertiesUnit;
-@property (strong) PrototypesUnit *prototypesUnit;
-@property (strong) DefinesUnit *definesUnit;
-@property (strong) SynthesizesUnit *synthesizesUnit;
-@property (strong) DeallocUnit *deallocUnit;
-@property (strong) SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit;
+@property HContentUnit *HContentUnit;
+@property MContentUnit *MContentUnit;
+@property HeaderUnit *headerUnit;
+@property ImportUnit *importUnit;
+@property ProtocolsUnit *protocolsUnit;
+@property IVarsUnit *iVarsUnit;
+@property PropertiesUnit *propertiesUnit;
+@property PrototypesUnit *prototypesUnit;
+@property DefinesUnit *definesUnit;
+@property SynthesizesUnit *synthesizesUnit;
+@property DeallocUnit *deallocUnit;
+@property SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit;
 //NOTE: id type make this method ARC compliant
-@property (strong) id initWithDictionaryUnit;
-@property (strong) ObjectWithDictionaryUnit *objectWithDictionaryUnit;
-@property (strong) ObjectsWithArrayUnit *objectsWithArrayUnit;
-@property (strong) DictionaryRepresentationUnit *dictionaryRepresentationUnit;
-@property (strong) DescriptionUnit *descriptionUnit;
-@property (strong) NSCopyingUnit *copyingUnit;
-@property (strong) NSCodingUnit *codingUnit;
-@property (strong) ARCUnit *ARCUnit;
+@property id initWithDictionaryUnit;
+@property ObjectWithDictionaryUnit *objectWithDictionaryUnit;
+@property ObjectsWithArrayUnit *objectsWithArrayUnit;
+@property DictionaryRepresentationUnit *dictionaryRepresentationUnit;
+@property DescriptionUnit *descriptionUnit;
+@property NSCopyingUnit *copyingUnit;
+@property NSCodingUnit *codingUnit;
+@property ARCUnit *ARCUnit;
 
 + (DataStore *)sharedDataStore;
 

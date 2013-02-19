@@ -40,7 +40,7 @@
 - (IBAction)remove:(id)sender;
 - (IBAction)generate:(id)sender;
 
-@property (strong) NSArray *draggedNodes;
+@property NSArray *draggedNodes;
 
 @end
 

@@ -10,9 +10,9 @@
 
 @interface OutlineDocument : NSDocument
 
-@property (strong) NSString *className;
-@property (strong) NSString *superClassName;
-@property (strong) NSTreeNode *rootNode;
+@property NSString *className;
+@property NSString *superClassName;
+@property NSTreeNode *rootNode;
 @property NSMutableArray *models;
 
 - (void)updateModels;

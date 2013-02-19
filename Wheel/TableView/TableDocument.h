@@ -12,8 +12,8 @@
 
 @interface TableDocument : NSDocument
 
-@property (strong) NSString *className;
-@property (strong) NSString *superClassName;
+@property NSString *className;
+@property NSString *superClassName;
 @property Entity *rootEntity;
 
 - (void)backupRootEntity;

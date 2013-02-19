@@ -12,16 +12,16 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (readonly, strong) PreferencesController *preferencesController;
+@property (readonly) PreferencesController *preferencesController;
 
 - (IBAction)preferences:(id)sender;
 - (IBAction)newJSON:(id)sender;
 - (IBAction)newOutline:(id)sender;
 - (IBAction)newWheel:(id)sender;
 
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (readonly, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)saveAction:(id)sender;
 
