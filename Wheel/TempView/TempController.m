@@ -8,8 +8,11 @@
 
 #import "TempController.h"
 
+#import "Type.h"
 #import "Entity.h"
 #import "OutlineDocument.h"
+#import "DataStore.h"
+#import "AppDelegate.h"
 
 @interface TempController ()
 
@@ -43,21 +46,33 @@
     
     entity.children = [NSMutableArray array];
     
-    [info enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [info enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         Entity *child = nil;
         if ([obj isKindOfClass:[NSArray class]] ) {
             child = [self entityWithObject:obj];
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";
-            child.type = @"NSArray *";
+            
+            NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
+            Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
+            type.name = typeName;
+            [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+            child.type = typeName;
+            
             child.kind = @"collection";
         } else if ([obj isKindOfClass:[NSDictionary class]]) {
             child = [self entityWithObject:obj];
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";
-            child.type = @"NSDictionary *";
+            
+            NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
+            Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
+            type.name = typeName;
+            [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+            child.type = typeName;
+            
             child.kind = @"model";
         } else if ([obj isKindOfClass:[NSString class]]) {
             child = [Entity new];
