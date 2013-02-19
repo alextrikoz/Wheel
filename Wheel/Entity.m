@@ -8,20 +8,6 @@
 
 #import "Entity.h"
 
-#define SYNTHESIZE(setter, getter) \
-@synthesize getter = _##getter; \
- \
-- (void)setter:(id)getter { \
-    if (![_##getter isEqual:getter]) { \
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setter:_##getter]; \
-        _##getter = getter; \
-    } \
-} \
- \
-- (id)getter { \
-    return _##getter; \
-}
-
 #define SETTER_KEY @"setter"
 #define ATOMICITY_KEY @"atomicity"
 #define WRITABILITY_KEY @"writability"
@@ -33,17 +19,6 @@
 #define CHILDREN_KEY @"children"
 
 @implementation Entity
-
-SYNTHESIZE(setSetter, setter);
-SYNTHESIZE(setAtomicity, atomicity);
-SYNTHESIZE(setWritability, writability);
-SYNTHESIZE(setType, type);
-SYNTHESIZE(setName, name);
-SYNTHESIZE(setKey,key);
-SYNTHESIZE(setKind, kind);
-SYNTHESIZE(setSuperClassName, superClassName);
-
-#pragma mark - Gentration
 
 @synthesize className = _className;
 
@@ -60,6 +35,8 @@ SYNTHESIZE(setSuperClassName, superClassName);
         self.type = [className stringByAppendingString:@" *"];
     }
 }
+
+#pragma mark - Gentration
 
 - (NSString *)h_iVarStuff {
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;

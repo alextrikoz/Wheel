@@ -29,20 +29,25 @@
     TableController *windowController = [[TableController alloc] initWithWindowNibName:@"TableController"];
     [self addWindowController:windowController];
     
+    if (!self.className) {
+        self.className = @"MyClass";
+    }
+    if (!self.superClassName) {
+        self.superClassName = @"NSObject";
+    }
     if (!self.rootEntity) {
         self.rootEntity = [Entity new];
-        self.rootEntity.className = @"MyClass";
-        self.rootEntity.superClassName = @"NSObject";
         NSMutableArray *entities = [Entity plainStub];
-        [entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
         self.rootEntity.children = entities;
-        self.rootEntity.undoManager = self.undoManager;
     }
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     @try {
-        self.rootEntity = [NSKeyedUnarchiver unarchiveObjectWithData:data];        
+        NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        self.rootEntity = [Entity objectWithDictionary:properties[@"rootEntity"]];
+        self.className = properties[@"className"];
+        self.superClassName = properties[@"superClassName"];
         return YES;
     } @catch (NSException *exception) {
         return NO;
@@ -50,7 +55,11 @@
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    return [NSKeyedArchiver archivedDataWithRootObject:self.rootEntity];
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+    [properties setObject:[self.rootEntity dictionaryRepresentation] forKey:@"rootEntity"];
+    [properties setObject:self.className forKey:@"className"];
+    [properties setObject:self.superClassName forKey:@"superClassName"];
+    return [NSKeyedArchiver archivedDataWithRootObject:properties];
 }
 
 - (NSString *)displayName {

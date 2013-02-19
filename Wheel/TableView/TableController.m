@@ -32,16 +32,13 @@
 @implementation TableController
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeObserver:self forKeyPath:@"document.entities" context:nil];
+    [self removeObserver:self forKeyPath:@"document.rootEntity" context:nil];
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidUndoChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(deselectAll:) name:NSUndoManagerDidRedoChangeNotification object:nil];
-    [self addObserver:self forKeyPath:@"document.entities" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"document.rootEntity" options:NSKeyValueObservingOptionNew context:nil];
     
     [self.tableView deselectAll:nil];
     [self.tableView registerForDraggedTypes:@[NSPasteboardTypeString]];
@@ -81,7 +78,6 @@
     }
     
     Entity *entity = [Entity objectStub];
-    entity.undoManager = self.document.undoManager;
     
     [self.document backupRootEntity];
     
@@ -113,6 +109,8 @@
 - (IBAction)generate:(id)sender {
     DataStore *dataStore = DataStore.sharedDataStore;
     
+    self.document.rootEntity.className = self.document.className;
+    self.document.rootEntity.superClassName = self.document.superClassName;    
     NSString *h_content = [dataStore.HContentUnit bodyWithEntity:self.document.rootEntity pathExtension:@"h"];
     NSString *m_content = [dataStore.MContentUnit bodyWithEntity:self.document.rootEntity pathExtension:@"m"];
     
@@ -134,6 +132,55 @@
 }
 
 #pragma mark - NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return self.entities.count;
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    Entity *entity = self.entities[row];
+    if ([tableColumn.identifier isEqualToString:@"Name"]) {
+        return entity.name;
+    } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
+        return entity.key;
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+        return [NSNumber numberWithInteger:index];
+    } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
+        NSUInteger index = [[DataStore sharedDataStore].kinds indexOfObject:entity.kind];
+        return [NSNumber numberWithInteger:index];
+    } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+        NSUInteger index = [[DataStore sharedDataStore].setters indexOfObject:entity.setter];
+        return [NSNumber numberWithInteger:index];
+    } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
+        NSUInteger index = [[DataStore sharedDataStore].atomicities indexOfObject:entity.atomicity];
+        return [NSNumber numberWithInteger:index];
+    } else {
+        NSUInteger index = [[DataStore sharedDataStore].writabilities indexOfObject:entity.writability];
+        return [NSNumber numberWithInteger:index];
+    }
+}
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    [self.document backupRootEntity];
+    
+    Entity *entity = self.entities[row];
+    if ([tableColumn.identifier isEqualToString:@"Name"]) {
+        entity.name = object;
+    } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
+        entity.key = object;
+    } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
+        entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
+    } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
+        entity.kind = [[DataStore sharedDataStore].kinds objectAtIndex:[object integerValue]];
+    } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
+        entity.setter = [[DataStore sharedDataStore].setters objectAtIndex:[object integerValue]];
+    } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
+        entity.atomicity = [[DataStore sharedDataStore].atomicities objectAtIndex:[object integerValue]];
+    } else {
+        entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
+    }
+}
 
 - (id <NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
     return self.entities[row];
@@ -218,8 +265,6 @@
         
         currentIndex++;        
     }];
-    
-    [self.entities makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.document.undoManager];
 }
 
 @end

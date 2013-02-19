@@ -64,6 +64,7 @@
         Entity *childEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:childNode]];
         if (![childEntity.kind isEqualToString:@"object"]) {
             TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+            document.superClassName = @"NSObject";
             document.rootEntity = childEntity;
             [self.models addObject:document];
             [self modelsWithNode:childNode];
