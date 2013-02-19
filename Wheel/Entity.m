@@ -20,20 +20,13 @@
 
 @implementation Entity
 
-@synthesize className = _className;
-
 - (NSString *)className {
     NSString *className = [self.type stringByReplacingOccurrencesOfString:@" " withString:@""];
     return [className stringByReplacingOccurrencesOfString:@"*" withString:@""];
 }
 
 - (void)setClassName:(NSString *)className {
-    if (![_className isEqual:className]) {
-        [(Entity *)[self.undoManager prepareWithInvocationTarget:self] setClassName:_className];
-        _className = className;
-        
-        self.type = [className stringByAppendingString:@" *"];
-    }
+    self.type = [className stringByAppendingString:@" *"];
 }
 
 #pragma mark - Gentration

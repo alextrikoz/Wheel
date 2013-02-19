@@ -145,11 +145,15 @@
 
 - (IBAction)generate:(id)sender {
     [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [self showDocument:[self.document.models objectAtIndex:idx]];
+        [self showEntity:[self.document.models objectAtIndex:idx]];
     }];
 }
 
-- (void)showDocument:(TableDocument *)document {
+- (void)showEntity:(Entity *)entity {
+    TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
+    document.className = entity.className;
+    document.superClassName = entity.superClassName;
+    document.rootEntity = entity;
     [[NSDocumentController sharedDocumentController] addDocument:document];
     [document makeWindowControllers];
     [document showWindows];
@@ -169,20 +173,20 @@
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
             [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                [self saveDocument:self.document.models[idx] directoryURL:directoryURL];
+                [self saveEntity:self.document.models[idx] directoryURL:directoryURL];
             }];
         }
     }];
 }
 
-- (void)saveDocument:(TableDocument *)document directoryURL:(NSURL *)directoryURL {
+- (void)saveEntity:(Entity *)entity directoryURL:(NSURL *)directoryURL {
     DataStore *dataStore = DataStore.sharedDataStore;
     
-    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:document.rootEntity pathExtension:@"h"];
-    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:document.rootEntity pathExtension:@"m"];
+    NSString *h_content = [dataStore.HContentUnit bodyWithEntity:entity pathExtension:@"h"];
+    NSString *m_content = [dataStore.MContentUnit bodyWithEntity:entity pathExtension:@"m"];
     
-    NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", directoryURL.absoluteString, document.className]];
-    NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", directoryURL.absoluteString, document.className]];
+    NSURL *hURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.h", directoryURL.absoluteString, entity.className]];
+    NSURL *mURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.m", directoryURL.absoluteString, entity.className]];
     
     [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
     [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];

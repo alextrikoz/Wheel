@@ -10,8 +10,6 @@
 
 @interface Entity : NSObject <NSPasteboardWriting, NSCoding>
 
-@property NSUndoManager *undoManager;
-
 @property NSString *setter;
 @property NSString *atomicity;
 @property NSString *writability;
@@ -22,9 +20,6 @@
 @property NSString *className;
 @property NSString *superClassName;
 @property NSMutableArray *children;
-
-//- (NSString *)className;
-//- (void)setClassName:(NSString *)className;
 
 - (NSString *)h_iVarStuff;
 - (NSString *)h_propertyStuff;

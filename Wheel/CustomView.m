@@ -21,8 +21,15 @@
     
     self.view.wantsLayer = YES;
     CALayer *layer = [[CALayer alloc] init];
-    layer.backgroundColor = (selected) ? CGColorCreateGenericRGB(56.0/255.0, 117.0/255.0, 215.0/255.0, 1.0) : CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.0);
+    CGColorRef color;
+    if (selected) {
+        color = CGColorCreateGenericRGB(56.0/255.0, 117.0/255.0, 215.0/255.0, 1.0);
+    } else {
+        color = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.0);
+    }
+    layer.backgroundColor = color;
     self.view.layer = layer;
+    CGColorRelease(color);
 }
 
 @end

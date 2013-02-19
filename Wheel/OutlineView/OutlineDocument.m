@@ -51,10 +51,8 @@
     Entity *rootEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
     rootEntity.className = self.className;
     rootEntity.superClassName = self.superClassName;
-    TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-    document.rootEntity = rootEntity;
     
-    [self.models addObject:document];
+    [self.models addObject:rootEntity];
     [self modelsWithNode:self.rootNode];
     self.models = self.models;
 }
@@ -63,10 +61,8 @@
     for (NSTreeNode *childNode in node.childNodes) {
         Entity *childEntity = [Entity objectWithDictionary:[Entity dictionaryWithNode:childNode]];
         if (![childEntity.kind isEqualToString:@"object"]) {
-            TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-            document.superClassName = @"NSObject";
-            document.rootEntity = childEntity;
-            [self.models addObject:document];
+            childEntity.superClassName = @"NSObject";
+            [self.models addObject:childEntity];
             [self modelsWithNode:childNode];
         }
     }
