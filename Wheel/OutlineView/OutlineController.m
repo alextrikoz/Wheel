@@ -15,7 +15,7 @@
 #import "DataStore.h"
 #import <Carbon/Carbon.h>
 
-@interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
+@interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate, NSCollectionViewDelegate>
 
 - (OutlineDocument *)document;
 
@@ -439,6 +439,12 @@
             [self.outlineView reloadItem:newParent];
         }
     }];
+}
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
+    NSArray *draggedEntities = [self.document.models objectsAtIndexes:indexes];
+    [pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:draggedEntities.lastObject] forType:NSPasteboardTypeString];
+    return YES;
 }
 
 @end

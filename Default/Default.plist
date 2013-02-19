@@ -29,6 +29,7 @@
 	</array>
 	<key>types</key>
 	<array>
+		<string>MyClass *</string>
 		<string>NSArray *</string>
 		<string>NSDictionary *</string>
 		<string>NSMutableArray *</string>

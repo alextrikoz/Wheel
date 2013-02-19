@@ -33,8 +33,8 @@
 - (void)removeStoreIfNeeded {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
-    if (![version isEqualToString:@"11"]) {
-        [defaults setValue:@"11" forKey:@"version"];
+    if (![version isEqualToString:@"12"]) {
+        [defaults setValue:@"12" forKey:@"version"];
         [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:[self.applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"] error:nil];
     }
