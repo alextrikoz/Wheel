@@ -22,20 +22,35 @@
     [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
-    
+    self.className = self.className;
+    self.superClassName = self.superClassName;
     [self updateModels];
+}
+
+- (void)setClassName:(NSString *)className {
+    [self backupRootNode];
+    
+    ((Entity *)self.rootNode.representedObject).className = className;
+}
+
+- (NSString *)className {
+    return ((Entity *)self.rootNode.representedObject).className;
+}
+
+- (void)setSuperClassName:(NSString *)superClassName {
+    [self backupRootNode];
+    
+    ((Entity *)self.rootNode.representedObject).superClassName = superClassName;
+}
+
+- (NSString *)superClassName {
+    return ((Entity *)self.rootNode.representedObject).superClassName;
 }
 
 - (void)makeWindowControllers {
     OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineController"];
     [self addWindowController:windowController];
     
-    if (!self.className) {
-        self.className = @"MyClass";
-    }
-    if (!self.superClassName) {
-        self.superClassName = @"NSObject";
-    }
     if (!self.rootNode) {
         self.rootNode = [Entity outlineStub];
     }

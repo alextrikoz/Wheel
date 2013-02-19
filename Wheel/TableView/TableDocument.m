@@ -21,6 +21,28 @@
     [[self.undoManager prepareWithInvocationTarget:self] backupRootEntityWithDictionary:self.rootEntity.dictionaryRepresentation];
     
     self.rootEntity = [Entity objectWithDictionary:dictionary];
+    self.className = self.className;
+    self.superClassName = self.superClassName;
+}
+
+- (void)setClassName:(NSString *)className {
+    [self backupRootEntity];
+    
+    self.rootEntity.className = className;
+}
+
+- (NSString *)className {
+    return self.rootEntity.className;
+}
+
+- (void)setSuperClassName:(NSString *)superClassName {
+    [self backupRootEntity];
+    
+    self.rootEntity.superClassName = superClassName;
+}
+
+- (NSString *)superClassName {
+    return self.rootEntity.superClassName;
 }
 
 #pragma mark - NSDocument
@@ -30,13 +52,11 @@
     [self addWindowController:windowController];
     
     if (!self.className) {
-        self.className = @"MyClass";
-    }
-    if (!self.superClassName) {
-        self.superClassName = @"NSObject";
     }
     if (!self.rootEntity) {
         self.rootEntity = [Entity new];
+        self.rootEntity.className = @"MyClass";
+        self.rootEntity.superClassName = @"NSObject";
         NSMutableArray *entities = [Entity plainStub];
         self.rootEntity.children = entities;
     }
@@ -63,7 +83,7 @@
 }
 
 - (NSString *)displayName {
-    return self.rootEntity.className;
+    return self.className;
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
