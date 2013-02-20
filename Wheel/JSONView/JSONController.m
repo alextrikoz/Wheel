@@ -26,7 +26,15 @@
 @implementation JSONController
 
 - (IBAction)generate:(id)sender {
-    id object = [NSJSONSerialization JSONObjectWithData:[self.textView.textStorage.string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    NSError *error = nil;
+    NSString *string = self.textView.textStorage.string;
+    string = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
+    id object = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+    
+    if (error) {
+        [[NSAlert alertWithError:error] runModal];
+        return;
+    }
     
     Entity *entity = [self entityWithObject:object];
     
