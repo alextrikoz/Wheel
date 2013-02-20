@@ -20,6 +20,22 @@
 
 @implementation Entity
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.setter = @"strong";
+        self.atomicity = @"nonatomic";
+        self.writability = @"readwrite";
+        self.type = @"MyClass *";
+        self.name = @"myClass";
+        self.key = @"myClass";
+        self.kind = @"model";
+        self.superClassName = @"NSObject";
+        self.children = [NSMutableArray array];
+    }
+    return self;
+}
+
 - (NSString *)className {
     NSString *className = [self.type stringByReplacingOccurrencesOfString:@" " withString:@""];
     return [className stringByReplacingOccurrencesOfString:@"*" withString:@""];
@@ -113,15 +129,33 @@
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
     Entity *object = [[Entity alloc] init];
-    object.setter = dictionary[SETTER_KEY];
-    object.atomicity = dictionary[ATOMICITY_KEY];
-    object.writability = dictionary[WRITABILITY_KEY];
-    object.type = dictionary[TYPE_KEY];
-    object.name = dictionary[NAME_KEY];
-    object.key = dictionary[KEY_KEY];
-    object.kind = dictionary[KIND_KEY];
-    object.superClassName = dictionary[SUPERCLASSNAME_KEY];
-    object.children = [self objectsWithArray:dictionary[CHILDREN_KEY]];
+    if (dictionary[SETTER_KEY]) {
+        object.setter = dictionary[SETTER_KEY];
+    }
+    if (dictionary[ATOMICITY_KEY]) {
+        object.atomicity = dictionary[ATOMICITY_KEY];
+    }
+    if (dictionary[WRITABILITY_KEY]) {
+        object.writability = dictionary[WRITABILITY_KEY];
+    }
+    if (dictionary[TYPE_KEY]) {
+        object.type = dictionary[TYPE_KEY];
+    }
+    if (dictionary[NAME_KEY]) {
+        object.name = dictionary[NAME_KEY];
+    }
+    if (dictionary[KEY_KEY]) {
+        object.key = dictionary[KEY_KEY];
+    }
+    if (dictionary[KIND_KEY]) {
+        object.kind = dictionary[KIND_KEY];
+    }
+    if (dictionary[SUPERCLASSNAME_KEY]) {
+        object.superClassName = dictionary[SUPERCLASSNAME_KEY];
+    }
+    if (dictionary[CHILDREN_KEY]) {
+        object.children = [self objectsWithArray:dictionary[CHILDREN_KEY]];
+    }
     return object;
 }
 

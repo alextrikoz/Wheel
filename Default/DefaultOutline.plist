@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>setter</key>
-	<string>strong</string>
-	<key>atomicity</key>
-	<string>nonatomic</string>
-	<key>writability</key>
-	<string>readwrite</string>
-	<key>type</key>
-	<string>MyClass *</string>
-	<key>name</key>
-	<string>myClass</string>
-	<key>kind</key>
-	<string>model</string>
-	<key>key</key>
-	<string>myKey</string>
-	<key>superClassName</key>
-	<string>NSObject</string>
 	<key>children</key>
 	<array>
 		<dict>
