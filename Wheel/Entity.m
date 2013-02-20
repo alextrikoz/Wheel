@@ -229,7 +229,7 @@
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[NSPasteboardTypeString];
+    return @[@"MyPasteboardType.wheel"];
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type {

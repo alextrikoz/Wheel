@@ -41,7 +41,7 @@
     [self addObserver:self forKeyPath:@"document.rootEntity" options:NSKeyValueObservingOptionNew context:nil];
     
     [self.tableView deselectAll:nil];
-    [self.tableView registerForDraggedTypes:@[NSPasteboardTypeString]];
+    [self.tableView registerForDraggedTypes:@[@"MyPasteboardType.wheel"]];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -259,7 +259,7 @@
     
     __block NSInteger currentIndex = row;
     [info enumerateDraggingItemsWithOptions:0 forView:self.tableView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
-        Entity *entity = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
+        Entity *entity = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:@"MyPasteboardType.wheel"]];
         [self.entities insertObject:entity atIndex:row];
         [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectGap];
         

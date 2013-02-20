@@ -54,7 +54,7 @@
     [super awakeFromNib];
     
     [self.outlineView deselectAll:nil];
-    [self.outlineView registerForDraggedTypes:@[NSPasteboardTypeString]];
+    [self.outlineView registerForDraggedTypes:@[@"MyPasteboardType.wheel"]];
     
     [self addObserver:self forKeyPath:@"document.rootNode" options:NSKeyValueObservingOptionNew context:nil];
     
@@ -426,7 +426,7 @@
 - (void)acceptDropOutsideWindow:(id <NSDraggingInfo>)info item:(NSTreeNode *)newParent childIndex:(NSInteger)childIndex {    
     __block NSInteger currentIndex = childIndex;
     [info enumerateDraggingItemsWithOptions:0 forView:self.outlineView classes:@[[NSPasteboardItem class]] searchOptions:nil usingBlock:^(NSDraggingItem *draggingItem, NSInteger index, BOOL *stop) {
-        Entity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:NSPasteboardTypeString]];
+        Entity *modelObject = [NSKeyedUnarchiver unarchiveObjectWithData:[draggingItem.item dataForType:@"MyPasteboardType.wheel"]];
         NSTreeNode *draggedNode = [Entity nodeWithDictionary:modelObject.dictionaryRepresentation];
         
         [newParent.mutableChildNodes insertObject:draggedNode atIndex:currentIndex];
@@ -441,9 +441,12 @@
     }];
 }
 
+#pragma mark - AcceptDrop
+
 - (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
-    NSArray *draggedEntities = [self.document.models objectsAtIndexes:indexes];
-    [pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:draggedEntities.lastObject] forType:NSPasteboardTypeString];
+    [pasteboard clearContents];
+    NSArray *draggedEntities = [self.document.models objectsAtIndexes:indexes];    
+    [pasteboard writeObjects:draggedEntities];
     return YES;
 }
 
