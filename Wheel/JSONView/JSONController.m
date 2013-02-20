@@ -14,6 +14,7 @@
 #import "OutlineDocument.h"
 #import "DataStore.h"
 #import "AppDelegate.h"
+#import "NSString+JSON.h"
 
 @interface JSONController ()
 
@@ -76,15 +77,13 @@
                 child.setter = @"strong";
                 child.atomicity = @"nonatomic";
                 child.writability = @"readwrite";
-                
-                NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
-                child.type = typeName;
+                child.type = key.typeName;
                 
                 NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-                request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", typeName];
+                request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", key.typeName];
                 if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
                     Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
-                    type.name = typeName;
+                    type.name = key.typeName;
                     [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
                 }
                 
@@ -95,15 +94,13 @@
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";
-            
-            NSString *typeName = [key.capitalizedString stringByAppendingString:@" *"];
-            child.type = typeName;
+            child.type = key.typeName;
             
             NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-            request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", typeName];
+            request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", child.type];
             if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
                 Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
-                type.name = typeName;
+                type.name = child.type;
                 [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
             }
             
@@ -125,7 +122,7 @@
         } else {
             child = [Entity new];
         }
-        child.name = key;
+        child.name = key.varName;
         child.key = key;
         [entity.children addObject:child];
     }];

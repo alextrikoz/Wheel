@@ -69,6 +69,7 @@
 		21AF0F8316CCF17300991518 /* tree.png in Resources */ = {isa = PBXBuildFile; fileRef = 21AF0F8216CCF17300991518 /* tree.png */; };
 		21CCA4D616CB9BF600D0C820 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CCA4D516CB9BF600D0C820 /* OutlineDocument.m */; };
 		21CCA4E316CBB40E00D0C820 /* file.png in Resources */ = {isa = PBXBuildFile; fileRef = 21CCA4E216CBB40E00D0C820 /* file.png */; };
+		21CD2FB116D5330B00F2DF80 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
 		21E5715C153D8D1700A7138F /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesController.xib */; };
 /* End PBXBuildFile section */
@@ -181,6 +182,8 @@
 		21CCA4D416CB9BF600D0C820 /* OutlineDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineDocument.h; sourceTree = "<group>"; };
 		21CCA4D516CB9BF600D0C820 /* OutlineDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineDocument.m; sourceTree = "<group>"; };
 		21CCA4E216CBB40E00D0C820 /* file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file.png; sourceTree = "<group>"; };
+		21CD2FAF16D5330B00F2DF80 /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
+		21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		21E5715B153D8D1600A7138F /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */,
 				1140049015F7C074007C3F61 /* NSIndexSet+NSArray.h */,
 				1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */,
+				21CD2FAF16D5330B00F2DF80 /* NSString+JSON.h */,
+				21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */,
 			);
 			path = Extensions;
 			sourceTree = SOURCE_ROOT;
@@ -627,6 +632,7 @@
 				21CCA4D616CB9BF600D0C820 /* OutlineDocument.m in Sources */,
 				2101B32216CCD6DD0019BB0B /* Entity.m in Sources */,
 				11F868A616CD801200DA261A /* CustomView.m in Sources */,
+				21CD2FB116D5330B00F2DF80 /* NSString+JSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
