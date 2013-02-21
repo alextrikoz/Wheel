@@ -11,7 +11,7 @@
 
 @interface ManagedUnit : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * enable;
+@property (nonatomic, retain) NSNumber * enabled;
 @property (nonatomic, retain) NSNumber * on;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * number;
@@ -62,3 +62,4 @@
 @interface NSCopyingUnit : Unit @end
 @interface NSCodingUnit : Unit @end
 @interface ARCUnit : Unit @end
+@interface ModernSyntaxUnit : Unit @end

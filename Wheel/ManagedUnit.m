@@ -14,14 +14,14 @@
 
 @implementation ManagedUnit
 
-@dynamic enable;
+@dynamic enabled;
 @dynamic name;
 @dynamic number;
 @dynamic on;
 
 + (ManagedUnit *)managedUnitWithDictionary:(NSDictionary *)dictionary managedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     ManagedUnit *managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:managedObjectContext];
-    managedUnit.enable = [NSNumber numberWithBool:YES];
+    managedUnit.enabled = [NSNumber numberWithBool:YES];
     managedUnit.name = dictionary[@"name"];
     managedUnit.number = dictionary[@"number"];
     managedUnit.on = dictionary[@"on"];
@@ -29,7 +29,7 @@
 }
 
 - (BOOL)available {
-    return self.enable.boolValue && self.on.boolValue;
+    return self.enabled.boolValue && self.on.boolValue;
 }
 
 @end
@@ -389,5 +389,9 @@
 @end
 
 @implementation ARCUnit
+
+@end
+
+@implementation ModernSyntaxUnit
 
 @end

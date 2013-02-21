@@ -136,6 +136,14 @@
 			<key>on</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>ModernSyntax</string>
+			<key>number</key>
+			<integer>12</integer>
+			<key>on</key>
+			<false/>
+		</dict>
 	</array>
 </dict>
 </plist>

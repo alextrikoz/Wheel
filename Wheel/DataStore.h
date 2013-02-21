@@ -28,6 +28,7 @@
 @class NSCopyingUnit;
 @class NSCodingUnit;
 @class ARCUnit;
+@class ModernSyntaxUnit;
 
 @interface DataStore : NSObject
 
@@ -60,6 +61,7 @@
 @property NSCopyingUnit *copyingUnit;
 @property NSCodingUnit *codingUnit;
 @property ARCUnit *ARCUnit;
+@property ModernSyntaxUnit *modernSyntaxUnit;
 
 + (DataStore *)sharedDataStore;
 

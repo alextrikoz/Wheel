@@ -8,6 +8,9 @@
 
 #import "Entity.h"
 
+#import "DataStore.h"
+#import "ManagedUnit.h"
+
 #define SETTER_KEY @"setter"
 #define ATOMICITY_KEY @"atomicity"
 #define WRITABILITY_KEY @"writability"
@@ -85,26 +88,39 @@
 
 - (NSString *)m_setAttributesWithDictionaryStuff {    
     if ([self.kind isEqualToString:@"object"]) {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+            return [NSString stringWithFormat:@"    self.%@ = dictionary[%@_KEY];\n", self.name, self.name.uppercaseString];
+        }
         return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+            return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
+        }
         return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
     } else {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+            return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
+        }
         return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
     }
 }
 
-- (NSString *)m_dictionaryRepresentationStuff {    
+- (NSString *)m_dictionaryRepresentationStuff {
     if ([self.kind isEqualToString:@"object"]) {
-        return [NSString stringWithFormat:@"    [dictionary setObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+        return [NSString stringWithFormat:@"    [dictionary setValue:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
-        return [NSString stringWithFormat:@"    [dictionary setObject:self.%@.dictionaryRepresentation forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+        return [NSString stringWithFormat:@"    [dictionary setValue:self.%@.dictionaryRepresentation forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
     } else {
         NSMutableString *string = [NSMutableString string];
         [string appendFormat:@"    NSMutableArray *array = [NSMutableArray array];\n"];
         [string appendFormat:@"    for (%@ *object self.%@) {\n", self.className, self.name];
-        [string appendFormat:@"        [array addObject:object.dictionaryRepresentation];\n"];
+        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+            [string appendFormat:@"        array[array.count] = object.dictionaryRepresentation;\n"];
+        } else {
+            [string appendFormat:@"        [array addObject:object.dictionaryRepresentation];\n"];
+        }
         [string appendFormat:@"    }\n"];
-        [string appendFormat:@"    [dictionary setObject:array forKey:%@_KEY];\n", self.name.uppercaseString];
+        [string appendFormat:@"    [dictionary setValue:array forKey:%@_KEY];\n", self.name.uppercaseString];
         return string;
     }
 }
