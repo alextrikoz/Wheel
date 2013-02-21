@@ -203,7 +203,7 @@
 
 + (NSTreeNode *)nodeWithDictionary:(NSDictionary *)dictionary {
     Entity *entity = [Entity objectWithDictionary:dictionary];
-    NSArray *children = [dictionary objectForKey:CHILDREN_KEY];
+    NSArray *children = dictionary[CHILDREN_KEY];
     NSTreeNode *node = [NSTreeNode treeNodeWithRepresentedObject:entity];
     for (NSDictionary *child in children) {
         [node.mutableChildNodes addObject:[self nodeWithDictionary:child]];
@@ -218,7 +218,7 @@
     for (NSTreeNode *childNode in node.childNodes) {
         [array addObject:[self dictionaryWithNode:childNode]];
     }
-    [dictionary setObject:array forKey:CHILDREN_KEY];
+    dictionary[CHILDREN_KEY] = array;
     return dictionary;
 }
 

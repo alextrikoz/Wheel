@@ -21,7 +21,7 @@
 
 + (ManagedUnit *)managedUnitWithDictionary:(NSDictionary *)dictionary managedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     ManagedUnit *managedUnit = [NSEntityDescription insertNewObjectForEntityForName:@"ManagedUnit" inManagedObjectContext:managedObjectContext];
-    managedUnit.enabled = [NSNumber numberWithBool:YES];
+    managedUnit.enabled = @YES;
     managedUnit.name = dictionary[@"name"];
     managedUnit.number = dictionary[@"number"];
     managedUnit.on = dictionary[@"on"];

@@ -120,7 +120,7 @@
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
     
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
+    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
     
     if (!properties) {
         BOOL ok = NO;
@@ -133,7 +133,7 @@
         }
     }
     else {
-        if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
+        if ([properties[NSURLIsDirectoryKey] boolValue] != YES) {
             // Customize and localize this error.
             NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
             

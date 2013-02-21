@@ -76,9 +76,9 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    [properties setObject:[self.rootEntity dictionaryRepresentation] forKey:@"rootEntity"];
-    [properties setObject:self.className forKey:@"className"];
-    [properties setObject:self.superClassName forKey:@"superClassName"];
+    properties[@"rootEntity"] = self.rootEntity.dictionaryRepresentation;
+    properties[@"className"] = self.className;
+    properties[@"superClassName"] = self.superClassName;
     return [NSKeyedArchiver archivedDataWithRootObject:properties];
 }
 

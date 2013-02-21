@@ -24,7 +24,7 @@
     }
     
     NSImage *image = [NSImage imageNamed:@"alert.png"];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName];
+    NSDictionary *attributes = @{NSFontAttributeName: self.font};
     NSRect inRect = cellFrame;
     inRect.origin.x += [self.stringValue sizeWithAttributes:attributes].width;
     inRect.size.width = cellFrame.size.height;

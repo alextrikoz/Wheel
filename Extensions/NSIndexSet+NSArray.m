@@ -14,7 +14,7 @@
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger index = [self firstIndex];
     while(index != NSNotFound) {
-        [array addObject:[NSNumber numberWithInteger:index]];
+        [array addObject:@(index)];
         index = [self indexGreaterThanIndex:index];
     }
     return array;

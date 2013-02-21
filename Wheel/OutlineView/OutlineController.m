@@ -145,7 +145,7 @@
 
 - (IBAction)generate:(id)sender {
     [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [self showEntity:[self.document.models objectAtIndex:idx]];
+        [self showEntity:self.document.models[idx]];
     }];
 }
 
@@ -272,20 +272,15 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
-        return [NSNumber numberWithInteger:index];
+        return @([[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type]);
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
-        NSUInteger index = [[DataStore sharedDataStore].kinds indexOfObject:entity.kind];
-        return [NSNumber numberWithInteger:index];
+        return @([[DataStore sharedDataStore].kinds indexOfObject:entity.kind]);
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
-        NSUInteger index = [[DataStore sharedDataStore].setters indexOfObject:entity.setter];
-        return [NSNumber numberWithInteger:index];
+        return @([[DataStore sharedDataStore].setters indexOfObject:entity.setter]);
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
-        NSUInteger index = [[DataStore sharedDataStore].atomicities indexOfObject:entity.atomicity];
-        return [NSNumber numberWithInteger:index];
+        return @([[DataStore sharedDataStore].atomicities indexOfObject:entity.atomicity]);
     } else {
-        NSUInteger index = [[DataStore sharedDataStore].writabilities indexOfObject:entity.writability];
-        return [NSNumber numberWithInteger:index];
+        return @([[DataStore sharedDataStore].writabilities indexOfObject:entity.writability]);
     }
 }
 
@@ -298,15 +293,15 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         entity.key = object;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        entity.type = [[[DataStore sharedDataStore].types valueForKey:@"name"] objectAtIndex:[object integerValue]];
+        entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
-        entity.kind = [[DataStore sharedDataStore].kinds objectAtIndex:[object integerValue]];
+        entity.kind = DataStore.sharedDataStore.kinds[[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
-        entity.setter = [[DataStore sharedDataStore].setters objectAtIndex:[object integerValue]];
+        entity.setter = DataStore.sharedDataStore.setters[[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
-        entity.atomicity = [[DataStore sharedDataStore].atomicities objectAtIndex:[object integerValue]];
+        entity.atomicity = DataStore.sharedDataStore.atomicities[[object integerValue]];
     } else {
-        entity.writability = [[DataStore sharedDataStore].writabilities objectAtIndex:[object integerValue]];
+        entity.writability = DataStore.sharedDataStore.writabilities[[object integerValue]];
     }
     
     [self.outlineView reloadItem:item reloadChildren:YES];
