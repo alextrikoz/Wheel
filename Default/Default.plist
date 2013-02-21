@@ -66,7 +66,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>- (id)setAttributesWithDictionary:(NSDictionary *)dictionary;</string>
+			<string>+ (id)sharedInstance;</string>
 			<key>number</key>
 			<integer>3</integer>
 			<key>on</key>
@@ -74,7 +74,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>- (id)initWithDictionary:(NSDictionary *)dictionary;</string>
+			<string>- (id)setAttributesWithDictionary:(NSDictionary *)dictionary;</string>
 			<key>number</key>
 			<integer>4</integer>
 			<key>on</key>
@@ -82,7 +82,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>+ (id)objectWithDictionary:(NSDictionary *)dictionary;</string>
+			<string>- (id)initWithDictionary:(NSDictionary *)dictionary;</string>
 			<key>number</key>
 			<integer>5</integer>
 			<key>on</key>
@@ -90,7 +90,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>+ (NSArray *)objectsWithArray:(NSArray *)array;</string>
+			<string>+ (id)objectWithDictionary:(NSDictionary *)dictionary;</string>
 			<key>number</key>
 			<integer>6</integer>
 			<key>on</key>
@@ -98,7 +98,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>- (NSDictionary *)dictionaryRepresentation;</string>
+			<string>+ (NSArray *)objectsWithArray:(NSArray *)array;</string>
 			<key>number</key>
 			<integer>7</integer>
 			<key>on</key>
@@ -106,7 +106,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>- (NSString *)description;</string>
+			<string>- (NSDictionary *)dictionaryRepresentation;</string>
 			<key>number</key>
 			<integer>8</integer>
 			<key>on</key>
@@ -114,7 +114,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>NSCopying</string>
+			<string>- (NSString *)description;</string>
 			<key>number</key>
 			<integer>9</integer>
 			<key>on</key>
@@ -122,7 +122,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>NSCoding</string>
+			<string>NSCopying</string>
 			<key>number</key>
 			<integer>10</integer>
 			<key>on</key>
@@ -130,9 +130,17 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>ARC</string>
+			<string>NSCoding</string>
 			<key>number</key>
 			<integer>11</integer>
+			<key>on</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>ARC</string>
+			<key>number</key>
+			<integer>12</integer>
 			<key>on</key>
 			<false/>
 		</dict>
@@ -140,7 +148,7 @@
 			<key>name</key>
 			<string>ModernSyntax</string>
 			<key>number</key>
-			<integer>12</integer>
+			<integer>13</integer>
 			<key>on</key>
 			<false/>
 		</dict>

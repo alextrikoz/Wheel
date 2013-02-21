@@ -53,6 +53,7 @@
 @interface DefinesUnit : Unit @end
 @interface SynthesizesUnit : Unit @end
 @interface DeallocUnit : Unit @end
+@interface InstanceUnit : Unit @end
 @interface SetAttributesWithDictionaryUnit : Unit @end
 @interface InitWithDictionaryUnit : Unit @end
 @interface ObjectWithDictionaryUnit : Unit @end

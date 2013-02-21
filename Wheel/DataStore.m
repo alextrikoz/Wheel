@@ -17,6 +17,7 @@ enum {
     IVARS_UNIT_NUMBER,
     SYNTHESIZES_UNIT_NUMBER,
     DEALLOC_UNIT_NUMBER,
+    INSTANCE_UNIT_NUMBER,
     SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER,
     INITWITHDICTIONARY_UNIT_NUMBER,
     OBJECTWITHDICTIONARY_UNIT_NUMBER,
@@ -141,6 +142,9 @@ static DataStore *_sharedDataStore = nil;
     
     self.deallocUnit = [DeallocUnit new];
     self.deallocUnit.managedUnit = self.units[DEALLOC_UNIT_NUMBER];
+    
+    self.instanceUnit = [InstanceUnit new];
+    self.instanceUnit.managedUnit = self.units[INSTANCE_UNIT_NUMBER];
     
     self.setAttributesWithDictionaryUnit = [SetAttributesWithDictionaryUnit new];
     self.setAttributesWithDictionaryUnit.managedUnit = self.units[SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER];

@@ -72,6 +72,7 @@
     NSString *defines = [dataStore.definesUnit bodyWithEntity:entity];
     NSString *synthesizes = [dataStore.synthesizesUnit bodyWithEntity:entity];
     NSString *dealloc = [dataStore.deallocUnit bodyWithEntity:entity];
+    NSString *instance = [dataStore.instanceUnit bodyWithEntity:entity];
     NSString *setAttributesWithDictionary = [dataStore.setAttributesWithDictionaryUnit bodyWithEntity:entity];
     NSString *initWithDictionary = [dataStore.initWithDictionaryUnit bodyWithEntity:entity];
     NSString *objectWithDictionary = [dataStore.objectWithDictionaryUnit bodyWithEntity:entity];
@@ -81,7 +82,7 @@
     NSString *copying = [dataStore.copyingUnit bodyWithEntity:entity];
     NSString *coding = [dataStore.codingUnit bodyWithEntity:entity];
     
-    return M_CONTENT(header, className, imoprts, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
+    return M_CONTENT(header, className, imoprts, defines, synthesizes, dealloc, instance, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copying, coding);
 }
 
 @end
@@ -195,6 +196,7 @@
 - (NSString *)bodyWithEntity:(Entity *)entity {
     DataStore *dataStore = DataStore.sharedDataStore;
     
+    NSString *instancePrototype = [dataStore.instanceUnit prototypeWithEntity:entity];
     NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithEntity:entity];
     NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithEntity:entity];
     NSString *objectWithDictionaryPrototype = [dataStore.objectWithDictionaryUnit prototypeWithEntity:entity];
@@ -202,13 +204,14 @@
     NSString *dictionaryRepresentationPrototype = [dataStore.dictionaryRepresentationUnit prototypeWithEntity:entity];
     NSString *descriptionPrototype = [dataStore.descriptionUnit prototypeWithEntity:entity];
     
-    if (setAttributesWithDictionaryPrototype.length ||
+    if (instancePrototype||
+        setAttributesWithDictionaryPrototype.length ||
         initWithDictionaryPrototype.length ||
         objectsWithArrayPrototype.length ||
         objectsWithArrayPrototype.length ||
         dictionaryRepresentationPrototype.length ||
         descriptionPrototype.length) {
-        return H_PROTOTYPES(setAttributesWithDictionaryPrototype, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype);
+        return H_PROTOTYPES(instancePrototype, setAttributesWithDictionaryPrototype, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype);
     } else {
         return @"";
     }
@@ -257,6 +260,18 @@
         stuff = [stuff stringByAppendingString:[child m_deallocStuff]];
     }
     return M_DEALLOC(stuff);
+}
+
+@end
+
+@implementation InstanceUnit
+
+- (NSString *)prototypeWithEntity:(Entity *)entity {
+    return self.available ? H_INSTANCE_PROTOTYPE(entity.className) : @"";
+}
+
+- (NSString *)bodyWithEntity:(Entity *)entity {
+    return self.available ? M_INSTANCE(entity.className) : @"";
 }
 
 @end

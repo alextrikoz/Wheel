@@ -40,10 +40,15 @@ properties]
 ",\
 properties]
 
-#define H_PROTOTYPES(setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype) [NSString stringWithFormat:@"\
-%@%@%@%@%@%@\n\
+#define H_PROTOTYPES(instancePrototype, setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype) [NSString stringWithFormat:@"\
+%@%@%@%@%@%@%@\n\
 ",\
-setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
+instancePrototype, setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
+
+#define H_INSTANCE_PROTOTYPE(className) [NSString stringWithFormat:@"\
+- (%@ *)shared%@;\n\
+",\
+className, className]
 
 #define H_SETATTRIBUTESWITHDICTIONARY_PROTOTYPE @"\
 - (void)setAttributesWithDictionary:(NSDictionary *)dictionary;\n\
@@ -71,14 +76,14 @@ className]
 - (NSString *)description;\n\
 "
 
-#define M_CONTENT(header, className, imports, defines, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding) [NSString stringWithFormat:@"\
+#define M_CONTENT(header, className, imports, defines, synthesizes, dealloc, instance, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding) [NSString stringWithFormat:@"\
 %@#import \"%@.h\"\n\
 \n\
 %@%@@implementation %@\n\
 \n\
-%@%@%@%@%@%@%@%@%@%@@end\n\
+%@%@%@%@%@%@%@%@%@%@%@@end\n\
 ",\
-header, className, imports, defines, className, synthesizes, dealloc, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding]
+header, className, imports, defines, className, synthesizes, dealloc, instance, setAttributesWithDictionary, initWithDictionary, objectWithDictionary, objectsWithArray, dictionaryRepresentation, description, copiyng, coding]
 
 #define M_DEFINES(properties) [NSString stringWithFormat:@"\
 %@\n\
@@ -96,6 +101,18 @@ properties]
 }\n\n\
 ",\
 properties]
+
+#define M_INSTANCE(className) [NSString stringWithFormat:@"\
+static %@ *_shared%@ = nil;\n\
+\n\
++ (%@ *)shared%@ {\n\
+    if(_shared%@ == nil) {\n\
+        _shared%@ = [self new];\n\
+    }\n\
+    return _shared%@;\n\
+}\n\n\
+",\
+className, className, className, className, className, className, className]
 
 #define M_SETATTRIBUTESWITHDICTIONARY(properties) [NSString stringWithFormat:@"\
 - (void)setAttributesWithDictionary:(NSDictionary *)dictionary {\n\

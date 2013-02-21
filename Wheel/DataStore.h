@@ -19,6 +19,7 @@
 @class DefinesUnit;
 @class SynthesizesUnit;
 @class DeallocUnit;
+@class InstanceUnit;
 @class SetAttributesWithDictionaryUnit;
 @class InitWithDictionaryUnit;
 @class ObjectWithDictionaryUnit;
@@ -51,6 +52,7 @@
 @property DefinesUnit *definesUnit;
 @property SynthesizesUnit *synthesizesUnit;
 @property DeallocUnit *deallocUnit;
+@property InstanceUnit *instanceUnit;
 @property SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit;
 //NOTE: id type make this method ARC compliant
 @property id initWithDictionaryUnit;

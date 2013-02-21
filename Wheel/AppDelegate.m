@@ -33,8 +33,8 @@
 - (void)removeStoreIfNeeded {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
-    if (![version isEqualToString:@"14"]) {
-        [defaults setValue:@"13" forKey:@"version"];
+    if (![version isEqualToString:@"15"]) {
+        [defaults setValue:@"15" forKey:@"version"];
         [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:[self.applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"] error:nil];
     }
@@ -46,7 +46,7 @@
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSArray *documents = [sharedDocumentController documents];
     if (!documents.count) {
-        [self newWheel:nil];        
+        [self newJSON:nil];
     }
     
     [NSApplication.sharedApplication.windows makeObjectsPerformSelector:@selector(orderFront:)];
