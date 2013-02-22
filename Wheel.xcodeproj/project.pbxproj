@@ -72,6 +72,11 @@
 		21CD2FB116D5330B00F2DF80 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */; };
 		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
 		21E5715C153D8D1700A7138F /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesController.xib */; };
+		21F3554216D7A03C0020C1AF /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554116D7A03C0020C1AF /* XMLParser.m */; };
+		21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554616D7A1CD0020C1AF /* XMLDocument.m */; };
+		21F3554916D7A1CD0020C1AF /* XMLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F3554716D7A1CD0020C1AF /* XMLDocument.xib */; };
+		21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554B16D7A2D00020C1AF /* XMLController.m */; };
+		21F3554E16D7A4240020C1AF /* XMLController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F3554D16D7A4240020C1AF /* XMLController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +192,14 @@
 		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		21E5715B153D8D1600A7138F /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
+		21F3554016D7A03C0020C1AF /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
+		21F3554116D7A03C0020C1AF /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
+		21F3554516D7A1CD0020C1AF /* XMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLDocument.h; path = XMLView/XMLDocument.h; sourceTree = "<group>"; };
+		21F3554616D7A1CD0020C1AF /* XMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLDocument.m; path = XMLView/XMLDocument.m; sourceTree = "<group>"; };
+		21F3554716D7A1CD0020C1AF /* XMLDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XMLDocument.xib; path = XMLView/XMLDocument.xib; sourceTree = "<group>"; };
+		21F3554A16D7A2D00020C1AF /* XMLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLController.h; path = XMLView/XMLController.h; sourceTree = "<group>"; };
+		21F3554B16D7A2D00020C1AF /* XMLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLController.m; path = XMLView/XMLController.m; sourceTree = "<group>"; };
+		21F3554D16D7A4240020C1AF /* XMLController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XMLController.xib; path = XMLView/XMLController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +301,7 @@
 		11EF74271539426700D341B5 = {
 			isa = PBXGroup;
 			children = (
+				21F3553F16D7A03C0020C1AF /* XMLParser */,
 				1140048D15F7C074007C3F61 /* Extensions */,
 				11EF743C1539426800D341B5 /* Wheel */,
 				11C7A8AE16D0F7120090542E /* Default */,
@@ -339,6 +353,7 @@
 			children = (
 				21F2C803157A57030048DA4D /* Models */,
 				11C9E9D316C981D80024572B /* JSONView */,
+				21F3554316D7A1800020C1AF /* XMLView */,
 				2109226A16A7F012008D2C88 /* OutlineView */,
 				2188165E16B6829A008022EE /* TableView */,
 				115765241549C8760040D3A7 /* Config.h */,
@@ -449,6 +464,28 @@
 				11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		21F3553F16D7A03C0020C1AF /* XMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				21F3554016D7A03C0020C1AF /* XMLParser.h */,
+				21F3554116D7A03C0020C1AF /* XMLParser.m */,
+			);
+			path = XMLParser;
+			sourceTree = "<group>";
+		};
+		21F3554316D7A1800020C1AF /* XMLView */ = {
+			isa = PBXGroup;
+			children = (
+				21F3554516D7A1CD0020C1AF /* XMLDocument.h */,
+				21F3554616D7A1CD0020C1AF /* XMLDocument.m */,
+				21F3554716D7A1CD0020C1AF /* XMLDocument.xib */,
+				21F3554A16D7A2D00020C1AF /* XMLController.h */,
+				21F3554B16D7A2D00020C1AF /* XMLController.m */,
+				21F3554D16D7A4240020C1AF /* XMLController.xib */,
+			);
+			name = XMLView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,6 +609,8 @@
 				11C7A8B616D0F7120090542E /* DefaultJSON.json in Resources */,
 				11C7A8B716D0F7120090542E /* DefaultOutline.plist in Resources */,
 				11C7A8B816D0F7120090542E /* DefaultTable.plist in Resources */,
+				21F3554916D7A1CD0020C1AF /* XMLDocument.xib in Resources */,
+				21F3554E16D7A4240020C1AF /* XMLController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +672,9 @@
 				2101B32216CCD6DD0019BB0B /* Entity.m in Sources */,
 				11F868A616CD801200DA261A /* CustomView.m in Sources */,
 				21CD2FB116D5330B00F2DF80 /* NSString+JSON.m in Sources */,
+				21F3554216D7A03C0020C1AF /* XMLParser.m in Sources */,
+				21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */,
+				21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,12 +35,26 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>wheel</string>
+				<string>json</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>TableDocument</string>
+			<string>JSONDocument</string>
 			<key>CFBundleTypeName</key>
-			<string>wheel</string>
+			<string>json</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xml</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>XMLDocument</string>
+			<key>CFBundleTypeName</key>
+			<string>xml</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>CFBundleTypeRole</key>
@@ -63,12 +77,12 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>json</string>
+				<string>wheel</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>JSONDocument</string>
+			<string>TableDocument</string>
 			<key>CFBundleTypeName</key>
-			<string>json</string>
+			<string>wheel</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>CFBundleTypeRole</key>

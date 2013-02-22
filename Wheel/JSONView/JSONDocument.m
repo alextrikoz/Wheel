@@ -24,7 +24,7 @@
     }
     
     if ([self.displayName isEqualToString:@"Untitled"]) {
-        self.displayName = @"Window";
+        self.displayName = @"JSON";
     }
 }
 

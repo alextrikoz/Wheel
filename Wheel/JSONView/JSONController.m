@@ -37,7 +37,7 @@
         return;
     }
     
-    Entity *entity = [self entityWithObject:object];
+    Entity *entity = [JSONController entityWithCollection:object];
     
     OutlineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"outline" error:nil];
     document.rootNode = [Entity nodeWithDictionary:entity.dictionaryRepresentation];
@@ -46,7 +46,7 @@
     [document showWindows];
 }
 
-- (Entity *)entityWithObject:(id)object {
++ (Entity *)entityWithCollection:(id)object {
     Entity *entity = [Entity new];
     
     entity.children = [NSMutableArray array];
@@ -69,7 +69,7 @@
     [info enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         Entity *child = nil;
         if ([obj isKindOfClass:[NSArray class]] ) {
-            child = [self entityWithObject:obj];
+            child = [self entityWithCollection:obj];
             
             if ([child.kind isEqualToString:@"object"]) {
                 
@@ -90,7 +90,7 @@
                 child.kind = @"collection";
             }
         } else if ([obj isKindOfClass:[NSDictionary class]]) {
-            child = [self entityWithObject:obj];
+            child = [JSONController entityWithCollection:obj];
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";

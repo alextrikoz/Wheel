@@ -16,6 +16,7 @@
 
 - (IBAction)preferences:(id)sender;
 - (IBAction)newJSON:(id)sender;
+- (IBAction)newXML:(id)sender;
 - (IBAction)newOutline:(id)sender;
 - (IBAction)newWheel:(id)sender;
 

@@ -60,6 +60,10 @@
     [self makeAndDisplayUntitledDocumentOfType:@"json"];
 }
 
+- (IBAction)newXML:(id)sender {
+    [self makeAndDisplayUntitledDocumentOfType:@"xml"];
+}
+
 - (IBAction)newOutline:(id)sender {
     [self makeAndDisplayUntitledDocumentOfType:@"outline"];
 }
