@@ -10,4 +10,6 @@
 
 @interface XMLDocument : NSDocument
 
+@property NSString *XMLString;
+
 @end

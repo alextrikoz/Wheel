@@ -74,9 +74,9 @@
 		21E5715C153D8D1700A7138F /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesController.xib */; };
 		21F3554216D7A03C0020C1AF /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554116D7A03C0020C1AF /* XMLParser.m */; };
 		21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554616D7A1CD0020C1AF /* XMLDocument.m */; };
-		21F3554916D7A1CD0020C1AF /* XMLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F3554716D7A1CD0020C1AF /* XMLDocument.xib */; };
 		21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554B16D7A2D00020C1AF /* XMLController.m */; };
 		21F3554E16D7A4240020C1AF /* XMLController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F3554D16D7A4240020C1AF /* XMLController.xib */; };
+		21F3555016D7C90C0020C1AF /* DefaultXML.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21F3554F16D7C90C0020C1AF /* DefaultXML.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,10 +196,10 @@
 		21F3554116D7A03C0020C1AF /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		21F3554516D7A1CD0020C1AF /* XMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLDocument.h; path = XMLView/XMLDocument.h; sourceTree = "<group>"; };
 		21F3554616D7A1CD0020C1AF /* XMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLDocument.m; path = XMLView/XMLDocument.m; sourceTree = "<group>"; };
-		21F3554716D7A1CD0020C1AF /* XMLDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XMLDocument.xib; path = XMLView/XMLDocument.xib; sourceTree = "<group>"; };
 		21F3554A16D7A2D00020C1AF /* XMLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLController.h; path = XMLView/XMLController.h; sourceTree = "<group>"; };
 		21F3554B16D7A2D00020C1AF /* XMLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLController.m; path = XMLView/XMLController.m; sourceTree = "<group>"; };
 		21F3554D16D7A4240020C1AF /* XMLController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XMLController.xib; path = XMLView/XMLController.xib; sourceTree = "<group>"; };
+		21F3554F16D7C90C0020C1AF /* DefaultXML.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DefaultXML.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +282,7 @@
 				11C7A8B116D0F7120090542E /* DefaultJSON.json */,
 				11C7A8B216D0F7120090542E /* DefaultOutline.plist */,
 				11C7A8B316D0F7120090542E /* DefaultTable.plist */,
+				21F3554F16D7C90C0020C1AF /* DefaultXML.xml */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -480,7 +481,6 @@
 			children = (
 				21F3554516D7A1CD0020C1AF /* XMLDocument.h */,
 				21F3554616D7A1CD0020C1AF /* XMLDocument.m */,
-				21F3554716D7A1CD0020C1AF /* XMLDocument.xib */,
 				21F3554A16D7A2D00020C1AF /* XMLController.h */,
 				21F3554B16D7A2D00020C1AF /* XMLController.m */,
 				21F3554D16D7A4240020C1AF /* XMLController.xib */,
@@ -609,8 +609,8 @@
 				11C7A8B616D0F7120090542E /* DefaultJSON.json in Resources */,
 				11C7A8B716D0F7120090542E /* DefaultOutline.plist in Resources */,
 				11C7A8B816D0F7120090542E /* DefaultTable.plist in Resources */,
-				21F3554916D7A1CD0020C1AF /* XMLDocument.xib in Resources */,
 				21F3554E16D7A4240020C1AF /* XMLController.xib in Resources */,
+				21F3555016D7C90C0020C1AF /* DefaultXML.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,10 +37,10 @@
     return YES;
 }
 
-- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
-{
-    if( [savePanel.nameFieldStringValue isEqualToString:@"Untitled"] )
-        [savePanel setNameFieldStringValue:@"hello"];
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
+    if ([savePanel.nameFieldStringValue isEqualToString:@"Untitled"]) {
+        [savePanel setNameFieldStringValue:@"JSON"];
+    }
     
     return [super prepareSavePanel:savePanel];
 }

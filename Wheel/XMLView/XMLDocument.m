@@ -17,9 +17,31 @@
     XMLController *windowController = [[XMLController alloc] initWithWindowNibName:@"XMLController"];
     [self addWindowController:windowController];
     
+    if (!self.XMLString) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultXML" ofType:@"xml"];
+        self.XMLString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    }
+    
     if ([self.displayName isEqualToString:@"Untitled"]) {
         self.displayName = @"XML";
     }
+}
+
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    return [self.XMLString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
+    self.XMLString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return YES;
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
+    if ([savePanel.nameFieldStringValue isEqualToString:@"Untitled"]) {
+        [savePanel setNameFieldStringValue:@"XML"];
+    }
+    
+    return [super prepareSavePanel:savePanel];
 }
 
 @end
