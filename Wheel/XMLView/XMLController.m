@@ -26,6 +26,9 @@
 - (IBAction)generate:(id)sender {
     NSString *string = self.textView.textStorage.string;
     id object = [XMLParser dictionaryWithData:[string dataUsingEncoding:NSUTF8StringEncoding]];
+    if (object == nil) {
+        return;
+    }
     
     Entity *entity = [JSONController entityWithCollection:object];
     
