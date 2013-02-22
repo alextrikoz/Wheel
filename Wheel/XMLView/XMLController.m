@@ -30,13 +30,7 @@
         return;
     }
     
-    Entity *entity = [Entity entityWithCollection:object];
-    
-    OutlineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"outline" error:nil];
-    document.rootNode = [Entity nodeWithDictionary:entity.dictionaryRepresentation];
-    [[NSDocumentController sharedDocumentController] addDocument:document];
-    [document makeWindowControllers];
-    [document showWindows];
+    [OutlineDocument showWithEntity:[Entity entityWithCollection:object]];    
 }
 
 @end

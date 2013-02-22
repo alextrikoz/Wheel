@@ -83,6 +83,14 @@
     }
 }
 
++ (void)showWithEntity:(Entity *)entity {
+    OutlineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"outline" error:nil];
+    document.rootNode = [Entity nodeWithDictionary:entity.dictionaryRepresentation];
+    [[NSDocumentController sharedDocumentController] addDocument:document];
+    [document makeWindowControllers];
+    [document showWindows];
+}
+
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     properties[@"rootNode"] = [Entity dictionaryWithNode:self.rootNode];

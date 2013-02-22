@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Entity;
+
 @interface OutlineDocument : NSDocument
 
 @property NSString *className;
@@ -19,5 +21,7 @@
 
 - (void)backupRootNode;
 - (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary;
+
++ (void)showWithEntity:(Entity *)entity;
 
 @end

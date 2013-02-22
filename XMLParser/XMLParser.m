@@ -33,6 +33,8 @@
     return myParser.stack.lastObject;
 }
 
+#pragma mark - NSXMLParserDelegate
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {    
     NSMutableDictionary *mutableAttributes = attributeDict.mutableCopy;
     id object = [self.stack.lastObject objectForKey:elementName];
