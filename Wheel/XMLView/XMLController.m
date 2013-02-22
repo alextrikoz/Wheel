@@ -9,10 +9,8 @@
 #import "XMLController.h"
 
 #import "Entity.h"
-#import "XMLParser.h"
 #import "OutlineDocument.h"
-#import "JSONController.h"
-#import "OutlineController.h"
+#import "XMLParser.h"
 
 @interface XMLController ()
 
@@ -30,7 +28,7 @@
         return;
     }
     
-    Entity *entity = [JSONController entityWithCollection:object];
+    Entity *entity = [Entity entityWithCollection:object];
     
     OutlineDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"outline" error:nil];
     document.rootNode = [Entity nodeWithDictionary:entity.dictionaryRepresentation];

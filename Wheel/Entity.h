@@ -45,4 +45,6 @@
 + (NSTreeNode *)outlineStub;
 + (Entity *)objectStub;
 
++ (Entity *)entityWithCollection:(id)object;
+
 @end

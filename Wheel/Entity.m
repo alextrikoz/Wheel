@@ -8,8 +8,11 @@
 
 #import "Entity.h"
 
-#import "DataStore.h"
+#import "NSString+JSON.h"
+#import "Type.h"
 #import "ManagedUnit.h"
+#import "AppDelegate.h"
+#import "DataStore.h"
 
 #define SETTER_KEY @"setter"
 #define ATOMICITY_KEY @"atomicity"
@@ -280,6 +283,92 @@
         self.children = [decoder decodeObjectForKey:CHILDREN_KEY];
     }
     return self;
+}
+
+#pragma mark - Parser
+
++ (Entity *)entityWithCollection:(id)object {
+    Entity *entity = [Entity new];
+    
+    entity.children = [NSMutableArray array];
+    
+    NSDictionary *info = nil;
+    if ([object isKindOfClass:[NSArray class]]) {
+        info = [object lastObject];
+        if (![info isKindOfClass:[NSDictionary class]]) {
+            entity.setter = @"strong";
+            entity.atomicity = @"nonatomic";
+            entity.writability = @"readwrite";
+            entity.type = @"NSArray *";
+            entity.kind = @"object";
+            return entity;
+        }
+    } else if ([object isKindOfClass:[NSDictionary class]]) {
+        info = object;
+    }
+    
+    [info enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        Entity *child = nil;
+        if ([obj isKindOfClass:[NSArray class]] ) {
+            child = [self entityWithCollection:obj];
+            
+            if ([child.kind isEqualToString:@"object"]) {
+                
+            } else {
+                child.setter = @"strong";
+                child.atomicity = @"nonatomic";
+                child.writability = @"readwrite";
+                child.type = key.typeName;
+                
+                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+                request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", key.typeName];
+                if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
+                    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
+                    type.name = key.typeName;
+                    [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+                }
+                
+                child.kind = @"collection";
+            }
+        } else if ([obj isKindOfClass:[NSDictionary class]]) {
+            child = [self entityWithCollection:obj];
+            child.setter = @"strong";
+            child.atomicity = @"nonatomic";
+            child.writability = @"readwrite";
+            child.type = key.typeName;
+            
+            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
+            request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", child.type];
+            if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
+                Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
+                type.name = child.type;
+                [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
+            }
+            
+            child.kind = @"model";
+        } else if ([obj isKindOfClass:[NSString class]]) {
+            child = [Entity new];
+            child.setter = @"copy";
+            child.atomicity = @"nonatomic";
+            child.writability = @"readwrite";
+            child.type = @"NSString *";
+            child.kind = @"object";
+        } else if ([obj isKindOfClass:[NSNumber class]]) {
+            child = [Entity new];
+            child.setter = @"strong";
+            child.atomicity = @"nonatomic";
+            child.writability = @"readwrite";
+            child.type = @"NSNumber *";
+            child.kind = @"object";
+        } else {
+            child = [Entity new];
+        }
+        child.name = key.varName;
+        child.key = key;
+        [entity.children addObject:child];
+    }];
+    
+    return entity;
 }
 
 @end
