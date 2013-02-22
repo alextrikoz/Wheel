@@ -22,9 +22,11 @@
 @implementation XMLController
 
 - (IBAction)generate:(id)sender {
+    NSError *error = nil;
     NSString *string = self.textView.textStorage.string;
-    id object = [XMLParser dictionaryWithData:[string dataUsingEncoding:NSUTF8StringEncoding]];
-    if (object == nil) {
+    id object = [XMLParser dictionaryWithData:[string dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+    if (error) {
+        [[NSAlert alertWithError:error] runModal];
         return;
     }
     

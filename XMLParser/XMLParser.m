@@ -10,6 +10,7 @@
 
 @interface XMLParser () <NSXMLParserDelegate>
 
+@property NSError *error;
 @property NSMutableString *text;
 @property NSMutableArray *stack;
 
@@ -17,7 +18,7 @@
 
 @implementation XMLParser
 
-+ (NSDictionary *)dictionaryWithData:(NSData *)data {
++ (NSDictionary *)dictionaryWithData:(NSData *)data error:(NSError **)error {
     XMLParser *myParser = [XMLParser new];
     
     myParser.text = @"".mutableCopy;
@@ -27,12 +28,27 @@
     parser.delegate = myParser;
     [parser parse];
     
+    *error = myParser.error;
+    
     return myParser.stack.lastObject;
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {    
-    self.stack.lastObject[elementName] = attributeDict.mutableCopy;
-    self.stack[self.stack.count] = self.stack.lastObject[elementName];
+    NSMutableDictionary *mutableAttributes = attributeDict.mutableCopy;
+    id object = [self.stack.lastObject objectForKey:elementName];
+    if (object) {
+        NSMutableArray *array = nil;
+        if ([object isKindOfClass:[NSMutableArray class]]) {
+            array = object;
+        } else {
+            array = @[object].mutableCopy;
+            self.stack.lastObject[elementName] = array;
+        }
+        array[array.count] = mutableAttributes;
+    } else {
+        self.stack.lastObject[elementName] = mutableAttributes;
+    }
+    self.stack[self.stack.count] = mutableAttributes;
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
@@ -48,7 +64,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    [[NSAlert alertWithError:parseError] runModal];
+    self.error = parseError;
     self.stack = nil;
 }
 

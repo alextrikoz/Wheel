@@ -10,6 +10,6 @@
 
 @interface XMLParser : NSObject
 
-+ (NSDictionary *)dictionaryWithData:(NSData *)data;
++ (NSDictionary *)dictionaryWithData:(NSData *)data error:(NSError **)error;
 
 @end
