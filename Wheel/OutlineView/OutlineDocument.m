@@ -14,18 +14,47 @@
 
 @implementation OutlineDocument
 
-- (void)backupRootNode {
-    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
+#pragma mark - NSDocument
+
+- (void)makeWindowControllers {
+    OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineController"];
+    [self addWindowController:windowController];
+    
+    if (!self.rootNode) {
+        self.rootNode = [Entity outlineStub];
+    }
 }
 
-- (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary {
-    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
-    
-    self.rootNode = [Entity nodeWithDictionary:dictionary];
-    self.className = self.className;
-    self.superClassName = self.superClassName;
-    [self updateModels];
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
+    @try {
+        NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        self.rootNode = [Entity nodeWithDictionary:properties[@"rootNode"]];
+        self.className = properties[@"className"];
+        self.superClassName = properties[@"superClassName"];
+        return YES;
+    } @catch (NSException *exception) {
+        return NO;
+    }
 }
+
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+    properties[@"rootNode"] = [Entity dictionaryWithNode:self.rootNode];
+    properties[@"className"] = self.className;
+    properties[@"superClassName"] = self.superClassName;
+    return [NSKeyedArchiver archivedDataWithRootObject:properties];
+}
+
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
+    savePanel.nameFieldStringValue = self.className;
+    return [super prepareSavePanel:savePanel];
+}
+
+- (NSString *)displayName {
+    return self.className;
+}
+
+#pragma mark - 
 
 - (void)setClassName:(NSString *)className {
     [self backupRootNode];
@@ -47,17 +76,17 @@
     return ((Entity *)self.rootNode.representedObject).superClassName;
 }
 
-- (void)makeWindowControllers {
-    OutlineController *windowController = [[OutlineController alloc] initWithWindowNibName:@"OutlineController"];
-    [self addWindowController:windowController];
-    
-    if (!self.rootNode) {
-        self.rootNode = [Entity outlineStub];
-    }
+- (void)backupRootNode {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
 }
 
-- (NSString *)displayName {
-    return self.className;
+- (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary {
+    [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
+    
+    self.rootNode = [Entity nodeWithDictionary:dictionary];
+    self.className = self.className;
+    self.superClassName = self.superClassName;
+    [self updateModels];
 }
 
 - (void)updateModels {
@@ -89,26 +118,6 @@
     [[NSDocumentController sharedDocumentController] addDocument:document];
     [document makeWindowControllers];
     [document showWindows];
-}
-
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-    properties[@"rootNode"] = [Entity dictionaryWithNode:self.rootNode];
-    properties[@"className"] = self.className;
-    properties[@"superClassName"] = self.superClassName;
-    return [NSKeyedArchiver archivedDataWithRootObject:properties];
-}
-
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
-    @try {
-        NSDictionary *properties = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        self.rootNode = [Entity nodeWithDictionary:properties[@"rootNode"]];
-        self.className = properties[@"className"];
-        self.superClassName = properties[@"superClassName"];
-        return YES;
-    } @catch (NSException *exception) {
-        return NO;
-    }
 }
 
 @end

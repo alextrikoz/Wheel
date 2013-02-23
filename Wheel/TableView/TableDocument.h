@@ -18,4 +18,6 @@
 
 - (void)backupRootEntity;
 
++ (void)showWithEntity:(Entity *)entity;
+
 @end

@@ -37,7 +37,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {    
     NSMutableDictionary *mutableAttributes = attributeDict.mutableCopy;
-    id object = [self.stack.lastObject objectForKey:elementName];
+    id object = self.stack.lastObject[elementName];
     if (object) {
         NSMutableArray *array = nil;
         if ([object isKindOfClass:[NSMutableArray class]]) {

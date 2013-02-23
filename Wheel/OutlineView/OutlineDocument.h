@@ -17,10 +17,9 @@
 @property NSTreeNode *rootNode;
 @property NSMutableArray *models;
 
-- (void)updateModels;
-
 - (void)backupRootNode;
-- (void)backupRootNodeWithDictionary:(NSDictionary *)dictionary;
+
+- (void)updateModels;
 
 + (void)showWithEntity:(Entity *)entity;
 

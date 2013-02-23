@@ -145,18 +145,8 @@
 
 - (IBAction)generate:(id)sender {
     [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [self showEntity:self.document.models[idx]];
+        [TableDocument showWithEntity:self.document.models[idx]];
     }];
-}
-
-- (void)showEntity:(Entity *)entity {
-    TableDocument *document = [[NSDocumentController sharedDocumentController] makeUntitledDocumentOfType:@"wheel" error:nil];
-    document.className = entity.className;
-    document.superClassName = entity.superClassName;
-    document.rootEntity = entity;
-    [[NSDocumentController sharedDocumentController] addDocument:document];
-    [document makeWindowControllers];
-    [document showWindows];
 }
 
 - (IBAction)download:(id)sender {
