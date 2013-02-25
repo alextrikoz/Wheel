@@ -11,7 +11,6 @@
 #import <Carbon/Carbon.h>
 #import "Entity.h"
 #import "ManagedUnit.h"
-#import "Type.h"
 #import "TableDocument.h"
 #import "AppDelegate.h"
 #import "DataStore.h"

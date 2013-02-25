@@ -38,7 +38,6 @@
 @property NSMutableArray *writabilities;
 @property NSMutableArray *kinds;
 @property NSArray *types;
-@property NSIndexSet *selectedTypes;
 @property NSArray *units;
 
 @property HContentUnit *HContentUnit;
@@ -66,8 +65,5 @@
 @property ModernSyntaxUnit *modernSyntaxUnit;
 
 + (DataStore *)sharedDataStore;
-
-- (void)addType;
-- (void)removeSelectedTypes;
 
 @end

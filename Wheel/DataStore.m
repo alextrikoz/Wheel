@@ -10,7 +10,6 @@
 
 #import "Entity.h"
 #import "ManagedUnit.h"
-#import "Type.h"
 #import "AppDelegate.h"
 
 enum {
@@ -31,26 +30,6 @@ enum {
 };
 
 @implementation DataStore
-
-@synthesize types = _types;
-- (NSArray *)types {
-    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
-    _types = [managedObjectContext executeFetchRequest:request error:nil];
-    
-    if (!_types.count) {
-        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Default" ofType:@"plist"]];
-        for (NSString *typeName in dictionary[@"types"]) {
-            [Type typeWithName:typeName managedObjectContext:managedObjectContext];
-        }
-        [managedObjectContext save:nil];
-        self.units = self.units;
-    }
-    
-    return _types;
-}
-- (void)setTypes:(NSArray *)types {}
 
 @synthesize units = _units;
 - (NSArray *)units {
@@ -95,7 +74,6 @@ static DataStore *_sharedDataStore = nil;
     self.kinds = self.kinds;
     
     NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
-    
     self.units = self.units;
     if (!self.units.count) {
         for (NSDictionary *unitInfo in dictionary[@"units"]) {
@@ -105,14 +83,8 @@ static DataStore *_sharedDataStore = nil;
         self.units = self.units;
     }
     
+    self.types = dictionary[@"types"];
     self.types = self.types;
-    if (!self.types.count) {
-        for (NSString *typeName in dictionary[@"types"]) {
-            [Type typeWithName:typeName managedObjectContext:managedObjectContext];
-        }
-        [managedObjectContext save:nil];
-        self.units = self.units;
-    }
     
     [self loadUnits];
 }
@@ -192,26 +164,6 @@ static DataStore *_sharedDataStore = nil;
         [managedObjectContext save:nil];
         self.units = self.units;
     }
-}
-
-- (void)addType {
-    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;    
-    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:managedObjectContext];
-    type.name = @"NSObject *";    
-    [managedObjectContext save:nil];    
-    self.types = self.types;
-}
-
-- (void)removeSelectedTypes {
-    NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;    
-    NSArray *selectedTypes = [self.types objectsAtIndexes:self.selectedTypes];
-    for (Type *type in selectedTypes) {
-        if (type.isCustom) {
-            [managedObjectContext deleteObject:type];
-        }
-    }
-    [managedObjectContext save:nil];    
-    self.types = self.types;
 }
 
 @end

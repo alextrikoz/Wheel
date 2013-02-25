@@ -10,7 +10,6 @@
 
 #import "NSString+JSON.h"
 #import "ManagedUnit.h"
-#import "Type.h"
 #import "DataStore.h"
 
 #define SETTER_KEY @"setter"
