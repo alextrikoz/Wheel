@@ -16,6 +16,7 @@
 
 @property IBOutlet NSView *generalView;
 @property IBOutlet NSView *optionsView;
+@property IBOutlet NSView *libraryView;
 
 @property IBOutlet NSTableView *optionsTableView;
 
@@ -23,5 +24,6 @@
 
 - (IBAction)general:(id)sender;
 - (IBAction)options:(id)sender;
+- (IBAction)library:(id)sender;
 
 @end

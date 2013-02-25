@@ -30,4 +30,8 @@
     [self.window setContentView:self.optionsView];
 }
 
+- (IBAction)library:(id)sender {
+    [self.window setContentView:self.libraryView];
+}
+
 @end
