@@ -7,13 +7,12 @@
 //
 
 #import "TableController.h"
-#import "NSArray+NSIndexSet.h"
-#import "NSIndexSet+NSArray.h"
+
 #import <Carbon/Carbon.h>
-#import "TableDocument.h"
-#import "DataStore.h"
 #import "Entity.h"
 #import "ManagedUnit.h"
+#import "TableDocument.h"
+#import "DataStore.h"
 
 @interface TableController ()
 

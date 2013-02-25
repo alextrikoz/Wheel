@@ -28,20 +28,19 @@
     }
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    return [self.JSONString dataUsingEncoding:NSUTF8StringEncoding];
-}
-
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     self.JSONString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return YES;
 }
 
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    return [self.JSONString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel {
     if ([savePanel.nameFieldStringValue isEqualToString:@"Untitled"]) {
         [savePanel setNameFieldStringValue:@"JSON"];
-    }
-    
+    }    
     return [super prepareSavePanel:savePanel];
 }
 

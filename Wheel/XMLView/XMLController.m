@@ -8,13 +8,14 @@
 
 #import "XMLController.h"
 
+#import "XMLParser.h"
 #import "Entity.h"
 #import "OutlineDocument.h"
-#import "XMLParser.h"
 
 @interface XMLController ()
 
 @property IBOutlet NSTextView *textView;
+
 - (IBAction)generate:(id)sender;
 
 @end
@@ -25,12 +26,13 @@
     NSError *error = nil;
     NSString *string = self.textView.textStorage.string;
     id object = [XMLParser dictionaryWithData:[string dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+    
     if (error) {
         [[NSAlert alertWithError:error] runModal];
         return;
     }
     
-    [OutlineDocument showWithEntity:[Entity entityWithCollection:object]];    
+    [OutlineDocument showWithEntity:[Entity entityWithInfo:object]];    
 }
 
 @end

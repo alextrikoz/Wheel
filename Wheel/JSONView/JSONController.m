@@ -32,7 +32,7 @@
         return;
     }
     
-    [OutlineDocument showWithEntity:[Entity entityWithCollection:object]];
+    [OutlineDocument showWithEntity:[Entity entityWithInfo:object]];
 }
 
 @end

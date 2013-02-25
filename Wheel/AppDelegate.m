@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "PreferencesController.h"
-#import "TableDocument.h"
 #import "OutlineDocument.h"
+#import "TableDocument.h"
+#import "PreferencesController.h"
 
 @implementation AppDelegate
 
@@ -79,6 +79,8 @@
     [document makeWindowControllers];
     [document showWindows];
 }
+
+#pragma mark - CoreData
 
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize managedObjectModel = __managedObjectModel;

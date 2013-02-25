@@ -287,7 +287,7 @@
 
 #pragma mark - Parser
 
-+ (Entity *)entityWithCollection:(id)object {
++ (Entity *)entityWithInfo:(id)object {
     Entity *entity = [Entity new];
     
     entity.children = [NSMutableArray array];
@@ -310,7 +310,7 @@
     [info enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         Entity *child = nil;
         if ([obj isKindOfClass:[NSArray class]] ) {
-            child = [self entityWithCollection:obj];
+            child = [self entityWithInfo:obj];
             
             if ([child.kind isEqualToString:@"object"]) {
                 
@@ -331,7 +331,7 @@
                 child.kind = @"collection";
             }
         } else if ([obj isKindOfClass:[NSDictionary class]]) {
-            child = [self entityWithCollection:obj];
+            child = [self entityWithInfo:obj];
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";

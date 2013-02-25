@@ -18,7 +18,6 @@
 @property NSMutableArray *models;
 
 - (void)backupRootNode;
-
 - (void)updateModels;
 
 + (void)showWithEntity:(Entity *)entity;

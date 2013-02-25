@@ -8,9 +8,9 @@
 
 #import "DataStore.h"
 
-#import "Type.h"
 #import "Entity.h"
 #import "ManagedUnit.h"
+#import "Type.h"
 #import "AppDelegate.h"
 
 enum {

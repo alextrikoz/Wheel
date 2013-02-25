@@ -8,12 +8,12 @@
 
 #import "OutlineController.h"
 
+#import <Carbon/Carbon.h>
 #import "Entity.h"
 #import "ManagedUnit.h"
-#import "TableDocument.h"
 #import "OutlineDocument.h"
+#import "TableDocument.h"
 #import "DataStore.h"
-#import <Carbon/Carbon.h>
 
 @interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate, NSCollectionViewDelegate>
 
@@ -426,7 +426,7 @@
     }];
 }
 
-#pragma mark - AcceptDrop
+#pragma mark - NSCollectionViewDelegate
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
     [pasteboard clearContents];

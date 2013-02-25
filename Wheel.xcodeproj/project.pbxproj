@@ -7,19 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11151EFB16C7BEE100639A47 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF116C7BEE100639A47 /* 0.png */; };
-		11151EFC16C7BEE100639A47 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF216C7BEE100639A47 /* 1.png */; };
-		11151EFD16C7BEE100639A47 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF316C7BEE100639A47 /* 2.png */; };
-		11151EFE16C7BEE100639A47 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF416C7BEE100639A47 /* 3.png */; };
-		11151EFF16C7BEE100639A47 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF516C7BEE100639A47 /* 4.png */; };
-		11151F0016C7BEE100639A47 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF616C7BEE100639A47 /* 5.png */; };
-		11151F0116C7BEE100639A47 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF716C7BEE100639A47 /* 6.png */; };
-		11151F0216C7BEE100639A47 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF816C7BEE100639A47 /* 7.png */; };
-		11151F0316C7BEE100639A47 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EF916C7BEE100639A47 /* 8.png */; };
-		11151F0416C7BEE100639A47 /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 11151EFA16C7BEE100639A47 /* 9.png */; };
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
-		1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */; };
-		1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
 		11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */; };
 		11C7A8B416D0F7120090542E /* Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C7A8AF16D0F7120090542E /* Default.plist */; };
@@ -97,21 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11151EF116C7BEE100639A47 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
-		11151EF216C7BEE100639A47 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
-		11151EF316C7BEE100639A47 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
-		11151EF416C7BEE100639A47 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
-		11151EF516C7BEE100639A47 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
-		11151EF616C7BEE100639A47 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
-		11151EF716C7BEE100639A47 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
-		11151EF816C7BEE100639A47 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
-		11151EF916C7BEE100639A47 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
-		11151EFA16C7BEE100639A47 /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
-		1140048E15F7C074007C3F61 /* NSArray+NSIndexSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NSIndexSet.h"; sourceTree = "<group>"; };
-		1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NSIndexSet.m"; sourceTree = "<group>"; };
-		1140049015F7C074007C3F61 /* NSIndexSet+NSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+NSArray.h"; sourceTree = "<group>"; };
-		1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+NSArray.m"; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		115765241549C8760040D3A7 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		11C05CBB15A74F3200B4E8F8 /* ManagedUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedUnit.h; sourceTree = "<group>"; };
@@ -238,16 +212,6 @@
 		1135C47B153943D300F2AEA4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				11151EF116C7BEE100639A47 /* 0.png */,
-				11151EF216C7BEE100639A47 /* 1.png */,
-				11151EF316C7BEE100639A47 /* 2.png */,
-				11151EF416C7BEE100639A47 /* 3.png */,
-				11151EF516C7BEE100639A47 /* 4.png */,
-				11151EF616C7BEE100639A47 /* 5.png */,
-				11151EF716C7BEE100639A47 /* 6.png */,
-				11151EF816C7BEE100639A47 /* 7.png */,
-				11151EF916C7BEE100639A47 /* 8.png */,
-				11151EFA16C7BEE100639A47 /* 9.png */,
 				212403051545B48C0043D929 /* alert.png */,
 				217BA6FC16CCDEA400C4C193 /* download.png */,
 				21CCA4E216CBB40E00D0C820 /* file.png */,
@@ -264,10 +228,6 @@
 		1140048D15F7C074007C3F61 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1140048E15F7C074007C3F61 /* NSArray+NSIndexSet.h */,
-				1140048F15F7C074007C3F61 /* NSArray+NSIndexSet.m */,
-				1140049015F7C074007C3F61 /* NSIndexSet+NSArray.h */,
-				1140049115F7C074007C3F61 /* NSIndexSet+NSArray.m */,
 				21CD2FAF16D5330B00F2DF80 /* NSString+JSON.h */,
 				21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */,
 			);
@@ -589,16 +549,6 @@
 				212403061545B48C0043D929 /* alert.png in Resources */,
 				2109227216A7F012008D2C88 /* OutlineController.xib in Resources */,
 				2188166416B682CA008022EE /* TableController.xib in Resources */,
-				11151EFB16C7BEE100639A47 /* 0.png in Resources */,
-				11151EFC16C7BEE100639A47 /* 1.png in Resources */,
-				11151EFD16C7BEE100639A47 /* 2.png in Resources */,
-				11151EFE16C7BEE100639A47 /* 3.png in Resources */,
-				11151EFF16C7BEE100639A47 /* 4.png in Resources */,
-				11151F0016C7BEE100639A47 /* 5.png in Resources */,
-				11151F0116C7BEE100639A47 /* 6.png in Resources */,
-				11151F0216C7BEE100639A47 /* 7.png in Resources */,
-				11151F0316C7BEE100639A47 /* 8.png in Resources */,
-				11151F0416C7BEE100639A47 /* 9.png in Resources */,
 				11C9E9DA16C981D80024572B /* JSONController.xib in Resources */,
 				21CCA4E316CBB40E00D0C820 /* file.png in Resources */,
 				217BA6FD16CCDEA400C4C193 /* download.png in Resources */,
@@ -661,8 +611,6 @@
 				212402F415458CD20043D929 /* Type.m in Sources */,
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
 				11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */,
-				1140049215F7C074007C3F61 /* NSArray+NSIndexSet.m in Sources */,
-				1140049315F7C074007C3F61 /* NSIndexSet+NSArray.m in Sources */,
 				2109227116A7F012008D2C88 /* OutlineController.m in Sources */,
 				2188166316B682CA008022EE /* TableController.m in Sources */,
 				2188166916B682FB008022EE /* TableDocument.m in Sources */,
