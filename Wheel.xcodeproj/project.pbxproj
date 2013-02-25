@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1135C47D153943D300F2AEA4 /* hammer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1135C47C153943D300F2AEA4 /* hammer.png */; };
 		115547891541EEF400937DC8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115547881541EEF400937DC8 /* QuartzCore.framework */; };
+		11B7A9EE16DBB8AB00E14509 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B7A9EC16DBB8AB00E14509 /* PreferencesController.m */; };
+		11B7A9EF16DBB8AB00E14509 /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B7A9ED16DBB8AB00E14509 /* PreferencesController.xib */; };
 		11C05CBD15A74F3200B4E8F8 /* ManagedUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */; };
 		11C7A8B416D0F7120090542E /* Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C7A8AF16D0F7120090542E /* Default.plist */; };
 		11C7A8B516D0F7120090542E /* DefaultEntity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C7A8B016D0F7120090542E /* DefaultEntity.plist */; };
@@ -58,8 +60,6 @@
 		21CCA4D616CB9BF600D0C820 /* OutlineDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CCA4D516CB9BF600D0C820 /* OutlineDocument.m */; };
 		21CCA4E316CBB40E00D0C820 /* file.png in Resources */ = {isa = PBXBuildFile; fileRef = 21CCA4E216CBB40E00D0C820 /* file.png */; };
 		21CD2FB116D5330B00F2DF80 /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */; };
-		21E57153153D80CE00A7138F /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E57152153D80CE00A7138F /* PreferencesController.m */; };
-		21E5715C153D8D1700A7138F /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E5715B153D8D1600A7138F /* PreferencesController.xib */; };
 		21F3554216D7A03C0020C1AF /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554116D7A03C0020C1AF /* XMLParser.m */; };
 		21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554616D7A1CD0020C1AF /* XMLDocument.m */; };
 		21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3554B16D7A2D00020C1AF /* XMLController.m */; };
@@ -88,6 +88,9 @@
 		1135C47C153943D300F2AEA4 /* hammer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer.png; sourceTree = "<group>"; };
 		115547881541EEF400937DC8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		115765241549C8760040D3A7 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		11B7A9EB16DBB8AB00E14509 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Wheel/PreferencesView/PreferencesController.h; sourceTree = SOURCE_ROOT; };
+		11B7A9EC16DBB8AB00E14509 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesController.m; path = Wheel/PreferencesView/PreferencesController.m; sourceTree = SOURCE_ROOT; };
+		11B7A9ED16DBB8AB00E14509 /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreferencesController.xib; path = Wheel/PreferencesView/PreferencesController.xib; sourceTree = SOURCE_ROOT; };
 		11C05CBB15A74F3200B4E8F8 /* ManagedUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedUnit.h; sourceTree = "<group>"; };
 		11C05CBC15A74F3200B4E8F8 /* ManagedUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedUnit.m; sourceTree = "<group>"; };
 		11C7A8AF16D0F7120090542E /* Default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Default.plist; sourceTree = "<group>"; };
@@ -163,9 +166,6 @@
 		21CCA4E216CBB40E00D0C820 /* file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file.png; sourceTree = "<group>"; };
 		21CD2FAF16D5330B00F2DF80 /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
 		21CD2FB016D5330B00F2DF80 /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
-		21E57151153D80CE00A7138F /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
-		21E57152153D80CE00A7138F /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
-		21E5715B153D8D1600A7138F /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
 		21F3554016D7A03C0020C1AF /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		21F3554116D7A03C0020C1AF /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		21F3554516D7A1CD0020C1AF /* XMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLDocument.h; path = XMLView/XMLDocument.h; sourceTree = "<group>"; };
@@ -233,6 +233,17 @@
 			);
 			path = Extensions;
 			sourceTree = SOURCE_ROOT;
+		};
+		11B7A9E516DBB87D00E14509 /* PreferencesView */ = {
+			isa = PBXGroup;
+			children = (
+				11B7A9EB16DBB8AB00E14509 /* PreferencesController.h */,
+				11B7A9EC16DBB8AB00E14509 /* PreferencesController.m */,
+				11B7A9ED16DBB8AB00E14509 /* PreferencesController.xib */,
+			);
+			name = PreferencesView;
+			path = PreferencesController;
+			sourceTree = "<group>";
 		};
 		11C7A8AE16D0F7120090542E /* Default */ = {
 			isa = PBXGroup;
@@ -317,6 +328,7 @@
 				21F3554316D7A1800020C1AF /* XMLView */,
 				2109226A16A7F012008D2C88 /* OutlineView */,
 				2188165E16B6829A008022EE /* TableView */,
+				11B7A9E516DBB87D00E14509 /* PreferencesView */,
 				115765241549C8760040D3A7 /* Config.h */,
 				11C86B5015442F08009A0113 /* DataStore.h */,
 				11C86B5115442F08009A0113 /* DataStore.m */,
@@ -324,9 +336,6 @@
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
 				11F868A416CD801200DA261A /* CustomView.h */,
 				11F868A516CD801200DA261A /* CustomView.m */,
-				21E57151153D80CE00A7138F /* PreferencesController.h */,
-				21E57152153D80CE00A7138F /* PreferencesController.m */,
-				21E5715B153D8D1600A7138F /* PreferencesController.xib */,
 				11EF74481539426800D341B5 /* AppDelegate.h */,
 				11EF74491539426800D341B5 /* AppDelegate.m */,
 				11EF744B1539426800D341B5 /* MainMenu.xib */,
@@ -542,7 +551,6 @@
 				11EF744D1539426800D341B5 /* MainMenu.xib in Resources */,
 				11EF746C1539426800D341B5 /* WheelImporter.mdimporter in Resources */,
 				1135C47D153943D300F2AEA4 /* hammer.png in Resources */,
-				21E5715C153D8D1700A7138F /* PreferencesController.xib in Resources */,
 				21871882153F055E005A1540 /* plus.png in Resources */,
 				21871885153F0830005A1540 /* minus.png in Resources */,
 				212402E115456DFE0043D929 /* library.png in Resources */,
@@ -561,6 +569,7 @@
 				11C7A8B816D0F7120090542E /* DefaultTable.plist in Resources */,
 				21F3554E16D7A4240020C1AF /* XMLController.xib in Resources */,
 				21F3555016D7C90C0020C1AF /* DefaultXML.xml in Resources */,
+				11B7A9EF16DBB8AB00E14509 /* PreferencesController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +615,6 @@
 				11EF74431539426800D341B5 /* main.m in Sources */,
 				11EF744A1539426800D341B5 /* AppDelegate.m in Sources */,
 				11EF74501539426800D341B5 /* Wheel.xcdatamodeld in Sources */,
-				21E57153153D80CE00A7138F /* PreferencesController.m in Sources */,
 				11C86B5215442F09009A0113 /* DataStore.m in Sources */,
 				212402F415458CD20043D929 /* Type.m in Sources */,
 				2147F3DD1545BD4F0015D6EF /* CustomCell.m in Sources */,
@@ -623,6 +631,7 @@
 				21F3554216D7A03C0020C1AF /* XMLParser.m in Sources */,
 				21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */,
 				21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */,
+				11B7A9EE16DBB8AB00E14509 /* PreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,9 @@
     parser.delegate = myParser;
     [parser parse];
     
-    *error = myParser.error;
+    if (error) {
+        *error = myParser.error;
+    }
     
     return myParser.stack.lastObject;
 }
