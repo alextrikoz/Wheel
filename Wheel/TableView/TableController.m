@@ -13,8 +13,9 @@
 #import "ManagedUnit.h"
 #import "TableDocument.h"
 #import "DataStore.h"
+#import "CustomColumn.h"
 
-@interface TableController ()
+@interface TableController () <CustomColumnDelegate>
 
 - (TableDocument *)document;
 
@@ -143,7 +144,11 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        return @([[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type]);
+        if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:row] == POP_UP_BUTTON_CELL) {
+            return @([[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type]);
+        } else {
+            return entity.type;
+        }
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
         return @([[DataStore sharedDataStore].kinds indexOfObject:entity.kind]);
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
@@ -164,7 +169,12 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         entity.key = object;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
+        if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:row] == POP_UP_BUTTON_CELL) {
+            entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
+        } else {
+            entity.type = object;
+        }
+        [self.tableView reloadData];
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
         entity.kind = DataStore.sharedDataStore.kinds[[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
@@ -259,6 +269,16 @@
         
         currentIndex++;        
     }];
+}
+
+#pragma mark - CustomColumnDelegate
+
+- (DATA_CELL)customColumn:(CustomColumn *)customColumn dataCellForRow:(NSInteger)row {
+    if ([((Entity *)self.entities[row]).kind isEqualToString:@"object"]) {
+        return POP_UP_BUTTON_CELL;
+    } else {
+        return TEXT_FIELD_CELL;
+    }
 }
 
 @end

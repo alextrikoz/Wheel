@@ -21,6 +21,7 @@
 		11C9E9D916C981D80024572B /* JSONController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C9E9D516C981D80024572B /* JSONController.m */; };
 		11C9E9DA16C981D80024572B /* JSONController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C9E9D616C981D80024572B /* JSONController.xib */; };
 		11C9E9DB16C981D80024572B /* JSONDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C9E9D816C981D80024572B /* JSONDocument.m */; };
+		11E4DAD116DBEF09001E7264 /* CustomColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E4DAD016DBEF09001E7264 /* CustomColumn.m */; };
 		11EF74371539426800D341B5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF74361539426700D341B5 /* Cocoa.framework */; };
 		11EF74411539426800D341B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF743F1539426800D341B5 /* InfoPlist.strings */; };
 		11EF74431539426800D341B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF74421539426800D341B5 /* main.m */; };
@@ -105,6 +106,8 @@
 		11C9E9D616C981D80024572B /* JSONController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSONController.xib; sourceTree = "<group>"; };
 		11C9E9D716C981D80024572B /* JSONDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONDocument.h; sourceTree = "<group>"; };
 		11C9E9D816C981D80024572B /* JSONDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONDocument.m; sourceTree = "<group>"; };
+		11E4DACF16DBEF09001E7264 /* CustomColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColumn.h; sourceTree = "<group>"; };
+		11E4DAD016DBEF09001E7264 /* CustomColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColumn.m; sourceTree = "<group>"; };
 		11EF74321539426700D341B5 /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF74361539426700D341B5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11EF74391539426800D341B5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -336,6 +339,8 @@
 				2147F3DC1545BD4F0015D6EF /* CustomCell.m */,
 				11F868A416CD801200DA261A /* CustomView.h */,
 				11F868A516CD801200DA261A /* CustomView.m */,
+				11E4DACF16DBEF09001E7264 /* CustomColumn.h */,
+				11E4DAD016DBEF09001E7264 /* CustomColumn.m */,
 				11EF74481539426800D341B5 /* AppDelegate.h */,
 				11EF74491539426800D341B5 /* AppDelegate.m */,
 				11EF744B1539426800D341B5 /* MainMenu.xib */,
@@ -632,6 +637,7 @@
 				21F3554816D7A1CD0020C1AF /* XMLDocument.m in Sources */,
 				21F3554C16D7A2D00020C1AF /* XMLController.m in Sources */,
 				11B7A9EE16DBB8AB00E14509 /* PreferencesController.m in Sources */,
+				11E4DAD116DBEF09001E7264 /* CustomColumn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
