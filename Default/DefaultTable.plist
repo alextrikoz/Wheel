@@ -42,7 +42,7 @@
 		<key>writability</key>
 		<string>readwrite</string>
 		<key>type</key>
-		<string>NSDate *</string>
+		<string>NSString *</string>
 		<key>name</key>
 		<string>date</string>
 		<key>kind</key>

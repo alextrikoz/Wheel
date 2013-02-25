@@ -9,9 +9,8 @@
 #import "Entity.h"
 
 #import "NSString+JSON.h"
-#import "Type.h"
 #import "ManagedUnit.h"
-#import "AppDelegate.h"
+#import "Type.h"
 #import "DataStore.h"
 
 #define SETTER_KEY @"setter"
@@ -318,16 +317,7 @@
                 child.setter = @"strong";
                 child.atomicity = @"nonatomic";
                 child.writability = @"readwrite";
-                child.type = key.typeName;
-                
-                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-                request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", key.typeName];
-                if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
-                    Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
-                    type.name = key.typeName;
-                    [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
-                }
-                
+                child.type = key.typeName;                
                 child.kind = @"collection";
             }
         } else if ([obj isKindOfClass:[NSDictionary class]]) {
@@ -335,16 +325,7 @@
             child.setter = @"strong";
             child.atomicity = @"nonatomic";
             child.writability = @"readwrite";
-            child.type = key.typeName;
-            
-            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Type"];
-            request.predicate = [NSPredicate predicateWithFormat:@"self.name like %@", child.type];
-            if ([((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext executeFetchRequest:request error:nil].count == 0) {
-                Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext];
-                type.name = child.type;
-                [((AppDelegate *)[NSApplication sharedApplication].delegate).managedObjectContext save:nil];
-            }
-            
+            child.type = key.typeName;            
             child.kind = @"model";
         } else if ([obj isKindOfClass:[NSString class]]) {
             child = [Entity new];

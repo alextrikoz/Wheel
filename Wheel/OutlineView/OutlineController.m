@@ -14,6 +14,7 @@
 #import "OutlineDocument.h"
 #import "TableDocument.h"
 #import "DataStore.h"
+#import "CustomColumn.h"
 
 @interface OutlineController () <NSOutlineViewDataSource, NSOutlineViewDelegate, NSCollectionViewDelegate>
 
@@ -262,7 +263,15 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        return @([[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type]);
+        if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:[self.outlineView rowForItem:item]] == POP_UP_BUTTON_CELL) {
+            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            if (index == NSNotFound) {
+                index = 0;
+            }
+            return @(index);
+        } else {
+            return entity.type;
+        }
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
         return @([[DataStore sharedDataStore].kinds indexOfObject:entity.kind]);
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
@@ -283,9 +292,23 @@
     } else if ([tableColumn.identifier isEqualToString:@"Key"]) {
         entity.key = object;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
-        entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
+        if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:[self.outlineView rowForItem:item]] == POP_UP_BUTTON_CELL) {
+            entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
+        } else {
+            entity.type = object;
+        }
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
-        entity.kind = DataStore.sharedDataStore.kinds[[object integerValue]];
+        NSString *oldKind = entity.kind;
+        NSString *newKind = DataStore.sharedDataStore.kinds[[object integerValue]];
+        if (![oldKind isEqualToString:@"object"] && [newKind isEqualToString:@"object"]) {
+            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            if (index == NSNotFound) {
+                index = 0;
+            }
+            entity.type = [[DataStore sharedDataStore].types valueForKey:@"name"][index];
+        }
+        [self.outlineView reloadData];
+        entity.kind = newKind;
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
         entity.setter = DataStore.sharedDataStore.setters[[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {
@@ -433,6 +456,16 @@
     NSArray *draggedEntities = [self.document.models objectsAtIndexes:indexes];    
     [pasteboard writeObjects:draggedEntities];
     return YES;
+}
+
+#pragma mark - CustomColumnDelegate
+
+- (DATA_CELL)customColumn:(CustomColumn *)customColumn dataCellForRow:(NSInteger)row {
+    if ([((Entity *)[[self.outlineView itemAtRow:row] representedObject]).kind isEqualToString:@"object"]) {
+        return POP_UP_BUTTON_CELL;
+    } else {
+        return TEXT_FIELD_CELL;
+    }
 }
 
 @end

@@ -11,7 +11,9 @@
 #import <Carbon/Carbon.h>
 #import "Entity.h"
 #import "ManagedUnit.h"
+#import "Type.h"
 #import "TableDocument.h"
+#import "AppDelegate.h"
 #import "DataStore.h"
 #import "CustomColumn.h"
 
@@ -145,7 +147,11 @@
         return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
         if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:row] == POP_UP_BUTTON_CELL) {
-            return @([[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type]);
+            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            if (index == NSNotFound) {
+                index = 0;
+            }
+            return @(index);
         } else {
             return entity.type;
         }
@@ -174,9 +180,18 @@
         } else {
             entity.type = object;
         }
-        [self.tableView reloadData];
     } else if ([tableColumn.identifier isEqualToString:@"Kind"]) {
-        entity.kind = DataStore.sharedDataStore.kinds[[object integerValue]];
+        NSString *oldKind = entity.kind;
+        NSString *newKind = DataStore.sharedDataStore.kinds[[object integerValue]];
+        if (![oldKind isEqualToString:@"object"] && [newKind isEqualToString:@"object"]) {
+            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            if (index == NSNotFound) {
+                index = 0;
+            }
+            entity.type = [[DataStore sharedDataStore].types valueForKey:@"name"][index];
+        }
+        [self.tableView reloadData];
+        entity.kind = newKind;
     } else if ([tableColumn.identifier isEqualToString:@"Setter"]) {
         entity.setter = DataStore.sharedDataStore.setters[[object integerValue]];
     } else if ([tableColumn.identifier isEqualToString:@"Atomicity"]) {

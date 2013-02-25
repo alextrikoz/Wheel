@@ -29,14 +29,10 @@
 	</array>
 	<key>types</key>
 	<array>
-		<string>MyClass *</string>
 		<string>NSArray *</string>
 		<string>NSDictionary *</string>
-		<string>NSMutableArray *</string>
-		<string>NSDate *</string>
 		<string>NSNumber *</string>
 		<string>NSString *</string>
-		<string>Product *</string>
 	</array>
 	<key>units</key>
 	<array>

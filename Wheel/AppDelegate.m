@@ -34,7 +34,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *version = [defaults objectForKey:@"version"];
     if (![version isEqualToString:@"15"]) {
-        [defaults setValue:@"15" forKey:@"version"];
+        [defaults setValue:@"16" forKey:@"version"];
         [defaults synchronize];
         [[NSFileManager defaultManager] removeItemAtURL:[self.applicationFilesDirectory URLByAppendingPathComponent:@"Wheel.storedata"] error:nil];
     }

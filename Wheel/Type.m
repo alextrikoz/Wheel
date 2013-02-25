@@ -8,6 +8,8 @@
 
 #import "Type.h"
 
+#import "DataStore.h"
+
 @implementation Type
 
 @dynamic name;
@@ -16,6 +18,11 @@
     Type *type = [NSEntityDescription insertNewObjectForEntityForName:@"Type" inManagedObjectContext:managedObjectContext];
     type.name = name;
     return type;
+}
+
+- (BOOL)isCustom {
+    NSArray *types = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Default" ofType:@"plist"]][@"types"];
+    return [types indexOfObject:self.name] == NSNotFound;
 }
 
 @end

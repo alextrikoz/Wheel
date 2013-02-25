@@ -15,4 +15,6 @@
 
 + (Type *)typeWithName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
+- (BOOL)isCustom;
+
 @end

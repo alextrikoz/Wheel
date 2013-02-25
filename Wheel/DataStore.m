@@ -206,8 +206,10 @@ static DataStore *_sharedDataStore = nil;
     NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;    
     NSArray *selectedTypes = [self.types objectsAtIndexes:self.selectedTypes];
     for (Type *type in selectedTypes) {
-        [managedObjectContext deleteObject:type];
-    }    
+        if (type.isCustom) {
+            [managedObjectContext deleteObject:type];
+        }
+    }
     [managedObjectContext save:nil];    
     self.types = self.types;
 }

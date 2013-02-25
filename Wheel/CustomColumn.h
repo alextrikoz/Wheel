@@ -23,6 +23,6 @@ typedef enum {
 
 @interface CustomColumn : NSTableColumn
 
-@property IBOutlet id delegate;
+@property (weak) IBOutlet id delegate;
 
 @end
