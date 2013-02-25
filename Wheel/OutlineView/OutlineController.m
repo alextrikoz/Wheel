@@ -305,7 +305,7 @@
             if (index == NSNotFound) {
                 index = 0;
             }
-            entity.type = [[DataStore sharedDataStore].types valueForKey:@"name"][index];
+            entity.type = [DataStore sharedDataStore].types[index];
         }
         [self.outlineView reloadData];
         entity.kind = newKind;

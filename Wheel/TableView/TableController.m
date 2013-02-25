@@ -146,7 +146,7 @@
         return entity.key;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
         if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:row] == POP_UP_BUTTON_CELL) {
-            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            NSUInteger index = [[DataStore sharedDataStore].types indexOfObject:entity.type];
             if (index == NSNotFound) {
                 index = 0;
             }
@@ -175,7 +175,7 @@
         entity.key = object;
     } else if ([tableColumn.identifier isEqualToString:@"Type"]) {
         if ([self customColumn:(CustomColumn *)tableColumn dataCellForRow:row] == POP_UP_BUTTON_CELL) {
-            entity.type = [DataStore.sharedDataStore.types valueForKey:@"name"][[object integerValue]];
+            entity.type = DataStore.sharedDataStore.types[[object integerValue]];
         } else {
             entity.type = object;
         }
@@ -183,11 +183,11 @@
         NSString *oldKind = entity.kind;
         NSString *newKind = DataStore.sharedDataStore.kinds[[object integerValue]];
         if (![oldKind isEqualToString:@"object"] && [newKind isEqualToString:@"object"]) {
-            NSUInteger index = [[[DataStore sharedDataStore].types valueForKey:@"name"] indexOfObject:entity.type];
+            NSUInteger index = [[DataStore sharedDataStore].types indexOfObject:entity.type];
             if (index == NSNotFound) {
                 index = 0;
             }
-            entity.type = [[DataStore sharedDataStore].types valueForKey:@"name"][index];
+            entity.type = [DataStore sharedDataStore].types[index];
         }
         [self.tableView reloadData];
         entity.kind = newKind;

@@ -84,8 +84,9 @@
     [[self.undoManager prepareWithInvocationTarget:self] backupRootNodeWithDictionary:[Entity dictionaryWithNode:self.rootNode]];
     
     self.rootNode = [Entity nodeWithDictionary:dictionary];
-    self.className = self.className;
-    self.superClassName = self.superClassName;
+    ((Entity *)self.rootNode.representedObject).className = self.className;
+    ((Entity *)self.rootNode.representedObject).superClassName = self.superClassName;
+    
     [self updateModels];
 }
 

@@ -87,8 +87,8 @@
     [[self.undoManager prepareWithInvocationTarget:self] backupRootEntityWithDictionary:self.rootEntity.dictionaryRepresentation];
     
     self.rootEntity = [Entity objectWithDictionary:dictionary];
-    self.className = self.className;
-    self.superClassName = self.superClassName;
+    self.rootEntity.className = self.className;
+    self.rootEntity.superClassName = self.superClassName;
 }
 
 + (void)showWithEntity:(Entity *)entity {
