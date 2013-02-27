@@ -11,6 +11,25 @@
 #import <Carbon/Carbon.h>
 #import "DataStore.h"
 
+@interface PreferencesController ()
+
+@property IBOutlet NSToolbarItem *generalItem;
+
+@property IBOutlet NSView *generalView;
+@property IBOutlet NSView *optionsView;
+@property IBOutlet NSView *libraryView;
+
+@property IBOutlet NSTableView *optionsTableView;
+@property IBOutlet NSTableView *libraryTableView;
+
+@property IBOutlet DataStore *dataStore;
+
+- (IBAction)general:(id)sender;
+- (IBAction)options:(id)sender;
+- (IBAction)library:(id)sender;
+
+@end
+
 @implementation PreferencesController
 
 - (void)awakeFromNib {
@@ -20,6 +39,7 @@
     self.window.toolbar.selectedItemIdentifier = self.generalItem.itemIdentifier;
     
     [self.optionsTableView deselectAll:nil];
+    [self.libraryTableView deselectAll:nil];
 }
 
 - (IBAction)general:(id)sender {
