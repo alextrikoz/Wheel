@@ -43,6 +43,14 @@
     self.regex = [[NSRegularExpression alloc] initWithPattern:@"^[a-z_][a-z0-9_]*[ ]*[*]*[ ]*$" options:NSRegularExpressionCaseInsensitive error:nil];
 }
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.regex = [[NSRegularExpression alloc] initWithPattern:@"^[a-z_][a-z0-9_]*[ ]*[*]*[ ]*$" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    return self;
+}
+
 @end
 
 @implementation VarNameCell

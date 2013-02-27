@@ -9,6 +9,7 @@
 #import "Entity.h"
 
 #import "NSString+JSON.h"
+#import "NSString+Type.h"
 #import "ManagedUnit.h"
 #import "DataStore.h"
 
@@ -53,6 +54,9 @@
 
 - (NSString *)h_iVarStuff {
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
+    if ([type rangeOfString:@"*"].location == NSNotFound) {
+        type = [type stringByAppendingString:@" "];
+    }
     return [NSString stringWithFormat:@"    %@_%@;\n", type, self.name];
 }
 
@@ -61,7 +65,7 @@
     NSString *writability = [self.writability isEqualToString:@"readonly"] ? @", readonly" : @"";
     
     NSString *type = [self.kind isEqualToString:@"collection"] ? @"NSMutableArray *" : self.type;
-    if ([type rangeOfString:@"*"].location == NSNotFound && [type rangeOfString:@" "].location == NSNotFound) {
+    if ([type rangeOfString:@"*"].location == NSNotFound) {
         type = [type stringByAppendingString:@" "];
     }
     return [NSString stringWithFormat:@"@property (%@%@%@) %@%@;\n", self.setter, atomicity, writability, type, self.name];
@@ -90,10 +94,10 @@
 - (NSString *)m_setAttributesWithDictionaryStuff {    
     if ([self.kind isEqualToString:@"object"]) {
         if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
-            NSString *format = [self.type isEqualToString:@"NSMutableArray *"] ? @"    self.%@ = [dictionary[%@_KEY] mutableCopy];\n" : @"    self.%@ = dictionary[%@_KEY];\n";
+            NSString *format = self.type.isMutable ? @"    self.%@ = [dictionary[%@_KEY] mutableCopy];\n" : @"    self.%@ = dictionary[%@_KEY];\n";
             return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
         }
-        NSString *format = [self.type isEqualToString:@"NSMutableArray *"] ? @"    self.%@ = [[dictionary objectForKey:%@_KEY] mutableCopy];\n" : @"    self.%@ = [dictionary objectForKey:%@_KEY];\n";
+        NSString *format = self.type.isMutable ? @"    self.%@ = [[dictionary objectForKey:%@_KEY] mutableCopy];\n" : @"    self.%@ = [dictionary objectForKey:%@_KEY];\n";
         return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
         if (DataStore.sharedDataStore.modernSyntaxUnit.available) {

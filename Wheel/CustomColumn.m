@@ -7,6 +7,7 @@
 //
 
 #import "CustomColumn.h"
+#import "CustomCell.h"
 
 @implementation CustomColumn
 
@@ -16,7 +17,7 @@
     if ([self.delegate respondsToSelector:@selector(customColumn:dataCellForRow:)]) {
         switch ([self.delegate customColumn:self dataCellForRow:row]) {
             case TEXT_FIELD_CELL: {
-                NSTextFieldCell *textFieldCell = [NSTextFieldCell new];
+                VarTypeCell *textFieldCell = [VarTypeCell new];
                 textFieldCell.editable = YES;
                 return textFieldCell;
             }

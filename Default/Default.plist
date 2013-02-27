@@ -29,11 +29,14 @@
 	</array>
 	<key>types</key>
 	<array>
+		<string>id</string>
 		<string>NSArray *</string>
-		<string>NSMutableArray *</string>
 		<string>NSDictionary *</string>
 		<string>NSString *</string>
 		<string>NSNumber *</string>
+		<string>NSMutableArray *</string>
+		<string>NSMutableDictionary *</string>
+		<string>NSMutableString *</string>
 	</array>
 	<key>units</key>
 	<array>
