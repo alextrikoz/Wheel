@@ -89,17 +89,19 @@
 
 - (NSString *)m_setAttributesWithDictionaryStuff {    
     if ([self.kind isEqualToString:@"object"]) {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
-            return [NSString stringWithFormat:@"    self.%@ = dictionary[%@_KEY];\n", self.name, self.name.uppercaseString];
+        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
+            NSString *format = [self.type isEqualToString:@"NSMutableArray *"] ? @"    self.%@ = [dictionary[%@_KEY] mutableCopy];\n" : @"    self.%@ = dictionary[%@_KEY];\n";
+            return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
         }
-        return [NSString stringWithFormat:@"    self.%@ = [dictionary objectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+        NSString *format = [self.type isEqualToString:@"NSMutableArray *"] ? @"    self.%@ = [[dictionary objectForKey:%@_KEY] mutableCopy];\n" : @"    self.%@ = [dictionary objectForKey:%@_KEY];\n";
+        return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
             return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
         }
         return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
     } else {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
             return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
         }
         return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
@@ -115,7 +117,7 @@
         NSMutableString *string = [NSMutableString string];
         [string appendFormat:@"    NSMutableArray *array = [NSMutableArray array];\n"];
         [string appendFormat:@"    for (%@ *object self.%@) {\n", self.className, self.name];
-        if (DataStore.sharedDataStore.modernSyntaxUnit.managedUnit.enabled.boolValue) {
+        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
             [string appendFormat:@"        array[array.count] = object.dictionaryRepresentation;\n"];
         } else {
             [string appendFormat:@"        [array addObject:object.dictionaryRepresentation];\n"];

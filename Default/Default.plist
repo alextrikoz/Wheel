@@ -30,9 +30,10 @@
 	<key>types</key>
 	<array>
 		<string>NSArray *</string>
+		<string>NSMutableArray *</string>
 		<string>NSDictionary *</string>
-		<string>NSNumber *</string>
 		<string>NSString *</string>
+		<string>NSNumber *</string>
 	</array>
 	<key>units</key>
 	<array>
