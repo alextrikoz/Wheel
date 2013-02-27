@@ -40,12 +40,14 @@
     }
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {    
     [self setupDefaults];
+    
+    BOOL isDefaultLaunch = [[aNotification.userInfo objectForKey:NSApplicationLaunchIsDefaultLaunchKey] boolValue];
     
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSArray *documents = [sharedDocumentController documents];
-    if (!documents.count) {
+    if (!documents.count && isDefaultLaunch) {
         [self newJSON:nil];
     }
     
