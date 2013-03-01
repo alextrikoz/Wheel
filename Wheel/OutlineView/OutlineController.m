@@ -66,8 +66,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self.outlineView reloadData];
-    [self.classNameTextField setStringValue:self.document.className];
-    [self.superClassNameTextField setStringValue:self.document.superClassName];
+    if (self.document.className) {
+        [self.classNameTextField setStringValue:self.document.className];
+    }
+    if (self.document.superClassName) {
+        [self.superClassNameTextField setStringValue:self.document.superClassName];
+    }
 }
 
 - (OutlineDocument *)document {
