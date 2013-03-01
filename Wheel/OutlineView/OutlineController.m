@@ -21,6 +21,8 @@
 - (OutlineDocument *)document;
 
 @property IBOutlet NSOutlineView *outlineView;
+@property IBOutlet NSTextField *classNameTextField;
+@property IBOutlet NSTextField *superClassNameTextField;
 
 @property IBOutlet NSView *outlinePleceholder;
 @property IBOutlet NSView *collectionPleceholder;
@@ -64,6 +66,8 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self.outlineView reloadData];
+    [self.classNameTextField setStringValue:self.document.className];
+    [self.superClassNameTextField setStringValue:self.document.superClassName];
 }
 
 - (OutlineDocument *)document {
