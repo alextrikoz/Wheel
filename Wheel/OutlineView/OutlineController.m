@@ -21,25 +21,19 @@
 - (OutlineDocument *)document;
 
 @property IBOutlet NSOutlineView *outlineView;
-@property IBOutlet NSCollectionView *collectionView;
 
-@property IBOutlet NSView *placeholder;
 @property IBOutlet NSView *outlinePleceholder;
 @property IBOutlet NSView *collectionPleceholder;
 
-@property IBOutlet NSToolbarItem *outlineItem;
-@property IBOutlet NSToolbarItem *collectionItem;
 @property IBOutlet NSToolbarItem *addItem;
 @property IBOutlet NSToolbarItem *removeItem;
 @property IBOutlet NSToolbarItem *generateItem;
 @property IBOutlet NSToolbarItem *downloadItem;
 
-- (IBAction)outline:(id)sender;
-- (IBAction)collection:(id)sender;
-
 - (IBAction)add:(id)sender;
 - (IBAction)remove:(id)sender;
 - (IBAction)generate:(id)sender;
+- (IBAction)download:(id)sender;
 
 @property NSArray *draggedNodes;
 
@@ -62,9 +56,6 @@
     for (int i = 0; i < self.outlineView.numberOfRows; i++) {
         [self.outlineView expandItem:[self.outlineView itemAtRow:i]];
     }
-    
-    [self outline:self.outlineItem];
-    self.window.toolbar.selectedItemIdentifier = self.outlineItem.itemIdentifier;
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -145,26 +136,30 @@
 }
 
 - (IBAction)generate:(id)sender {
-    [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+    [self.document updateModels];
+    
+    [self.document.models enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [TableDocument showWithEntity:self.document.models[idx]];
     }];
 }
 
-- (IBAction)download:(id)sender {
-    if (!self.collectionView.selectionIndexes.count) {
-        return;
-    }
+- (IBAction)download:(id)sender {    
+    [self.document updateModels];
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseDirectories = YES;
     openPanel.canCreateDirectories = YES;
     openPanel.canChooseFiles = NO;
     openPanel.prompt = @"Select";
+    openPanel.accessoryView = self.collectionPleceholder;
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result) {
             NSURL *directoryURL = openPanel.directoryURL;
-            [self.collectionView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                [self saveEntity:self.document.models[idx] directoryURL:directoryURL];
+            [self.document.models enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                Entity *entity = self.document.models[idx];
+                if (entity.enabled) {
+                    [self saveEntity:entity directoryURL:directoryURL];
+                }
             }];
         }
     }];
@@ -181,61 +176,6 @@
     
     [h_content writeToURL:hURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
     [m_content writeToURL:mURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
-}
-
-- (IBAction)outline:(id)sender {
-    if (self.outlinePleceholder.superview) {
-        return;
-    }
-    
-    [self.collectionPleceholder removeFromSuperview];
-    self.outlinePleceholder.frame = self.placeholder.bounds;
-    [self.placeholder addSubview:self.outlinePleceholder];
-    
-    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
-    if (index == NSNotFound) {
-        [self.window.toolbar insertItemWithItemIdentifier:self.addItem.itemIdentifier atIndex:self.window.toolbar.items.count];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.removeItem];
-    if (index == NSNotFound) {
-        [self.window.toolbar insertItemWithItemIdentifier:self.removeItem.itemIdentifier atIndex:self.window.toolbar.items.count];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.generateItem];
-    if (index != NSNotFound) {
-        [self.window.toolbar removeItemAtIndex:index];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.downloadItem];
-    if (index != NSNotFound) {
-        [self.window.toolbar removeItemAtIndex:index];
-    }
-}
-
-- (IBAction)collection:(id)sender {
-    if (self.collectionPleceholder.superview) {
-        return;
-    }
-    
-    [self.outlinePleceholder removeFromSuperview];
-    self.collectionPleceholder.frame = self.placeholder.bounds;
-    [self.placeholder addSubview:self.collectionPleceholder];
-    [self.document updateModels];
-    
-    NSUInteger index = [self.window.toolbar.items indexOfObject:self.addItem];
-    if (index != NSNotFound) {
-        [self.window.toolbar removeItemAtIndex:index];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.removeItem];
-    if (index != NSNotFound) {
-        [self.window.toolbar removeItemAtIndex:index];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.generateItem];
-    if (index == NSNotFound) {
-        [self.window.toolbar insertItemWithItemIdentifier:self.generateItem.itemIdentifier atIndex:self.window.toolbar.items.count];
-    }
-    index = [self.window.toolbar.items indexOfObject:self.downloadItem];
-    if (index == NSNotFound) {
-        [self.window.toolbar insertItemWithItemIdentifier:self.downloadItem.itemIdentifier atIndex:self.window.toolbar.items.count];
-    }
 }
 
 #pragma mark - NSOutlineViewDataSource, NSOutlineViewDelegate
@@ -447,15 +387,6 @@
             [self.outlineView reloadItem:newParent];
         }
     }];
-}
-
-#pragma mark - NSCollectionViewDelegate
-
-- (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard {
-    [pasteboard clearContents];
-    NSArray *draggedEntities = [self.document.models objectsAtIndexes:indexes];    
-    [pasteboard writeObjects:draggedEntities];
-    return YES;
 }
 
 #pragma mark - CustomColumnDelegate

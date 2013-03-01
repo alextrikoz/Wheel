@@ -28,6 +28,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        self.enabled = YES;
         self.setter = @"strong";
         self.atomicity = @"nonatomic";
         self.writability = @"readwrite";
