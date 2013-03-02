@@ -347,6 +347,10 @@
             child.writability = @"readwrite";
             child.type = @"NSNumber *";
             child.kind = @"object";
+        } else if ([obj isKindOfClass:[NSNull class]]) {
+            child = [Entity new];
+            child.type = @"NSNull *";
+            child.kind = @"object";
         } else {
             child = [Entity new];
         }

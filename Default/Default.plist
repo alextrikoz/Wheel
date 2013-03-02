@@ -34,6 +34,7 @@
 		<string>NSDictionary *</string>
 		<string>NSString *</string>
 		<string>NSNumber *</string>
+		<string>NSNull *</string>
 		<string>NSMutableArray *</string>
 		<string>NSMutableDictionary *</string>
 		<string>NSMutableString *</string>
