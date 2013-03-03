@@ -23,6 +23,15 @@
 #define SUPERCLASSNAME_KEY @"superClassName"
 #define CHILDREN_KEY @"children"
 
+#define COMMON_OBJECT_FORMAT @"    self.%@ = [dictionary objectForKey:%@_KEY];\n"
+#define MODERN_OBJECT_FORMAT @"    self.%@ = [dictionary[%@_KEY] mutableCopy];\n"
+#define COMMON_MUTABLE_OBJECT_FORMAT @"    self.%@ = [[dictionary objectForKey:%@_KEY] mutableCopy];\n"
+#define MODERN_MUTABLE_OBJECT_FORMAT @"    self.%@ = dictionary[%@_KEY];\n"
+#define MODERN_MODEL_FORMAT @"    self.%@ = [%@ objectWithDictionary:dictionary[%@_KEY]];\n"
+#define COMMON_MODEL_FORMAT @"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n"
+#define MODERN_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n"
+#define COMMON_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n"
+
 @implementation Entity
 
 - (id)init {
@@ -92,24 +101,17 @@
     return [NSString stringWithFormat:@"    [_%@ release];\n", self.name];
 }
 
-- (NSString *)m_setAttributesWithDictionaryStuff {    
+- (NSString *)m_setAttributesWithDictionaryStuff {
+    BOOL isModern = DataStore.sharedDataStore.modernSyntaxUnit.available;
     if ([self.kind isEqualToString:@"object"]) {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
-            NSString *format = self.type.isMutable ? @"    self.%@ = [dictionary[%@_KEY] mutableCopy];\n" : @"    self.%@ = dictionary[%@_KEY];\n";
-            return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
-        }
-        NSString *format = self.type.isMutable ? @"    self.%@ = [[dictionary objectForKey:%@_KEY] mutableCopy];\n" : @"    self.%@ = [dictionary objectForKey:%@_KEY];\n";
+        NSString *format = (isModern) ? (self.type.isMutable ? MODERN_MUTABLE_OBJECT_FORMAT : MODERN_OBJECT_FORMAT) : (self.type.isMutable ? COMMON_MUTABLE_OBJECT_FORMAT : COMMON_OBJECT_FORMAT);
         return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
-            return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
-        }
-        return [NSString stringWithFormat:@"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
+        NSString *format = (isModern) ? MODERN_MODEL_FORMAT : COMMON_MODEL_FORMAT;
+        return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else {
-        if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
-            return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
-        }
-        return [NSString stringWithFormat:@"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n", self.name, self.className, self.name.uppercaseString];
+        NSString *format = (isModern) ? MODERN_COLLECTION_FORMAT : COMMON_COLLECTION_FORMAT;
+        return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     }
 }
 
