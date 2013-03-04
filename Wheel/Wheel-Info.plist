@@ -4,6 +4,65 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>json</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>json</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>NSDocumentClass</key>
+			<string>JSONDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xml</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>xml</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>NSDocumentClass</key>
+			<string>XMLDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>outline</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>outline</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>NSDocumentClass</key>
+			<string>OutlineDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wheel</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>wheel</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>NSDocumentClass</key>
+			<string>TableDocument</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -21,7 +80,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>238</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSHumanReadableCopyright</key>
@@ -30,64 +89,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>json</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>JSONDocument</string>
-			<key>CFBundleTypeName</key>
-			<string>json</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>xml</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>XMLDocument</string>
-			<key>CFBundleTypeName</key>
-			<string>xml</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>outline</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>OutlineDocument</string>
-			<key>CFBundleTypeName</key>
-			<string>outline</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>wheel</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>TableDocument</string>
-			<key>CFBundleTypeName</key>
-			<string>wheel</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-		</dict>
-	</array>
 </dict>
 </plist>

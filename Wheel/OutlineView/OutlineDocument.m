@@ -58,7 +58,6 @@
 
 - (void)setClassName:(NSString *)className {
     [self backupRootNode];
-    
     ((Entity *)self.rootNode.representedObject).className = className;
 }
 
@@ -68,7 +67,6 @@
 
 - (void)setSuperClassName:(NSString *)superClassName {
     [self backupRootNode];
-    
     ((Entity *)self.rootNode.representedObject).superClassName = superClassName;
 }
 

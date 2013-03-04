@@ -11,7 +11,6 @@
 @interface Entity : NSObject <NSPasteboardWriting, NSCoding>
 
 @property BOOL enabled;
-
 @property NSString *setter;
 @property NSString *atomicity;
 @property NSString *writability;

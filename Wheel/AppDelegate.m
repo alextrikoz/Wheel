@@ -47,7 +47,7 @@
     
     NSDocumentController *sharedDocumentController = NSDocumentController.sharedDocumentController;
     NSArray *documents = [sharedDocumentController documents];
-    if (!documents.count && isDefaultLaunch) {
+    if (!documents.count && !isDefaultLaunch) {
         [self newJSON:nil];
     }
     

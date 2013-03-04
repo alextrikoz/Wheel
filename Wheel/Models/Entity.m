@@ -34,11 +34,6 @@
 #define MODERN_URL_FORMAT @"    self.%@ = [NSURL URLWithString:dictionary[%@_KEY]];\n"
 #define COMMON_URL_FORMAT @"    self.%@ = [NSURL URLWithString:[dictionary objectForKey:%@_KEY]];\n"
 
-#define DESCRIPTION_FORMAT @"    description = [description stringByAppendingFormat:@\"    self.%@ = %%@\\n\", self.%@];\n"
-#define COPY_FORMAT @"    object.%@ = self.%@;\n"
-#define DECODER_FORMAT @"        self.%@ = [decoder decodeObjectForKey:%@_KEY];\n"
-#define CODER_FORMAT @"    [coder encodeObject:self.%@ forKey:%@_KEY];\n"
-
 @implementation Entity
 
 - (id)init {
@@ -109,8 +104,6 @@
 }
 
 - (NSString *)m_setAttributesWithDictionaryStuff {
-    
-    
     BOOL isModern = DataStore.sharedDataStore.modernSyntaxUnit.available;
     if ([self.kind isEqualToString:@"object"]) {
         NSString *format = (isModern) ? (self.type.isMutable ? MODERN_MUTABLE_OBJECT_FORMAT : MODERN_OBJECT_FORMAT) : (self.type.isMutable ? COMMON_MUTABLE_OBJECT_FORMAT : COMMON_OBJECT_FORMAT);
@@ -161,19 +154,19 @@
 }
 
 - (NSString *)m_descriptionStuff {
-    return [NSString stringWithFormat:DESCRIPTION_FORMAT, self.name, self.name];
+    return [NSString stringWithFormat:@"    description = [description stringByAppendingFormat:@\"    self.%@ = %%@\\n\", self.%@];\n", self.name, self.name];
 }
 
 - (NSString *)m_copyWithZoneStuff {
-    return [NSString stringWithFormat:COPY_FORMAT, self.name, self.name];
+    return [NSString stringWithFormat:@"    object.%@ = self.%@;\n", self.name, self.name];
 }
 
 - (NSString *)m_initWithCoderStuff {
-    return [NSString stringWithFormat:DECODER_FORMAT, self.name, self.name.uppercaseString];
+    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
 - (NSString *)m_encodeWithCoderStuff {
-    return [NSString stringWithFormat:CODER_FORMAT, self.name, self.name.uppercaseString];
+    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
 }
 
 #pragma mark - Convertation
