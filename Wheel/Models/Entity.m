@@ -32,7 +32,8 @@
 #define MODERN_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n"
 #define COMMON_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n"
 
-#define macro
+#define MODERN_URL_FORMAT @"    self.%@ = [NSURL URLWithString:dictionary[%@_KEY]];\n"
+#define COMMON_URL_FORMAT @"    self.%@ = [NSURL URLWithString:[dictionary objectForKey:%@_KEY]];\n"
 
 @implementation Entity
 
@@ -123,7 +124,7 @@
                 format = [format stringByAppendingString:@"[%@Formatter dateFromString:[dictionary objectForKey:%@_KEY]];\n"];
             }
         } else if ([self.type isEqualToString:@"NSURL *"]) {
-            format = (isModern) ? @"    self.%@ = [NSURL URLWithString:dictionary[%@_KEY]];\n" : @"    self.%@ = [NSURL URLWithString:[dictionary objectForKey:%@_KEY]];\n";
+            format = (isModern) ? MODERN_URL_FORMAT : COMMON_URL_FORMAT;
         }
         return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
@@ -338,10 +339,7 @@
         Entity *child = nil;
         if ([obj isKindOfClass:[NSArray class]] ) {
             child = [self entityWithInfo:obj];
-            
-            if ([child.kind isEqualToString:@"object"]) {
-                
-            } else {
+            if (![child.kind isEqualToString:@"object"]) {
                 child.setter = @"strong";
                 child.atomicity = @"nonatomic";
                 child.writability = @"readwrite";
