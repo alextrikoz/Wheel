@@ -31,9 +31,13 @@
 #define COMMON_MODEL_FORMAT @"    self.%@ = [%@ objectWithDictionary:[dictionary objectForKey:%@_KEY]];\n"
 #define MODERN_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n"
 #define COMMON_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n"
-
 #define MODERN_URL_FORMAT @"    self.%@ = [NSURL URLWithString:dictionary[%@_KEY]];\n"
 #define COMMON_URL_FORMAT @"    self.%@ = [NSURL URLWithString:[dictionary objectForKey:%@_KEY]];\n"
+
+#define DESCRIPTION_FORMAT @"    description = [description stringByAppendingFormat:@\"    self.%@ = %%@\\n\", self.%@];\n"
+#define COPY_FORMAT @"    object.%@ = self.%@;\n"
+#define DECODER_FORMAT @"        self.%@ = [decoder decodeObjectForKey:%@_KEY];\n"
+#define CODER_FORMAT @"    [coder encodeObject:self.%@ forKey:%@_KEY];\n"
 
 @implementation Entity
 
@@ -157,19 +161,19 @@
 }
 
 - (NSString *)m_descriptionStuff {
-    return [NSString stringWithFormat:@"    description = [description stringByAppendingFormat:@\"    self.%@ = %%@\\n\", self.%@];\n", self.name, self.name];
+    return [NSString stringWithFormat:DESCRIPTION_FORMAT, self.name, self.name];
 }
 
 - (NSString *)m_copyWithZoneStuff {
-    return [NSString stringWithFormat:@"    object.%@ = self.%@;\n", self.name, self.name];
+    return [NSString stringWithFormat:COPY_FORMAT, self.name, self.name];
 }
 
 - (NSString *)m_initWithCoderStuff {
-    return [NSString stringWithFormat:@"        self.%@ = [decoder decodeObjectForKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    return [NSString stringWithFormat:DECODER_FORMAT, self.name, self.name.uppercaseString];
 }
 
 - (NSString *)m_encodeWithCoderStuff {
-    return [NSString stringWithFormat:@"    [coder encodeObject:self.%@ forKey:%@_KEY];\n", self.name, self.name.uppercaseString];
+    return [NSString stringWithFormat:CODER_FORMAT, self.name, self.name.uppercaseString];
 }
 
 #pragma mark - Convertation
