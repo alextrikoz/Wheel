@@ -174,13 +174,13 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">7F8DA8FC-9E25-4340-BB69-6C60B29C6FF7</characters>
 								</object>
-								<string key="NSToolbarItemLabel">Generate</string>
-								<string key="NSToolbarItemPaletteLabel">Generate</string>
+								<string key="NSToolbarItemLabel">Download</string>
+								<string key="NSToolbarItemPaletteLabel">Download</string>
 								<string key="NSToolbarItemToolTip"/>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">hammer</string>
+									<string key="NSResourceName">download</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -1007,7 +1007,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="466511502"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">32</double>
@@ -2037,7 +2037,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
-				<string>hammer</string>
+				<string>download</string>
 				<string>minus</string>
 				<string>plus</string>
 			</object>

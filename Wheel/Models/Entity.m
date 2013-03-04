@@ -32,6 +32,8 @@
 #define MODERN_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:dictionary[%@_KEY]];\n"
 #define COMMON_COLLECTION_FORMAT @"    self.%@ = [%@ objectsWithArray:[dictionary objectForKey:%@_KEY]];\n"
 
+#define macro
+
 @implementation Entity
 
 - (id)init {
@@ -102,16 +104,34 @@
 }
 
 - (NSString *)m_setAttributesWithDictionaryStuff {
+    
+    
     BOOL isModern = DataStore.sharedDataStore.modernSyntaxUnit.available;
     if ([self.kind isEqualToString:@"object"]) {
         NSString *format = (isModern) ? (self.type.isMutable ? MODERN_MUTABLE_OBJECT_FORMAT : MODERN_OBJECT_FORMAT) : (self.type.isMutable ? COMMON_MUTABLE_OBJECT_FORMAT : COMMON_OBJECT_FORMAT);
+        if ([self.type isEqualToString:@"NSDate *"]) {
+            if (DataStore.sharedDataStore.ARCUnit.available) {
+                format = [NSString stringWithFormat:@"    NSDateFormatter *%@Formatter = [NSDateFormatter new];\n", self.name];
+            } else {
+                format = [NSString stringWithFormat:@"    NSDateFormatter *%@Formatter = [[NSDateFormatter new] autorelease];\n", self.name];
+            }
+            format = [format stringByAppendingFormat:@"    %@Formatter.dateFormat = @\"yyyy-MM-dd'T'HH:mm:ss\";\n", self.name];
+            format = [format stringByAppendingFormat:@"    self.%@ = ", self.name];
+            if (isModern) {
+                format = [format stringByAppendingString:@"[%@Formatter dateFromString:dictionary[%@_KEY]];\n"];
+            } else {
+                format = [format stringByAppendingString:@"[%@Formatter dateFromString:[dictionary objectForKey:%@_KEY]];\n"];
+            }
+        } else if ([self.type isEqualToString:@"NSURL *"]) {
+            format = (isModern) ? @"    self.%@ = [NSURL URLWithString:dictionary[%@_KEY]];\n" : @"    self.%@ = [NSURL URLWithString:[dictionary objectForKey:%@_KEY]];\n";
+        }
         return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
     } else if ([self.kind isEqualToString:@"model"]) {
         NSString *format = (isModern) ? MODERN_MODEL_FORMAT : COMMON_MODEL_FORMAT;
-        return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
+        return [NSString stringWithFormat:format, self.name, self.className, self.name.uppercaseString];
     } else {
         NSString *format = (isModern) ? MODERN_COLLECTION_FORMAT : COMMON_COLLECTION_FORMAT;
-        return [NSString stringWithFormat:format, self.name, self.name.uppercaseString];
+        return [NSString stringWithFormat:format, self.name, self.className, self.name.uppercaseString];
     }
 }
 
@@ -154,7 +174,7 @@
 #pragma mark - Convertation
 
 + (Entity *)objectWithDictionary:(NSDictionary *)dictionary {
-    Entity *object = [[Entity alloc] init];
+    Entity *object = [Entity new];
     if (dictionary[SETTER_KEY]) {
         object.setter = dictionary[SETTER_KEY];
     }

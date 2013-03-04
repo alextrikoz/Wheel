@@ -31,6 +31,7 @@
 	<array>
 		<string>id</string>
 		<string>NSArray *</string>
+		<string>NSDate *</string>
 		<string>NSDictionary *</string>
 		<string>NSString *</string>
 		<string>NSNumber *</string>
@@ -38,6 +39,7 @@
 		<string>NSMutableArray *</string>
 		<string>NSMutableDictionary *</string>
 		<string>NSMutableString *</string>
+		<string>NSURL *</string>
 	</array>
 	<key>units</key>
 	<array>
