@@ -46,7 +46,7 @@ properties]
 instancePrototype, setAttributesWithDictionary, initWithDictionaryPrototype, objectWithDictionaryPrototype, objectsWithArrayPrototype, dictionaryRepresentationPrototype, descriptionPrototype]
 
 #define H_INSTANCE_PROTOTYPE(className) [NSString stringWithFormat:@"\
-- (%@ *)shared%@;\n\
++ (%@ *)shared%@;\n\
 ",\
 className, className]
 
