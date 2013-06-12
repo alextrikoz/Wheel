@@ -141,7 +141,7 @@
     } else {
         NSMutableString *string = [NSMutableString string];
         [string appendFormat:@"    NSMutableArray *array = [NSMutableArray array];\n"];
-        [string appendFormat:@"    for (%@ *object self.%@) {\n", self.className, self.name];
+        [string appendFormat:@"    for (%@ *object in self.%@) {\n", self.className, self.name];
         if (DataStore.sharedDataStore.modernSyntaxUnit.available) {
             [string appendFormat:@"        array[array.count] = object.dictionaryRepresentation;\n"];
         } else {
