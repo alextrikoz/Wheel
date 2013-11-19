@@ -54,7 +54,7 @@
 @property InstanceUnit *instanceUnit;
 @property SetAttributesWithDictionaryUnit *setAttributesWithDictionaryUnit;
 //NOTE: id type make this method ARC compliant
-@property id initWithDictionaryUnit;
+@property InitWithDictionaryUnit *propertyInitWithDictionaryUnit;
 @property ObjectWithDictionaryUnit *objectWithDictionaryUnit;
 @property ObjectsWithArrayUnit *objectsWithArrayUnit;
 @property DictionaryRepresentationUnit *dictionaryRepresentationUnit;

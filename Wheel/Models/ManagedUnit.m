@@ -74,7 +74,7 @@
     NSString *dealloc = [dataStore.deallocUnit bodyWithEntity:entity];
     NSString *instance = [dataStore.instanceUnit bodyWithEntity:entity];
     NSString *setAttributesWithDictionary = [dataStore.setAttributesWithDictionaryUnit bodyWithEntity:entity];
-    NSString *initWithDictionary = [dataStore.initWithDictionaryUnit bodyWithEntity:entity];
+    NSString *initWithDictionary = [dataStore.propertyInitWithDictionaryUnit bodyWithEntity:entity];
     NSString *objectWithDictionary = [dataStore.objectWithDictionaryUnit bodyWithEntity:entity];
     NSString *objectsWithArray = [dataStore.objectsWithArrayUnit bodyWithEntity:entity];
     NSString *dictionaryRepresentation = [dataStore.dictionaryRepresentationUnit bodyWithEntity:entity];
@@ -198,7 +198,7 @@
     
     NSString *instancePrototype = [dataStore.instanceUnit prototypeWithEntity:entity];
     NSString *setAttributesWithDictionaryPrototype = [dataStore.setAttributesWithDictionaryUnit prototypeWithEntity:entity];
-    NSString *initWithDictionaryPrototype = [dataStore.initWithDictionaryUnit prototypeWithEntity:entity];
+    NSString *initWithDictionaryPrototype = [dataStore.propertyInitWithDictionaryUnit prototypeWithEntity:entity];
     NSString *objectWithDictionaryPrototype = [dataStore.objectWithDictionaryUnit prototypeWithEntity:entity];
     NSString *objectsWithArrayPrototype = [dataStore.objectsWithArrayUnit prototypeWithEntity:entity];
     NSString *dictionaryRepresentationPrototype = [dataStore.dictionaryRepresentationUnit prototypeWithEntity:entity];

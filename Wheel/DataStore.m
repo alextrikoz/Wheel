@@ -121,8 +121,8 @@ static DataStore *_sharedDataStore = nil;
     self.setAttributesWithDictionaryUnit = [SetAttributesWithDictionaryUnit new];
     self.setAttributesWithDictionaryUnit.managedUnit = self.units[SETATTRIBUTESWITHDICTIONARY_UNIT_NUMBER];
     
-    self.initWithDictionaryUnit = [InitWithDictionaryUnit new];
-    [self.initWithDictionaryUnit setManagedUnit:self.units[INITWITHDICTIONARY_UNIT_NUMBER]];
+    self.propertyInitWithDictionaryUnit = [InitWithDictionaryUnit new];
+    [self.propertyInitWithDictionaryUnit setManagedUnit:self.units[INITWITHDICTIONARY_UNIT_NUMBER]];
     
     self.objectWithDictionaryUnit = [ObjectWithDictionaryUnit new];
     self.objectWithDictionaryUnit.managedUnit = self.units[OBJECTWITHDICTIONARY_UNIT_NUMBER];
@@ -149,7 +149,7 @@ static DataStore *_sharedDataStore = nil;
     self.modernSyntaxUnit.managedUnit = self.units[MODERNSYNTAX_UNIT_NUMBER];
     
     [self.setAttributesWithDictionaryUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
-    [[self.initWithDictionaryUnit managedUnit] addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
+    [[self.propertyInitWithDictionaryUnit managedUnit] addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
     [self.objectWithDictionaryUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
     [self.ARCUnit.managedUnit addObserver:self forKeyPath:@"on" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -158,8 +158,8 @@ static DataStore *_sharedDataStore = nil;
     if ([object isKindOfClass:[ManagedUnit class]]) {
         NSManagedObjectContext *managedObjectContext = ((AppDelegate *)NSApplication.sharedApplication.delegate).managedObjectContext;
         self.deallocUnit.managedUnit.enabled = @(!self.ARCUnit.managedUnit.on.boolValue);
-        [self.initWithDictionaryUnit managedUnit].enabled = @(self.setAttributesWithDictionaryUnit.available);
-        [self.objectWithDictionaryUnit managedUnit].enabled = @([self.initWithDictionaryUnit available]);
+        [self.propertyInitWithDictionaryUnit managedUnit].enabled = @(self.setAttributesWithDictionaryUnit.available);
+        [self.objectWithDictionaryUnit managedUnit].enabled = @([self.propertyInitWithDictionaryUnit available]);
         self.objectsWithArrayUnit.managedUnit.enabled = @(self.objectWithDictionaryUnit.available);
         [managedObjectContext save:nil];
         self.units = self.units;
